@@ -48,6 +48,18 @@ var PermissionGuard = /** @class */ (function () {
                 if (!permissions['Roles']['Get Roles'])
                     this.router.navigateByUrl('/error/403');
             }
+            else if (moduleName == 'workouts') {
+                if (!permissions['Attendance'])
+                    this.router.navigateByUrl('/error/403');
+                if (!permissions['Attendance']['Get Workouts'])
+                    this.router.navigateByUrl('/error/403');
+            }
+            else if (moduleName == 'billing') {
+                if (!permissions['Billing'])
+                    this.router.navigateByUrl('/error/403');
+                if (!permissions['Billing']['Get Billing'])
+                    this.router.navigateByUrl('/error/403');
+            }
             else if (moduleName == 'users') {
                 if (!this.checkedPermission(['Users Mangement']))
                     this.router.navigateByUrl('/error/403');

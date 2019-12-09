@@ -17,6 +17,103 @@ __export(__webpack_require__(/*! ./index */ "./node_modules/ng2-file-upload/inde
 
 /***/ }),
 
+/***/ "./node_modules/ng2-search-filter/ng2-search-filter.es5.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/ng2-search-filter/ng2-search-filter.es5.js ***!
+  \*****************************************************************/
+/*! exports provided: Ng2SearchPipeModule, Ng2SearchPipe */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Ng2SearchPipeModule", function() { return Ng2SearchPipeModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Ng2SearchPipe", function() { return Ng2SearchPipe; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+var Ng2SearchPipe = (function () {
+    function Ng2SearchPipe() {
+    }
+    /**
+     * @param {?} items object from array
+     * @param {?} term term's search
+     * @return {?}
+     */
+    Ng2SearchPipe.prototype.transform = function (items, term) {
+        if (!term || !items)
+            return items;
+        return Ng2SearchPipe.filter(items, term);
+    };
+    /**
+     *
+     * @param {?} items List of items to filter
+     * @param {?} term  a string term to compare with every property of the list
+     *
+     * @return {?}
+     */
+    Ng2SearchPipe.filter = function (items, term) {
+        var /** @type {?} */ toCompare = term.toLowerCase();
+        /**
+         * @param {?} item
+         * @param {?} term
+         * @return {?}
+         */
+        function checkInside(item, term) {
+            for (var /** @type {?} */ property in item) {
+                if (item[property] === null || item[property] == undefined) {
+                    continue;
+                }
+                if (typeof item[property] === 'object') {
+                    if (checkInside(item[property], term)) {
+                        return true;
+                    }
+                }
+                if (item[property].toString().toLowerCase().includes(toCompare)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        return items.filter(function (item) {
+            return checkInside(item, term);
+        });
+    };
+    return Ng2SearchPipe;
+}());
+Ng2SearchPipe.decorators = [
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Pipe"], args: [{
+                name: 'filter',
+                pure: false
+            },] },
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] },
+];
+/**
+ * @nocollapse
+ */
+Ng2SearchPipe.ctorParameters = function () { return []; };
+var Ng2SearchPipeModule = (function () {
+    function Ng2SearchPipeModule() {
+    }
+    return Ng2SearchPipeModule;
+}());
+Ng2SearchPipeModule.decorators = [
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"], args: [{
+                declarations: [Ng2SearchPipe],
+                exports: [Ng2SearchPipe]
+            },] },
+];
+/**
+ * @nocollapse
+ */
+Ng2SearchPipeModule.ctorParameters = function () { return []; };
+/**
+ * Generated bundle index. Do not edit.
+ */
+
+//# sourceMappingURL=ng2-search-filter.es5.js.map
+
+
+/***/ }),
+
 /***/ "./src/app/core/auth/_services/club-tree.service.ts":
 /*!**********************************************************!*\
   !*** ./src/app/core/auth/_services/club-tree.service.ts ***!
@@ -336,7 +433,7 @@ exports.MemberListComponent = MemberListComponent;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\r\n    <div class=\"col-xl-12\">\r\n        <div class=\"kt-portlet\">\r\n            <div class=\"kt-portlet__head\">\r\n                <div class=\"kt-portlet__head-label\">\r\n                    <h3 class=\"kt-portlet__head-title\">Personal Information </h3>\r\n                </div>\r\n                <div class=\"kt-portlet__head-toolbar\">\r\n                    <div class=\"kt-portlet__head-wrapper\">\r\n                        <div class=\"dropdown dropdown-inline\">\r\n                            <button type=\"button\" class=\"btn btn-label-brand btn-sm btn-icon btn-icon-md\"\r\n                                data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\r\n                                <i class=\"flaticon2-gear\"></i>\r\n                            </button>\r\n                            <div class=\"dropdown-menu dropdown-menu-right\">\r\n                                <ul class=\"kt-nav\">\r\n                                    <li class=\"kt-nav__section kt-nav__section--first\">\r\n                                        <span class=\"kt-nav__section-text\">Export Tools</span>\r\n                                    </li>\r\n                                    <li class=\"kt-nav__item\">\r\n                                        <a href=\"#\" class=\"kt-nav__link\">\r\n                                            <i class=\"kt-nav__link-icon la la-print\"></i>\r\n                                            <span class=\"kt-nav__link-text\">Print</span>\r\n                                        </a>\r\n                                    </li>\r\n                                    <li class=\"kt-nav__item\">\r\n                                        <a href=\"#\" class=\"kt-nav__link\">\r\n                                            <i class=\"kt-nav__link-icon la la-copy\"></i>\r\n                                            <span class=\"kt-nav__link-text\">Copy</span>\r\n                                        </a>\r\n                                    </li>\r\n                                    <li class=\"kt-nav__item\">\r\n                                        <a href=\"#\" class=\"kt-nav__link\">\r\n                                            <i class=\"kt-nav__link-icon la la-file-excel-o\"></i>\r\n                                            <span class=\"kt-nav__link-text\">Excel</span>\r\n                                        </a>\r\n                                    </li>\r\n                                    <li class=\"kt-nav__item\">\r\n                                        <a href=\"#\" class=\"kt-nav__link\">\r\n                                            <i class=\"kt-nav__link-icon la la-file-text-o\"></i>\r\n                                            <span class=\"kt-nav__link-text\">CSV</span>\r\n                                        </a>\r\n                                    </li>\r\n                                    <li class=\"kt-nav__item\">\r\n                                        <a href=\"#\" class=\"kt-nav__link\">\r\n                                            <i class=\"kt-nav__link-icon la la-file-pdf-o\"></i>\r\n                                            <span class=\"kt-nav__link-text\">PDF</span>\r\n                                        </a>\r\n                                    </li>\r\n                                </ul>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n\r\n\r\n            <div *ngIf=\"basicInfoForm&&member\">\r\n            <form [formGroup]=\"basicInfoForm\" class=\"kt-form kt-form--label-right\">\r\n                <div class=\"kt-portlet__body\">\r\n                    <div class=\"kt-section kt-section--first\">\r\n                        <div class=\"kt-section__body\">\r\n                            <div class=\"row\">\r\n                                    <kt-alert *ngIf=\"error\" type=\"warn\" [showCloseButton]=\"true\" [duration]=\"10000\" (close)=\"onAlertClose($event)\">\r\n                                            Oh snap! Change a few things up and try submitting again.\r\n                                    </kt-alert>\r\n                                <label class=\"col-xl-3\"></label>\r\n                                <div class=\"col-lg-9 col-xl-6\">\r\n                                    <h3 class=\"kt-section__title kt-section__title-sm\">Basic Information:</h3>\r\n                                </div>\r\n                            </div>\r\n                            <div class=\"form-group row\">\r\n                                <label class=\"col-xl-3 col-lg-3 col-form-label\">Avatar</label>\r\n                                <div class=\"col-lg-9 col-xl-6\">\r\n                                    <div class=\"kt-avatar kt-avatar--outline kt-avatar--circle\"\r\n                                        id=\"kt_apps_user_add_avatar\">\r\n\r\n\r\n                                        <img *ngIf=\"imageprivew=='' || imageprivew==undefined\" class=\"kt-avatar__holder\"\r\n                                            src=\"http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image\" />\r\n\r\n\r\n                                        <img *ngIf=\"imageprivew !='' && imageprivew!=undefined\" class=\"kt-avatar__holder\"\r\n                                            src=\"{{imageprivew}}\" />\r\n\r\n\r\n<!-- \r\n                                        <label class=\"kt-avatar__upload\" data-toggle=\"kt-tooltip\" title=\"\"\r\n                                            data-original-title=\"Change avatar\">\r\n                                            <i class=\"fa fa-pen\"></i>\r\n                                            <input type=\"file\" name=\"photo\" (change)=\"handleUpload($event)\" ng2FileSelect [uploader]=\"uploader\" accept=\".png, .jpg, .jpeg\" />\r\n\r\n                                        </label> -->\r\n<!-- \r\n                                      <button type=\"button\" *ngIf=\"imageprivew != '' && !confirm&&uploader.getNotUploadedItems().length\" class=\"btn btn-success btn-s\"\r\n                                      (click)=\"uploader.uploadAll()\"\r\n                                      [disabled]=\"!uploader.getNotUploadedItems().length\" >\r\n                                          Confirm\r\n                                    </button> -->\r\n\r\n                                        <span class=\"kt-avatar__cancel\" data-toggle=\"kt-tooltip\" title=\"\"\r\n                                            data-original-title=\"Cancel avatar\">\r\n                                            <i class=\"fa fa-times\"></i>\r\n                                        </span>\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n\r\n                            <div class=\"form-group row\">\r\n                                <label class=\"col-xl-3 col-lg-3 col-form-label\">Full Name</label>\r\n                                <div class=\"col-lg-9 col-xl-6\">\r\n                                    <input class=\"form-control\" type=\"text\" formControlName=\"name\"\r\n                                        [ngClass]=\"{ 'is-invalid': submitted && valid.name.errors }\">\r\n\r\n                                </div>\r\n                            </div>\r\n                            <div class=\"form-group row\">\r\n                                <label class=\"col-xl-3 col-lg-3 col-form-label\">Username </label>\r\n                                <div class=\"col-lg-9 col-xl-6\">\r\n                                    <input class=\"form-control\" type=\"text\" formControlName=\"username\"\r\n                                        [ngClass]=\"{ 'is-invalid': submitted && valid.username.errors }\">\r\n\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n\r\n\r\n\r\n\r\n                        <div class=\"form-group row\">\r\n                            <label class=\"col-xl-3 col-lg-3 col-form-label\">Date Of Birth</label>\r\n                            <div class=\"col-lg-9 col-xl-6\">\r\n                                <input class=\"form-control\" type=\"text\" formControlName=\"dateOfBirth\"\r\n                                    [ngClass]=\"{ 'is-invalid': submitted && valid.addressLine.errors }\">\r\n\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"form-group row\">\r\n                            <label class=\"col-xl-3 col-lg-3 col-form-label\">Gender</label>\r\n                            <div class=\"col-lg-9 col-xl-6\">\r\n                                <select class=\"form-control\" formControlName=\"gender\" name=\"gender\">\r\n                                  <option value=\"male\">Male</option>\r\n                                  <option value=\"female\">Female</option>\r\n                                </select>\r\n                                <!-- <input class=\"form-control\" type=\"text\" formControlName=\"gender\"\r\n                                    [ngClass]=\"{ 'is-invalid': submitted && valid.addressLine.errors }\"> -->\r\n\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"form-group row\">\r\n                            <label class=\"col-xl-3 col-lg-3 col-form-label\">Tag Number</label>\r\n                            <div class=\"col-lg-9 col-xl-6\">\r\n                                <input class=\"form-control\" type=\"text\" formControlName=\"tagNumber\"\r\n                                    [ngClass]=\"{ 'is-invalid': submitted && valid.addressLine.errors }\">\r\n\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"form-group row\">\r\n                            <label class=\"col-xl-3 col-lg-3 col-form-label\">Address</label>\r\n                            <div class=\"col-lg-9 col-xl-6\">\r\n                                <input class=\"form-control\" type=\"text\" formControlName=\"addressLine\"\r\n                                    [ngClass]=\"{ 'is-invalid': submitted && valid.addressLine.errors }\">\r\n\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"form-group row\">\r\n                            <label class=\"col-xl-3 col-lg-3 col-form-label\">City</label>\r\n                            <div class=\"col-lg-9 col-xl-6\">\r\n                                <input class=\"form-control\" type=\"text\" formControlName=\"city\"\r\n                                    [ngClass]=\"{ 'is-invalid': submitted && valid.addressLine.errors }\">\r\n\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"form-group row\">\r\n                            <label class=\"col-xl-3 col-lg-3 col-form-label\">Zip Code</label>\r\n                            <div class=\"col-lg-9 col-xl-6\">\r\n                                <input class=\"form-control\" type=\"text\" formControlName=\"zipCode\"\r\n                                    [ngClass]=\"{ 'is-invalid': submitted && valid.addressLine.errors }\">\r\n\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"row\">\r\n                            <label class=\"col-xl-3\"></label>\r\n                            <div class=\"col-lg-9 col-xl-6\">\r\n                                <h3 class=\"kt-section__title kt-section__title-sm\">Contact Information:</h3>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"form-group row\">\r\n                            <label class=\"col-xl-3 col-lg-3 col-form-label\">Contact Phone</label>\r\n                            <div class=\"col-lg-9 col-xl-6\">\r\n                                <div class=\"input-group\">\r\n                                    <div class=\"input-group-prepend\"><span class=\"input-group-text\"><i\r\n                                                class=\"la la-phone\"></i></span></div>\r\n                                    <input type=\"text\" formControlName=\"phone\" class=\"form-control\"\r\n                                        [ngClass]=\"{ 'is-invalid': submitted && valid.phone.errors }\"\r\n                                        placeholder=\"Phone\" aria-describedby=\"basic-addon1\">\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                            <div class=\"form-group row\">\r\n                                <label class=\"col-xl-3 col-lg-3 col-form-label\">Instagram</label>\r\n                                <div class=\"col-lg-9 col-xl-6\">\r\n                                    <div class=\"input-group\">\r\n                                        <div class=\"input-group-prepend\"><span class=\"input-group-text\"><i\r\n                                                    class=\"la la-instagram\"></i></span></div>\r\n                                        <input type=\"text\" formControlName=\"instagram\" class=\"form-control\"\r\n                                            [ngClass]=\"{ 'is-invalid': submitted && valid.instagram.errors }\"\r\n                                            aria-describedby=\"basic-addon1\">\r\n                                    </div>\r\n\r\n                                </div>\r\n                            </div>\r\n                            <div class=\"form-group row\">\r\n                                <label class=\"col-xl-3 col-lg-3 col-form-label\">Twitter</label>\r\n                                <div class=\"col-lg-9 col-xl-6\">\r\n                                    <div class=\"input-group\">\r\n                                        <div class=\"input-group-prepend\"><span class=\"input-group-text\"><i\r\n                                                    class=\"la la-twitter\"></i></span></div>\r\n                                        <input type=\"text\" formControlName=\"twitter\" class=\"form-control\"\r\n                                            [ngClass]=\"{ 'is-invalid': submitted && valid.twitter.errors }\"\r\n                                            placeholder=\"Twitter\" aria-describedby=\"basic-addon1\">\r\n                                    </div>\r\n\r\n                                </div>\r\n                            </div>\r\n                            <div class=\"form-group row\">\r\n                                <label class=\"col-xl-3 col-lg-3 col-form-label\">LinkedIn</label>\r\n                                <div class=\"col-lg-9 col-xl-6\">\r\n                                    <div class=\"input-group\">\r\n                                        <div class=\"input-group-prepend\"><span class=\"input-group-text\"><i\r\n                                                    class=\"la la-linkedin\"></i></span></div>\r\n                                        <input type=\"text\" formControlName=\"linkedIn\" class=\"form-control\"\r\n                                            [ngClass]=\"{ 'is-invalid': submitted && valid.linkedIn.errors }\"\r\n                                            placeholder=\"Linkedin\" aria-describedby=\"basic-addon1\">\r\n                                    </div>\r\n\r\n                                </div>\r\n                            </div>\r\n                            <div class=\"form-group row\">\r\n                                <label class=\"col-xl-3 col-lg-3 col-form-label\">Email Address</label>\r\n                                <div class=\"col-lg-9 col-xl-6\">\r\n                                    <div class=\"input-group\">\r\n                                        <div class=\"input-group-prepend\"><span class=\"input-group-text\"><i\r\n                                                    class=\"la la-at\"></i></span></div>\r\n                                        <input type=\"text\"  formControlName=\"email\" class=\"form-control\"\r\n                                            [ngClass]=\"{ 'is-invalid': submitted && valid.email.errors }\"\r\n                                            placeholder=\"Email\" aria-describedby=\"basic-addon1\">\r\n                                        <div *ngIf=\"submitted && valid.email.errors\" class=\"invalid-feedback\">\r\n                                            <span class=\"invalid-feedback\" class=\"form-text text-muted\"\r\n                                                *ngIf=\"valid.email.errors.email\">\r\n                                                Email is required\r\n                                            </span>\r\n                                        </div>\r\n                                    </div>\r\n\r\n                                </div>\r\n                            </div>\r\n\r\n                            <div class=\"row\">\r\n                                <label class=\"col-xl-3\"></label>\r\n                                <div class=\"col-lg-9 col-xl-6\">\r\n                                    <h3 class=\"kt-section__title kt-section__title-sm\">Medical Information:</h3>\r\n                                </div>\r\n                            </div>\r\n                            <div class=\"form-group row\">\r\n                                <label class=\"col-xl-3 col-lg-3 col-form-label\">Emergancy contact name</label>\r\n                                <div class=\"col-lg-9 col-xl-6\">\r\n                                    <div class=\"input-group\">\r\n                                      \r\n                                        <input type=\"text\" formControlName=\"emergancyContact\" class=\"form-control\"\r\n                                            [ngClass]=\"{ 'is-invalid': submitted && valid.emergancyContact.errors }\"\r\n                                            aria-describedby=\"basic-addon1\">\r\n                                    </div>\r\n\r\n                                </div>\r\n                            </div>\r\n\r\n                            <div class=\"form-group row\">\r\n                                <label class=\"col-xl-3 col-lg-3 col-form-label\">Relationship</label>\r\n                                <div class=\"col-lg-9 col-xl-6\">\r\n                                    <div class=\"input-group\">\r\n\r\n                                        <input type=\"text\" formControlName=\"relationship\" class=\"form-control\"\r\n                                            [ngClass]=\"{ 'is-invalid': submitted && valid.emergancyContact.errors }\"\r\n                                            aria-describedby=\"basic-addon1\">\r\n                                    </div>\r\n\r\n                                </div>\r\n                            </div>\r\n                            <div class=\"form-group row\">\r\n                                <label class=\"col-xl-3 col-lg-3 col-form-label\">Email</label>\r\n                                <div class=\"col-lg-9 col-xl-6\">\r\n                                    <div class=\"input-group\">\r\n                                        <div class=\"input-group-prepend\"><span class=\"input-group-text\"><i\r\n                                                    class=\"la la-at\"></i></span></div>\r\n                                        <input type=\"text\" class=\"form-control\"  placeholder=\"email\"\r\n                                            aria-describedby=\"basic-addon1\">\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n                            <div class=\"form-group row\">\r\n                                <label class=\"col-xl-3 col-lg-3 col-form-label\">Medical Cases</label>\r\n                                <div class=\"col-lg-9 col-xl-6\">\r\n                                    <div class=\"input-group\">\r\n\r\n                                        <input type=\"text\" formControlName=\"medicalCases\" class=\"form-control\"\r\n                                            [ngClass]=\"{ 'is-invalid': submitted && valid.emergancyContact.errors }\"\r\n                                            aria-describedby=\"basic-addon1\">\r\n                                    </div>\r\n\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                </div>\r\n                <div class=\"kt-portlet__foot\">\r\n                    <div class=\"kt-form__actions\">\r\n                        <div class=\"row\">\r\n                            <div class=\"col-lg-3 col-xl-3\">\r\n                            </div>\r\n                            <div class=\"col-lg-9 col-xl-9\">\r\n                                <button  class=\"btn btn-success\" (click)='onSubmit()'>submit</button>&nbsp;\r\n                                <button type=\"reset\" class=\"btn btn-secondary\">Cancel</button>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </form>\r\n        </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n"
+module.exports = "<div class=\"row\">\r\n    <div class=\"col-xl-12\">\r\n        <div class=\"kt-portlet\">\r\n            <div class=\"kt-portlet__head\">\r\n                <div class=\"kt-portlet__head-label\">\r\n                    <h3 class=\"kt-portlet__head-title\">Personal Information </h3>\r\n                </div>\r\n\r\n            </div>\r\n\r\n\r\n            <div *ngIf=\"basicInfoForm&&member\">\r\n            <form [formGroup]=\"basicInfoForm\" class=\"kt-form kt-form--label-right\">\r\n                <div class=\"kt-portlet__body\">\r\n                    <div class=\"kt-section kt-section--first\">\r\n                        <div class=\"kt-section__body\">\r\n                            <div class=\"row\">\r\n                                    <kt-alert *ngIf=\"error\" type=\"warn\" [showCloseButton]=\"true\" [duration]=\"10000\" (close)=\"onAlertClose($event)\">\r\n                                            Oh snap! Change a few things up and try submitting again.\r\n                                    </kt-alert>\r\n                                <label class=\"col-xl-3\"></label>\r\n                                <div class=\"col-lg-9 col-xl-6\">\r\n                                    <h3 class=\"kt-section__title kt-section__title-sm\">Basic Information:</h3>\r\n                                </div>\r\n                            </div>\r\n                            <div class=\"form-group row\">\r\n                                <label class=\"col-xl-3 col-lg-3 col-form-label\">Avatar</label>\r\n                                <div class=\"col-lg-9 col-xl-6\">\r\n                                    <div class=\"kt-avatar kt-avatar--outline kt-avatar--circle\"\r\n                                        id=\"kt_apps_user_add_avatar\">\r\n\r\n\r\n                                        <img *ngIf=\"imageprivew=='' || imageprivew==undefined\" class=\"kt-avatar__holder\"\r\n                                            src=\"http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image\" />\r\n\r\n\r\n                                        <img *ngIf=\"imageprivew !='' && imageprivew!=undefined\" class=\"kt-avatar__holder\"\r\n                                            src=\"{{imageprivew}}\" />\r\n\r\n\r\n<!-- \r\n                                        <label class=\"kt-avatar__upload\" data-toggle=\"kt-tooltip\" title=\"\"\r\n                                            data-original-title=\"Change avatar\">\r\n                                            <i class=\"fa fa-pen\"></i>\r\n                                            <input type=\"file\" name=\"photo\" (change)=\"handleUpload($event)\" ng2FileSelect [uploader]=\"uploader\" accept=\".png, .jpg, .jpeg\" />\r\n\r\n                                        </label> -->\r\n<!-- \r\n                                      <button type=\"button\" *ngIf=\"imageprivew != '' && !confirm&&uploader.getNotUploadedItems().length\" class=\"btn btn-success btn-s\"\r\n                                      (click)=\"uploader.uploadAll()\"\r\n                                      [disabled]=\"!uploader.getNotUploadedItems().length\" >\r\n                                          Confirm\r\n                                    </button> -->\r\n\r\n                                        <span class=\"kt-avatar__cancel\" data-toggle=\"kt-tooltip\" title=\"\"\r\n                                            data-original-title=\"Cancel avatar\">\r\n                                            <i class=\"fa fa-times\"></i>\r\n                                        </span> \r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n\r\n                            <div class=\"form-group row\">\r\n                                <label class=\"col-xl-3 col-lg-3 col-form-label\">Full Name</label>\r\n                                <div class=\"col-lg-9 col-xl-6\">\r\n                                    <input class=\"form-control\" type=\"text\" formControlName=\"name\"\r\n                                        [ngClass]=\"{ 'is-invalid': submitted && valid.name.errors }\">\r\n\r\n                                </div>\r\n                            </div>\r\n                            <div class=\"form-group row\">\r\n                                <label class=\"col-xl-3 col-lg-3 col-form-label\">Username </label>\r\n                                <div class=\"col-lg-9 col-xl-6\">\r\n                                    <input class=\"form-control\" type=\"text\" formControlName=\"username\"\r\n                                        [ngClass]=\"{ 'is-invalid': submitted && valid.username.errors }\">\r\n\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n\r\n                        <div class=\"form-group row\">\r\n                            <label class=\"col-xl-3 col-lg-3 col-form-label\">Date Of Birth</label>\r\n                            <div class=\"col-lg-9 col-xl-6\">\r\n                                    <div class=\"input-group\">\r\n                                        <input  class=\"form-control\" placeholder=\"yyyy-mm-dd\"                                       \r\n                                        name=\"d22\"  formControlName=\"BD\" \r\n                                        (keydown)=\"$event.preventDefault()\"    ngbDatepicker  #d22=\"ngbDatepicker\">\r\n                                        <div class=\"input-group-append\">\r\n                                          <button class=\"btn btn-primary\" (click)=\"d22.toggle()\" type=\"button\">\r\n                                            <i class=\"la la-calendar\"></i>\r\n                                          </button>\r\n                                        </div>\r\n                                      </div>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"form-group row\">\r\n                            <label class=\"col-xl-3 col-lg-3 col-form-label\">Gender</label>\r\n                            <div class=\"col-lg-9 col-xl-6\">\r\n                                <select class=\"form-control\" formControlName=\"gender\" name=\"gender\">\r\n                                  <option value=\"Male\">Male</option>\r\n                                  <option value=\"Female\">Female</option>\r\n                                </select>\r\n                                <!-- <input class=\"form-control\" type=\"text\" formControlName=\"gender\"\r\n                                    [ngClass]=\"{ 'is-invalid': submitted && valid.addressLine.errors }\"> -->\r\n\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"form-group row\">\r\n                            <label class=\"col-xl-3 col-lg-3 col-form-label\">Tag Number</label>\r\n                            <div class=\"col-lg-9 col-xl-6\">\r\n                                <input class=\"form-control\" type=\"text\" formControlName=\"tagNumber\"\r\n                                    [ngClass]=\"{ 'is-invalid': submitted && valid.addressLine.errors }\">\r\n\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"form-group row\">\r\n                            <label class=\"col-xl-3 col-lg-3 col-form-label\">Address</label>\r\n                            <div class=\"col-lg-9 col-xl-6\">\r\n                                <input class=\"form-control\" type=\"text\" formControlName=\"addressLine\"\r\n                                    [ngClass]=\"{ 'is-invalid': submitted && valid.addressLine.errors }\">\r\n\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"form-group row\">\r\n                            <label class=\"col-xl-3 col-lg-3 col-form-label\">City</label>\r\n                            <div class=\"col-lg-9 col-xl-6\">\r\n                                <input class=\"form-control\" type=\"text\" formControlName=\"city\"\r\n                                    [ngClass]=\"{ 'is-invalid': submitted && valid.addressLine.errors }\">\r\n\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"form-group row\">\r\n                            <label class=\"col-xl-3 col-lg-3 col-form-label\">Zip Code</label>\r\n                            <div class=\"col-lg-9 col-xl-6\">\r\n                                <input class=\"form-control\" type=\"text\" formControlName=\"zipCode\"\r\n                                    [ngClass]=\"{ 'is-invalid': submitted && valid.addressLine.errors }\">\r\n\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"row\">\r\n                            <label class=\"col-xl-3\"></label>\r\n                            <div class=\"col-lg-9 col-xl-6\">\r\n                                <h3 class=\"kt-section__title kt-section__title-sm\">Contact Information:</h3>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"form-group row\">\r\n                            <label class=\"col-xl-3 col-lg-3 col-form-label\">Contact Phone</label>\r\n                            <div class=\"col-lg-9 col-xl-6\">\r\n                                <div class=\"input-group\">\r\n                                    <div class=\"input-group-prepend\"><span class=\"input-group-text\"><i\r\n                                                class=\"la la-phone\"></i></span></div>\r\n                                    <input type=\"tel\" formControlName=\"phone\" class=\"form-control\"\r\n                                        [ngClass]=\"{ 'is-invalid': submitted && valid.phone.errors }\"\r\n                                        placeholder=\"Phone\" aria-describedby=\"basic-addon1\">\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                            <div class=\"form-group row\">\r\n                                <label class=\"col-xl-3 col-lg-3 col-form-label\">Instagram</label>\r\n                                <div class=\"col-lg-9 col-xl-6\">\r\n                                    <div class=\"input-group\">\r\n                                        <div class=\"input-group-prepend\"><span class=\"input-group-text\"><i\r\n                                                    class=\"la la-instagram\"></i></span></div>\r\n                                        <input type=\"text\" formControlName=\"instagram\" class=\"form-control\"\r\n                                            [ngClass]=\"{ 'is-invalid': submitted && valid.instagram.errors }\"\r\n                                            aria-describedby=\"basic-addon1\">\r\n                                    </div>\r\n\r\n                                </div>\r\n                            </div>\r\n                            <div class=\"form-group row\">\r\n                                <label class=\"col-xl-3 col-lg-3 col-form-label\">Twitter</label>\r\n                                <div class=\"col-lg-9 col-xl-6\">\r\n                                    <div class=\"input-group\">\r\n                                        <div class=\"input-group-prepend\"><span class=\"input-group-text\"><i\r\n                                                    class=\"la la-twitter\"></i></span></div>\r\n                                        <input type=\"text\" formControlName=\"twitter\" class=\"form-control\"\r\n                                            [ngClass]=\"{ 'is-invalid': submitted && valid.twitter.errors }\"\r\n                                            placeholder=\"Twitter\" aria-describedby=\"basic-addon1\">\r\n                                    </div>\r\n\r\n                                </div>\r\n                            </div>\r\n                            <div class=\"form-group row\">\r\n                                <label class=\"col-xl-3 col-lg-3 col-form-label\">LinkedIn</label>\r\n                                <div class=\"col-lg-9 col-xl-6\">\r\n                                    <div class=\"input-group\">\r\n                                        <div class=\"input-group-prepend\"><span class=\"input-group-text\"><i\r\n                                                    class=\"la la-linkedin\"></i></span></div>\r\n                                        <input type=\"text\" formControlName=\"linkedIn\" class=\"form-control\"\r\n                                            [ngClass]=\"{ 'is-invalid': submitted && valid.linkedIn.errors }\"\r\n                                            placeholder=\"Linkedin\" aria-describedby=\"basic-addon1\">\r\n                                    </div>\r\n\r\n                                </div>\r\n                            </div>\r\n                            <div class=\"form-group row\">\r\n                                <label class=\"col-xl-3 col-lg-3 col-form-label\">Email Address</label>\r\n                                <div class=\"col-lg-9 col-xl-6\">\r\n                                    <div class=\"input-group\">\r\n                                        <div class=\"input-group-prepend\"><span class=\"input-group-text\"><i\r\n                                                    class=\"la la-at\"></i></span></div>\r\n                                        <input type=\"text\"  formControlName=\"email\" class=\"form-control\"\r\n                                            [ngClass]=\"{ 'is-invalid': submitted && valid.email.errors }\"\r\n                                            placeholder=\"Email\" aria-describedby=\"basic-addon1\">\r\n                                        <div *ngIf=\"submitted && valid.email.errors\" class=\"invalid-feedback\">\r\n                                            <span class=\"invalid-feedback\" class=\"form-text text-muted\"\r\n                                                *ngIf=\"valid.email.errors.email\">\r\n                                                Email is required\r\n                                            </span>\r\n                                        </div>\r\n                                    </div>\r\n\r\n                                </div>\r\n                            </div>\r\n\r\n                            <div class=\"row\">\r\n                                <label class=\"col-xl-3\"></label>\r\n                                <div class=\"col-lg-9 col-xl-6\">\r\n                                    <h3 class=\"kt-section__title kt-section__title-sm\">Medical Information:</h3>\r\n                                </div>\r\n                            </div>\r\n                            <div *ngIf=\"basicInfoForm\"  formGroupName=\"emergancyContact\">\r\n                            <div class=\"form-group row\">\r\n                                <label class=\"col-xl-3 col-lg-3 col-form-label\">Emergancy contact name</label>\r\n                                <div class=\"col-lg-9 col-xl-6\">\r\n                                    <div class=\"input-group\">\r\n                                      \r\n                                        <input type=\"text\" formControlName=\"name\" class=\"form-control\"\r\n                                            [ngClass]=\"{ 'is-invalid': submitted && valid.emergancyContact.errors }\"\r\n                                            aria-describedby=\"basic-addon1\">\r\n                                    </div>\r\n\r\n                                </div>\r\n                            </div>\r\n\r\n                            <div class=\"form-group row\">\r\n                                <label class=\"col-xl-3 col-lg-3 col-form-label\">Relationship</label>\r\n                                <div class=\"col-lg-9 col-xl-6\">\r\n                                    <div class=\"input-group\">\r\n\r\n                                        <input type=\"text\" formControlName=\"relationship\" class=\"form-control\"\r\n                                            [ngClass]=\"{ 'is-invalid': submitted && valid.emergancyContact.errors }\"\r\n                                            aria-describedby=\"basic-addon1\">\r\n                                    </div>\r\n\r\n                                </div>\r\n                            </div>\r\n                            <div class=\"form-group row\">\r\n                                <label class=\"col-xl-3 col-lg-3 col-form-label\">Email</label>\r\n                                <div class=\"col-lg-9 col-xl-6\">\r\n                                    <div class=\"input-group\">\r\n                                        <div class=\"input-group-prepend\"><span class=\"input-group-text\"><i\r\n                                                    class=\"la la-at\"></i></span></div>\r\n                                        <input type=\"text\"  formControlName=\"email\" class=\"form-control\"  placeholder=\"email\"\r\n                                            aria-describedby=\"basic-addon1\">\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n                            <div class=\"form-group row\">\r\n                                <label class=\"col-xl-3 col-lg-3 col-form-label\">Medical Cases</label>\r\n                                <div class=\"col-lg-9 col-xl-6\">\r\n                                    <div class=\"input-group\">\r\n\r\n                                        <input type=\"text\" formControlName=\"medicalCases\" class=\"form-control\"\r\n                                            [ngClass]=\"{ 'is-invalid': submitted && valid.emergancyContact.errors }\"\r\n                                            aria-describedby=\"basic-addon1\">\r\n                                    </div>\r\n\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                        </div>\r\n                </div>\r\n                <div class=\"kt-portlet__foot\">\r\n                    <div class=\"kt-form__actions\">\r\n                        <div class=\"row\">\r\n                            <div class=\"col-lg-3 col-xl-3\">\r\n                            </div>\r\n                            <div class=\"col-lg-9 col-xl-9\">\r\n                                <button  class=\"btn btn-success\" (click)='onSubmit()'>submit</button>&nbsp;\r\n                                <button type=\"reset\" class=\"btn btn-secondary\">Cancel</button>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </form>\r\n        </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -347,7 +444,7 @@ module.exports = "<div class=\"row\">\r\n    <div class=\"col-xl-12\">\r\n      
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3ZpZXdzL3BhZ2VzL21lbWJlcnMvbWVtYmVyLXByb2ZpbGUvYWJvdXQtbWVtYmVyL2Fib3V0LW1lbWJlci5jb21wb25lbnQuc2NzcyJ9 */"
+module.exports = ".warn-snackbar {\n  background-color: #ff4081; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdmlld3MvcGFnZXMvbWVtYmVycy9tZW1iZXItcHJvZmlsZS9hYm91dC1tZW1iZXIvRTpcXEdFTUlOXFxneW1pbi0yLjAtc2Fhcy1mcm9udGVuZC9zcmNcXGFwcFxcdmlld3NcXHBhZ2VzXFxtZW1iZXJzXFxtZW1iZXItcHJvZmlsZVxcYWJvdXQtbWVtYmVyXFxhYm91dC1tZW1iZXIuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSx5QkFBeUIsRUFBQSIsImZpbGUiOiJzcmMvYXBwL3ZpZXdzL3BhZ2VzL21lbWJlcnMvbWVtYmVyLXByb2ZpbGUvYWJvdXQtbWVtYmVyL2Fib3V0LW1lbWJlci5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi53YXJuLXNuYWNrYmFye1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogI2ZmNDA4MTtcclxuICB9XHJcbiJdfQ== */"
 
 /***/ }),
 
@@ -381,17 +478,21 @@ var crud_1 = __webpack_require__(/*! ../../../../../core/_base/crud */ "./src/ap
 //
 var _services_1 = __webpack_require__(/*! ../../../../../core/auth/_services */ "./src/app/core/auth/_services/index.ts");
 var ng2_file_upload_1 = __webpack_require__(/*! ng2-file-upload/ng2-file-upload */ "./node_modules/ng2-file-upload/ng2-file-upload.js");
+var material_1 = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 var router_1 = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 var AboutMemberComponent = /** @class */ (function () {
-    function AboutMemberComponent(memberservice, formBuilder, userservice, changDetectRef, layoutUtilsService, route, ser, router) {
+    function AboutMemberComponent(memberservice, formBuilder, userservice, changDetectRef, layoutUtilsService, route, snackBar, ser, router) {
         this.memberservice = memberservice;
         this.formBuilder = formBuilder;
         this.userservice = userservice;
         this.changDetectRef = changDetectRef;
         this.layoutUtilsService = layoutUtilsService;
         this.route = route;
+        this.snackBar = snackBar;
         this.ser = ser;
         this.router = router;
+        //** */
+        this.member = {};
         this.submitted = false;
         this.error = false;
         this.confirm = false;
@@ -410,73 +511,96 @@ var AboutMemberComponent = /** @class */ (function () {
             _this.changDetectRef.detectChanges();
         };
         var id = this.router.parent.snapshot.paramMap.get('id');
-        this.memberservice.getMemberById(id).subscribe(function (res) {
-            if (res['result']) {
-                _this.member = res['users'][0];
-                _this.validData(_this.member);
-                _this.imageprivew = _this.member['image_profile'];
-                _this.changDetectRef.detectChanges();
-            }
-        });
+        if (this.checkedpermission('getallusers')) {
+            this.memberservice.getMemberById(id).subscribe(function (res) {
+                if (res['result']) {
+                    console.log(res['users'][0]);
+                    _this.member = res['users'][0];
+                    _this.validData(_this.member);
+                    _this.imageprivew = _this.member['image_profile'];
+                    _this.changDetectRef.detectChanges();
+                }
+            });
+        }
     };
     AboutMemberComponent.prototype.validData = function (member) {
+        var reg = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
+        if (!member.emergancyContact)
+            member.emergancyContact = {};
+        // this.model=member.dateOfBirth
         this.basicInfoForm = this.formBuilder.group({
             name: [member.name, forms_1.Validators.required],
             username: [member.username, forms_1.Validators.required],
             email: [member.email, [forms_1.Validators.required, forms_1.Validators.email]],
             addressLine: [member.addressLine, forms_1.Validators.required],
-            instagram: [member.instagram],
-            twitter: [member.twitter],
+            instagram: [member.instagram, forms_1.Validators.pattern(reg)],
+            twitter: [member.twitter, forms_1.Validators.pattern(reg)],
             phone: [member.phone, forms_1.Validators.maxLength(10)],
-            emergancyContact: [member.emergancyContact, forms_1.Validators.maxLength(10)],
-            linkedIn: [member.linkedIn, forms_1.Validators.maxLength(10)],
-            medicalCases: [member.medicalCases],
-            dateOfBirth: [member.dateOfBirth],
-            relationship: [member.relationship],
+            emergancyContact: this.formBuilder.group({
+                name: [member.emergancyContact.name],
+                relationship: [member.emergancyContact.relationship],
+                email: [member.emergancyContact.email, { validators: forms_1.Validators.email, updateOn: 'blur' }],
+                medicalCases: [member.emergancyContact.medicalCases]
+            }),
+            linkedIn: [member.linkedIn, forms_1.Validators.pattern(reg)],
+            BD: [member.birthday],
             gender: [member.gender],
             tagNumber: [member.tagNumber],
-            address: [member.address],
+            address: [member.addressLine],
             city: [member.city],
             zipCode: [member.zipCode],
         });
     };
     Object.defineProperty(AboutMemberComponent.prototype, "valid", {
-        get: function () { return this.basicInfoForm.controls; },
+        get: function () { if (this.basicInfoForm)
+            return this.basicInfoForm.controls; },
         enumerable: true,
         configurable: true
     });
     AboutMemberComponent.prototype.onSubmit = function () {
         var _this = this;
         var controls = this.basicInfoForm.controls;
+        console.log(controls['BD'].value);
         /** check form */
-        console.log(controls);
         if (this.basicInfoForm.invalid) {
             Object.keys(controls).forEach(function (controlName) {
                 controls[controlName].markAsTouched();
             });
-            this.submitted = true;
+            window.scroll(0, 0);
+            this.error = true;
             return;
         }
-        this.userservice.updateUserData({ 'addressLine': controls['addressLine'].value,
-            'email': controls['email'].value, 'name': controls['name'].value,
-            'username': controls['username'].value, 'twitter': controls['twitter'].value,
-            'instagram': controls['instagram'].value, 'gender': controls['gender'].value,
-            'linkedIn': controls['linkedIn'].value, 'pub_key': this.member['pub_key'], 'image_profile': this.image }).subscribe(function (res) {
-            if (res['result']) {
-                _this.layoutUtilsService.showActionNotification('member is edited sucessfully', crud_1.MessageType.Update, 5000, true, true);
-                if (_this.route.url.includes('profiles')) {
-                    var url = _this.route.url.replace("profiles", 'profile');
-                    _this.route.navigateByUrl(url);
+        if (this.checkedpermission('updateuserdata')) {
+            this.userservice.updateUserData({ 'addressLine': controls['addressLine'].value,
+                'email': controls['email'].value, 'name': controls['name'].value,
+                'username': controls['username'].value, 'twitter': controls['twitter'].value,
+                'instagram': controls['instagram'].value, 'gender': controls['gender'].value,
+                'phone': controls['phone'].value, 'birthday': controls['BD'].value,
+                'tagNumber': controls['tagNumber'].value, 'city': controls['city'].value,
+                'zipCode': controls['zipCode'].value, 'emergancyContact': controls['emergancyContact'].value,
+                'linkedIn': controls['linkedIn'].value, 'pub_key': this.member['pub_key'], 'image_profile': this.image }).subscribe(function (res) {
+                if (res['result']) {
+                    _this.layoutUtilsService.showActionNotification('member is edited sucessfully', crud_1.MessageType.Update, 5000, true, true);
+                    if (_this.route.url.includes('profiles')) {
+                        var url = _this.route.url.replace("profiles", 'profile');
+                        _this.route.navigateByUrl(url);
+                    }
+                    else {
+                        var url = _this.route.url.replace("profile", 'profiles');
+                        _this.route.navigateByUrl(url);
+                    }
                 }
                 else {
-                    var url = _this.route.url.replace("profile", 'profiles');
-                    _this.route.navigateByUrl(url);
+                    window.scroll(0, 0);
+                    _this.error = true;
                 }
-            }
-            else {
-                _this.error = true;
-            }
-        });
+            });
+        }
+        else {
+        }
+    };
+    AboutMemberComponent.prototype.onAlertClose = function (close) {
+        this.error = false;
     };
     AboutMemberComponent.prototype.handleUpload = function (event) {
         var _this = this;
@@ -490,10 +614,51 @@ var AboutMemberComponent = /** @class */ (function () {
             reader.readAsDataURL(event.target.files[0]);
         }
     };
+    AboutMemberComponent.prototype.changeDate = function (date) {
+        console.log(date);
+    };
+    AboutMemberComponent.prototype.checkedpermission = function (key) {
+        var checked = false;
+        if (localStorage.getItem('user')) {
+            if (JSON.parse(localStorage.getItem('user'))) {
+                var user = JSON.parse(localStorage.getItem('user'));
+                if (user['allPrivilidge']) {
+                    var privilidge_1 = user['allPrivilidge'];
+                    Object.keys(privilidge_1).forEach(function (role) {
+                        Object.keys(privilidge_1[role]).forEach(function (pri) {
+                            var per = (privilidge_1[role][pri].toString()).trim();
+                            if (key.trim() == per) {
+                                checked = true;
+                            }
+                        });
+                    });
+                }
+            }
+        }
+        return checked;
+    };
+    AboutMemberComponent.prototype.open = function () {
+        var message = 'Oh Snap ! You dont have permission to get this data';
+        var actionButtonLabel = '';
+        var action = true;
+        var setAutoHide = true;
+        var autoHide = 4000;
+        var horizontalPosition = 'center';
+        var verticalPosition = 'top';
+        var addExtraClass = false;
+        var config = new material_1.MatSnackBarConfig();
+        config.verticalPosition = verticalPosition;
+        config.horizontalPosition = horizontalPosition;
+        config.duration = setAutoHide ? autoHide : 0;
+        //  config['extraClasses'] = addExtraClass ? ['warn-snackbar'] : undefined;
+        config.panelClass = ['warn-snackbar'];
+        this.snackBar.open(message, action ? actionButtonLabel : undefined, config);
+    };
     AboutMemberComponent = __decorate([
         core_1.Component({
             selector: 'kt-about-member',
             template: __webpack_require__(/*! ./about-member.component.html */ "./src/app/views/pages/members/member-profile/about-member/about-member.component.html"),
+            encapsulation: core_1.ViewEncapsulation.None,
             styles: [__webpack_require__(/*! ./about-member.component.scss */ "./src/app/views/pages/members/member-profile/about-member/about-member.component.scss")]
         }),
         __metadata("design:paramtypes", [members_service_1.MembersService,
@@ -502,6 +667,7 @@ var AboutMemberComponent = /** @class */ (function () {
             core_1.ChangeDetectorRef,
             crud_1.LayoutUtilsService,
             router_1.Router,
+            material_1.MatSnackBar,
             _services_1.MembershipService,
             router_1.ActivatedRoute])
     ], AboutMemberComponent);
@@ -629,15 +795,17 @@ var AgreementsMemberComponent = /** @class */ (function () {
         if (payment === void 0) { payment = ''; }
         if (orderby === void 0) { orderby = ''; }
         if (order === void 0) { order = -1; }
-        if (this.pub_key) {
-            this.memberservice.getMembership(this.pub_key, pages, perpage, search, status, schedual, payment, '', orderby, order).subscribe(function (res) {
-                console.log(res['data']);
-                if (res['result']) {
-                    _this.dataSource.data = res['data'];
+        if (this.checkedpermission('getmember_membership')) {
+            if (this.pub_key) {
+                this.memberservice.getMembership(this.pub_key, pages, perpage, search, status, schedual, payment, '', orderby, order).subscribe(function (res) {
                     console.log(res['data']);
-                    _this.changeDetectRef.detectChanges();
-                }
-            });
+                    if (res['result']) {
+                        _this.dataSource.data = res['data'];
+                        console.log(res['data']);
+                        _this.changeDetectRef.detectChanges();
+                    }
+                });
+            }
         }
     };
     AgreementsMemberComponent.prototype.nextPage = function (event, serviclo) {
@@ -665,6 +833,26 @@ var AgreementsMemberComponent = /** @class */ (function () {
             downloadLink.click();
         }
     };
+    AgreementsMemberComponent.prototype.checkedpermission = function (key) {
+        var checked = false;
+        if (localStorage.getItem('user')) {
+            if (JSON.parse(localStorage.getItem('user'))) {
+                var user = JSON.parse(localStorage.getItem('user'));
+                if (user['allPrivilidge']) {
+                    var privilidge_1 = user['allPrivilidge'];
+                    Object.keys(privilidge_1).forEach(function (role) {
+                        Object.keys(privilidge_1[role]).forEach(function (pri) {
+                            var per = (privilidge_1[role][pri].toString()).trim();
+                            if (key.trim() == per) {
+                                checked = true;
+                            }
+                        });
+                    });
+                }
+            }
+        }
+        return checked;
+    };
     AgreementsMemberComponent = __decorate([
         core_1.Component({
             selector: 'kt-agreements-member',
@@ -691,7 +879,7 @@ exports.AgreementsMemberComponent = AgreementsMemberComponent;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- <ng-container>\r\n\r\n        <div class='row'>\r\n            <div class='col-3'>\r\n        <mat-sidenav #drawer class=\"sidenav\" fixedInViewport='false'\r\n            [attr.role]=\"(isHandset$ | async) ? 'dialog' : 'navigation'\" [mode]=\"(isHandset$ | async) ? 'over' : 'side'\"\r\n            [opened]=\"!(isHandset$ | async)\">\r\n\r\n            <mat-nav-list>\r\n                <a mat-list-item [routerLink]=\"['about-member']\" routerLinkActive=\"router-link-active\">Details</a>\r\n                <a mat-list-item href=\"#\">Membership</a>\r\n                <a mat-list-item href=\"#\">Payments</a>\r\n            </mat-nav-list>\r\n        </mat-sidenav>\r\n    </div>\r\n    <div class=\"col-9 sidenav\">\r\n\r\n    </div>\r\n</div> -->\r\n\r\n<!-- <mat-toolbar color='primary' *ngIf=\"isHandset$ | async\" >\r\n                <button type=\"button\" aria-label=\"Toggle sidenav\" mat-icon-button (click)=\"drawer.toggle()\"\r\n                    *ngIf=\"isHandset$ | async\">\r\n                    <mat-icon aria-label=\"Side nav toggle icon\">menu</mat-icon>\r\n                </button>\r\n                <span></span>\r\n        </mat-toolbar>\r\n\r\n  <div id=\"main\">\r\n        <mat-sidenav #drawer class=\"sidenav\" fixedInViewport='false'\r\n        [attr.role]=\"(isHandset$ | async) ? 'dialog' : 'navigation'\" [mode]=\"(isHandset$ | async) ? 'over' : 'side'\"\r\n        [opened]=\"!(isHandset$ | async)\">\r\n\r\n        <mat-nav-list>\r\n            <a mat-list-item [routerLink]=\"['about-member']\" routerLinkActive=\"router-link-active\">Details</a>\r\n            <a mat-list-item href=\"#\">Membership</a>\r\n            <a mat-list-item href=\"#\">Payments</a>\r\n        </mat-nav-list>\r\n    </mat-sidenav>\r\n    <article>\r\n            <router-outlet></router-outlet>\r\n    </article>\r\n  </div> -->\r\n<!--begin::Global Theme Styles(used by all pages) -->\r\n\r\n<!--end::Global Theme Styles -->\r\n\r\n<!--begin::Layout Skins(used by all pages) -->\r\n\r\n\r\n<!--begin::Global Theme Styles(used by all pages) -->\r\n\r\n<!--end::Global Theme Styles -->\r\n\r\n<!--begin::Layout Skins(used by all pages) -->\r\n\r\n\r\n<div class=\"kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor\">\r\n\r\n    <!-- end:: Subheader -->\r\n    <!-- begin:: Content -->\r\n    <div class=\"kt-content  kt-grid__item kt-grid__item--fluid\" id=\"kt_content\">\r\n        <!--Begin::App-->\r\n        <div class=\"kt-grid kt-grid--desktop kt-grid--ver kt-grid--ver-desktop kt-app\">\r\n            <!--Begin:: App Aside Mobile Toggle-->\r\n            <button class=\"kt-app__aside-close\" id=\"kt_user_profile_aside_close\">\r\n                <i class=\"la la-close\"></i>\r\n            </button>\r\n            <!--End:: App Aside Mobile Toggle-->\r\n\r\n            <!--Begin:: App Aside-->\r\n            <div class=\"kt-grid__item kt-app__toggle kt-app__aside\" id=\"kt_user_profile_aside\">\r\n                <!--begin:: Widgets/Applications/User/Profile1-->\r\n                <div class=\"kt-portlet kt-portlet--height-fluid-\">\r\n                    <div class=\"kt-portlet__head  kt-portlet__head--noborder\">\r\n                        <div class=\"kt-portlet__head-label\">\r\n                            <h3 class=\"kt-portlet__head-title\">\r\n                            </h3>\r\n                        </div>\r\n                        <div class=\"kt-portlet__head-toolbar\">\r\n                            <a href=\"#\" class=\"btn btn-clean btn-sm btn-icon btn-icon-md\" data-toggle=\"dropdown\">\r\n                                <i class=\"flaticon-more-1\"></i>\r\n                            </a>\r\n                            <div class=\"dropdown-menu dropdown-menu-right dropdown-menu-fit dropdown-menu-md\">\r\n                                <!--begin::Nav-->\r\n                                <ul class=\"kt-nav\">\r\n                                    <li class=\"kt-nav__head\">\r\n                                        Export Options\r\n                                        <i class=\"flaticon2-information\" data-toggle=\"kt-tooltip\" data-placement=\"right\"\r\n                                            title=\"\" data-original-title=\"Click to learn more...\"></i>\r\n                                    </li>\r\n                                    <li class=\"kt-nav__separator\"></li>\r\n                                    <li class=\"kt-nav__item\">\r\n                                        <a href=\"#\" class=\"kt-nav__link\">\r\n                                            <i class=\"kt-nav__link-icon flaticon2-drop\"></i>\r\n                                            <span class=\"kt-nav__link-text\">Activity</span>\r\n                                        </a>\r\n                                    </li>\r\n                                    <li class=\"kt-nav__item\">\r\n                                        <a href=\"#\" class=\"kt-nav__link\">\r\n                                            <i class=\"kt-nav__link-icon flaticon2-calendar-8\"></i>\r\n                                            <span class=\"kt-nav__link-text\">FAQ</span>\r\n                                        </a>\r\n                                    </li>\r\n                                    <li class=\"kt-nav__item\">\r\n                                        <a href=\"#\" class=\"kt-nav__link\">\r\n                                            <i class=\"kt-nav__link-icon flaticon2-link\"></i>\r\n                                            <span class=\"kt-nav__link-text\">Settings</span>\r\n                                        </a>\r\n                                    </li>\r\n                                    <li class=\"kt-nav__item\">\r\n                                        <a href=\"#\" class=\"kt-nav__link\">\r\n                                            <i class=\"kt-nav__link-icon flaticon2-new-email\"></i>\r\n                                            <span class=\"kt-nav__link-text\">Support</span>\r\n                                            <span class=\"kt-nav__link-badge\">\r\n                                                <span class=\"kt-badge kt-badge--success\">5</span>\r\n                                            </span>\r\n                                        </a>\r\n                                    </li>\r\n                                    <li class=\"kt-nav__separator\"></li>\r\n                                    <li class=\"kt-nav__foot\">\r\n                                        <a class=\"btn btn-label-danger btn-bold btn-sm\" href=\"#\">Upgrade plan</a>\r\n                                        <a class=\"btn btn-clean btn-bold btn-sm\" href=\"#\" data-toggle=\"kt-tooltip\"\r\n                                            data-placement=\"right\" title=\"\"\r\n                                            data-original-title=\"Click to learn more...\">Learn more</a>\r\n                                    </li>\r\n                                </ul>\r\n                                <!--end::Nav-->\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"kt-portlet__body kt-portlet__body--fit-y\">\r\n                        <!--begin::Widget -->\r\n                        <!--begin::Widget -->\r\n                        <div class=\"kt-widget kt-widget--user-profile-1\">\r\n                            <div class=\"kt-widget__head\">\r\n                                <div class=\"kt-widget__media\" *ngIf=\"!member.image_profile\">\r\n\r\n                                    <img *ngIf=\"!member.image_profile\" style=\"min-height: 150px;\"\r\n                                        src=\"http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image\" />\r\n                                    <img *ngIf=\"member.image_profile\" style=\"min-height: 150px;\"\r\n                                        src=\"{{member.image_profile}}\" />\r\n                                </div>\r\n                                <div class=\"kt-widget__content\">\r\n                                    <div class=\"kt-widget__section\">\r\n                                        <a class=\"kt-widget__username\">\r\n                                            {{member.name}}\r\n                                            <i class=\"flaticon2-correct kt-font-success\"></i>\r\n                                        </a>\r\n                                        <span class=\"kt-widget__subtitle\">\r\n                                            {{member.username}}\r\n                                        </span>\r\n                                    </div>\r\n\r\n                                    <div class=\"kt-widget__action\">\r\n                                        <button type=\"button\" class=\"btn btn-info btn-sm\">chat</button>&nbsp;\r\n                                        <button type=\"button\" class=\"btn btn-success btn-sm\">follow</button>\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n                            <div class=\"kt-widget__body\">\r\n                                <!-- content data in a sidebar -->\r\n                                <!-- begin -->\r\n                                <div *ngIf=\"member\" class=\"kt-widget__content\">\r\n                                    <div class=\"kt-widget__info\">\r\n                                        <span class=\"kt-widget__label\">Email:</span>\r\n                                        <a class=\"kt-widget__data\">{{member.email}}</a>\r\n                                    </div>\r\n                                    <div class=\"kt-widget__info\">\r\n                                        <span class=\"kt-widget__label\">Phone:</span>\r\n                                        <a class=\"kt-widget__data\">{{member.phone}}</a>\r\n                                    </div>\r\n                                    <div class=\"kt-widget__info\">\r\n                                        <span class=\"kt-widget__label\">Location:</span>\r\n                                        <span class=\"kt-widget__data\">{{member.address}}</span>\r\n                                    </div>\r\n                                </div>\r\n                                <!-- end -->\r\n                                <!-- tabs of member data -->\r\n                                <!-- begin -->\r\n                                <div class=\"kt-widget__items\">\r\n                                    <a [routerLink]=\"['about']\" routerLinkActive=\"router-link-active\"\r\n                                        (click)=\"event('about-member')\"\r\n                                        [ngClass]=\"{'kt-widget__item--active':(value=='about-member'),'kt-widget__item':true}\">\r\n                                        <span class=\"kt-widget__section\">\r\n                                            <span class=\"kt-widget__icon\">\r\n                                                <svg xmlns=\"http://www.w3.org/2000/svg\"\r\n                                                    xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"24px\"\r\n                                                    height=\"24px\" viewBox=\"0 0 24 24\" version=\"1.1\" class=\"kt-svg-icon\">\r\n                                                    <g stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\">\r\n                                                        <polygon id=\"Bound\" points=\"0 0 24 0 24 24 0 24\"></polygon>\r\n                                                        <path\r\n                                                            d=\"M12.9336061,16.072447 L19.36,10.9564761 L19.5181585,10.8312381 C20.1676248,10.3169571 20.2772143,9.3735535 19.7629333,8.72408713 C19.6917232,8.63415859 19.6104327,8.55269514 19.5206557,8.48129411 L12.9336854,3.24257445 C12.3871201,2.80788259 11.6128799,2.80788259 11.0663146,3.24257445 L4.47482784,8.48488609 C3.82645598,9.00054628 3.71887192,9.94418071 4.23453211,10.5925526 C4.30500305,10.6811601 4.38527899,10.7615046 4.47382636,10.8320511 L4.63,10.9564761 L11.0659024,16.0730648 C11.6126744,16.5077525 12.3871218,16.5074963 12.9336061,16.072447 Z\"\r\n                                                            id=\"Shape\" fill=\"#000000\" fill-rule=\"nonzero\"></path>\r\n                                                        <path\r\n                                                            d=\"M11.0563554,18.6706981 L5.33593024,14.122919 C4.94553994,13.8125559 4.37746707,13.8774308 4.06710397,14.2678211 C4.06471678,14.2708238 4.06234874,14.2738418 4.06,14.2768747 L4.06,14.2768747 C3.75257288,14.6738539 3.82516916,15.244888 4.22214834,15.5523151 C4.22358765,15.5534297 4.2250303,15.55454 4.22647627,15.555646 L11.0872776,20.8031356 C11.6250734,21.2144692 12.371757,21.2145375 12.909628,20.8033023 L19.7677785,15.559828 C20.1693192,15.2528257 20.2459576,14.6784381 19.9389553,14.2768974 C19.9376429,14.2751809 19.9363245,14.2734691 19.935,14.2717619 L19.935,14.2717619 C19.6266937,13.8743807 19.0546209,13.8021712 18.6572397,14.1104775 C18.654352,14.112718 18.6514778,14.1149757 18.6486172,14.1172508 L12.9235044,18.6705218 C12.377022,19.1051477 11.6029199,19.1052208 11.0563554,18.6706981 Z\"\r\n                                                            id=\"Path\" fill=\"#000000\" opacity=\"0.3\"></path>\r\n                                                    </g>\r\n                                                </svg> </span>\r\n                                            <span class=\"kt-widget__desc\">\r\n                                                Profile Overview\r\n                                            </span>\r\n                                        </span>\r\n                                    </a>\r\n                                    <a [routerLink]=\"['memership/list']\" (click)=\"event('membership-list')\"\r\n                                        [ngClass]=\"{'kt-widget__item--active':(value=='membership-list'),'kt-widget__item':true}\">\r\n                                        <span class=\"kt-widget__section\">\r\n                                            <span class=\"kt-widget__icon\">\r\n                                                <svg xmlns=\"http://www.w3.org/2000/svg\"\r\n                                                    xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"24px\"\r\n                                                    height=\"24px\" viewBox=\"0 0 24 24\" version=\"1.1\" class=\"kt-svg-icon\">\r\n                                                    <g stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\">\r\n                                                        <polygon id=\"Shape\" points=\"0 0 24 0 24 24 0 24\"></polygon>\r\n                                                        <path\r\n                                                            d=\"M12,11 C9.790861,11 8,9.209139 8,7 C8,4.790861 9.790861,3 12,3 C14.209139,3 16,4.790861 16,7 C16,9.209139 14.209139,11 12,11 Z\"\r\n                                                            id=\"Mask\" fill=\"#000000\" fill-rule=\"nonzero\" opacity=\"0.3\">\r\n                                                        </path>\r\n                                                        <path\r\n                                                            d=\"M3.00065168,20.1992055 C3.38825852,15.4265159 7.26191235,13 11.9833413,13 C16.7712164,13 20.7048837,15.2931929 20.9979143,20.2 C21.0095879,20.3954741 20.9979143,21 20.2466999,21 C16.541124,21 11.0347247,21 3.72750223,21 C3.47671215,21 2.97953825,20.45918 3.00065168,20.1992055 Z\"\r\n                                                            id=\"Mask-Copy\" fill=\"#000000\" fill-rule=\"nonzero\"></path>\r\n                                                    </g>\r\n                                                </svg> </span>\r\n                                            <span class=\"kt-widget__desc\">\r\n                                                Membership\r\n                                            </span>\r\n                                        </span>\r\n                                    </a>\r\n                                    <a [routerLink]=\"['payment']\" (click)=\"event('payment-member')\"\r\n                                        [ngClass]=\"{'kt-widget__item--active':(value=='payment-member'),'kt-widget__item':true}\">\r\n                                        <span class=\"kt-widget__section\">\r\n                                            <span class=\"kt-widget__icon\">\r\n                                                <svg xmlns=\"http://www.w3.org/2000/svg\"\r\n                                                    xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"24px\"\r\n                                                    height=\"24px\" viewBox=\"0 0 24 24\" version=\"1.1\" class=\"kt-svg-icon\">\r\n                                                    <g stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\">\r\n                                                        <rect id=\"bound\" x=\"0\" y=\"0\" width=\"24\" height=\"24\"></rect>\r\n                                                        <path\r\n                                                            d=\"M2.56066017,10.6819805 L4.68198052,8.56066017 C5.26776695,7.97487373 6.21751442,7.97487373 6.80330086,8.56066017 L8.9246212,10.6819805 C9.51040764,11.267767 9.51040764,12.2175144 8.9246212,12.8033009 L6.80330086,14.9246212 C6.21751442,15.5104076 5.26776695,15.5104076 4.68198052,14.9246212 L2.56066017,12.8033009 C1.97487373,12.2175144 1.97487373,11.267767 2.56066017,10.6819805 Z M14.5606602,10.6819805 L16.6819805,8.56066017 C17.267767,7.97487373 18.2175144,7.97487373 18.8033009,8.56066017 L20.9246212,10.6819805 C21.5104076,11.267767 21.5104076,12.2175144 20.9246212,12.8033009 L18.8033009,14.9246212 C18.2175144,15.5104076 17.267767,15.5104076 16.6819805,14.9246212 L14.5606602,12.8033009 C13.9748737,12.2175144 13.9748737,11.267767 14.5606602,10.6819805 Z\"\r\n                                                            id=\"Combined-Shape\" fill=\"#000000\" opacity=\"0.3\"></path>\r\n                                                        <path\r\n                                                            d=\"M8.56066017,16.6819805 L10.6819805,14.5606602 C11.267767,13.9748737 12.2175144,13.9748737 12.8033009,14.5606602 L14.9246212,16.6819805 C15.5104076,17.267767 15.5104076,18.2175144 14.9246212,18.8033009 L12.8033009,20.9246212 C12.2175144,21.5104076 11.267767,21.5104076 10.6819805,20.9246212 L8.56066017,18.8033009 C7.97487373,18.2175144 7.97487373,17.267767 8.56066017,16.6819805 Z M8.56066017,4.68198052 L10.6819805,2.56066017 C11.267767,1.97487373 12.2175144,1.97487373 12.8033009,2.56066017 L14.9246212,4.68198052 C15.5104076,5.26776695 15.5104076,6.21751442 14.9246212,6.80330086 L12.8033009,8.9246212 C12.2175144,9.51040764 11.267767,9.51040764 10.6819805,8.9246212 L8.56066017,6.80330086 C7.97487373,6.21751442 7.97487373,5.26776695 8.56066017,4.68198052 Z\"\r\n                                                            id=\"Combined-Shape\" fill=\"#000000\"></path>\r\n                                                    </g>\r\n                                                </svg> </span>\r\n                                            <span class=\"kt-widget__desc\">\r\n                                                Payments\r\n                                            </span>\r\n\r\n                                        </span></a>\r\n                                    <a [routerLink]=\"['agreement']\" (click)=\"event('agreement-member')\"\r\n                                        [ngClass]=\"{'kt-widget__item--active':(value=='agreement-member'),'kt-widget__item':true}\">\r\n                                        <span class=\"kt-widget__section\">\r\n                                            <span class=\"kt-widget__icon\">\r\n                                                <svg xmlns=\"http://www.w3.org/2000/svg\"\r\n                                                    xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"24px\"\r\n                                                    height=\"24px\" viewBox=\"0 0 24 24\" version=\"1.1\" class=\"kt-svg-icon\">\r\n                                                    <g stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\">\r\n                                                        <rect id=\"bound\" x=\"0\" y=\"0\" width=\"24\" height=\"24\"></rect>\r\n                                                        <path\r\n                                                            d=\"M4,4 L11.6314229,2.5691082 C11.8750185,2.52343403 12.1249815,2.52343403 12.3685771,2.5691082 L20,4 L20,13.2830094 C20,16.2173861 18.4883464,18.9447835 16,20.5 L12.5299989,22.6687507 C12.2057287,22.8714196 11.7942713,22.8714196 11.4700011,22.6687507 L8,20.5 C5.51165358,18.9447835 4,16.2173861 4,13.2830094 L4,4 Z\"\r\n                                                            id=\"Path-50\" fill=\"#000000\" opacity=\"0.3\"></path>\r\n                                                        <path\r\n                                                            d=\"M12,11 C10.8954305,11 10,10.1045695 10,9 C10,7.8954305 10.8954305,7 12,7 C13.1045695,7 14,7.8954305 14,9 C14,10.1045695 13.1045695,11 12,11 Z\"\r\n                                                            id=\"Mask\" fill=\"#000000\" opacity=\"0.3\"></path>\r\n                                                        <path\r\n                                                            d=\"M7.00036205,16.4995035 C7.21569918,13.5165724 9.36772908,12 11.9907452,12 C14.6506758,12 16.8360465,13.4332455 16.9988413,16.5 C17.0053266,16.6221713 16.9988413,17 16.5815,17 C14.5228466,17 11.463736,17 7.4041679,17 C7.26484009,17 6.98863236,16.6619875 7.00036205,16.4995035 Z\"\r\n                                                            id=\"Mask-Copy\" fill=\"#000000\" opacity=\"0.3\"></path>\r\n                                                    </g>\r\n                                                </svg> </span>\r\n                                            <span class=\"kt-widget__desc\">\r\n                                                Agreement\r\n                                            </span>\r\n                                        </span>\r\n                                        <span\r\n                                            class=\"kt-badge kt-badge--unified-danger kt-badge--sm kt-badge--rounded kt-badge--bolder\">5</span>\r\n                                    </a>\r\n                                    <a [routerLink]=\"['reschedule']\" (click)=\"event('reschedule')\"\r\n                                        [ngClass]=\"{'kt-widget__item--active':(value=='reschedul'),'kt-widget__item':true}\">\r\n                                        <span class=\"kt-widget__section\">\r\n                                            <span class=\"kt-widget__icon\">\r\n                                                <svg xmlns=\"http://www.w3.org/2000/svg\"\r\n                                                    xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"24px\"\r\n                                                    height=\"24px\" viewBox=\"0 0 24 24\" version=\"1.1\" class=\"kt-svg-icon\">\r\n                                                    <g stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\">\r\n                                                        <rect id=\"bound\" x=\"0\" y=\"0\" width=\"24\" height=\"24\"></rect>\r\n                                                        <path\r\n                                                            d=\"M6,2 L18,2 C18.5522847,2 19,2.44771525 19,3 L19,12 C19,12.5522847 18.5522847,13 18,13 L6,13 C5.44771525,13 5,12.5522847 5,12 L5,3 C5,2.44771525 5.44771525,2 6,2 Z M7.5,5 C7.22385763,5 7,5.22385763 7,5.5 C7,5.77614237 7.22385763,6 7.5,6 L13.5,6 C13.7761424,6 14,5.77614237 14,5.5 C14,5.22385763 13.7761424,5 13.5,5 L7.5,5 Z M7.5,7 C7.22385763,7 7,7.22385763 7,7.5 C7,7.77614237 7.22385763,8 7.5,8 L10.5,8 C10.7761424,8 11,7.77614237 11,7.5 C11,7.22385763 10.7761424,7 10.5,7 L7.5,7 Z\"\r\n                                                            id=\"Combined-Shape\" fill=\"#000000\" opacity=\"0.3\"></path>\r\n                                                        <path\r\n                                                            d=\"M3.79274528,6.57253826 L12,12.5 L20.2072547,6.57253826 C20.4311176,6.4108595 20.7436609,6.46126971 20.9053396,6.68513259 C20.9668779,6.77033951 21,6.87277228 21,6.97787787 L21,17 C21,18.1045695 20.1045695,19 19,19 L5,19 C3.8954305,19 3,18.1045695 3,17 L3,6.97787787 C3,6.70173549 3.22385763,6.47787787 3.5,6.47787787 C3.60510559,6.47787787 3.70753836,6.51099993 3.79274528,6.57253826 Z\"\r\n                                                            id=\"Combined-Shape\" fill=\"#000000\"></path>\r\n                                                    </g>\r\n                                                </svg> </span>\r\n                                            <span class=\"kt-widget__desc\">\r\n                                                Reschedule\r\n                                            </span>\r\n                                        </span> \r\n                                    </a>\r\n                                    <a [routerLink]=\"['workout']\" (click)=\"event('workout')\"\r\n                                        [ngClass]=\"{'kt-widget__item--active':(value=='workout'),'kt-widget__item':true}\">\r\n                                        <span class=\"kt-widget__section\">\r\n                                            <span class=\"kt-widget__icon\">\r\n                                                    <i class=\"material-icons\">accessibility</i>\r\n                                                <!-- <svg xmlns=\"http://www.w3.org/2000/svg\"\r\n                                                    xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"24px\"\r\n                                                    height=\"24px\" viewBox=\"0 0 24 24\" version=\"1.1\" class=\"kt-svg-icon\">\r\n                                                    <g stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\">\r\n                                                        <rect id=\"bound\" x=\"0\" y=\"0\" width=\"24\" height=\"24\"></rect>\r\n                                                        <path\r\n                                                            d=\"M6,2 L18,2 C18.5522847,2 19,2.44771525 19,3 L19,12 C19,12.5522847 18.5522847,13 18,13 L6,13 C5.44771525,13 5,12.5522847 5,12 L5,3 C5,2.44771525 5.44771525,2 6,2 Z M7.5,5 C7.22385763,5 7,5.22385763 7,5.5 C7,5.77614237 7.22385763,6 7.5,6 L13.5,6 C13.7761424,6 14,5.77614237 14,5.5 C14,5.22385763 13.7761424,5 13.5,5 L7.5,5 Z M7.5,7 C7.22385763,7 7,7.22385763 7,7.5 C7,7.77614237 7.22385763,8 7.5,8 L10.5,8 C10.7761424,8 11,7.77614237 11,7.5 C11,7.22385763 10.7761424,7 10.5,7 L7.5,7 Z\"\r\n                                                            id=\"Combined-Shape\" fill=\"#000000\" opacity=\"0.3\"></path>\r\n                                                        <path\r\n                                                            d=\"M3.79274528,6.57253826 L12,12.5 L20.2072547,6.57253826 C20.4311176,6.4108595 20.7436609,6.46126971 20.9053396,6.68513259 C20.9668779,6.77033951 21,6.87277228 21,6.97787787 L21,17 C21,18.1045695 20.1045695,19 19,19 L5,19 C3.8954305,19 3,18.1045695 3,17 L3,6.97787787 C3,6.70173549 3.22385763,6.47787787 3.5,6.47787787 C3.60510559,6.47787787 3.70753836,6.51099993 3.79274528,6.57253826 Z\"\r\n                                                            id=\"Combined-Shape\" fill=\"#000000\"></path>\r\n                                                    </g>\r\n                                                </svg>  -->\r\n                                            </span>\r\n                                            <span class=\"kt-widget__desc\">\r\n                                                WorkOut\r\n                                            </span>\r\n                                        </span>\r\n                                    </a>\r\n                                </div>\r\n                                <!-- end -->\r\n                            </div>\r\n                        </div>\r\n                        <!--end::Widget -->\r\n                        <!--end::Widget -->\r\n                    </div>\r\n                </div>\r\n                <!--end:: Widgets/Applications/User/Profile1-->\r\n\r\n            </div>\r\n            <!--End:: App Aside-->\r\n\r\n            <!--Begin:: App Content-->\r\n            <div class=\"kt-grid__item kt-grid__item--fluid kt-app__content\">\r\n                <router-outlet></router-outlet>\r\n            </div>\r\n            <!--End:: App Content-->\r\n        </div>\r\n        <!--End::App-->\r\n    </div>\r\n    <!-- end:: Content -->\r\n</div>"
+module.exports = "<!-- <ng-container>\r\n\r\n        <div class='row'>\r\n            <div class='col-3'>\r\n        <mat-sidenav #drawer class=\"sidenav\" fixedInViewport='false'\r\n            [attr.role]=\"(isHandset$ | async) ? 'dialog' : 'navigation'\" [mode]=\"(isHandset$ | async) ? 'over' : 'side'\"\r\n            [opened]=\"!(isHandset$ | async)\">\r\n\r\n            <mat-nav-list>\r\n                <a mat-list-item [routerLink]=\"['about-member']\" routerLinkActive=\"router-link-active\">Details</a>\r\n                <a mat-list-item href=\"#\">Membership</a>\r\n                <a mat-list-item href=\"#\">Payments</a>\r\n            </mat-nav-list>\r\n        </mat-sidenav>\r\n    </div>\r\n    <div class=\"col-9 sidenav\">\r\n\r\n    </div>\r\n</div> -->\r\n\r\n<!-- <mat-toolbar color='primary' *ngIf=\"isHandset$ | async\" >\r\n                <button type=\"button\" aria-label=\"Toggle sidenav\" mat-icon-button (click)=\"drawer.toggle()\"\r\n                    *ngIf=\"isHandset$ | async\">\r\n                    <mat-icon aria-label=\"Side nav toggle icon\">menu</mat-icon>\r\n                </button>\r\n                <span></span>\r\n        </mat-toolbar>\r\n\r\n  <div id=\"main\">\r\n        <mat-sidenav #drawer class=\"sidenav\" fixedInViewport='false'\r\n        [attr.role]=\"(isHandset$ | async) ? 'dialog' : 'navigation'\" [mode]=\"(isHandset$ | async) ? 'over' : 'side'\"\r\n        [opened]=\"!(isHandset$ | async)\">\r\n\r\n        <mat-nav-list>\r\n            <a mat-list-item [routerLink]=\"['about-member']\" routerLinkActive=\"router-link-active\">Details</a>\r\n            <a mat-list-item href=\"#\">Membership</a>\r\n            <a mat-list-item href=\"#\">Payments</a>\r\n        </mat-nav-list>\r\n    </mat-sidenav>\r\n    <article>\r\n            <router-outlet></router-outlet>\r\n    </article>\r\n  </div> -->\r\n<!--begin::Global Theme Styles(used by all pages) -->\r\n\r\n<!--end::Global Theme Styles -->\r\n\r\n<!--begin::Layout Skins(used by all pages) -->\r\n\r\n\r\n<!--begin::Global Theme Styles(used by all pages) -->\r\n\r\n<!--end::Global Theme Styles -->\r\n\r\n<!--begin::Layout Skins(used by all pages) -->\r\n\r\n\r\n<div class=\"kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor\">\r\n\r\n    <!-- end:: Subheader -->\r\n    <!-- begin:: Content -->\r\n    <div class=\"kt-content  kt-grid__item kt-grid__item--fluid\" id=\"kt_content\">\r\n        <!--Begin::App-->\r\n        <div class=\"kt-grid kt-grid--desktop kt-grid--ver kt-grid--ver-desktop kt-app\">\r\n            <!--Begin:: App Aside Mobile Toggle-->\r\n            <button class=\"kt-app__aside-close\" id=\"kt_user_profile_aside_close\">\r\n                <i class=\"la la-close\"></i>\r\n            </button>\r\n            <!--End:: App Aside Mobile Toggle-->\r\n\r\n            <!--Begin:: App Aside-->\r\n            <div class=\"kt-grid__item kt-app__toggle kt-app__aside\" id=\"kt_user_profile_aside\">\r\n                <!--begin:: Widgets/Applications/User/Profile1-->\r\n                <div class=\"kt-portlet kt-portlet--height-fluid-\">\r\n                    <div class=\"kt-portlet__head  kt-portlet__head--noborder\">\r\n                        <div class=\"kt-portlet__head-label\">\r\n                            <h3 class=\"kt-portlet__head-title\">\r\n                            </h3>\r\n                        </div>\r\n                      \r\n                    </div>\r\n                    <div class=\"kt-portlet__body kt-portlet__body--fit-y\">\r\n                        <!--begin::Widget -->\r\n                        <!--begin::Widget -->\r\n                        <div class=\"kt-widget kt-widget--user-profile-1\">\r\n                            <div class=\"kt-widget__head\">\r\n                                <div class=\"kt-widget__media\" *ngIf=\"member\">\r\n\r\n                                    <img *ngIf=\"!member.image_profile\" style=\"min-height: 150px;\"\r\n                                        src=\"http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image\" />\r\n                                    <img *ngIf=\"member.image_profile\" style=\"min-height: 150px;\"\r\n                                        src=\"{{member.image_profile}}\" />\r\n                                </div>\r\n                                <div *ngIf=\"member\" class=\"kt-widget__content\">\r\n                                    <div class=\"kt-widget__section\">\r\n                                        <a   class=\"kt-widget__username\">\r\n                                            {{member.name}}\r\n                                            <i class=\"flaticon2-correct kt-font-success\"></i>\r\n                                        </a>\r\n                                        <span class=\"kt-widget__subtitle\">\r\n                                            {{member.username}}\r\n                                        </span>\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n                            <div class=\"kt-widget__body\">\r\n                                <!-- content data in a sidebar -->\r\n                                <!-- begin -->\r\n                                <div *ngIf=\"member\" class=\"kt-widget__content\">\r\n                                    <div class=\"kt-widget__info\">\r\n                                        <span class=\"kt-widget__label\">Email:</span>\r\n                                        <a class=\"kt-widget__data\">{{member.email}}</a>\r\n                                    </div>\r\n                                    <div class=\"kt-widget__info\">\r\n                                        <span class=\"kt-widget__label\">Phone:</span>\r\n                                        <a class=\"kt-widget__data\">{{member.phone}}</a>\r\n                                    </div>\r\n                                    <div class=\"kt-widget__info\">\r\n                                        <span class=\"kt-widget__label\">Location:</span>\r\n                                        <span class=\"kt-widget__data\">{{member.addressLine}}</span>\r\n                                    </div>\r\n                                </div>\r\n                                <!-- end -->\r\n                                <!-- tabs of member data -->\r\n                                <!-- begin -->\r\n                                <div class=\"kt-widget__items\">\r\n                                    <a [routerLink]=\"['about']\" routerLinkActive=\"router-link-active\"\r\n                                        (click)=\"event('about-member')\"\r\n                                        [ngClass]=\"{'kt-widget__item--active':(value=='about-member'),'kt-widget__item':true}\">\r\n                                        <span class=\"kt-widget__section\">\r\n                                            <span class=\"kt-widget__icon\">\r\n                                                <svg xmlns=\"http://www.w3.org/2000/svg\"\r\n                                                    xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"24px\"\r\n                                                    height=\"24px\" viewBox=\"0 0 24 24\" version=\"1.1\" class=\"kt-svg-icon\">\r\n                                                    <g stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\">\r\n                                                        <polygon id=\"Bound\" points=\"0 0 24 0 24 24 0 24\"></polygon>\r\n                                                        <path\r\n                                                            d=\"M12.9336061,16.072447 L19.36,10.9564761 L19.5181585,10.8312381 C20.1676248,10.3169571 20.2772143,9.3735535 19.7629333,8.72408713 C19.6917232,8.63415859 19.6104327,8.55269514 19.5206557,8.48129411 L12.9336854,3.24257445 C12.3871201,2.80788259 11.6128799,2.80788259 11.0663146,3.24257445 L4.47482784,8.48488609 C3.82645598,9.00054628 3.71887192,9.94418071 4.23453211,10.5925526 C4.30500305,10.6811601 4.38527899,10.7615046 4.47382636,10.8320511 L4.63,10.9564761 L11.0659024,16.0730648 C11.6126744,16.5077525 12.3871218,16.5074963 12.9336061,16.072447 Z\"\r\n                                                            id=\"Shape\" fill=\"#000000\" fill-rule=\"nonzero\"></path>\r\n                                                        <path\r\n                                                            d=\"M11.0563554,18.6706981 L5.33593024,14.122919 C4.94553994,13.8125559 4.37746707,13.8774308 4.06710397,14.2678211 C4.06471678,14.2708238 4.06234874,14.2738418 4.06,14.2768747 L4.06,14.2768747 C3.75257288,14.6738539 3.82516916,15.244888 4.22214834,15.5523151 C4.22358765,15.5534297 4.2250303,15.55454 4.22647627,15.555646 L11.0872776,20.8031356 C11.6250734,21.2144692 12.371757,21.2145375 12.909628,20.8033023 L19.7677785,15.559828 C20.1693192,15.2528257 20.2459576,14.6784381 19.9389553,14.2768974 C19.9376429,14.2751809 19.9363245,14.2734691 19.935,14.2717619 L19.935,14.2717619 C19.6266937,13.8743807 19.0546209,13.8021712 18.6572397,14.1104775 C18.654352,14.112718 18.6514778,14.1149757 18.6486172,14.1172508 L12.9235044,18.6705218 C12.377022,19.1051477 11.6029199,19.1052208 11.0563554,18.6706981 Z\"\r\n                                                            id=\"Path\" fill=\"#000000\" opacity=\"0.3\"></path>\r\n                                                    </g>\r\n                                                </svg> </span>\r\n                                            <span class=\"kt-widget__desc\">\r\n                                                Profile Overview\r\n                                            </span>\r\n                                        </span>\r\n                                    </a>\r\n                                    <a [routerLink]=\"['memership/list']\" (click)=\"event('membership-list')\"\r\n                                        [ngClass]=\"{'kt-widget__item--active':(value=='membership-list'),'kt-widget__item':true}\">\r\n                                        <span class=\"kt-widget__section\">\r\n                                            <span class=\"kt-widget__icon\">\r\n                                                <svg xmlns=\"http://www.w3.org/2000/svg\"\r\n                                                    xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"24px\"\r\n                                                    height=\"24px\" viewBox=\"0 0 24 24\" version=\"1.1\" class=\"kt-svg-icon\">\r\n                                                    <g stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\">\r\n                                                        <polygon id=\"Shape\" points=\"0 0 24 0 24 24 0 24\"></polygon>\r\n                                                        <path\r\n                                                            d=\"M12,11 C9.790861,11 8,9.209139 8,7 C8,4.790861 9.790861,3 12,3 C14.209139,3 16,4.790861 16,7 C16,9.209139 14.209139,11 12,11 Z\"\r\n                                                            id=\"Mask\" fill=\"#000000\" fill-rule=\"nonzero\" opacity=\"0.3\">\r\n                                                        </path>\r\n                                                        <path\r\n                                                            d=\"M3.00065168,20.1992055 C3.38825852,15.4265159 7.26191235,13 11.9833413,13 C16.7712164,13 20.7048837,15.2931929 20.9979143,20.2 C21.0095879,20.3954741 20.9979143,21 20.2466999,21 C16.541124,21 11.0347247,21 3.72750223,21 C3.47671215,21 2.97953825,20.45918 3.00065168,20.1992055 Z\"\r\n                                                            id=\"Mask-Copy\" fill=\"#000000\" fill-rule=\"nonzero\"></path>\r\n                                                    </g>\r\n                                                </svg> </span>\r\n                                            <span class=\"kt-widget__desc\">\r\n                                                Membership\r\n                                            </span>\r\n                                        </span>\r\n                                    </a>\r\n                                    <a [routerLink]=\"['payment']\" (click)=\"event('payment-member')\"\r\n                                        [ngClass]=\"{'kt-widget__item--active':(value=='payment-member'),'kt-widget__item':true}\">\r\n                                        <span class=\"kt-widget__section\">\r\n                                            <span class=\"kt-widget__icon\">\r\n                                                <svg xmlns=\"http://www.w3.org/2000/svg\"\r\n                                                    xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"24px\"\r\n                                                    height=\"24px\" viewBox=\"0 0 24 24\" version=\"1.1\" class=\"kt-svg-icon\">\r\n                                                    <g stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\">\r\n                                                        <rect id=\"bound\" x=\"0\" y=\"0\" width=\"24\" height=\"24\"></rect>\r\n                                                        <path\r\n                                                            d=\"M2.56066017,10.6819805 L4.68198052,8.56066017 C5.26776695,7.97487373 6.21751442,7.97487373 6.80330086,8.56066017 L8.9246212,10.6819805 C9.51040764,11.267767 9.51040764,12.2175144 8.9246212,12.8033009 L6.80330086,14.9246212 C6.21751442,15.5104076 5.26776695,15.5104076 4.68198052,14.9246212 L2.56066017,12.8033009 C1.97487373,12.2175144 1.97487373,11.267767 2.56066017,10.6819805 Z M14.5606602,10.6819805 L16.6819805,8.56066017 C17.267767,7.97487373 18.2175144,7.97487373 18.8033009,8.56066017 L20.9246212,10.6819805 C21.5104076,11.267767 21.5104076,12.2175144 20.9246212,12.8033009 L18.8033009,14.9246212 C18.2175144,15.5104076 17.267767,15.5104076 16.6819805,14.9246212 L14.5606602,12.8033009 C13.9748737,12.2175144 13.9748737,11.267767 14.5606602,10.6819805 Z\"\r\n                                                            id=\"Combined-Shape\" fill=\"#000000\" opacity=\"0.3\"></path>\r\n                                                        <path\r\n                                                            d=\"M8.56066017,16.6819805 L10.6819805,14.5606602 C11.267767,13.9748737 12.2175144,13.9748737 12.8033009,14.5606602 L14.9246212,16.6819805 C15.5104076,17.267767 15.5104076,18.2175144 14.9246212,18.8033009 L12.8033009,20.9246212 C12.2175144,21.5104076 11.267767,21.5104076 10.6819805,20.9246212 L8.56066017,18.8033009 C7.97487373,18.2175144 7.97487373,17.267767 8.56066017,16.6819805 Z M8.56066017,4.68198052 L10.6819805,2.56066017 C11.267767,1.97487373 12.2175144,1.97487373 12.8033009,2.56066017 L14.9246212,4.68198052 C15.5104076,5.26776695 15.5104076,6.21751442 14.9246212,6.80330086 L12.8033009,8.9246212 C12.2175144,9.51040764 11.267767,9.51040764 10.6819805,8.9246212 L8.56066017,6.80330086 C7.97487373,6.21751442 7.97487373,5.26776695 8.56066017,4.68198052 Z\"\r\n                                                            id=\"Combined-Shape\" fill=\"#000000\"></path>\r\n                                                    </g>\r\n                                                </svg> </span>\r\n                                            <span class=\"kt-widget__desc\">\r\n                                                Payments\r\n                                            </span>\r\n\r\n                                        </span></a>\r\n                                    <a [routerLink]=\"['agreement']\" (click)=\"event('agreement-member')\"\r\n                                        [ngClass]=\"{'kt-widget__item--active':(value=='agreement-member'),'kt-widget__item':true}\">\r\n                                        <span class=\"kt-widget__section\">\r\n                                            <span class=\"kt-widget__icon\">\r\n                                                <svg xmlns=\"http://www.w3.org/2000/svg\"\r\n                                                    xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"24px\"\r\n                                                    height=\"24px\" viewBox=\"0 0 24 24\" version=\"1.1\" class=\"kt-svg-icon\">\r\n                                                    <g stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\">\r\n                                                        <rect id=\"bound\" x=\"0\" y=\"0\" width=\"24\" height=\"24\"></rect>\r\n                                                        <path\r\n                                                            d=\"M4,4 L11.6314229,2.5691082 C11.8750185,2.52343403 12.1249815,2.52343403 12.3685771,2.5691082 L20,4 L20,13.2830094 C20,16.2173861 18.4883464,18.9447835 16,20.5 L12.5299989,22.6687507 C12.2057287,22.8714196 11.7942713,22.8714196 11.4700011,22.6687507 L8,20.5 C5.51165358,18.9447835 4,16.2173861 4,13.2830094 L4,4 Z\"\r\n                                                            id=\"Path-50\" fill=\"#000000\" opacity=\"0.3\"></path>\r\n                                                        <path\r\n                                                            d=\"M12,11 C10.8954305,11 10,10.1045695 10,9 C10,7.8954305 10.8954305,7 12,7 C13.1045695,7 14,7.8954305 14,9 C14,10.1045695 13.1045695,11 12,11 Z\"\r\n                                                            id=\"Mask\" fill=\"#000000\" opacity=\"0.3\"></path>\r\n                                                        <path\r\n                                                            d=\"M7.00036205,16.4995035 C7.21569918,13.5165724 9.36772908,12 11.9907452,12 C14.6506758,12 16.8360465,13.4332455 16.9988413,16.5 C17.0053266,16.6221713 16.9988413,17 16.5815,17 C14.5228466,17 11.463736,17 7.4041679,17 C7.26484009,17 6.98863236,16.6619875 7.00036205,16.4995035 Z\"\r\n                                                            id=\"Mask-Copy\" fill=\"#000000\" opacity=\"0.3\"></path>\r\n                                                    </g>\r\n                                                </svg> </span>\r\n                                            <span class=\"kt-widget__desc\">\r\n                                                Agreement\r\n                                            </span>\r\n                                        </span>\r\n              \r\n                                    </a>\r\n                                    <a [routerLink]=\"['reschedule']\" (click)=\"event('reschedule')\"\r\n                                        [ngClass]=\"{'kt-widget__item--active':(value=='reschedul'),'kt-widget__item':true}\">\r\n                                        <span class=\"kt-widget__section\">\r\n                                            <span class=\"kt-widget__icon\">\r\n                                                <svg xmlns=\"http://www.w3.org/2000/svg\"\r\n                                                    xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"24px\"\r\n                                                    height=\"24px\" viewBox=\"0 0 24 24\" version=\"1.1\" class=\"kt-svg-icon\">\r\n                                                    <g stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\">\r\n                                                        <rect id=\"bound\" x=\"0\" y=\"0\" width=\"24\" height=\"24\"></rect>\r\n                                                        <path\r\n                                                            d=\"M6,2 L18,2 C18.5522847,2 19,2.44771525 19,3 L19,12 C19,12.5522847 18.5522847,13 18,13 L6,13 C5.44771525,13 5,12.5522847 5,12 L5,3 C5,2.44771525 5.44771525,2 6,2 Z M7.5,5 C7.22385763,5 7,5.22385763 7,5.5 C7,5.77614237 7.22385763,6 7.5,6 L13.5,6 C13.7761424,6 14,5.77614237 14,5.5 C14,5.22385763 13.7761424,5 13.5,5 L7.5,5 Z M7.5,7 C7.22385763,7 7,7.22385763 7,7.5 C7,7.77614237 7.22385763,8 7.5,8 L10.5,8 C10.7761424,8 11,7.77614237 11,7.5 C11,7.22385763 10.7761424,7 10.5,7 L7.5,7 Z\"\r\n                                                            id=\"Combined-Shape\" fill=\"#000000\" opacity=\"0.3\"></path>\r\n                                                        <path\r\n                                                            d=\"M3.79274528,6.57253826 L12,12.5 L20.2072547,6.57253826 C20.4311176,6.4108595 20.7436609,6.46126971 20.9053396,6.68513259 C20.9668779,6.77033951 21,6.87277228 21,6.97787787 L21,17 C21,18.1045695 20.1045695,19 19,19 L5,19 C3.8954305,19 3,18.1045695 3,17 L3,6.97787787 C3,6.70173549 3.22385763,6.47787787 3.5,6.47787787 C3.60510559,6.47787787 3.70753836,6.51099993 3.79274528,6.57253826 Z\"\r\n                                                            id=\"Combined-Shape\" fill=\"#000000\"></path>\r\n                                                    </g>\r\n                                                </svg> </span>\r\n                                            <span class=\"kt-widget__desc\">\r\n                                                Reschedule\r\n                                            </span>\r\n                                        </span> \r\n                                    </a>\r\n                                    <a [routerLink]=\"['workout']\" (click)=\"event('workout')\"\r\n                                        [ngClass]=\"{'kt-widget__item--active':(value=='workout'),'kt-widget__item':true}\">\r\n                                        <span class=\"kt-widget__section\">\r\n                                            <span class=\"kt-widget__icon\">\r\n                                                    <i class=\"material-icons\">accessibility</i>\r\n                                                <!-- <svg xmlns=\"http://www.w3.org/2000/svg\"\r\n                                                    xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"24px\"\r\n                                                    height=\"24px\" viewBox=\"0 0 24 24\" version=\"1.1\" class=\"kt-svg-icon\">\r\n                                                    <g stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\">\r\n                                                        <rect id=\"bound\" x=\"0\" y=\"0\" width=\"24\" height=\"24\"></rect>\r\n                                                        <path\r\n                                                            d=\"M6,2 L18,2 C18.5522847,2 19,2.44771525 19,3 L19,12 C19,12.5522847 18.5522847,13 18,13 L6,13 C5.44771525,13 5,12.5522847 5,12 L5,3 C5,2.44771525 5.44771525,2 6,2 Z M7.5,5 C7.22385763,5 7,5.22385763 7,5.5 C7,5.77614237 7.22385763,6 7.5,6 L13.5,6 C13.7761424,6 14,5.77614237 14,5.5 C14,5.22385763 13.7761424,5 13.5,5 L7.5,5 Z M7.5,7 C7.22385763,7 7,7.22385763 7,7.5 C7,7.77614237 7.22385763,8 7.5,8 L10.5,8 C10.7761424,8 11,7.77614237 11,7.5 C11,7.22385763 10.7761424,7 10.5,7 L7.5,7 Z\"\r\n                                                            id=\"Combined-Shape\" fill=\"#000000\" opacity=\"0.3\"></path>\r\n                                                        <path\r\n                                                            d=\"M3.79274528,6.57253826 L12,12.5 L20.2072547,6.57253826 C20.4311176,6.4108595 20.7436609,6.46126971 20.9053396,6.68513259 C20.9668779,6.77033951 21,6.87277228 21,6.97787787 L21,17 C21,18.1045695 20.1045695,19 19,19 L5,19 C3.8954305,19 3,18.1045695 3,17 L3,6.97787787 C3,6.70173549 3.22385763,6.47787787 3.5,6.47787787 C3.60510559,6.47787787 3.70753836,6.51099993 3.79274528,6.57253826 Z\"\r\n                                                            id=\"Combined-Shape\" fill=\"#000000\"></path>\r\n                                                    </g>\r\n                                                </svg>  -->\r\n                                            </span>\r\n                                            <span class=\"kt-widget__desc\">\r\n                                                WorkOut\r\n                                            </span>\r\n                                        </span>\r\n                                    </a>\r\n                                </div>\r\n                                <!-- end -->\r\n                            </div>\r\n                        </div>\r\n                        <!--end::Widget -->\r\n                        <!--end::Widget -->\r\n                    </div>\r\n                </div>\r\n                <!--end:: Widgets/Applications/User/Profile1-->\r\n\r\n            </div>\r\n            <!--End:: App Aside-->\r\n\r\n            <!--Begin:: App Content-->\r\n            <div class=\"kt-grid__item kt-grid__item--fluid kt-app__content\">\r\n                <router-outlet></router-outlet>\r\n            </div>\r\n            <!--End:: App Content-->\r\n        </div>\r\n        <!--End::App-->\r\n    </div>\r\n    <!-- end:: Content -->\r\n</div>"
 
 /***/ }),
 
@@ -730,7 +918,8 @@ var router_1 = __webpack_require__(/*! @angular/router */ "./node_modules/@angul
 var members_service_1 = __webpack_require__(/*! ./../members.service */ "./src/app/views/pages/members/members.service.ts");
 var router_2 = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 var MemberProfileComponent = /** @class */ (function () {
-    function MemberProfileComponent(memberService, route, router) {
+    function MemberProfileComponent(changeDetectRef, memberService, route, router) {
+        this.changeDetectRef = changeDetectRef;
         this.memberService = memberService;
         this.route = route;
         this.router = router;
@@ -757,15 +946,38 @@ var MemberProfileComponent = /** @class */ (function () {
         //let id= this.route.params['id']
         var _this = this;
         var id = this.route.snapshot.paramMap.get('id');
-        this.memberService.getMemberById(id).subscribe(function (res) {
-            if (res['result']) {
-                _this.member = res['users'][0];
-                _this.nameImage = _this.member['name'][0];
-            }
-        });
+        if (this.checkedpermission('getallusers')) {
+            this.memberService.getMemberById(id).subscribe(function (res) {
+                if (res['result']) {
+                    _this.member = res['users'][0];
+                    _this.nameImage = _this.member['name'][0];
+                    _this.changeDetectRef.detectChanges();
+                }
+            });
+        }
     };
     MemberProfileComponent.prototype.event = function (value) {
         this.value = value;
+    };
+    MemberProfileComponent.prototype.checkedpermission = function (key) {
+        var checked = false;
+        if (localStorage.getItem('user')) {
+            if (JSON.parse(localStorage.getItem('user'))) {
+                var user = JSON.parse(localStorage.getItem('user'));
+                if (user['allPrivilidge']) {
+                    var privilidge_1 = user['allPrivilidge'];
+                    Object.keys(privilidge_1).forEach(function (role) {
+                        Object.keys(privilidge_1[role]).forEach(function (pri) {
+                            var per = (privilidge_1[role][pri].toString()).trim();
+                            if (key.trim() == per) {
+                                checked = true;
+                            }
+                        });
+                    });
+                }
+            }
+        }
+        return checked;
     };
     MemberProfileComponent = __decorate([
         core_1.Component({
@@ -773,7 +985,8 @@ var MemberProfileComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./member-profile.component.html */ "./src/app/views/pages/members/member-profile/member-profile.component.html"),
             styles: [__webpack_require__(/*! ./member-profile.component.scss */ "./src/app/views/pages/members/member-profile/member-profile.component.scss")]
         }),
-        __metadata("design:paramtypes", [members_service_1.MembersService,
+        __metadata("design:paramtypes", [core_1.ChangeDetectorRef,
+            members_service_1.MembersService,
             router_1.ActivatedRoute,
             router_2.Router])
     ], MemberProfileComponent);
@@ -1516,7 +1729,7 @@ exports.SelectMembershipComponent = SelectMembershipComponent;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\r\n  <div class=\"col-xl-12\">\r\n    <div class=\"kt-portlet\">\r\n        <kt-portlet-header [title]=\"'Membership List'\" [class]=\"'kt-portlet__head--lg'\">\r\n            <ng-container ktPortletTools>\r\n              <button [routerLink]=\"['/default/members/add',pub_key,'select']\" mat-raised-button color=\"primary\" matTooltip=\"Add Membership\">Add\r\n                Membership</button>\r\n              <!-- Buttons (Material Angular) | See off.documenations 'https://material.angular.io/components/button/overview' -->\r\n              <!-- mat-raised-button | Rectangular contained button w/ elevation  -->\r\n            </ng-container>\r\n          </kt-portlet-header>\r\n       \r\n        <div class=\"kt-portlet__body\">\r\n           \r\n          <!-- start::FILTERS -->\r\n          <div class=\"kt-form__filtration\">\r\n            <div class=\"row align-items-center\">\r\n\r\n              <div class=\"col-md-2 kt-margin-bottom-10-mobile\">\r\n                <mat-form-field class=\"mat-form-field-fluid\">\r\n                  <input matInput placeholder=\"Search user\" [(ngModel)]=\"SearchKey\" placeholder=\"Search\"\r\n                    (keyup)=\"applyFilter()\">\r\n                  <button mat-button matSuffix mat-icon-button aria-label=\"Clear\" *ngIf=\"SearchKey\"\r\n                    (click)=\"onSearchClear()\">\r\n                    <mat-icon>close</mat-icon>\r\n                  </button>\r\n                  <mat-hint align=\"start\">\r\n                    <strong>Search</strong> in all fields\r\n                  </mat-hint>\r\n                </mat-form-field>\r\n              </div>\r\n\r\n              <div class=\"col-md-2 kt-margin-bottom-10-mobile\">\r\n                <!-- 'm  margin-bottom-10-mobile' for adaptive make-up  -->\r\n                <div class=\"kt-form__control\">\r\n                  <mat-form-field class=\"mat-form-field-fluid\">\r\n                    <mat-select [(value)]=\"filterStatus\" (selectionChange)=\"applyFilter()\">\r\n                      <mat-option value=\"\">All</mat-option>\r\n                      <mat-option value=\"true\">Active</mat-option>\r\n                      <mat-option value=\"false\">Deactive</mat-option>\r\n                    </mat-select>\r\n                    <mat-hint align=\"start\">\r\n                      <strong>Filter</strong> by Status\r\n                    </mat-hint>\r\n                  </mat-form-field>\r\n                </div>\r\n              </div>\r\n\r\n              <div class=\"col-md-2 kt-margin-bottom-10-mobile\">\r\n                <div class=\"kt-form__control\">\r\n                  <mat-form-field class=\"mat-form-field-fluid\">\r\n                    <mat-select [(value)]=\"filterSchedual\" (selectionChange)=\"applyFilter()\">\r\n                      <mat-option value=\"\">All</mat-option>\r\n                      <mat-option *ngFor=\"let value of getallschedual\"  [value]=\"value.value\">\r\n                        {{value.key}}\r\n                      </mat-option>\r\n                    </mat-select>\r\n                    <mat-hint align=\"start\">\r\n                      <strong>Filter</strong> by schedual status\r\n                    </mat-hint>\r\n                  </mat-form-field>\r\n                </div>\r\n              </div>\r\n\r\n              <div class=\"col-md-2 kt-margin-bottom-10-mobile\">\r\n                <div class=\"kt-form__control\">\r\n                  <mat-form-field class=\"mat-form-field-fluid\">\r\n                    <mat-select [(value)]=\"filterPayment\" (selectionChange)=\"applyFilter()\">\r\n                      <mat-option value=\"\">All</mat-option>\r\n                      <mat-option *ngFor=\"let value of getallpayment\"  [value]=\"value.value\">\r\n                        {{value.key}}\r\n                      </mat-option>\r\n                    </mat-select>\r\n                    <mat-hint align=\"start\">\r\n                      <strong>Filter</strong> by Payment Status\r\n                    </mat-hint>\r\n                  </mat-form-field>\r\n                </div>\r\n              </div>\r\n\r\n              <div class=\"col-md-2 kt-margin-bottom-10-mobile\">\r\n                <div class=\"kt-form__control\">\r\n                  <mat-form-field class=\"mat-form-field-fluid\">\r\n                    <mat-select [(value)]=\"orderby\" (selectionChange)=\"applyFilter()\">\r\n                      <mat-option *ngFor=\"let value of oderitems\"  [value]=\"value.value\">\r\n                        {{value.key}}\r\n                      </mat-option>\r\n                    </mat-select>\r\n                    <mat-hint align=\"start\">\r\n                      <strong>Order By</strong>\r\n                    </mat-hint>\r\n                  </mat-form-field>\r\n                </div>\r\n              </div>\r\n\r\n              <div class=\"col-md-2 kt-margin-bottom-10-mobile\">\r\n                <div class=\"kt-form__control\">\r\n                  <mat-form-field class=\"mat-form-field-fluid\">\r\n                      <mat-label>Select an option</mat-label>\r\n                    <mat-select [(value)]=\"order\" (selectionChange)=\"applyFilter()\">\r\n                      <mat-option value=\"-1\">Descending</mat-option>\r\n                      <mat-option value=\"1\">Ascending</mat-option>\r\n                    </mat-select>\r\n                    <mat-hint align=\"start\">\r\n                      <strong>Order Type</strong>\r\n                    </mat-hint>\r\n                  </mat-form-field>\r\n                </div>\r\n              </div>\r\n\r\n            </div>\r\n          </div>\r\n          <!-- end::FILTERS -->\r\n\r\n       <div class=\"kt-space-30\"></div>\r\n\r\n                <div class=\"example-loading-shade\"\r\n                  *ngIf=\"isLoadingResults || isRateLimitReached\">\r\n                  <mat-spinner *ngIf=\"isLoadingResults\"></mat-spinner>\r\n                  <div class=\"example-rate-limit-reached\" *ngIf=\"isRateLimitReached\">\r\n                  this no data\r\n                  </div>\r\n                </div>\r\n                <mat-table #table [dataSource]=\"dataSource\" class=\"example-table\"\r\n                matSort matSortActive=\"increment\" matSortDisableClear matSortDirection=\"asc\"  >\r\n                  <!--- Note that these columns can be defined in any order.\r\n                  The actual rendered columns are set as a property on the row definition\" -->\r\n                  <!-- Number Column -->\r\n                  <ng-container  matColumnDef=\"increment\">\r\n                    <mat-header-cell *matHeaderCellDef>#</mat-header-cell>\r\n                    <mat-cell *matCellDef=\"let row\">{{ row.increment }}</mat-cell>\r\n                  </ng-container>\r\n\r\n\r\n                  <ng-container matColumnDef=\"package_name\">\r\n                    <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>\r\n                    <mat-cell *matCellDef=\"let row\"><div style=\"margin: 0 auto;\"class=\"kt-section ml-0\">\r\n                   \r\n                        <div class=\"kt-section__content\">\r\n                        <a class=\"nounderline\" ngbPopover=\"Discount :{{row.discount}}\" triggers=\"mouseenter:mouseleave\"\r\n                            popoverTitle=\"Membership details \">\r\n                           {{row.package_name}}\r\n                        </a>\r\n                        </div>\r\n                      </div>\r\n                      \r\n                     </mat-cell>\r\n                  </ng-container>\r\n                  <ng-container matColumnDef=\"actions\" >\r\n                    <mat-header-cell *matHeaderCellDef >Actions</mat-header-cell>\r\n                    <mat-cell *matCellDef=\"let row\">\r\n                        <button mat-icon-button [matMenuTriggerFor]=\"menu\"\r\n                        #menuTrigger=\"matMenuTrigger\" (click)=\"menuTrigger.openMenu()\">\r\n                        <mat-icon>more_vert </mat-icon>\r\n                        </button>\r\n                        <mat-menu #menu=\"matMenu\" [overlapTrigger]=\"false\">\r\n                            <span (mouseleave)=\"menuTrigger.closeMenu()\">\r\n                              <button mat-menu-item>\r\n                              <mat-slide-toggle\r\n                                [checked]=\"row.status === 'true' ? true : false\"\r\n                                (change)=\"changeLablesPositions(row._id,$event)\">\r\n                              </mat-slide-toggle>\r\n                             </button>\r\n                              <button *ngIf=\"(row.package_type =='package' && row.payment_status=='complete' && row.schedual_status=='complete')\" [routerLink]=\"['/default/members/add',this.pub_key,'select']\"[queryParams]=\"{status:'renew',pe:row._id,uk:row.units_key,ed:row.end_date,mb:row.membership_id,md:row.discount,type:row.type}\" routerLinkActive=\"router-link-active\"  mat-menu-item >\r\n                                <span>Renew</span>\r\n                             </button>\r\n                             <button *ngIf=\"(row.package_type =='package' && row.payment_status=='complete' && row.schedual_status=='complete')\" [routerLink]=\"['/default/members/add',this.pub_key,'select']\"[queryParams]=\"{pe:row._id,uk:row.units_key,status:'upgrade',mb:row.membership_id,md:row.discount}\" routerLinkActive=\"router-link-active\"  mat-menu-item >\r\n                                <span>Upgrade</span>\r\n                             </button>\r\n                             <button *ngIf=\"(row.package_type =='package' && row.payment_status=='complete' && row.schedual_status=='complete')\" [routerLink]=\"['/default/members/add',this.pub_key,'select']\"[queryParams]=\"{pe:row._id,uk:row.units_key,status:'downgrade',mb:row.membership_id,md:row.discount,type:row.type}\" routerLinkActive=\"router-link-active\"  mat-menu-item >\r\n                                <span>Downgrade</span>\r\n                             </button>\r\n                            </span>\r\n                        </mat-menu>\r\n                    </mat-cell>\r\n                  </ng-container>\r\n                  <!-- <ng-container matColumnDef=\"status\">\r\n                      <mat-header-cell *matHeaderCellDef>status</mat-header-cell>\r\n                      <mat-cell *matCellDef=\"let row\">\r\n                          <mat-slide-toggle\r\n                          [checked]=\"row.status === 'true' ? true : false\"\r\n                          (change)=\"changeLablesPositions(row._id,$event)\">\r\n                      </mat-slide-toggle>\r\n                      </mat-cell>\r\n                    </ng-container> -->\r\n                  <ng-container  matColumnDef=\"schedual_status\">\r\n                      <mat-header-cell *matHeaderCellDef>Schedual\r\n                      </mat-header-cell>\r\n                      <mat-cell  *matCellDef=\"let row\">\r\n                        <span *ngIf=\"row.schedual_status=='pending'\">\r\n                          <!-- se_id mean selected package id -->\r\n                          <a (click)='accessPackageData(row)'[routerLink]=\"['/default/members/add',pub_key,'schedule',row.membership_id]\" [queryParams]=\"{'iu':row.units_key,'se_id':row._id,'date': row.start_date}\" routerLinkActive=\"router-link-active\" ><span class=\"kt-badge kt-badge--inline kt-badge--pill kt-badge--warning kt-badge--wide\">{{ row.schedual_status}}</span></a>\r\n                        </span>\r\n                        <span *ngIf=\"!(row.schedual_status=='pending' && row.schedual_status=='activity')\" class=\"kt-badge kt-badge--inline kt-badge--pill kt-badge--success kt-badge--wide\">{{ row.schedual_status}}\r\n                        </span>\r\n                      </mat-cell>\r\n                  </ng-container>\r\n                  <ng-container matColumnDef=\"price\">\r\n                    <mat-header-cell *matHeaderCellDef>Price</mat-header-cell>\r\n                    <mat-cell *matCellDef=\"let row\">{{ row.fees }}</mat-cell>\r\n                  </ng-container>\r\n\r\n                  <ng-container matColumnDef=\"start_date\">\r\n                    \r\n                    <mat-header-cell *matHeaderCellDef>Start Date\r\n                    </mat-header-cell>\r\n                    <mat-cell *matCellDef=\"let row\">{{ row.start_date | date }}</mat-cell>\r\n                  </ng-container>\r\n                  <ng-container matColumnDef=\"end_date\">\r\n                    <mat-header-cell *matHeaderCellDef>End Date\r\n                    </mat-header-cell>\r\n                    <mat-cell *matCellDef=\"let row\">{{ row.end_date | date }}</mat-cell>\r\n                  </ng-container>\r\n                  <ng-container  matColumnDef=\"payment_status\">\r\n                      <mat-header-cell *matHeaderCellDef>Payment\r\n                      </mat-header-cell>\r\n                      <mat-cell  *matCellDef=\"let row\"><span *ngIf=\"row.payment_status=='pending'\"><a (click)='accessPackageData(row)'[routerLink]=\"['/default/members/add',pub_key,'payment-cart',row._id]\"  routerLinkActive=\"router-link-active\" ><span class=\"kt-badge kt-badge--inline kt-badge--pill kt-badge--warning kt-badge--wide\">{{ row.payment_status}}</span></a></span>\r\n                        <span *ngIf=\"!(row.payment_status=='pending')\" class=\"kt-badge kt-badge--inline kt-badge--pill kt-badge--success kt-badge--wide\">{{ row.payment_status}}</span>\r\n                      </mat-cell>\r\n                  </ng-container>\r\n                  <ng-container matColumnDef=\"visits\">\r\n                    <mat-header-cell *matHeaderCellDef>Visits\r\n                    </mat-header-cell>\r\n                    <mat-cell *matCellDef=\"let row\">{{ row.visits }}</mat-cell>\r\n                  </ng-container>\r\n                  <mat-header-row *matHeaderRowDef=\"displayedColumnMembership\"></mat-header-row>\r\n                  <mat-row *matRowDef=\"let row; columns: displayedColumnMembership;\"></mat-row>\r\n                </mat-table>\r\n                <mat-paginator (page)=\"nextPage($event)\" [pageSizeOptions]=\"[2,10,25,100]\" [length]=\"1000\" [pageSize]=\"10\">\r\n                </mat-paginator>\r\n               </div>\r\n\r\n    </div>\r\n    <div class=\"kt-portlet\">\r\n        <kt-portlet-header [title]=\"'Benfits List'\" [class]=\"'kt-portlet__head--lg'\">\r\n            <ng-container ktPortletTools>\r\n              <button [routerLink]=\"['/default/user-management/invitations']\" mat-raised-button color=\"primary\" matTooltip=\"add Benfits\">add\r\n                Benfits</button>\r\n              <!-- Buttons (Material Angular) | See off.documenations 'https://material.angular.io/components/button/overview' -->\r\n              <!-- mat-raised-button | Rectangular contained button w/ elevation  -->\r\n            </ng-container>\r\n          </kt-portlet-header>\r\n        <div class=\"kt-portlet__body\">\r\n\r\n                <div class=\"example-header\">\r\n                    <mat-form-field>\r\n                      <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filter\">\r\n                    </mat-form-field>\r\n                  </div>\r\n                <div class=\"example-loading-shade\"\r\n                  *ngIf=\"isLoadingResults || isRateLimitReached\">\r\n                  <mat-spinner *ngIf=\"isLoadingResults\"></mat-spinner>\r\n                  <div class=\"example-rate-limit-reached\" *ngIf=\"isRateLimitReached\">\r\n                  this no data\r\n                  </div>\r\n                </div>\r\n                <mat-table #table [dataSource]=\"dataSource\" class=\"example-table\"\r\n                matSort matSortActive=\"increment\" matSortDisableClear matSortDirection=\"asc\"    >\r\n                  <!--- Note that these columns can be defined in any order.\r\n                  The actual rendered columns are set as a property on the row definition\" -->\r\n                  <!-- Number Column -->\r\n                  <ng-container matColumnDef=\"increment\">\r\n                    <mat-header-cell *matHeaderCellDef>#</mat-header-cell>\r\n                    <mat-cell *matCellDef=\"let row\">{{ row.increment }}</mat-cell>\r\n                  </ng-container>\r\n                  <!-- Column -->\r\n                  additional_service\r\n                  <ng-container matColumnDef=\"additional_invitation\">\r\n                    <mat-header-cell *matHeaderCellDef>Additional Invitation</mat-header-cell>\r\n                    <mat-cell *matCellDef=\"let row\">{{ row.additional_invitation}}</mat-cell>\r\n                  </ng-container>\r\n                  <!-- State Column -->\r\n                  <ng-container matColumnDef=\"additional_service\">\r\n                      <mat-header-cell *matHeaderCellDef>Additional Service</mat-header-cell>\r\n                      <mat-cell *matCellDef=\"let row\">{{ row.additional_service}}</mat-cell>\r\n                    </ng-container>\r\n                  <!-- Created Column -->\r\n                  <ng-container matColumnDef=\"additional_visits\">\r\n                    <mat-header-cell *matHeaderCellDef>Additional Visits\r\n                    </mat-header-cell>\r\n                    <mat-cell *matCellDef=\"let row\">{{ row.additional_visits }}</mat-cell>\r\n                  </ng-container>\r\n\r\n\r\n\r\n\r\n                  <mat-header-row *matHeaderRowDef=\"displayedColumnBenfits\"></mat-header-row>\r\n                  <mat-row *matRowDef=\"let row; columns: displayedColumnBenfits;\"></mat-row>\r\n                </mat-table>\r\n                <mat-paginator (page)=\"nextPage($event)\" [pageSizeOptions]=\"[2,10,25,100]\" [pageSize]=\"10\">\r\n                </mat-paginator>\r\n               </div>\r\n\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"row\">\r\n  <div class=\"col-xl-12\">\r\n    <div class=\"kt-portlet\">\r\n        <kt-portlet-header [title]=\"'Membership List'\" [class]=\"'kt-portlet__head--lg'\">\r\n            <ng-container ktPortletTools>\r\n              <button (click)=\"add()\"mat-raised-button color=\"primary\" matTooltip=\"Add Membership\">Add\r\n                Membership</button>\r\n              <!-- Buttons (Material Angular) | See off.documenations 'https://material.angular.io/components/button/overview' -->\r\n              <!-- mat-raised-button | Rectangular contained button w/ elevation  -->\r\n            </ng-container>\r\n          </kt-portlet-header>\r\n       \r\n        <div class=\"kt-portlet__body\">\r\n           \r\n          <!-- start::FILTERS -->\r\n          <div class=\"kt-form__filtration\">\r\n            <div class=\"row align-items-center\">\r\n\r\n              <div class=\"col-md-2 kt-margin-bottom-10-mobile\">\r\n                <mat-form-field class=\"mat-form-field-fluid\">\r\n                  <input matInput placeholder=\"Search user\" [(ngModel)]=\"SearchKey\" placeholder=\"Search\"\r\n                    (keyup)=\"applyFilter()\">\r\n                  <button mat-button matSuffix mat-icon-button aria-label=\"Clear\" *ngIf=\"SearchKey\"\r\n                    (click)=\"onSearchClear()\">\r\n                    <mat-icon>close</mat-icon>\r\n                  </button>\r\n                  <mat-hint align=\"start\">\r\n                    <strong>Search</strong> in all fields\r\n                  </mat-hint>\r\n                </mat-form-field>\r\n              </div>\r\n\r\n              <div class=\"col-md-2 kt-margin-bottom-10-mobile\">\r\n                <!-- 'm  margin-bottom-10-mobile' for adaptive make-up  -->\r\n                <div class=\"kt-form__control\">\r\n                  <mat-form-field class=\"mat-form-field-fluid\">\r\n                    <mat-select [(value)]=\"filterStatus\" (selectionChange)=\"applyFilter()\">\r\n                      <mat-option value=\"\">All</mat-option>\r\n                      <mat-option value=\"true\">Active</mat-option>\r\n                      <mat-option value=\"false\">Deactive</mat-option>\r\n                    </mat-select>\r\n                    <mat-hint align=\"start\">\r\n                      <strong>Filter</strong> by Status\r\n                    </mat-hint>\r\n                  </mat-form-field>\r\n                </div>\r\n              </div>\r\n\r\n              <div class=\"col-md-2 kt-margin-bottom-10-mobile\">\r\n                <div class=\"kt-form__control\">\r\n                  <mat-form-field class=\"mat-form-field-fluid\">\r\n                    <mat-select [(value)]=\"filterSchedual\" (selectionChange)=\"applyFilter()\">\r\n                      <mat-option value=\"\">All</mat-option>\r\n                      <mat-option *ngFor=\"let value of getallschedual\"  [value]=\"value.value\">\r\n                        {{value.key}}\r\n                      </mat-option>\r\n                    </mat-select>\r\n                    <mat-hint align=\"start\">\r\n                      <strong>Filter</strong> by schedual status\r\n                    </mat-hint>\r\n                  </mat-form-field>\r\n                </div>\r\n              </div>\r\n\r\n              <div class=\"col-md-2 kt-margin-bottom-10-mobile\">\r\n                <div class=\"kt-form__control\">\r\n                  <mat-form-field class=\"mat-form-field-fluid\">\r\n                    <mat-select [(value)]=\"filterPayment\" (selectionChange)=\"applyFilter()\">\r\n                      <mat-option value=\"\">All</mat-option>\r\n                      <mat-option *ngFor=\"let value of getallpayment\"  [value]=\"value.value\">\r\n                        {{value.key}}\r\n                      </mat-option>\r\n                    </mat-select>\r\n                    <mat-hint align=\"start\">\r\n                      <strong>Filter</strong> by Payment Status\r\n                    </mat-hint>\r\n                  </mat-form-field>\r\n                </div>\r\n              </div>\r\n\r\n              <div class=\"col-md-2 kt-margin-bottom-10-mobile\">\r\n                <div class=\"kt-form__control\">\r\n                  <mat-form-field class=\"mat-form-field-fluid\">\r\n                    <mat-select [(value)]=\"orderby\" (selectionChange)=\"applyFilter()\">\r\n                      <mat-option *ngFor=\"let value of oderitems\"  [value]=\"value.value\">\r\n                        {{value.key}}\r\n                      </mat-option>\r\n                    </mat-select>\r\n                    <mat-hint align=\"start\">\r\n                      <strong>Order By</strong>\r\n                    </mat-hint>\r\n                  </mat-form-field>\r\n                </div>\r\n              </div>\r\n\r\n              <div class=\"col-md-2 kt-margin-bottom-10-mobile\">\r\n                <div class=\"kt-form__control\">\r\n                  <mat-form-field class=\"mat-form-field-fluid\">\r\n                      <mat-label>Select an option</mat-label>\r\n                    <mat-select [(value)]=\"order\" (selectionChange)=\"applyFilter()\">\r\n                      <mat-option value=\"-1\">Descending</mat-option>\r\n                      <mat-option value=\"1\">Ascending</mat-option>\r\n                    </mat-select>\r\n                    <mat-hint align=\"start\">\r\n                      <strong>Order Type</strong>\r\n                    </mat-hint>\r\n                  </mat-form-field>\r\n                </div>\r\n              </div>\r\n\r\n            </div>\r\n          </div>\r\n          <!-- end::FILTERS -->\r\n\r\n       <div class=\"kt-space-30\"></div>\r\n\r\n                <div \r\n                  *ngIf=\"isLoadingResults || isRateLimitReached\">\r\n                   \r\n                  <div class=\"example-rate-limit-reached\" *ngIf=\"isRateLimitReached\">\r\n                  this no data\r\n                  </div>\r\n                </div>\r\n                <mat-table #table [dataSource]=\"dataSource\" class=\"example-table\"\r\n                matSort matSortActive=\"increment\" matSortDisableClear matSortDirection=\"asc\"  >\r\n                  <!--- Note that these columns can be defined in any order.\r\n                  The actual rendered columns are set as a property on the row definition\" -->\r\n                  <!-- Number Column -->\r\n                  <ng-container  matColumnDef=\"increment\">\r\n                    <mat-header-cell *matHeaderCellDef>#</mat-header-cell>\r\n                    <mat-cell *matCellDef=\"let row\">{{ row.increment }}</mat-cell>\r\n                  </ng-container>\r\n\r\n\r\n                  <ng-container matColumnDef=\"package_name\">\r\n                    <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>\r\n                    <mat-cell *matCellDef=\"let row\"><div style=\"margin: 0 auto;\"class=\"kt-section ml-0\">\r\n                   \r\n                        <div class=\"kt-section__content\">\r\n                        <a class=\"nounderline\" ngbPopover=\"Discount :{{row.discount}}\" triggers=\"mouseenter:mouseleave\"\r\n                            popoverTitle=\"Membership details \">\r\n                           {{row.package_name}}\r\n                        </a>\r\n                        </div>\r\n                      </div>\r\n                      \r\n                     </mat-cell>\r\n                  </ng-container>\r\n                  <ng-container matColumnDef=\"actions\" >\r\n                    <mat-header-cell *matHeaderCellDef >Actions</mat-header-cell>\r\n                    <mat-cell *matCellDef=\"let row\">\r\n                        <button mat-icon-button [matMenuTriggerFor]=\"menu\"\r\n                        #menuTrigger=\"matMenuTrigger\" (click)=\"menuTrigger.openMenu()\">\r\n                        <mat-icon>more_vert </mat-icon>\r\n                        </button>\r\n                        <mat-menu #menu=\"matMenu\" [overlapTrigger]=\"false\">\r\n                            <span (mouseleave)=\"menuTrigger.closeMenu()\">\r\n                              <button mat-menu-item>\r\n                              <mat-slide-toggle\r\n                                [checked]=\"row.status === 'true' ? true : false\"\r\n                                (change)=\"changeLablesPositions(row._id,$event)\">\r\n                              </mat-slide-toggle>\r\n                             </button>\r\n                              <button *ngIf=\"(row.package_type =='package' && row.payment_status=='complete' && row.schedual_status=='complete')\" [routerLink]=\"['/default/members/add',this.pub_key,'select']\"[queryParams]=\"{status:'renew',pe:row._id,uk:row.units_key,ed:row.end_date,mb:row.membership_id,md:row.discount,type:row.type}\" routerLinkActive=\"router-link-active\"  mat-menu-item >\r\n                                <span>Renew</span>\r\n                             </button>\r\n                             <button *ngIf=\"(row.package_type =='package' && row.payment_status=='complete' && row.schedual_status=='complete')\" [routerLink]=\"['/default/members/add',this.pub_key,'select']\"[queryParams]=\"{pe:row._id,uk:row.units_key,status:'upgrade',mb:row.membership_id,md:row.discount}\" routerLinkActive=\"router-link-active\"  mat-menu-item >\r\n                                <span>Upgrade</span>\r\n                             </button>\r\n                             <button *ngIf=\"(row.package_type =='package' && row.payment_status=='complete' && row.schedual_status=='complete')\" [routerLink]=\"['/default/members/add',this.pub_key,'select']\"[queryParams]=\"{pe:row._id,uk:row.units_key,status:'downgrade',mb:row.membership_id,md:row.discount,type:row.type}\" routerLinkActive=\"router-link-active\"  mat-menu-item >\r\n                                <span>Downgrade</span>\r\n                             </button>\r\n                            </span>\r\n                        </mat-menu>\r\n                    </mat-cell>\r\n                  </ng-container>\r\n                  <!-- <ng-container matColumnDef=\"status\">\r\n                      <mat-header-cell *matHeaderCellDef>status</mat-header-cell>\r\n                      <mat-cell *matCellDef=\"let row\">\r\n                          <mat-slide-toggle\r\n                          [checked]=\"row.status === 'true' ? true : false\"\r\n                          (change)=\"changeLablesPositions(row._id,$event)\">\r\n                      </mat-slide-toggle>\r\n                      </mat-cell>\r\n                    </ng-container> -->\r\n                  <ng-container  matColumnDef=\"schedual_status\">\r\n                      <mat-header-cell *matHeaderCellDef>Schedual\r\n                      </mat-header-cell>\r\n                      <mat-cell  *matCellDef=\"let row\">\r\n                        <span *ngIf=\"row.schedual_status=='pending'\">\r\n                          <!-- se_id mean selected package id -->\r\n                          <a (click)='accessPackageData(row)'[routerLink]=\"['/default/members/add',pub_key,'schedule',row.membership_id]\" [queryParams]=\"{'iu':row.units_key,'se_id':row._id,'date': row.start_date}\" routerLinkActive=\"router-link-active\" ><span class=\"kt-badge kt-badge--inline kt-badge--pill kt-badge--warning kt-badge--wide\">{{ row.schedual_status}}</span></a>\r\n                        </span>\r\n                        <span *ngIf=\"!(row.schedual_status=='pending' && row.schedual_status=='activity')\" class=\"kt-badge kt-badge--inline kt-badge--pill kt-badge--success kt-badge--wide\">{{ row.schedual_status}}\r\n                        </span>\r\n                      </mat-cell>\r\n                  </ng-container>\r\n                  <ng-container matColumnDef=\"price\">\r\n                    <mat-header-cell *matHeaderCellDef>Price</mat-header-cell>\r\n                    <mat-cell *matCellDef=\"let row\">{{ row.fees }}</mat-cell>\r\n                  </ng-container>\r\n\r\n                  <ng-container matColumnDef=\"start_date\">\r\n                    \r\n                    <mat-header-cell *matHeaderCellDef>Start Date\r\n                    </mat-header-cell>\r\n                    <mat-cell *matCellDef=\"let row\">{{ row.start_date | date }}</mat-cell>\r\n                  </ng-container>\r\n                  <ng-container matColumnDef=\"end_date\">\r\n                    <mat-header-cell *matHeaderCellDef>End Date\r\n                    </mat-header-cell>\r\n                    <mat-cell *matCellDef=\"let row\">{{ row.end_date | date }}</mat-cell>\r\n                  </ng-container>\r\n                  <ng-container  matColumnDef=\"payment_status\">\r\n                      <mat-header-cell *matHeaderCellDef>Payment\r\n                      </mat-header-cell>\r\n                      <mat-cell  *matCellDef=\"let row\"><span *ngIf=\"row.payment_status=='pending'\"><a (click)='accessPackageData(row)'[routerLink]=\"['/default/members/add',pub_key,'payment-cart',row._id]\"  routerLinkActive=\"router-link-active\" ><span class=\"kt-badge kt-badge--inline kt-badge--pill kt-badge--warning kt-badge--wide\">{{ row.payment_status}}</span></a></span>\r\n                        <span *ngIf=\"!(row.payment_status=='pending')\" class=\"kt-badge kt-badge--inline kt-badge--pill kt-badge--success kt-badge--wide\">{{ row.payment_status}}</span>\r\n                      </mat-cell>\r\n                  </ng-container>\r\n                  <ng-container matColumnDef=\"visits\">\r\n                    <mat-header-cell *matHeaderCellDef>Visits\r\n                    </mat-header-cell>\r\n                    <mat-cell *matCellDef=\"let row\">{{ row.visits }}</mat-cell>\r\n                  </ng-container>\r\n                  <mat-header-row *matHeaderRowDef=\"displayedColumnMembership\"></mat-header-row>\r\n                  <mat-row *matRowDef=\"let row; columns: displayedColumnMembership;\"></mat-row>\r\n                </mat-table>\r\n                <mat-paginator (page)=\"nextPage($event)\" [pageSizeOptions]=\"[2,10,25,100]\" [length]=\"1000\" [pageSize]=\"10\">\r\n                </mat-paginator>\r\n               </div>\r\n\r\n    </div>\r\n    <div class=\"kt-portlet\">\r\n        <kt-portlet-header [title]=\"'Benfits List'\" [class]=\"'kt-portlet__head--lg'\">\r\n         \r\n          </kt-portlet-header>\r\n        <div class=\"kt-portlet__body\">\r\n\r\n                <div class=\"example-header\">\r\n                    <mat-form-field>\r\n                      <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filter\">\r\n                    </mat-form-field>\r\n                  </div>\r\n                <div \r\n                  *ngIf=\"isLoadingResults || isRateLimitReached\">\r\n                   \r\n                  <div class=\"example-rate-limit-reached\" *ngIf=\"isRateLimitReached\">\r\n                  this no data\r\n                  </div>\r\n                </div>\r\n                <mat-table #table [dataSource]=\"dataSource\" class=\"example-table\"\r\n                matSort matSortActive=\"increment\" matSortDisableClear matSortDirection=\"asc\"    >\r\n                  <!--- Note that these columns can be defined in any order.\r\n                  The actual rendered columns are set as a property on the row definition\" -->\r\n                  <!-- Number Column -->\r\n                  <ng-container matColumnDef=\"increment\">\r\n                    <mat-header-cell *matHeaderCellDef>#</mat-header-cell>\r\n                    <mat-cell *matCellDef=\"let row\">{{ row.increment }}</mat-cell>\r\n                  </ng-container>\r\n                  <!-- Column -->\r\n                  additional_service\r\n                  <ng-container matColumnDef=\"additional_invitation\">\r\n                    <mat-header-cell *matHeaderCellDef>Additional Invitation</mat-header-cell>\r\n                    <mat-cell *matCellDef=\"let row\">{{ row.additional_invitation}}</mat-cell>\r\n                  </ng-container>\r\n                  <!-- State Column -->\r\n                  <ng-container matColumnDef=\"additional_service\">\r\n                      <mat-header-cell *matHeaderCellDef>Additional Service</mat-header-cell>\r\n                      <mat-cell *matCellDef=\"let row\">{{ row.additional_service}}</mat-cell>\r\n                    </ng-container>\r\n                  <!-- Created Column -->\r\n                  <ng-container matColumnDef=\"additional_visits\">\r\n                    <mat-header-cell *matHeaderCellDef>Additional Visits\r\n                    </mat-header-cell>\r\n                    <mat-cell *matCellDef=\"let row\">{{ row.additional_visits }}</mat-cell>\r\n                  </ng-container>\r\n\r\n\r\n\r\n\r\n                  <mat-header-row *matHeaderRowDef=\"displayedColumnBenfits\"></mat-header-row>\r\n                  <mat-row *matRowDef=\"let row; columns: displayedColumnBenfits;\"></mat-row>\r\n                </mat-table>\r\n                <mat-paginator (page)=\"nextPage($event)\" [pageSizeOptions]=\"[2,10,25,100]\" [pageSize]=\"10\">\r\n                </mat-paginator>\r\n               </div>\r\n\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -1527,7 +1740,7 @@ module.exports = "<div class=\"row\">\r\n  <div class=\"col-xl-12\">\r\n    <div
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".example-table {\n  overflow: auto;\n  min-height: 300px; }\n\n.example-loading-shade {\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 56px;\n  right: 0;\n  background: rgba(0, 0, 0, 0.15);\n  z-index: 1;\n  display: flex;\n  align-items: center;\n  justify-content: center; }\n\n.example-rate-limit-reached {\n  color: #980000;\n  max-width: 360px;\n  text-align: center; }\n\n/* Column Widths */\n\n.mat-column {\n  word-wrap: break-word !important;\n  white-space: unset !important;\n  overflow-wrap: break-word;\n  word-wrap: break-word;\n  word-break: break-word;\n  -ms-hyphens: auto;\n  -webkit-hyphens: auto;\n  hyphens: auto; }\n\n.mat-column-increment, .mat-column-package_name, .mat-column-status, .mat-column-price, .mat-column-visits, .mat-column-payment_status,\n.mat-column-actions, .mat-column-schedual_status {\n  flex: 16% 0 0 !important;\n  width: 16% !important; }\n\n.mat-column-start_date, .mat-column-end_date {\n  flex: 16% 0 0 !important;\n  width: 16% !important; }\n\n.nounderline {\n  text-decoration: none !important; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdmlld3MvcGFnZXMvbWVtYmVycy9tZW1iZXItcHJvZmlsZS9tZW1iZXJzaGlwLW1lbWJlci9tZW1iZXJzaGlwLWxpc3QvRTpcXEdFTUlOXFxneW1pbi0yLjAtc2Fhcy1mcm9udGVuZC9zcmNcXGFwcFxcdmlld3NcXHBhZ2VzXFxtZW1iZXJzXFxtZW1iZXItcHJvZmlsZVxcbWVtYmVyc2hpcC1tZW1iZXJcXG1lbWJlcnNoaXAtbGlzdFxcbWVtYmVyc2hpcC1saXN0LmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUNFO0VBQ0UsY0FBYztFQUNkLGlCQUFpQixFQUFBOztBQUVuQjtFQUNFLGtCQUFrQjtFQUNsQixNQUFNO0VBQ04sT0FBTztFQUNQLFlBQVk7RUFDWixRQUFRO0VBQ1IsK0JBQStCO0VBQy9CLFVBQVU7RUFDVixhQUFhO0VBQ2IsbUJBQW1CO0VBQ25CLHVCQUF1QixFQUFBOztBQUV6QjtFQUNFLGNBQWM7RUFDZCxnQkFBZ0I7RUFDaEIsa0JBQWtCLEVBQUE7O0FBRXBCLGtCQUFBOztBQUNBO0VBQ0UsZ0NBQWdDO0VBQ2hDLDZCQUE2QjtFQUU3Qix5QkFBeUI7RUFDekIscUJBQXFCO0VBRXJCLHNCQUFzQjtFQUV0QixpQkFBaUI7RUFFakIscUJBQXFCO0VBQ3JCLGFBQWEsRUFBQTs7QUFHZjs7RUFHRSx3QkFBd0I7RUFDeEIscUJBQXFCLEVBQUE7O0FBRXZCO0VBRUUsd0JBQXdCO0VBQ3hCLHFCQUFxQixFQUFBOztBQUV2QjtFQUNFLGdDQUNGLEVBQUEiLCJmaWxlIjoic3JjL2FwcC92aWV3cy9wYWdlcy9tZW1iZXJzL21lbWJlci1wcm9maWxlL21lbWJlcnNoaXAtbWVtYmVyL21lbWJlcnNoaXAtbGlzdC9tZW1iZXJzaGlwLWxpc3QuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJcclxuICAuZXhhbXBsZS10YWJsZSB7XHJcbiAgICBvdmVyZmxvdzogYXV0bztcclxuICAgIG1pbi1oZWlnaHQ6IDMwMHB4O1xyXG4gIH1cclxuICAuZXhhbXBsZS1sb2FkaW5nLXNoYWRlIHtcclxuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcclxuICAgIHRvcDogMDtcclxuICAgIGxlZnQ6IDA7XHJcbiAgICBib3R0b206IDU2cHg7XHJcbiAgICByaWdodDogMDtcclxuICAgIGJhY2tncm91bmQ6IHJnYmEoMCwgMCwgMCwgMC4xNSk7XHJcbiAgICB6LWluZGV4OiAxO1xyXG4gICAgZGlzcGxheTogZmxleDtcclxuICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcclxuICB9XHJcbiAgLmV4YW1wbGUtcmF0ZS1saW1pdC1yZWFjaGVkIHtcclxuICAgIGNvbG9yOiAjOTgwMDAwO1xyXG4gICAgbWF4LXdpZHRoOiAzNjBweDtcclxuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICB9XHJcbiAgLyogQ29sdW1uIFdpZHRocyAqL1xyXG4gIC5tYXQtY29sdW1uIHtcclxuICAgIHdvcmQtd3JhcDogYnJlYWstd29yZCAhaW1wb3J0YW50O1xyXG4gICAgd2hpdGUtc3BhY2U6IHVuc2V0ICFpbXBvcnRhbnQ7XHJcbiAgICBcclxuICAgIG92ZXJmbG93LXdyYXA6IGJyZWFrLXdvcmQ7XHJcbiAgICB3b3JkLXdyYXA6IGJyZWFrLXdvcmQ7XHJcbiAgXHJcbiAgICB3b3JkLWJyZWFrOiBicmVhay13b3JkO1xyXG4gIFxyXG4gICAgLW1zLWh5cGhlbnM6IGF1dG87XHJcbiAgICAtbW96LWh5cGhlbnM6IGF1dG87XHJcbiAgICAtd2Via2l0LWh5cGhlbnM6IGF1dG87XHJcbiAgICBoeXBoZW5zOiBhdXRvO1xyXG4gIH1cclxuICBcclxuICAubWF0LWNvbHVtbi1pbmNyZW1lbnQsLm1hdC1jb2x1bW4tcGFja2FnZV9uYW1lLC5tYXQtY29sdW1uLXN0YXR1cywubWF0LWNvbHVtbi1wcmljZSwubWF0LWNvbHVtbi12aXNpdHMsLm1hdC1jb2x1bW4tcGF5bWVudF9zdGF0dXMsXHJcbiAgLm1hdC1jb2x1bW4tYWN0aW9ucywubWF0LWNvbHVtbi1zY2hlZHVhbF9zdGF0dXNcclxuICB7XHJcbiAgICBmbGV4OiAxNiUgMCAwICFpbXBvcnRhbnQ7XHJcbiAgICB3aWR0aDogMTYlICFpbXBvcnRhbnQ7XHJcbiAgfVxyXG4gIC5tYXQtY29sdW1uLXN0YXJ0X2RhdGUsLm1hdC1jb2x1bW4tZW5kX2RhdGVcclxuICB7XHJcbiAgICBmbGV4OiAxNiUgMCAwICFpbXBvcnRhbnQ7XHJcbiAgICB3aWR0aDogMTYlICFpbXBvcnRhbnQ7IFxyXG4gIH1cclxuICAubm91bmRlcmxpbmUge1xyXG4gICAgdGV4dC1kZWNvcmF0aW9uOiBub25lICFpbXBvcnRhbnRcclxuICB9Il19 */"
+module.exports = ".warn-snackbar {\n  background-color: #ff4081; }\n\n.example-table {\n  overflow: auto;\n  min-height: 300px; }\n\n.example-loading-shade {\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 56px;\n  right: 0;\n  background: rgba(0, 0, 0, 0.15);\n  z-index: 1;\n  display: flex;\n  align-items: center;\n  justify-content: center; }\n\n.example-rate-limit-reached {\n  color: #980000;\n  max-width: 360px;\n  text-align: center; }\n\n/* Column Widths */\n\n.mat-column {\n  word-wrap: break-word !important;\n  white-space: unset !important;\n  overflow-wrap: break-word;\n  word-wrap: break-word;\n  word-break: break-word;\n  -ms-hyphens: auto;\n  -webkit-hyphens: auto;\n  hyphens: auto; }\n\n.mat-column-increment, .mat-column-package_name, .mat-column-status, .mat-column-price, .mat-column-visits, .mat-column-payment_status,\n.mat-column-actions, .mat-column-schedual_status {\n  flex: 16% 0 0 !important;\n  width: 16% !important; }\n\n.mat-column-start_date, .mat-column-end_date {\n  flex: 16% 0 0 !important;\n  width: 16% !important; }\n\n.nounderline {\n  text-decoration: none !important; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdmlld3MvcGFnZXMvbWVtYmVycy9tZW1iZXItcHJvZmlsZS9tZW1iZXJzaGlwLW1lbWJlci9tZW1iZXJzaGlwLWxpc3QvRTpcXEdFTUlOXFxneW1pbi0yLjAtc2Fhcy1mcm9udGVuZC9zcmNcXGFwcFxcdmlld3NcXHBhZ2VzXFxtZW1iZXJzXFxtZW1iZXItcHJvZmlsZVxcbWVtYmVyc2hpcC1tZW1iZXJcXG1lbWJlcnNoaXAtbGlzdFxcbWVtYmVyc2hpcC1saXN0LmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UseUJBQXlCLEVBQUE7O0FBSXpCO0VBQ0UsY0FBYztFQUNkLGlCQUFpQixFQUFBOztBQUVuQjtFQUNFLGtCQUFrQjtFQUNsQixNQUFNO0VBQ04sT0FBTztFQUNQLFlBQVk7RUFDWixRQUFRO0VBQ1IsK0JBQStCO0VBQy9CLFVBQVU7RUFDVixhQUFhO0VBQ2IsbUJBQW1CO0VBQ25CLHVCQUF1QixFQUFBOztBQUV6QjtFQUNFLGNBQWM7RUFDZCxnQkFBZ0I7RUFDaEIsa0JBQWtCLEVBQUE7O0FBRXBCLGtCQUFBOztBQUNBO0VBQ0UsZ0NBQWdDO0VBQ2hDLDZCQUE2QjtFQUU3Qix5QkFBeUI7RUFDekIscUJBQXFCO0VBRXJCLHNCQUFzQjtFQUV0QixpQkFBaUI7RUFFakIscUJBQXFCO0VBQ3JCLGFBQWEsRUFBQTs7QUFHZjs7RUFHRSx3QkFBd0I7RUFDeEIscUJBQXFCLEVBQUE7O0FBRXZCO0VBRUUsd0JBQXdCO0VBQ3hCLHFCQUFxQixFQUFBOztBQUV2QjtFQUNFLGdDQUNGLEVBQUEiLCJmaWxlIjoic3JjL2FwcC92aWV3cy9wYWdlcy9tZW1iZXJzL21lbWJlci1wcm9maWxlL21lbWJlcnNoaXAtbWVtYmVyL21lbWJlcnNoaXAtbGlzdC9tZW1iZXJzaGlwLWxpc3QuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIud2Fybi1zbmFja2JhcntcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmY0MDgxO1xyXG59XHJcblxyXG5cclxuICAuZXhhbXBsZS10YWJsZSB7XHJcbiAgICBvdmVyZmxvdzogYXV0bztcclxuICAgIG1pbi1oZWlnaHQ6IDMwMHB4O1xyXG4gIH1cclxuICAuZXhhbXBsZS1sb2FkaW5nLXNoYWRlIHtcclxuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcclxuICAgIHRvcDogMDtcclxuICAgIGxlZnQ6IDA7XHJcbiAgICBib3R0b206IDU2cHg7XHJcbiAgICByaWdodDogMDtcclxuICAgIGJhY2tncm91bmQ6IHJnYmEoMCwgMCwgMCwgMC4xNSk7XHJcbiAgICB6LWluZGV4OiAxO1xyXG4gICAgZGlzcGxheTogZmxleDtcclxuICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcclxuICB9XHJcbiAgLmV4YW1wbGUtcmF0ZS1saW1pdC1yZWFjaGVkIHtcclxuICAgIGNvbG9yOiAjOTgwMDAwO1xyXG4gICAgbWF4LXdpZHRoOiAzNjBweDtcclxuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICB9XHJcbiAgLyogQ29sdW1uIFdpZHRocyAqL1xyXG4gIC5tYXQtY29sdW1uIHtcclxuICAgIHdvcmQtd3JhcDogYnJlYWstd29yZCAhaW1wb3J0YW50O1xyXG4gICAgd2hpdGUtc3BhY2U6IHVuc2V0ICFpbXBvcnRhbnQ7XHJcbiAgICBcclxuICAgIG92ZXJmbG93LXdyYXA6IGJyZWFrLXdvcmQ7XHJcbiAgICB3b3JkLXdyYXA6IGJyZWFrLXdvcmQ7XHJcbiAgXHJcbiAgICB3b3JkLWJyZWFrOiBicmVhay13b3JkO1xyXG4gIFxyXG4gICAgLW1zLWh5cGhlbnM6IGF1dG87XHJcbiAgICAtbW96LWh5cGhlbnM6IGF1dG87XHJcbiAgICAtd2Via2l0LWh5cGhlbnM6IGF1dG87XHJcbiAgICBoeXBoZW5zOiBhdXRvO1xyXG4gIH1cclxuICBcclxuICAubWF0LWNvbHVtbi1pbmNyZW1lbnQsLm1hdC1jb2x1bW4tcGFja2FnZV9uYW1lLC5tYXQtY29sdW1uLXN0YXR1cywubWF0LWNvbHVtbi1wcmljZSwubWF0LWNvbHVtbi12aXNpdHMsLm1hdC1jb2x1bW4tcGF5bWVudF9zdGF0dXMsXHJcbiAgLm1hdC1jb2x1bW4tYWN0aW9ucywubWF0LWNvbHVtbi1zY2hlZHVhbF9zdGF0dXNcclxuICB7XHJcbiAgICBmbGV4OiAxNiUgMCAwICFpbXBvcnRhbnQ7XHJcbiAgICB3aWR0aDogMTYlICFpbXBvcnRhbnQ7XHJcbiAgfVxyXG4gIC5tYXQtY29sdW1uLXN0YXJ0X2RhdGUsLm1hdC1jb2x1bW4tZW5kX2RhdGVcclxuICB7XHJcbiAgICBmbGV4OiAxNiUgMCAwICFpbXBvcnRhbnQ7XHJcbiAgICB3aWR0aDogMTYlICFpbXBvcnRhbnQ7IFxyXG4gIH1cclxuICAubm91bmRlcmxpbmUge1xyXG4gICAgdGV4dC1kZWNvcmF0aW9uOiBub25lICFpbXBvcnRhbnRcclxuICB9Il19 */"
 
 /***/ }),
 
@@ -1562,15 +1775,17 @@ var router_1 = __webpack_require__(/*! @angular/router */ "./node_modules/@angul
 var crud_1 = __webpack_require__(/*! ../../../../../../core/_base/crud */ "./src/app/core/_base/crud/index.ts");
 var operators_4 = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 var ng_bootstrap_1 = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
+var material_2 = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 //service
 var members_service_1 = __webpack_require__(/*! ../../../members.service */ "./src/app/views/pages/members/members.service.ts");
 var MembershipListComponent = /** @class */ (function () {
-    function MembershipListComponent(http, member, layoutUtilsService, changeDetectorRefs, config, route, router) {
+    function MembershipListComponent(http, member, layoutUtilsService, changeDetectorRefs, config, snackBar, route, router) {
         var _this = this;
         this.http = http;
         this.member = member;
         this.layoutUtilsService = layoutUtilsService;
         this.changeDetectorRefs = changeDetectorRefs;
+        this.snackBar = snackBar;
         this.route = route;
         this.router = router;
         this.displayedColumnMembership = ['actions', 'increment', 'package_name', 'price', 'start_date', 'end_date', 'payment_status', 'visits', 'schedual_status'];
@@ -1623,37 +1838,42 @@ var MembershipListComponent = /** @class */ (function () {
     };
     MembershipListComponent.prototype.changeLablesPositions = function (id, event) {
         var _this = this;
-        var _title = 'User Delete';
-        var _description = 'Are you sure to permanently delete this user?';
-        var _waitDesciption = 'member is updating...';
-        var _updateMessage = "member status has been updated";
-        var _failedToUpdate = "sorry there is problem to update this member try again";
-        var dialogRef = this.layoutUtilsService.deleteElement(_title, _description, _waitDesciption);
-        dialogRef.afterClosed().subscribe(function (res) {
-            if (!res) {
-                return;
-            }
-            if (event['checked']) {
-                _this.member.updateMembership(id, { 'status': true }).subscribe(function (res) {
-                    if (res['result']) {
-                        _this.layoutUtilsService.showActionNotification(_updateMessage, crud_1.MessageType.Update);
-                    }
-                    else {
-                        _this.layoutUtilsService.showActionNotification(_failedToUpdate, crud_1.MessageType.Update);
-                    }
-                });
-            }
-            else {
-                _this.member.updateMembership(id, { 'status': false }).subscribe(function (res) {
-                    if (res['result']) {
-                        _this.layoutUtilsService.showActionNotification(_updateMessage, crud_1.MessageType.Update);
-                    }
-                    else {
-                        _this.layoutUtilsService.showActionNotification(_failedToUpdate, crud_1.MessageType.Update);
-                    }
-                });
-            }
-        });
+        if (this.checkedpermission('editmember_membership')) {
+            var _title = 'User Delete';
+            var _description = 'Are you sure to permanently delete this user?';
+            var _waitDesciption = 'member is updating...';
+            var _updateMessage_1 = "member status has been updated";
+            var _failedToUpdate_1 = "sorry there is problem to update this member try again";
+            var dialogRef = this.layoutUtilsService.deleteElement(_title, _description, _waitDesciption);
+            dialogRef.afterClosed().subscribe(function (res) {
+                if (!res) {
+                    return;
+                }
+                if (event['checked']) {
+                    _this.member.updateMembership(id, { 'status': true }).subscribe(function (res) {
+                        if (res['result']) {
+                            _this.layoutUtilsService.showActionNotification(_updateMessage_1, crud_1.MessageType.Update);
+                        }
+                        else {
+                            _this.layoutUtilsService.showActionNotification(_failedToUpdate_1, crud_1.MessageType.Update);
+                        }
+                    });
+                }
+                else {
+                    _this.member.updateMembership(id, { 'status': false }).subscribe(function (res) {
+                        if (res['result']) {
+                            _this.layoutUtilsService.showActionNotification(_updateMessage_1, crud_1.MessageType.Update);
+                        }
+                        else {
+                            _this.layoutUtilsService.showActionNotification(_failedToUpdate_1, crud_1.MessageType.Update);
+                        }
+                    });
+                }
+            });
+        }
+        else {
+            this.open();
+        }
     };
     MembershipListComponent.prototype.onSearchClear = function () {
         this.SearchKey = "";
@@ -1693,37 +1913,49 @@ var MembershipListComponent = /** @class */ (function () {
         if (ids === void 0) { ids = ''; }
         if (orderby === void 0) { orderby = ''; }
         if (order === void 0) { order = -1; }
-        rxjs_1.merge(this.sort.sortChange, this.paginator.page)
-            .pipe(operators_2.startWith({}), operators_3.switchMap(function () {
-            _this.isLoadingResults = true;
-            if (_this.pub_key)
-                return _this.member.getMembership(_this.pub_key, page, perpage, search, status, schedual, payment, ids, orderby, order);
-        }), operators_4.map(function (res) {
-            console.log(res);
-            // Flip flag to show that loading has finished.
-            _this.isLoadingResults = false;
-            _this.isRateLimitReached = false;
-            _this.resultsLength = res['data'].length;
-            return res;
-        }), operators_1.catchError(function () {
-            _this.isLoadingResults = false;
-            _this.isRateLimitReached = true;
+        if (this.checkedpermission('getmember_membership')) {
+            if (this.sort && this.paginator) {
+                rxjs_1.merge(this.sort.sortChange, this.paginator.page)
+                    .pipe(operators_2.startWith({}), operators_3.switchMap(function () {
+                    _this.isLoadingResults = true;
+                    if (_this.pub_key)
+                        return _this.member.getMembership(_this.pub_key, page, perpage, search, status, schedual, payment, ids, orderby, order);
+                }), operators_4.map(function (res) {
+                    console.log(res);
+                    // Flip flag to show that loading has finished.
+                    _this.isLoadingResults = false;
+                    _this.isRateLimitReached = false;
+                    _this.resultsLength = res['data'].length;
+                    return res;
+                }), operators_1.catchError(function () {
+                    _this.isLoadingResults = false;
+                    _this.isRateLimitReached = true;
+                    return rxjs_2.of([]);
+                })).subscribe(function (data) {
+                    if (data['result'])
+                        _this.dataSource.data = data['data'];
+                    if (data['data'] && data['data'].length > 0)
+                        _this.length = data['data'].length;
+                    _this.changeDetectorRefs.detectChanges();
+                    console.log(data, _this.length);
+                });
+            }
+        }
+        else {
+            this.isLoadingResults = false;
+            this.isRateLimitReached = true;
             return rxjs_2.of([]);
-        })).subscribe(function (data) {
-            if (data['result'])
-                _this.dataSource.data = data['data'];
-            _this.length = data['data'].length;
-            _this.changeDetectorRefs.detectChanges();
-            console.log(data, _this.length);
-        });
+        }
     };
     //access data of Membership
     MembershipListComponent.prototype.accessPackageData = function (membership) {
         var _this = this;
-        this.member.getPackageBYId(membership['membership_id']).subscribe(function (res) {
-            if (res['result'])
-                _this.member.DataOfPackage(res['data'][0]);
-        });
+        if (this.checkedpermission('getmembership')) {
+            this.member.getPackageBYId(membership['membership_id']).subscribe(function (res) {
+                if (res['result'])
+                    _this.member.DataOfPackage(res['data'][0]);
+            });
+        }
     };
     MembershipListComponent.prototype.confirmRenew = function (row) {
         this.router.navigate(['/default/members/add', this.pub_key, 'select'], { queryParams: { status: 'renew', rp: row._id } });
@@ -1735,6 +1967,53 @@ var MembershipListComponent = /** @class */ (function () {
         }
         else {
             this.LoadMembership(event.pageIndex + 1, event.pageSize, null);
+        }
+    };
+    //permissions
+    MembershipListComponent.prototype.checkedpermission = function (key) {
+        var checked = false;
+        if (localStorage.getItem('user')) {
+            if (JSON.parse(localStorage.getItem('user'))) {
+                var user = JSON.parse(localStorage.getItem('user'));
+                if (user['allPrivilidge']) {
+                    var privilidge_1 = user['allPrivilidge'];
+                    Object.keys(privilidge_1).forEach(function (role) {
+                        Object.keys(privilidge_1[role]).forEach(function (pri) {
+                            var per = (privilidge_1[role][pri].toString()).trim();
+                            if (key.trim() == per) {
+                                checked = true;
+                            }
+                        });
+                    });
+                }
+            }
+        }
+        return checked;
+    };
+    //alert
+    MembershipListComponent.prototype.open = function () {
+        var message = 'Oh Snap ! You dont have permission to get this data';
+        var actionButtonLabel = '';
+        var action = true;
+        var setAutoHide = true;
+        var autoHide = 4000;
+        var horizontalPosition = 'center';
+        var verticalPosition = 'top';
+        var addExtraClass = false;
+        var config = new material_2.MatSnackBarConfig();
+        config.verticalPosition = verticalPosition;
+        config.horizontalPosition = horizontalPosition;
+        config.duration = setAutoHide ? autoHide : 0;
+        //  config['extraClasses'] = addExtraClass ? ['warn-snackbar'] : undefined;
+        config.panelClass = ['warn-snackbar'];
+        this.snackBar.open(message, action ? actionButtonLabel : undefined, config);
+    };
+    MembershipListComponent.prototype.add = function () {
+        if (this.checkedpermission('addmember_membership')) {
+            this.router.navigate(['/default/members/add', this.pub_key, 'select']);
+        }
+        else {
+            this.open();
         }
     };
     __decorate([
@@ -1749,12 +2028,14 @@ var MembershipListComponent = /** @class */ (function () {
         core_1.Component({
             selector: 'kt-membership-list',
             template: __webpack_require__(/*! ./membership-list.component.html */ "./src/app/views/pages/members/member-profile/membership-member/membership-list/membership-list.component.html"),
+            encapsulation: core_1.ViewEncapsulation.None,
             styles: [__webpack_require__(/*! ./membership-list.component.scss */ "./src/app/views/pages/members/member-profile/membership-member/membership-list/membership-list.component.scss")]
         }),
         __metadata("design:paramtypes", [http_1.HttpClient, members_service_1.MembersService,
             crud_1.LayoutUtilsService,
             core_1.ChangeDetectorRef,
             ng_bootstrap_1.NgbDropdownConfig,
+            material_2.MatSnackBar,
             router_1.ActivatedRoute,
             router_1.Router])
     ], MembershipListComponent);
@@ -1809,12 +2090,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 var http_1 = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 var material_1 = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
-var rxjs_1 = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-var rxjs_2 = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-var operators_1 = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-var operators_2 = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-var operators_3 = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-var operators_4 = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 var crud_1 = __webpack_require__(/*! ../../../../../core/_base/crud */ "./src/app/core/_base/crud/index.ts");
 //service
 var members_service_1 = __webpack_require__(/*! ../../members.service */ "./src/app/views/pages/members/members.service.ts");
@@ -1831,71 +2106,6 @@ var MembershipMemberComponent = /** @class */ (function () {
         this.isRateLimitReached = false;
     }
     MembershipMemberComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        //current member
-        this.member.currentmember.subscribe(function (res) { return _this.currentMember = res; });
-        // If the user changes the sort order, reset back to the first page.
-        this.sort.sortChange.subscribe(function () { return _this.paginator.pageIndex = 0; });
-        this.LoadMembership();
-    };
-    MembershipMemberComponent.prototype.changeLablesPositions = function (id, event) {
-        var _this = this;
-        var _title = 'User Delete';
-        var _description = 'Are you sure to permanently delete this user?';
-        var _waitDesciption = 'member is updating...';
-        var _updateMessage = "member status has been updated";
-        var _failedToUpdate = "sorry there is problem to update this member try again";
-        var dialogRef = this.layoutUtilsService.deleteElement(_title, _description, _waitDesciption);
-        dialogRef.afterClosed().subscribe(function (res) {
-            if (!res) {
-                return;
-            }
-            if (event['checked']) {
-                _this.member.updateMembership(id, { 'status': true }).subscribe(function (res) {
-                    if (res['result']) {
-                        _this.layoutUtilsService.showActionNotification(_updateMessage, crud_1.MessageType.Update);
-                    }
-                    else {
-                        _this.layoutUtilsService.showActionNotification(_failedToUpdate, crud_1.MessageType.Update);
-                    }
-                });
-            }
-            else {
-                _this.member.updateMembership(id, { 'status': false }).subscribe(function (res) {
-                    if (res['result']) {
-                        _this.layoutUtilsService.showActionNotification(_updateMessage, crud_1.MessageType.Update);
-                    }
-                    else {
-                        _this.layoutUtilsService.showActionNotification(_failedToUpdate, crud_1.MessageType.Update);
-                    }
-                });
-            }
-        });
-    };
-    MembershipMemberComponent.prototype.LoadMembership = function () {
-        var _this = this;
-        rxjs_1.merge(this.sort.sortChange, this.paginator.page)
-            .pipe(operators_3.startWith({}), operators_4.switchMap(function () {
-            _this.isLoadingResults = true;
-            return _this.member.getMembership(_this.currentMember['pub_key'], _this.paginator.pageIndex + 1, 3, null, '', '', '', '', '', -1);
-        }), operators_2.map(function (res) {
-            // Flip flag to show that loading has finished.
-            _this.isLoadingResults = false;
-            _this.isRateLimitReached = false;
-            console.log(res['data']);
-            _this.resultsLength = res['data'].length;
-            return res;
-        }), operators_1.catchError(function () {
-            _this.isLoadingResults = false;
-            _this.isRateLimitReached = true;
-            return rxjs_2.of([]);
-        })).subscribe(function (data) {
-            if (data['result'])
-                _this.dataSource.data = data['data'];
-            _this.changeDetectorRefs.detectChanges();
-            console.log(data);
-            console.log(_this.paginator);
-        });
     };
     __decorate([
         core_1.ViewChild(material_1.MatPaginator),
@@ -1940,7 +2150,7 @@ module.exports = "<div class=\"row\">\r\n  <div class=\"col-xl-12\">\r\n    <div
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".example-table {\n  overflow: auto;\n  min-height: 300px; }\n\n/* Column Widths */\n\n.mat-column {\n  word-wrap: break-word !important;\n  white-space: unset !important;\n  overflow-wrap: break-word;\n  word-wrap: break-word;\n  word-break: break-word;\n  -ms-hyphens: auto;\n  -webkit-hyphens: auto;\n  hyphens: auto; }\n\n.mat-column-payment_date, .mat-column-payment_method, .mat-column-payment_status, .mat-column-Action, .mat-column-payment_date {\n  flex: 18% 0 0 !important;\n  width: 18% !important; }\n\n.mat-column-increment,\n.mat-column-package_name,\n.mat-column-price {\n  flex: 10% 0 0 !important;\n  width: 10% !important; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdmlld3MvcGFnZXMvbWVtYmVycy9tZW1iZXItcHJvZmlsZS9wYXltZW50cy1tZW1iZXIvRTpcXEdFTUlOXFxneW1pbi0yLjAtc2Fhcy1mcm9udGVuZC9zcmNcXGFwcFxcdmlld3NcXHBhZ2VzXFxtZW1iZXJzXFxtZW1iZXItcHJvZmlsZVxccGF5bWVudHMtbWVtYmVyXFxwYXltZW50cy1tZW1iZXIuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxjQUFjO0VBQ2QsaUJBQWlCLEVBQUE7O0FBR25CLGtCQUFBOztBQUNBO0VBQ0UsZ0NBQWdDO0VBQ2hDLDZCQUE2QjtFQUU3Qix5QkFBeUI7RUFDekIscUJBQXFCO0VBRXJCLHNCQUFzQjtFQUV0QixpQkFBaUI7RUFFakIscUJBQXFCO0VBQ3JCLGFBQWEsRUFBQTs7QUFFakI7RUFFSSx3QkFBd0I7RUFDeEIscUJBQXFCLEVBQUE7O0FBRXZCOzs7RUFLRSx3QkFBd0I7RUFDeEIscUJBQXFCLEVBQUEiLCJmaWxlIjoic3JjL2FwcC92aWV3cy9wYWdlcy9tZW1iZXJzL21lbWJlci1wcm9maWxlL3BheW1lbnRzLW1lbWJlci9wYXltZW50cy1tZW1iZXIuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuZXhhbXBsZS10YWJsZSB7XHJcbiAgICBvdmVyZmxvdzogYXV0bztcclxuICAgIG1pbi1oZWlnaHQ6IDMwMHB4O1xyXG4gIH1cclxuICBcclxuICAvKiBDb2x1bW4gV2lkdGhzICovXHJcbiAgLm1hdC1jb2x1bW4ge1xyXG4gICAgd29yZC13cmFwOiBicmVhay13b3JkICFpbXBvcnRhbnQ7XHJcbiAgICB3aGl0ZS1zcGFjZTogdW5zZXQgIWltcG9ydGFudDtcclxuICAgIFxyXG4gICAgb3ZlcmZsb3ctd3JhcDogYnJlYWstd29yZDtcclxuICAgIHdvcmQtd3JhcDogYnJlYWstd29yZDtcclxuICBcclxuICAgIHdvcmQtYnJlYWs6IGJyZWFrLXdvcmQ7XHJcbiAgXHJcbiAgICAtbXMtaHlwaGVuczogYXV0bztcclxuICAgIC1tb3otaHlwaGVuczogYXV0bztcclxuICAgIC13ZWJraXQtaHlwaGVuczogYXV0bztcclxuICAgIGh5cGhlbnM6IGF1dG87XHJcbiAgfVxyXG4ubWF0LWNvbHVtbi1wYXltZW50X2RhdGUsLm1hdC1jb2x1bW4tcGF5bWVudF9tZXRob2QsLm1hdC1jb2x1bW4tcGF5bWVudF9zdGF0dXMsLm1hdC1jb2x1bW4tQWN0aW9uLC5tYXQtY29sdW1uLXBheW1lbnRfZGF0ZVxyXG4gIHtcclxuICAgIGZsZXg6IDE4JSAwIDAgIWltcG9ydGFudDtcclxuICAgIHdpZHRoOiAxOCUgIWltcG9ydGFudDtcclxuICB9XHJcbiAgLm1hdC1jb2x1bW4taW5jcmVtZW50LFxyXG4gIC5tYXQtY29sdW1uLXBhY2thZ2VfbmFtZSxcclxuICAubWF0LWNvbHVtbi1wcmljZVxyXG5cclxuICB7XHJcbiAgICBmbGV4OiAxMCUgMCAwICFpbXBvcnRhbnQ7XHJcbiAgICB3aWR0aDogMTAlICFpbXBvcnRhbnQ7IFxyXG4gIH0iXX0= */"
+module.exports = ".example-table {\n  overflow: auto;\n  min-height: 300px; }\n\n.warn-snackbar {\n  background-color: #ff4081; }\n\n/* Column Widths */\n\n.mat-column {\n  word-wrap: break-word !important;\n  white-space: unset !important;\n  overflow-wrap: break-word;\n  word-wrap: break-word;\n  word-break: break-word;\n  -ms-hyphens: auto;\n  -webkit-hyphens: auto;\n  hyphens: auto; }\n\n.mat-column-payment_date, .mat-column-payment_method, .mat-column-payment_status, .mat-column-Action, .mat-column-payment_date {\n  flex: 18% 0 0 !important;\n  width: 18% !important; }\n\n.mat-column-increment,\n.mat-column-package_name,\n.mat-column-price {\n  flex: 10% 0 0 !important;\n  width: 10% !important; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdmlld3MvcGFnZXMvbWVtYmVycy9tZW1iZXItcHJvZmlsZS9wYXltZW50cy1tZW1iZXIvRTpcXEdFTUlOXFxneW1pbi0yLjAtc2Fhcy1mcm9udGVuZC9zcmNcXGFwcFxcdmlld3NcXHBhZ2VzXFxtZW1iZXJzXFxtZW1iZXItcHJvZmlsZVxccGF5bWVudHMtbWVtYmVyXFxwYXltZW50cy1tZW1iZXIuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxjQUFjO0VBQ2QsaUJBQWlCLEVBQUE7O0FBR3JCO0VBQ0UseUJBQXlCLEVBQUE7O0FBR3pCLGtCQUFBOztBQUNBO0VBQ0UsZ0NBQWdDO0VBQ2hDLDZCQUE2QjtFQUU3Qix5QkFBeUI7RUFDekIscUJBQXFCO0VBRXJCLHNCQUFzQjtFQUV0QixpQkFBaUI7RUFFakIscUJBQXFCO0VBQ3JCLGFBQWEsRUFBQTs7QUFFakI7RUFFSSx3QkFBd0I7RUFDeEIscUJBQXFCLEVBQUE7O0FBRXZCOzs7RUFLRSx3QkFBd0I7RUFDeEIscUJBQXFCLEVBQUEiLCJmaWxlIjoic3JjL2FwcC92aWV3cy9wYWdlcy9tZW1iZXJzL21lbWJlci1wcm9maWxlL3BheW1lbnRzLW1lbWJlci9wYXltZW50cy1tZW1iZXIuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuZXhhbXBsZS10YWJsZSB7XHJcbiAgICBvdmVyZmxvdzogYXV0bztcclxuICAgIG1pbi1oZWlnaHQ6IDMwMHB4O1xyXG4gIH1cclxuICBcclxuLndhcm4tc25hY2tiYXJ7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogI2ZmNDA4MTtcclxufVxyXG4gIFxyXG4gIC8qIENvbHVtbiBXaWR0aHMgKi9cclxuICAubWF0LWNvbHVtbiB7XHJcbiAgICB3b3JkLXdyYXA6IGJyZWFrLXdvcmQgIWltcG9ydGFudDtcclxuICAgIHdoaXRlLXNwYWNlOiB1bnNldCAhaW1wb3J0YW50O1xyXG4gICAgXHJcbiAgICBvdmVyZmxvdy13cmFwOiBicmVhay13b3JkO1xyXG4gICAgd29yZC13cmFwOiBicmVhay13b3JkO1xyXG4gIFxyXG4gICAgd29yZC1icmVhazogYnJlYWstd29yZDtcclxuICBcclxuICAgIC1tcy1oeXBoZW5zOiBhdXRvO1xyXG4gICAgLW1vei1oeXBoZW5zOiBhdXRvO1xyXG4gICAgLXdlYmtpdC1oeXBoZW5zOiBhdXRvO1xyXG4gICAgaHlwaGVuczogYXV0bztcclxuICB9XHJcbi5tYXQtY29sdW1uLXBheW1lbnRfZGF0ZSwubWF0LWNvbHVtbi1wYXltZW50X21ldGhvZCwubWF0LWNvbHVtbi1wYXltZW50X3N0YXR1cywubWF0LWNvbHVtbi1BY3Rpb24sLm1hdC1jb2x1bW4tcGF5bWVudF9kYXRlXHJcbiAge1xyXG4gICAgZmxleDogMTglIDAgMCAhaW1wb3J0YW50O1xyXG4gICAgd2lkdGg6IDE4JSAhaW1wb3J0YW50O1xyXG4gIH1cclxuICAubWF0LWNvbHVtbi1pbmNyZW1lbnQsXHJcbiAgLm1hdC1jb2x1bW4tcGFja2FnZV9uYW1lLFxyXG4gIC5tYXQtY29sdW1uLXByaWNlXHJcblxyXG4gIHtcclxuICAgIGZsZXg6IDEwJSAwIDAgIWltcG9ydGFudDtcclxuICAgIHdpZHRoOiAxMCUgIWltcG9ydGFudDsgXHJcbiAgfSJdfQ== */"
 
 /***/ }),
 
@@ -1969,11 +2179,13 @@ var material_1 = __webpack_require__(/*! @angular/material */ "./node_modules/@a
 var material_2 = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 var receipt_dialog_component_1 = __webpack_require__(/*! ./receipt-dialog/receipt-dialog.component */ "./src/app/views/pages/members/member-profile/payments-member/receipt-dialog/receipt-dialog.component.ts");
 var router_1 = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+var material_3 = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 var PaymentsMemberComponent = /** @class */ (function () {
-    function PaymentsMemberComponent(memberservice, changeDetectRef, dialog, router, route) {
+    function PaymentsMemberComponent(memberservice, changeDetectRef, dialog, snackBar, router, route) {
         this.memberservice = memberservice;
         this.changeDetectRef = changeDetectRef;
         this.dialog = dialog;
+        this.snackBar = snackBar;
         this.router = router;
         this.route = route;
         this.SearchKey = '';
@@ -2050,15 +2262,17 @@ var PaymentsMemberComponent = /** @class */ (function () {
         if (payment === void 0) { payment = ''; }
         if (orderby === void 0) { orderby = ''; }
         if (order === void 0) { order = -1; }
-        if (this.pub_key) {
-            this.memberservice.getMembership(this.pub_key, pages, perpage, search, status, schedual, payment, '', orderby, order).subscribe(function (res) {
-                console.log(res['data']);
-                if (res['result']) {
-                    _this.dataSource.data = res['data'];
+        if (this.checkedpermission('getmember_membership')) {
+            if (this.pub_key) {
+                this.memberservice.getMembership(this.pub_key, pages, perpage, search, status, schedual, payment, '', orderby, order).subscribe(function (res) {
                     console.log(res['data']);
-                    _this.changeDetectRef.detectChanges();
-                }
-            });
+                    if (res['result']) {
+                        _this.dataSource.data = res['data'];
+                        console.log(res['data']);
+                        _this.changeDetectRef.detectChanges();
+                    }
+                });
+            }
         }
     };
     PaymentsMemberComponent.prototype.nextPage = function (event, serviclo) {
@@ -2069,15 +2283,38 @@ var PaymentsMemberComponent = /** @class */ (function () {
         else
             this.loadPayment(event.pageIndex + 1, event.pageSize, null, status, '', '', this.orderby, this.order);
     };
+    //permission
+    PaymentsMemberComponent.prototype.checkedpermission = function (key) {
+        var checked = false;
+        if (localStorage.getItem('user')) {
+            if (JSON.parse(localStorage.getItem('user'))) {
+                var user = JSON.parse(localStorage.getItem('user'));
+                if (user['allPrivilidge']) {
+                    var privilidge_1 = user['allPrivilidge'];
+                    Object.keys(privilidge_1).forEach(function (role) {
+                        Object.keys(privilidge_1[role]).forEach(function (pri) {
+                            var per = (privilidge_1[role][pri].toString()).trim();
+                            if (key.trim() == per) {
+                                checked = true;
+                            }
+                        });
+                    });
+                }
+            }
+        }
+        return checked;
+    };
     PaymentsMemberComponent = __decorate([
         core_1.Component({
             selector: 'kt-payments-member',
             template: __webpack_require__(/*! ./payments-member.component.html */ "./src/app/views/pages/members/member-profile/payments-member/payments-member.component.html"),
+            encapsulation: core_1.ViewEncapsulation.None,
             styles: [__webpack_require__(/*! ./payments-member.component.scss */ "./src/app/views/pages/members/member-profile/payments-member/payments-member.component.scss")]
         }),
         __metadata("design:paramtypes", [members_service_1.MembersService,
             core_1.ChangeDetectorRef,
             material_2.MatDialog,
+            material_3.MatSnackBar,
             router_1.Router,
             router_1.ActivatedRoute])
     ], PaymentsMemberComponent);
@@ -2594,7 +2831,7 @@ module.exports = "<link rel=\"stylesheet\" href=\"https://unpkg.com/angular-cale
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "h3 {\n  margin: 0 0 10px; }\n\npre {\n  background-color: #f5f5f5;\n  padding: 15px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdmlld3MvcGFnZXMvbWVtYmVycy9tZW1iZXItcHJvZmlsZS9yZXNjaGVkdWxlL3Jlc2NoZHVhbC1hbmRjYW5jZWwvRTpcXEdFTUlOXFxneW1pbi0yLjAtc2Fhcy1mcm9udGVuZC9zcmNcXGFwcFxcdmlld3NcXHBhZ2VzXFxtZW1iZXJzXFxtZW1iZXItcHJvZmlsZVxccmVzY2hlZHVsZVxccmVzY2hkdWFsLWFuZGNhbmNlbFxccmVzY2hkdWFsLWFuZGNhbmNlbC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGdCQUFnQixFQUFBOztBQUdsQjtFQUNFLHlCQUF5QjtFQUN6QixhQUFhLEVBQUEiLCJmaWxlIjoic3JjL2FwcC92aWV3cy9wYWdlcy9tZW1iZXJzL21lbWJlci1wcm9maWxlL3Jlc2NoZWR1bGUvcmVzY2hkdWFsLWFuZGNhbmNlbC9yZXNjaGR1YWwtYW5kY2FuY2VsLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaDMge1xyXG4gICAgbWFyZ2luOiAwIDAgMTBweDtcclxuICB9XHJcbiAgXHJcbiAgcHJlIHtcclxuICAgIGJhY2tncm91bmQtY29sb3I6ICNmNWY1ZjU7XHJcbiAgICBwYWRkaW5nOiAxNXB4O1xyXG4gIH0iXX0= */"
+module.exports = "h3 {\n  margin: 0 0 10px; }\n\npre {\n  background-color: #f5f5f5;\n  padding: 15px; }\n\n.warn-snackbar {\n  background-color: #ff4081; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdmlld3MvcGFnZXMvbWVtYmVycy9tZW1iZXItcHJvZmlsZS9yZXNjaGVkdWxlL3Jlc2NoZHVhbC1hbmRjYW5jZWwvRTpcXEdFTUlOXFxneW1pbi0yLjAtc2Fhcy1mcm9udGVuZC9zcmNcXGFwcFxcdmlld3NcXHBhZ2VzXFxtZW1iZXJzXFxtZW1iZXItcHJvZmlsZVxccmVzY2hlZHVsZVxccmVzY2hkdWFsLWFuZGNhbmNlbFxccmVzY2hkdWFsLWFuZGNhbmNlbC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGdCQUFnQixFQUFBOztBQUdsQjtFQUNFLHlCQUF5QjtFQUN6QixhQUFhLEVBQUE7O0FBR2Y7RUFDRSx5QkFBeUIsRUFBQSIsImZpbGUiOiJzcmMvYXBwL3ZpZXdzL3BhZ2VzL21lbWJlcnMvbWVtYmVyLXByb2ZpbGUvcmVzY2hlZHVsZS9yZXNjaGR1YWwtYW5kY2FuY2VsL3Jlc2NoZHVhbC1hbmRjYW5jZWwuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJoMyB7XHJcbiAgICBtYXJnaW46IDAgMCAxMHB4O1xyXG4gIH1cclxuICBcclxuICBwcmUge1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogI2Y1ZjVmNTtcclxuICAgIHBhZGRpbmc6IDE1cHg7XHJcbiAgfVxyXG4gIFxyXG4gIC53YXJuLXNuYWNrYmFye1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogI2ZmNDA4MTtcclxuICB9Il19 */"
 
 /***/ }),
 
@@ -2659,6 +2896,7 @@ var angular_calendar_1 = __webpack_require__(/*! angular-calendar */ "./node_mod
 var _services_1 = __webpack_require__(/*! ../../../../../../core/auth/_services */ "./src/app/core/auth/_services/index.ts");
 var members_service_1 = __webpack_require__(/*! ../../../members.service */ "./src/app/views/pages/members/members.service.ts");
 var crud_1 = __webpack_require__(/*! ../../../../../../core/_base/crud */ "./src/app/core/_base/crud/index.ts");
+var material_1 = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 //route
 var router_1 = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 var colors = {
@@ -2676,9 +2914,10 @@ var colors = {
     }
 };
 var ReschdualAndcancelComponent = /** @class */ (function () {
-    function ReschdualAndcancelComponent(modal, router, service, Membershipservice, layoutUtilsService, route) {
+    function ReschdualAndcancelComponent(modal, snackBar, router, service, Membershipservice, layoutUtilsService, route) {
         var _this = this;
         this.modal = modal;
+        this.snackBar = snackBar;
         this.router = router;
         this.service = service;
         this.Membershipservice = Membershipservice;
@@ -2714,10 +2953,12 @@ var ReschdualAndcancelComponent = /** @class */ (function () {
             this.getSchedual(this.units_key, this.membership_id, new Date());
         //membership piD
         if (this.router.snapshot.queryParamMap.get('piD'))
-            this.Membershipservice.getPackageBYId(this.router.snapshot.queryParamMap.get('piD')).subscribe(function (res) {
-                if (res['result'])
-                    _this.ReschedualMembershipData = res['data'][0];
-            });
+            if (this.checkedpermission('getmembership')) {
+                this.Membershipservice.getPackageBYId(this.router.snapshot.queryParamMap.get('piD')).subscribe(function (res) {
+                    if (res['result'])
+                        _this.ReschedualMembershipData = res['data'][0];
+                });
+            }
     }
     ReschdualAndcancelComponent.prototype.ngOnInit = function () {
         var url = this.route.url.split('/');
@@ -2753,26 +2994,50 @@ var ReschdualAndcancelComponent = /** @class */ (function () {
         this.startDay = startday.getDay();
         this.viewDate = startday;
         var start_date = startday.getTime();
-        this.service.getSchedual({ units_key: units_key, package: _package, start_date: start_date }).subscribe(function (res) {
-            console.log('resut', res);
-            if (res['result']) {
-                _this.drawOnCalender(res.data);
-                // console.log(this.rescedualPackages)
-                // this.drawOnCalender(this.rescedualPackages)
-            }
-        });
+        if (this.checkedpermission('getschedual')) {
+            this.service.getSchedual({ units_key: units_key, package: _package, start_date: start_date }).subscribe(function (res) {
+                console.log('resut', res);
+                if (res['result']) {
+                    _this.drawOnCalender(res.data);
+                    // console.log(this.rescedualPackages)
+                    // this.drawOnCalender(this.rescedualPackages)
+                }
+            });
+        }
     };
     /*
       get Activity By Id
     */
     ReschdualAndcancelComponent.prototype.getActivity = function (_package) {
         var _this = this;
-        this.service.getActivity(_package).subscribe(function (res) {
-            console.log('resut', res);
-            if (res['result']) {
-                _this.drawOnCalender(res.data.schedual_time);
+        if (this.checkedpermission('getactivities')) {
+            this.service.getActivity(_package).subscribe(function (res) {
+                console.log('resut', res);
+                if (res['result']) {
+                    _this.drawOnCalender(res.data.schedual_time);
+                }
+            });
+        }
+    };
+    ReschdualAndcancelComponent.prototype.checkedpermission = function (key) {
+        var checked = false;
+        if (localStorage.getItem('user')) {
+            if (JSON.parse(localStorage.getItem('user'))) {
+                var user = JSON.parse(localStorage.getItem('user'));
+                if (user['allPrivilidge']) {
+                    var privilidge_1 = user['allPrivilidge'];
+                    Object.keys(privilidge_1).forEach(function (role) {
+                        Object.keys(privilidge_1[role]).forEach(function (pri) {
+                            var per = (privilidge_1[role][pri].toString()).trim();
+                            if (key.trim() == per) {
+                                checked = true;
+                            }
+                        });
+                    });
+                }
             }
-        });
+        }
+        return checked;
     };
     ReschdualAndcancelComponent.prototype.SaveAttendance = function () {
         var _this = this;
@@ -2800,15 +3065,20 @@ var ReschdualAndcancelComponent = /** @class */ (function () {
                 data = { status: 'active', units_key: this.units_key, membership_id: this.membership_id, reservation: times, user_key: this.user_id, startoldday: this.ReschdualPackage.day, endoldday: this.ReschdualPackage.endoldday, _idAttendance: this.rescedualPackages['_idAttendance'] };
             else
                 data = { status: 'active', units_key: this.units_key, membership_id: this.membership_id, reservation: times, user_key: this.user_id, startoldday: this.ReschdualPackage.day, endoldday: this.ReschdualPackage.endoldday };
-            this.Membershipservice.reschedualAttendance(data).subscribe(function (res) {
-                if (res['result']) {
-                    _this.layoutUtilsService.showActionNotification("reservation has sucessfully added", crud_1.MessageType.Create, 5000, true, true);
-                    var member_id = _this.route.url.split('/')[5];
-                    _this.route.navigate(['/default/members/list/profile', member_id, 'reschedule']);
-                }
-                else
-                    alert(res['error']);
-            });
+            if (this.checkedpermission('reschedualattendance')) {
+                this.Membershipservice.reschedualAttendance(data).subscribe(function (res) {
+                    if (res['result']) {
+                        _this.layoutUtilsService.showActionNotification("reservation has sucessfully added", crud_1.MessageType.Create, 5000, true, true);
+                        var member_id = _this.route.url.split('/')[5];
+                        _this.route.navigate(['/default/members/list/profile', member_id, 'reschedule']);
+                    }
+                    else
+                        alert(res['error']);
+                });
+            }
+            else {
+                this.open();
+            }
         }
     };
     ReschdualAndcancelComponent.prototype.drawOnCalender = function (data, activity) {
@@ -2851,6 +3121,23 @@ var ReschdualAndcancelComponent = /** @class */ (function () {
         return size;
     };
     ;
+    ReschdualAndcancelComponent.prototype.open = function () {
+        var message = 'Oh Snap ! You dont have permission to get this data';
+        var actionButtonLabel = '';
+        var action = true;
+        var setAutoHide = true;
+        var autoHide = 4000;
+        var horizontalPosition = 'center';
+        var verticalPosition = 'top';
+        var addExtraClass = false;
+        var config = new material_1.MatSnackBarConfig();
+        config.verticalPosition = verticalPosition;
+        config.horizontalPosition = horizontalPosition;
+        config.duration = setAutoHide ? autoHide : 0;
+        //  config['extraClasses'] = addExtraClass ? ['warn-snackbar'] : undefined;
+        config.panelClass = ['warn-snackbar'];
+        this.snackBar.open(message, action ? actionButtonLabel : undefined, config);
+    };
     __decorate([
         core_1.ViewChild('modalContent'),
         __metadata("design:type", core_1.TemplateRef)
@@ -2859,9 +3146,11 @@ var ReschdualAndcancelComponent = /** @class */ (function () {
         core_1.Component({
             selector: 'kt-reschdual-andcancel',
             template: __webpack_require__(/*! ./reschdual-andcancel.component.html */ "./src/app/views/pages/members/member-profile/reschedule/reschdual-andcancel/reschdual-andcancel.component.html"),
+            encapsulation: core_1.ViewEncapsulation.None,
             styles: [__webpack_require__(/*! ./reschdual-andcancel.component.scss */ "./src/app/views/pages/members/member-profile/reschedule/reschdual-andcancel/reschdual-andcancel.component.scss")]
         }),
         __metadata("design:paramtypes", [ng_bootstrap_1.NgbModal,
+            material_1.MatSnackBar,
             router_1.ActivatedRoute,
             _services_1.SchedualService, members_service_1.MembersService, crud_1.LayoutUtilsService, router_1.Router])
     ], ReschdualAndcancelComponent);
@@ -2890,7 +3179,7 @@ module.exports = "<link rel=\"stylesheet\" href=\"https://unpkg.com/angular-cale
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "h3 {\n  margin: 0 0 10px; }\n\npre {\n  background-color: #f5f5f5;\n  padding: 15px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdmlld3MvcGFnZXMvbWVtYmVycy9tZW1iZXItcHJvZmlsZS9yZXNjaGVkdWxlL0U6XFxHRU1JTlxcZ3ltaW4tMi4wLXNhYXMtZnJvbnRlbmQvc3JjXFxhcHBcXHZpZXdzXFxwYWdlc1xcbWVtYmVyc1xcbWVtYmVyLXByb2ZpbGVcXHJlc2NoZWR1bGVcXHJlc2NoZWR1bGUuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxnQkFBZ0IsRUFBQTs7QUFHbEI7RUFDRSx5QkFBeUI7RUFDekIsYUFBYSxFQUFBIiwiZmlsZSI6InNyYy9hcHAvdmlld3MvcGFnZXMvbWVtYmVycy9tZW1iZXItcHJvZmlsZS9yZXNjaGVkdWxlL3Jlc2NoZWR1bGUuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJoMyB7XHJcbiAgICBtYXJnaW46IDAgMCAxMHB4O1xyXG4gIH1cclxuICBcclxuICBwcmUge1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogI2Y1ZjVmNTtcclxuICAgIHBhZGRpbmc6IDE1cHg7XHJcbiAgfVxyXG5cclxuIl19 */"
+module.exports = "h3 {\n  margin: 0 0 10px; }\n\npre {\n  background-color: #f5f5f5;\n  padding: 15px; }\n\n.warn-snackbar {\n  background-color: #ff4081; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdmlld3MvcGFnZXMvbWVtYmVycy9tZW1iZXItcHJvZmlsZS9yZXNjaGVkdWxlL0U6XFxHRU1JTlxcZ3ltaW4tMi4wLXNhYXMtZnJvbnRlbmQvc3JjXFxhcHBcXHZpZXdzXFxwYWdlc1xcbWVtYmVyc1xcbWVtYmVyLXByb2ZpbGVcXHJlc2NoZWR1bGVcXHJlc2NoZWR1bGUuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxnQkFBZ0IsRUFBQTs7QUFHbEI7RUFDRSx5QkFBeUI7RUFDekIsYUFBYSxFQUFBOztBQUdmO0VBQ0UseUJBQXlCLEVBQUEiLCJmaWxlIjoic3JjL2FwcC92aWV3cy9wYWdlcy9tZW1iZXJzL21lbWJlci1wcm9maWxlL3Jlc2NoZWR1bGUvcmVzY2hlZHVsZS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImgzIHtcclxuICAgIG1hcmdpbjogMCAwIDEwcHg7XHJcbiAgfVxyXG4gIFxyXG4gIHByZSB7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjZjVmNWY1O1xyXG4gICAgcGFkZGluZzogMTVweDtcclxuICB9XHJcblxyXG4gIC53YXJuLXNuYWNrYmFye1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogI2ZmNDA4MTtcclxuICB9Il19 */"
 
 /***/ }),
 
@@ -2954,6 +3243,7 @@ var material_1 = __webpack_require__(/*! @angular/material */ "./node_modules/@a
 var members_service_1 = __webpack_require__(/*! ../../members.service */ "./src/app/views/pages/members/members.service.ts");
 var ng_bootstrap_1 = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
 var angular_calendar_1 = __webpack_require__(/*! angular-calendar */ "./node_modules/angular-calendar/fesm5/angular-calendar.js");
+var material_2 = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 var _services_1 = __webpack_require__(/*! ../../../../../core/auth/_services */ "./src/app/core/auth/_services/index.ts");
 var rechedual_edit_dialog_component_1 = __webpack_require__(/*! ./rechedual-edit/rechedual-edit.dialog.component */ "./src/app/views/pages/members/member-profile/reschedule/rechedual-edit/rechedual-edit.dialog.component.ts");
 //router
@@ -2977,8 +3267,9 @@ var colors = {
     }
 };
 var ReschedualComponent = /** @class */ (function () {
-    function ReschedualComponent(dialog, modal, service, memberService, router, route) {
+    function ReschedualComponent(dialog, snackBar, modal, service, memberService, router, route) {
         this.dialog = dialog;
+        this.snackBar = snackBar;
         this.modal = modal;
         this.service = service;
         this.memberService = memberService;
@@ -2995,7 +3286,6 @@ var ReschedualComponent = /** @class */ (function () {
         this.units_key = '';
         this.start_date = new Date();
         this.user_key = '';
-        //ليه??
         this.trainer_key = '';
         this.events = [];
         this.selectedTimes = {};
@@ -3035,30 +3325,32 @@ var ReschedualComponent = /** @class */ (function () {
     */
     ReschedualComponent.prototype.viewAttendance = function (user_key, trainer_key, _package, startday, status) {
         var _this = this;
-        this.service.viewAttendance({ user_key: user_key, trainer_key: trainer_key, package: _package, startday: startday, status: status }).subscribe(function (res) {
-            console.log('all times', res);
-            if (res['result']) {
-                _this.refresh.next();
-                _this.events = [];
-                console.log(res.data);
-                for (var i = 0; i < res.data.length; i++) {
-                    console.log(res.data[i].from);
-                    var start = _this.get_UTC_timestamp(res.data[i].from);
-                    var end = _this.get_UTC_timestamp(res.data[i].to);
-                    var title = "name: " + "\n time:" + _this.gethoursandminutes(start) + " to " + _this.gethoursandminutes(end);
-                    var color = colors.blue;
-                    var id = "{\"day\":\"" + res.data[i].day + "\",\"status\":\"" + res.data[i].status + "\",\"branch_key\":\"" + res.data[i].branch_key + "\",\"club_key\":\"" + res.data[i].club_key + "\",\"package_id\":\"" + res.data[i].membership_id + "\",\"membership_id\":\"" + res.data[i].membershipandpayment_id + "\",\"trainer_key\":\"" + res.data[i].trainer_key + "\",\"user_key\":\"" + user_key + "\",\"units_key\":\"" + res.data[i].units_key + "\",\"from\":\"" + res.data[i].from + "\",\"to\":\"" + res.data[i].to + "\",\"_idAttendance\":\"" + res.data[i]._id + "\"}";
-                    if (res.data[i].status == 'active')
-                        color = colors.green;
-                    if (res.data[i].status == "reschedual")
-                        color = colors.yellow;
-                    if (res.data[i].status == "cancel")
-                        color = colors.red;
-                    //if(i%2) var color = colors.blue;else var color = colors.yellow;
-                    _this.events.push({ start: start, end: end, title: title, color: color, id: id });
+        if (this.checkedpermission('viewattendance')) {
+            this.service.viewAttendance({ user_key: user_key, trainer_key: trainer_key, package: _package, startday: startday, status: status }).subscribe(function (res) {
+                console.log('all times', res);
+                if (res['result']) {
+                    _this.refresh.next();
+                    _this.events = [];
+                    console.log(res.data);
+                    for (var i = 0; i < res.data.length; i++) {
+                        console.log(res.data[i].from);
+                        var start = _this.get_UTC_timestamp(res.data[i].from);
+                        var end = _this.get_UTC_timestamp(res.data[i].to);
+                        var title = "name: " + "\n time:" + _this.gethoursandminutes(start) + " to " + _this.gethoursandminutes(end);
+                        var color = colors.blue;
+                        var id = "{\"day\":\"" + res.data[i].day + "\",\"status\":\"" + res.data[i].status + "\",\"branch_key\":\"" + res.data[i].branch_key + "\",\"club_key\":\"" + res.data[i].club_key + "\",\"package_id\":\"" + res.data[i].membership_id + "\",\"membership_id\":\"" + res.data[i].membershipandpayment_id + "\",\"trainer_key\":\"" + res.data[i].trainer_key + "\",\"user_key\":\"" + user_key + "\",\"units_key\":\"" + res.data[i].units_key + "\",\"from\":\"" + res.data[i].from + "\",\"to\":\"" + res.data[i].to + "\",\"_idAttendance\":\"" + res.data[i]._id + "\"}";
+                        if (res.data[i].status == 'active')
+                            color = colors.green;
+                        if (res.data[i].status == "reschedual")
+                            color = colors.yellow;
+                        if (res.data[i].status == "cancel")
+                            color = colors.red;
+                        //if(i%2) var color = colors.blue;else var color = colors.yellow;
+                        _this.events.push({ start: start, end: end, title: title, color: color, id: id });
+                    }
                 }
-            }
-        });
+            });
+        }
     };
     ReschedualComponent.prototype.SaveAttendance = function () {
         var times = new Array();
@@ -3071,11 +3363,16 @@ var ReschedualComponent = /** @class */ (function () {
             });
         });
         var data = { units_key: this.units_key, package: this.membership_id, start_date: this.start_date, recervation: times };
-        this.service.addAttendance(data).subscribe(function (res) {
-            if (res['result']) {
-                // action after recervation
-            }
-        });
+        if (this.checkedpermission('addattendance')) {
+            this.service.addAttendance(data).subscribe(function (res) {
+                if (res['result']) {
+                    // action after recervation
+                }
+            });
+        }
+        else {
+            this.open();
+        }
     };
     ReschedualComponent.prototype.deleteEvent = function (eventToDelete) {
         this.events = this.events.filter(function (event) { return event !== eventToDelete; });
@@ -3100,6 +3397,23 @@ var ReschedualComponent = /** @class */ (function () {
         var strTime = hours + ':' + minutes + ' ' + ampm;
         return strTime;
     };
+    ReschedualComponent.prototype.open = function () {
+        var message = 'Oh Snap ! You dont have permission to get this data';
+        var actionButtonLabel = '';
+        var action = true;
+        var setAutoHide = true;
+        var autoHide = 4000;
+        var horizontalPosition = 'center';
+        var verticalPosition = 'top';
+        var addExtraClass = false;
+        var config = new material_2.MatSnackBarConfig();
+        config.verticalPosition = verticalPosition;
+        config.horizontalPosition = horizontalPosition;
+        config.duration = setAutoHide ? autoHide : 0;
+        //  config['extraClasses'] = addExtraClass ? ['warn-snackbar'] : undefined;
+        config.panelClass = ['warn-snackbar'];
+        this.snackBar.open(message, action ? actionButtonLabel : undefined, config);
+    };
     ReschedualComponent.prototype.get_UTC_timestamp = function (date) {
         var d1 = new Date(date);
         var d2 = Date.UTC(d1.getUTCFullYear(), d1.getUTCMonth(), d1.getUTCDate(), d1.getUTCHours(), d1.getUTCMinutes(), d1.getUTCSeconds());
@@ -3115,6 +3429,26 @@ var ReschedualComponent = /** @class */ (function () {
         return size;
     };
     ;
+    ReschedualComponent.prototype.checkedpermission = function (key) {
+        var checked = false;
+        if (localStorage.getItem('user')) {
+            if (JSON.parse(localStorage.getItem('user'))) {
+                var user = JSON.parse(localStorage.getItem('user'));
+                if (user['allPrivilidge']) {
+                    var privilidge_1 = user['allPrivilidge'];
+                    Object.keys(privilidge_1).forEach(function (role) {
+                        Object.keys(privilidge_1[role]).forEach(function (pri) {
+                            var per = (privilidge_1[role][pri].toString()).trim();
+                            if (key.trim() == per) {
+                                checked = true;
+                            }
+                        });
+                    });
+                }
+            }
+        }
+        return checked;
+    };
     __decorate([
         core_1.ViewChild('modalContent'),
         __metadata("design:type", core_1.TemplateRef)
@@ -3124,9 +3458,12 @@ var ReschedualComponent = /** @class */ (function () {
             selector: 'kt-reschedual',
             changeDetection: core_1.ChangeDetectionStrategy.OnPush,
             template: __webpack_require__(/*! ./reschedule.component.html */ "./src/app/views/pages/members/member-profile/reschedule/reschedule.component.html"),
+            // viewProviders: [MatExpansionPanel]
+            encapsulation: core_1.ViewEncapsulation.None,
             styles: [__webpack_require__(/*! ./reschedule.component.scss */ "./src/app/views/pages/members/member-profile/reschedule/reschedule.component.scss")]
         }),
         __metadata("design:paramtypes", [material_1.MatDialog,
+            material_2.MatSnackBar,
             ng_bootstrap_1.NgbModal,
             _services_1.SchedualService,
             members_service_1.MembersService,
@@ -3147,7 +3484,7 @@ exports.ReschedualComponent = ReschedualComponent;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<kt-portlet style=\"height:100%\">\r\n  <!-- See prop => '../../_core/models/data-sources/_base.datasource.ts' (loading$) -->\r\n  <kt-portlet-header>\r\n    <!-- PORTLET LOADING | Binded to TABLE Datasource -->\r\n\r\n    <ng-container ktPortletTitle>\r\n      <h3 class=\"kt-portlet__head-title\">\r\n        <span>Categories list</span>\r\n      </h3>\r\n      <!-- For localisations we use @ngx-translate | See off. documentations => https://github.com/ngx-translate/core -->\r\n      <!-- Localization libraries (en/fr) are here => '../../../.././config/i18n/en.ts|fr.ts' -->\r\n    </ng-container>\r\n  </kt-portlet-header>\r\n  <!-- end::Header -->\r\n\r\n  <kt-portlet-body>\r\n    <!-- start::FILTERS & GROUP ACTIONS -->\r\n    <div class=\"kt-form kt-margin-b-30\">\r\n      <!-- start::FILTERS -->\r\n      <div class=\"kt-form__filtration\">\r\n        <div class=\"row align-items-center\">\r\n\r\n\r\n\r\n          <div class=\"col-md-2 kt-margin-bottom-10-mobile\">\r\n            <mat-form-field class=\"mat-form-field-fluid\">\r\n              <input matInput placeholder=\"Search Category\"[(ngModel)]=\"searchInput\"  placeholder=\"Search\">\r\n              <mat-hint align=\"start\">\r\n                <strong>Search</strong> in all fields\r\n              </mat-hint>\r\n            </mat-form-field>\r\n          </div>\r\n\r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n\r\n\r\n    \r\n\r\n     <mat-accordion *ngFor=\"let workOut of workOuts\">\r\n      <mat-expansion-panel>\r\n        <mat-expansion-panel-header>\r\n          <mat-panel-title>\r\n            {{workOut.key}}\r\n          </mat-panel-title>\r\n          <mat-panel-description>\r\n            Open here to show categories\r\n          </mat-panel-description>\r\n        </mat-expansion-panel-header>\r\n        <section class=\"example-section\">\r\n           <div class=\"container1\" *ngFor=\"let category of workOut.value\">\r\n              <div style=\"margin:5px\">\r\n                  <mat-checkbox (click)=\"$event.stopPropagation()\"\r\n                  (change)=\"$event ? selection.toggle(category) : null\"\r\n                   [checked]=\"selection.isSelected(category)\" \r\n                  [color]=\"'primary'\">\r\n                </mat-checkbox>\r\n              </div>\r\n             <div>\r\n                <img *ngIf=\"category.image_url\" src=\"{{URL}}{{category.image_url}}\" width=\"90px\" height=\"90px\" alt=\"category image\" style=\"border-radius:5px\">\r\n                <img *ngIf=\"!category.image_url\"  src=\"https://image.freepik.com/free-vector/flat-computer-engineering-concept_23-2148154728.jpg\" width=\"90px\" height=\"90px\" alt=\"category image\" style=\"border-radius:5px\">\r\n             </div>\r\n             <div  style=\"margin:5px\">\r\n                <p style=\"margin-top:9px\"><b>{{category.name}}</b></p>\r\n                <p >{{category.description.length > 80 ? category.description.substring(0,80)+\"...\" : category.description}}</p>\r\n              <p *ngIf=\"category.video_url\"><a  href=\"javascript:;\">video</a></p>\r\n                  \r\n                   \r\n             </div>\r\n           </div>\r\n           </section>\r\n      \r\n      </mat-expansion-panel>\r\n    </mat-accordion>\r\n\r\n    <div class=\"kt-separator kt-separator--dashed\"></div>\r\n    <div class=\"kt-portlet__foot kt-portlet__no-border kt-portlet__foot--fit\">\r\n      <div class=\"kt-form__actions kt-form__actions--solid\">\r\n        <div class=\"row text-right\">\r\n          <div class=\"col-lg-12\">\r\n            <div mat-dialog-actions>\r\n              <button mat-button (click)=\"close()\">Cancel</button>\r\n              <button mat-button (click)=\"save()\" cdkFocusInitial>Save</button>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n  </kt-portlet-body>\r\n\r\n</kt-portlet>\r\n"
+module.exports = "<kt-portlet style=\"height:100%\">\r\n  <!-- See prop => '../../_core/models/data-sources/_base.datasource.ts' (loading$) -->\r\n  <kt-portlet-header>\r\n    <!-- PORTLET LOADING | Binded to TABLE Datasource -->\r\n\r\n    <ng-container ktPortletTitle>\r\n      <h3 class=\"kt-portlet__head-title\">\r\n        <span>Categories list</span>\r\n      </h3>\r\n      <!-- For localisations we use @ngx-translate | See off. documentations => https://github.com/ngx-translate/core -->\r\n      <!-- Localization libraries (en/fr) are here => '../../../.././config/i18n/en.ts|fr.ts' -->\r\n    </ng-container>\r\n  </kt-portlet-header>\r\n  <!-- end::Header -->\r\n\r\n  <kt-portlet-body>\r\n    <!-- start::FILTERS & GROUP ACTIONS -->\r\n    <div class=\"kt-form kt-margin-b-30\">\r\n      <!-- start::FILTERS -->\r\n      <div class=\"kt-form__filtration\">\r\n        <div class=\"row align-items-center\">\r\n\r\n\r\n\r\n          <div class=\"col-md-2 kt-margin-bottom-10-mobile\">\r\n            <mat-form-field class=\"mat-form-field-fluid\">\r\n              <input matInput placeholder=\"Search Category\"[(ngModel)]=\"searchInput\"  placeholder=\"Search\">\r\n              <mat-hint align=\"start\">\r\n                <strong>Search</strong> in all fields\r\n              </mat-hint>\r\n            </mat-form-field>\r\n          </div>\r\n\r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n\r\n\r\n    \r\n  \r\n    <mat-accordion *ngFor=\"let workOut of workOuts | filter:searchInput \">\r\n      <mat-expansion-panel>\r\n        <mat-expansion-panel-header>\r\n          <mat-panel-title>\r\n            {{workOut.key}}\r\n          </mat-panel-title>\r\n          <mat-panel-description>\r\n            Open here to show categories\r\n          </mat-panel-description>\r\n        </mat-expansion-panel-header>\r\n        <section class=\"example-section\">\r\n           <div class=\"container1\" *ngFor=\"let category of workOut.value\">\r\n              <div style=\"margin:5px\">\r\n                  <mat-checkbox (click)=\"$event.stopPropagation()\"\r\n                  (change)=\"$event ? selection.toggle(category) : null\"\r\n                   [checked]=\"selection.isSelected(category)\" \r\n                  [color]=\"'primary'\">\r\n                </mat-checkbox>\r\n              </div>\r\n             <div>\r\n                <img *ngIf=\"category.image_url\" src=\"{{URL}}{{category.image_url}}\" width=\"90px\" height=\"90px\" alt=\"category image\" style=\"border-radius:5px\">\r\n                <img *ngIf=\"!category.image_url\"  src=\"https://image.freepik.com/free-vector/flat-computer-engineering-concept_23-2148154728.jpg\" width=\"90px\" height=\"90px\" alt=\"category image\" style=\"border-radius:5px\">\r\n             </div>\r\n             <div  style=\"margin:5px\">\r\n                <p style=\"margin-top:9px\"><b>{{category.name}}</b></p>\r\n                <p >{{category.description.length > 80 ? category.description.substring(0,80)+\"...\" : category.description}}</p>\r\n              <p *ngIf=\"category.video_url\"><a  href=\"javascript:;\">video</a></p>\r\n                  \r\n                   \r\n             </div>\r\n           </div>\r\n           </section>\r\n      \r\n      </mat-expansion-panel>\r\n    </mat-accordion>\r\n\r\n    <div class=\"kt-separator kt-separator--dashed\"></div>\r\n    <div class=\"kt-portlet__foot kt-portlet__no-border kt-portlet__foot--fit\">\r\n      <div class=\"kt-form__actions kt-form__actions--solid\">\r\n        <div class=\"row text-right\">\r\n          <div class=\"col-lg-12\">\r\n            <div mat-dialog-actions>\r\n              <button mat-button (click)=\"close()\">Cancel</button>\r\n              <button mat-button (click)=\"save()\" cdkFocusInitial>Save</button>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n  </kt-portlet-body>\r\n\r\n</kt-portlet>\r\n"
 
 /***/ }),
 
@@ -3641,6 +3978,7 @@ var show_reschdual_time_component_1 = __webpack_require__(/*! ./member-profile/r
 var reschdual_andcancel_component_1 = __webpack_require__(/*! ./member-profile/reschedule/reschdual-andcancel/reschdual-andcancel.component */ "./src/app/views/pages/members/member-profile/reschedule/reschdual-andcancel/reschdual-andcancel.component.ts");
 var workout_component_1 = __webpack_require__(/*! ./member-profile/workout/workout.component */ "./src/app/views/pages/members/member-profile/workout/workout.component.ts");
 var categories_component_1 = __webpack_require__(/*! ./member-profile/workout/categories/categories.component */ "./src/app/views/pages/members/member-profile/workout/categories/categories.component.ts");
+var ng2_search_filter_1 = __webpack_require__(/*! ng2-search-filter */ "./node_modules/ng2-search-filter/ng2-search-filter.es5.js");
 var routes = [
     {
         path: '',
@@ -3812,6 +4150,8 @@ var MembersModule = /** @class */ (function () {
                     provide: angular_calendar_1.DateAdapter,
                     useFactory: date_fns_1.adapterFactory
                 }),
+                ng2_search_filter_1.Ng2SearchPipeModule
+                // FileUploadModule
             ],
             providers: [
                 crud_1.InterceptService,

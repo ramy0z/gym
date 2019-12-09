@@ -3289,6 +3289,7 @@ var _public_1 = __webpack_require__(/*! ./core/_public */ "./src/app/core/_publi
 var _public_2 = __webpack_require__(/*! ./core/_public */ "./src/app/core/_public/index.ts");
 var form_field_1 = __webpack_require__(/*! @angular/material/form-field */ "./node_modules/@angular/material/esm5/form-field.es5.js");
 var ng2_img_max_1 = __webpack_require__(/*! ng2-img-max */ "./node_modules/ng2-img-max/dist/ng2-img-max.js");
+var messaging_service_1 = __webpack_require__(/*! ./views/partials/layout/topbar/notification/messaging.service */ "./src/app/views/partials/layout/topbar/notification/messaging.service.ts");
 //import {AmexioWidgetModule} from 'amexio-ng-extensions';
 //
 //
@@ -3389,7 +3390,9 @@ var AppModule = /** @class */ (function () {
                 crud_1.HttpUtilsService,
                 crud_1.TypesUtilsService,
                 crud_1.LayoutUtilsService,
-                progress_bar_1.MatProgressBarModule
+                progress_bar_1.MatProgressBarModule,
+                //notification service
+                messaging_service_1.MessagingService
             ],
             bootstrap: [app_component_1.AppComponent]
         })
@@ -7230,6 +7233,20 @@ var MenuConfig = /** @class */ (function () {
                     if (!permission['Activities'] || Object.keys(permission['Activities']).length == 0) {
                         this.FilterMenu('aside', 'Activities');
                     }
+                    if (!permission['Attendance'] || Object.keys(permission['Attendance']).length == 0) {
+                        this.FilterMenu('aside', 'Workouts');
+                    }
+                    if (permission['Attendance'] && Object.keys(permission['Attendance']).length > 0) {
+                        if (!permission['Attendance']['Get Workouts'])
+                            this.FilterMenu('aside', 'Workouts');
+                    }
+                    if (!permission['Billing'] || Object.keys(permission['Billing']).length == 0) {
+                        this.FilterMenu('aside', 'Billing');
+                    }
+                    if (permission['Billing'] && Object.keys(permission['Billing']).length > 0) {
+                        if (!permission['Billing']['Get Billing'])
+                            this.FilterMenu('aside', 'Billing');
+                    }
                 }
                 else {
                     this.defaults['aside'] = {};
@@ -7573,7 +7590,7 @@ var PublicMethods = /** @class */ (function () {
         var _timeStamp = Date.now(), _signature = md5_1.Md5.hashStr((md5_1.Md5.hashStr("gyminAppwsds548_$%#@" + _timeStamp + "@#!$$#@#$844%^^&(SDF%*%)")).toString()), _url = "https://mygymin.herokuapp.com/api/v1/" + module + "/" + service + "/" + account_key + "?timestamp=" + _timeStamp + "&signature=" + _signature;
         //_url = `http://localhost:3000/api/v1/${module}/${service}/${account_key}?timestamp=${_timeStamp}&signature=${_signature}`
         if (localStorage.getItem('user')) {
-            var parent_keys = (JSON.parse(localStorage.getItem('user')))['lastloginaccount'];
+            var parent_keys = (JSON.parse(localStorage.getItem('user')))['pub_key'];
             var public_keys = (JSON.parse(localStorage.getItem('user')))['pub_key'];
             if (parent_keys == 'undefined')
                 parent_keys = public_keys;
@@ -7630,7 +7647,7 @@ var PublicMethods = /** @class */ (function () {
     };
     PublicMethods.createURL_Invitation = function (parent_key, email, timestamp, signature, all, user_type) {
         return "https://mygymin.herokuapp.com/api/v1/customers/emailinvitationlink/" + parent_key + "/" + email + "/" + timestamp + "/" + signature + "/" + user_type + "/" + all;
-        //return `http://localhost:3000/api/v1/customers/emailinvitationlink/${parent_key}/${email}/${timestamp}/${signature}/${user_type}/${all}`;
+        // return `http://localhost:3000/api/v1/customers/emailinvitationlink/${parent_key}/${email}/${timestamp}/${signature}/${user_type}/${all}`;
     };
     PublicMethods.createHeaders = function () {
         var httpHeaders = new http_1.HttpHeaders();
@@ -15024,6 +15041,8 @@ exports.SplashScreenComponent = splash_screen_component_1.SplashScreenComponent;
 // Subheader components
 var subheader1_component_1 = __webpack_require__(/*! ./subheader/subheader1/subheader1.component */ "./src/app/views/partials/layout/subheader/subheader1/subheader1.component.ts");
 exports.Subheader1Component = subheader1_component_1.Subheader1Component;
+var subheader2_component_1 = __webpack_require__(/*! ./subheader/subheader2/subheader2.component */ "./src/app/views/partials/layout/subheader/subheader2/subheader2.component.ts");
+exports.Subheader2Component = subheader2_component_1.Subheader2Component;
 // Topbar components
 var language_selector_component_1 = __webpack_require__(/*! ./topbar/language-selector/language-selector.component */ "./src/app/views/partials/layout/topbar/language-selector/language-selector.component.ts");
 exports.LanguageSelectorComponent = language_selector_component_1.LanguageSelectorComponent;
@@ -15031,8 +15050,8 @@ var user_profile_component_1 = __webpack_require__(/*! ./topbar/user-profile/use
 exports.UserProfileComponent = user_profile_component_1.UserProfileComponent;
 var user_profile2_component_1 = __webpack_require__(/*! ./topbar/user-profile2/user-profile2.component */ "./src/app/views/partials/layout/topbar/user-profile2/user-profile2.component.ts");
 exports.UserProfile2Component = user_profile2_component_1.UserProfile2Component;
-var notifiacion_component_1 = __webpack_require__(/*! ./topbar/notifiacion/notifiacion.component */ "./src/app/views/partials/layout/topbar/notifiacion/notifiacion.component.ts");
-exports.NotifiacionComponent = notifiacion_component_1.NotifiacionComponent;
+var notification_component_1 = __webpack_require__(/*! ./topbar/notification/notification.component */ "./src/app/views/partials/layout/topbar/notification/notification.component.ts");
+exports.NotificationComponent = notification_component_1.NotificationComponent;
 
 
 /***/ }),
@@ -15293,6 +15312,123 @@ exports.Subheader1Component = Subheader1Component;
 
 /***/ }),
 
+/***/ "./src/app/views/partials/layout/subheader/subheader2/subheader2.component.html":
+/*!**************************************************************************************!*\
+  !*** ./src/app/views/partials/layout/subheader/subheader2/subheader2.component.html ***!
+  \**************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<!-- begin:: Content Head -->\r\n<div class=\"kt-subheader kt-grid__item\" [hidden]=\"subheaderService.disabled$ | async\" id=\"kt_subheader\">\r\n\t<div class=\"kt-subheader__main\">\r\n\t\t<h3 *ngIf=\"title\" class=\"kt-subheader__title\">{{title}}</h3>\r\n\t\t<span class=\"kt-subheader__separator kt-subheader__separator--v\"></span>\r\n\t\t<span *ngIf=\"desc\" class=\"kt-subheader__desc\">{{desc}}</span>\r\n\t\t\r\n\t</div>\r\n\t<div class=\"kt-subheader__toolbar\">\r\n\t\t<div class=\"kt-subheader__wrapper\">\r\n\t\t\t<div ngbDropdown [placement]=\"'bottom-right'\" class=\"dropdown dropdown-inline\" data-placement=\"left\">\r\n\t\t\t\t<a ngbDropdownToggle href=\"javascript:;\" class=\"btn kt-subheader__btn-daterange\"\r\n\t\t\t\t\tid=\"kt_dashboard_daterangepicker\" data-placement=\"left\" ngbTooltip=\"Select dashboard daterange\">\r\n\t\t\t\t\t<span class=\"kt-subheader__btn-daterange-title\"\r\n\t\t\t\t\t\tid=\"kt_dashboard_daterangepicker_title\">Today</span>&nbsp;\r\n\t\t\t\t\t<span class=\"kt-subheader__btn-daterange-date\"\r\n\t\t\t\t\t\tid=\"kt_dashboard_daterangepicker_date\">{{today | date:'MMM dd'}}</span>\r\n\t\t\t\t\t<i class=\"flaticon2-calendar-1\"></i>\r\n\t\t\t\t</a>\r\n\t\t\t\t<div ngbDropdownMenu class=\"dropdown-menu dropdown-menu-right\">\r\n\t\t\t\t\r\n\t\t\t\t\t<a href=\"javascript:;\" class=\"dropdown-item\">Last 7 Days</a>\r\n\t\t\t\t\t<a href=\"javascript:;\" class=\"dropdown-item\">Last 30 Days</a>\r\n\t\t\t\t\t<a href=\"javascript:;\" class=\"dropdown-item\">Last 90 Days</a>\r\n\t\t\t\t\t<a href=\"javascript:;\" class=\"dropdown-item\">Custom Range</a>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\r\n\t\t\t<a href=\"javascript:;\" class=\"btn kt-subheader__btn-primary btn-icon\">\r\n\t\t\t\t<i class=\"flaticon2-file\"></i>\r\n\t\t\t</a>\r\n\r\n\t\t\t<a href=\"javascript:;\" class=\"btn kt-subheader__btn-primary btn-icon\">\r\n\t\t\t\t<i class=\"flaticon-download-1\"></i>\r\n\t\t\t</a>\r\n\r\n\t\t\t<a href=\"javascript:;\" class=\"btn kt-subheader__btn-primary btn-icon\">\r\n\t\t\t\t<i class=\"flaticon2-fax\"></i>\r\n\t\t\t</a>\r\n\r\n\t\t\t<a href=\"javascript:;\" class=\"btn kt-subheader__btn-primary btn-icon\">\r\n\t\t\t\t<i class=\"flaticon2-settings\"></i>\r\n\t\t\t</a>\r\n\r\n\r\n\t\t</div>\r\n\t</div>\r\n</div>\r\n<!-- end:: Content Head -->"
+
+/***/ }),
+
+/***/ "./src/app/views/partials/layout/subheader/subheader2/subheader2.component.scss":
+/*!**************************************************************************************!*\
+  !*** ./src/app/views/partials/layout/subheader/subheader2/subheader2.component.scss ***!
+  \**************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ":host .kt-subheader__desc {\n  margin: 0; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdmlld3MvcGFydGlhbHMvbGF5b3V0L3N1YmhlYWRlci9zdWJoZWFkZXIyL0U6XFxHRU1JTlxcZ3ltaW4tMi4wLXNhYXMtZnJvbnRlbmQvc3JjXFxhcHBcXHZpZXdzXFxwYXJ0aWFsc1xcbGF5b3V0XFxzdWJoZWFkZXJcXHN1YmhlYWRlcjJcXHN1YmhlYWRlcjIuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFFRSxTQUFTLEVBQUEiLCJmaWxlIjoic3JjL2FwcC92aWV3cy9wYXJ0aWFscy9sYXlvdXQvc3ViaGVhZGVyL3N1YmhlYWRlcjIvc3ViaGVhZGVyMi5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIjpob3N0IHtcclxuXHQua3Qtc3ViaGVhZGVyX19kZXNjIHtcclxuXHRcdG1hcmdpbjogMDtcclxuXHR9XHJcbn1cclxuIl19 */"
+
+/***/ }),
+
+/***/ "./src/app/views/partials/layout/subheader/subheader2/subheader2.component.ts":
+/*!************************************************************************************!*\
+  !*** ./src/app/views/partials/layout/subheader/subheader2/subheader2.component.ts ***!
+  \************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+// Angular
+var core_1 = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+// Layout
+var layout_1 = __webpack_require__(/*! ../../../../../core/_base/layout */ "./src/app/core/_base/layout/index.ts");
+var Subheader2Component = /** @class */ (function () {
+    /**
+     * Component constructor
+     *
+     * @param subheaderService: SubheaderService
+     */
+    function Subheader2Component(subheaderService) {
+        this.subheaderService = subheaderService;
+        this.today = Date.now();
+        this.title = '';
+        this.desc = '';
+        this.breadcrumbs = [];
+        // Private properties
+        this.subscriptions = [];
+    }
+    /**
+     * @ Lifecycle sequences => https://angular.io/guide/lifecycle-hooks
+     */
+    /**
+     * On init
+     */
+    Subheader2Component.prototype.ngOnInit = function () {
+    };
+    /**
+     * After view init
+     */
+    Subheader2Component.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        this.subscriptions.push(this.subheaderService.title$.subscribe(function (bt) {
+            // breadcrumbs title sometimes can be undefined
+            if (bt) {
+                Promise.resolve(null).then(function () {
+                    _this.title = bt.title;
+                    _this.desc = bt.desc;
+                });
+            }
+        }));
+        this.subscriptions.push(this.subheaderService.breadcrumbs$.subscribe(function (bc) {
+            Promise.resolve(null).then(function () {
+                _this.breadcrumbs = bc;
+            });
+        }));
+    };
+    /**
+     * On destroy
+     */
+    Subheader2Component.prototype.ngOnDestroy = function () {
+        this.subscriptions.forEach(function (sb) { return sb.unsubscribe(); });
+    };
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", Boolean)
+    ], Subheader2Component.prototype, "fluid", void 0);
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", Boolean)
+    ], Subheader2Component.prototype, "clear", void 0);
+    Subheader2Component = __decorate([
+        core_1.Component({
+            selector: 'kt-subheader2',
+            template: __webpack_require__(/*! ./subheader2.component.html */ "./src/app/views/partials/layout/subheader/subheader2/subheader2.component.html"),
+            styles: [__webpack_require__(/*! ./subheader2.component.scss */ "./src/app/views/partials/layout/subheader/subheader2/subheader2.component.scss")]
+        }),
+        __metadata("design:paramtypes", [layout_1.SubheaderService])
+    ], Subheader2Component);
+    return Subheader2Component;
+}());
+exports.Subheader2Component = Subheader2Component;
+
+
+/***/ }),
+
 /***/ "./src/app/views/partials/layout/topbar/language-selector/language-selector.component.html":
 /*!*************************************************************************************************!*\
   !*** ./src/app/views/partials/layout/topbar/language-selector/language-selector.component.html ***!
@@ -15412,32 +15548,10 @@ exports.LanguageSelectorComponent = LanguageSelectorComponent;
 
 /***/ }),
 
-/***/ "./src/app/views/partials/layout/topbar/notifiacion/notifiacion.component.html":
-/*!*************************************************************************************!*\
-  !*** ./src/app/views/partials/layout/topbar/notifiacion/notifiacion.component.html ***!
-  \*************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div ngbDropdown placement=\"bottom\" autoClose=\"outside\" class=\"kt-header__topbar-item\">\r\n\t<div ngbDropdownToggle class=\"kt-header__topbar-wrapper\">\r\n\t\t<span class=\"kt-header__topbar-icon\" [ngClass]=\"{'kt-pulse kt-pulse--brand': pulse, 'kt-pulse--light' : pulseLight, 'kt-header__topbar-icon--success' : iconType === 'success'\t}\">\r\n\t\t\t<i *ngIf=\"!useSVG\" [ngClass]=\"icon\"></i>\r\n\t\t\t<span *ngIf=\"useSVG\" class=\"kt-svg-icon\" [ngClass]=\"{'kt-svg-icon--success' : iconType === 'success'}\" [inlineSVG]=\"icon\"></span>\r\n\t\t\t<span class=\"kt-pulse__ring\" [hidden]=\"!pulse\"></span>\r\n\t\t</span>\r\n\t\t<span class=\"kt-badge kt-badge--dot kt-badge--notify kt-badge--sm kt-badge--brand\" [hidden]=\"!dot\"></span>\r\n\t</div>\r\n\r\n\t<div ngbDropdownMenu class=\"dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround dropdown-menu-lg\">\r\n\t\t<form>\r\n\t\t\t<!--begin: Head -->\r\n\t\t\t<div class=\"kt-head kt-head--skin-{{skin}} kt-head--fit-x kt-head--fit-b\" [ngStyle]=\"{'background-image': backGroundStyle() }\">\r\n\t\t\t\t<h3 class=\"kt-head__title\">\r\n\t\t\t\t\tUser Notifications&nbsp;\r\n\t\t\t\t\t<span class=\"btn btn-{{ type }} btn-sm btn-bold btn-font-md\">23 new</span>\r\n\t\t\t\t</h3>\r\n\t\t\t\t<ul ktTabClickEvent class=\"nav nav-tabs nav-tabs-line nav-tabs-bold nav-tabs-line-3x nav-tabs-line-{{ type }} kt-notification-item-padding-x\" role=\"tablist\">\r\n\t\t\t\t\t<li class=\"nav-item\">\r\n\t\t\t\t\t\t<a (click)=\"tab.select('tab-id-1')\" class=\"nav-link active show\" data-toggle=\"tab\" href=\"javascript:;\" role=\"tab\" aria-selected=\"true\">Alerts</a>\r\n\t\t\t\t\t</li>\r\n\t\t\t\t\t<li class=\"nav-item\">\r\n\t\t\t\t\t\t<a (click)=\"tab.select('tab-id-2')\" class=\"nav-link\" data-toggle=\"tab\" href=\"javascript:;\" role=\"tab\" aria-selected=\"false\">Events</a>\r\n\t\t\t\t\t</li>\r\n\t\t\t\t\t<li class=\"nav-item\">\r\n\t\t\t\t\t\t<a (click)=\"tab.select('tab-id-3')\" class=\"nav-link\" data-toggle=\"tab\" href=\"javascript:;\" role=\"tab\" aria-selected=\"false\">Logs</a>\r\n\t\t\t\t\t</li>\r\n\t\t\t\t</ul>\r\n\t\t\t</div>\r\n\t\t\t<!--end: Head -->\r\n\r\n\t\t\t<ngb-tabset #tab=\"ngbTabset\">\r\n\t\t\t\t<ngb-tab id=\"tab-id-1\">\r\n\t\t\t\t\t<ng-template ngbTabContent>\r\n\t\t\t\t\t\t<div [perfectScrollbar]=\"{wheelPropagation: false}\" [ngStyle]=\"{'max-height': '40vh', 'position': 'relative'}\" class=\"kt-notification kt-margin-t-10 kt-margin-b-10\">\r\n\t\t\t\t\t\t\t<a href=\"javascript:;\" class=\"kt-notification__item\">\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t\t\t\t\t<i class=\"flaticon2-line-chart kt-font-success\"></i>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-title\">\r\n\t\t\t\t\t\t\t\t\t\tNew order has been received\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-time\">\r\n\t\t\t\t\t\t\t\t\t\t2 hrs ago\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t<a href=\"javascript:;\" class=\"kt-notification__item\">\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t\t\t\t\t<i class=\"flaticon2-box-1 kt-font-brand\"></i>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-title\">\r\n\t\t\t\t\t\t\t\t\t\tNew customer is registered\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-time\">\r\n\t\t\t\t\t\t\t\t\t\t3 hrs ago\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t<a href=\"javascript:;\" class=\"kt-notification__item\">\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t\t\t\t\t<i class=\"flaticon2-chart2 kt-font-danger\"></i>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-title\">\r\n\t\t\t\t\t\t\t\t\t\tApplication has been approved\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-time\">\r\n\t\t\t\t\t\t\t\t\t\t3 hrs ago\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t<a href=\"javascript:;\" class=\"kt-notification__item\">\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t\t\t\t\t<i class=\"flaticon2-image-file kt-font-warning\"></i>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-title\">\r\n\t\t\t\t\t\t\t\t\t\tNew file has been uploaded\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-time\">\r\n\t\t\t\t\t\t\t\t\t\t5 hrs ago\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t<a href=\"javascript:;\" class=\"kt-notification__item\">\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t\t\t\t\t<i class=\"flaticon2-drop kt-font-info\"></i>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-title\">\r\n\t\t\t\t\t\t\t\t\t\tNew user feedback received\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-time\">\r\n\t\t\t\t\t\t\t\t\t\t8 hrs ago\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t<a href=\"javascript:;\" class=\"kt-notification__item\">\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t\t\t\t\t<i class=\"flaticon2-pie-chart-2 kt-font-success\"></i>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-title\">\r\n\t\t\t\t\t\t\t\t\t\tSystem reboot has been successfully completed\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-time\">\r\n\t\t\t\t\t\t\t\t\t\t12 hrs ago\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t<a href=\"javascript:;\" class=\"kt-notification__item\">\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t\t\t\t\t<i class=\"flaticon2-favourite kt-font-focus\"></i>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-title\">\r\n\t\t\t\t\t\t\t\t\t\tNew order has been placed\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-time\">\r\n\t\t\t\t\t\t\t\t\t\t15 hrs ago\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t<a href=\"javascript:;\" class=\"kt-notification__item kt-notification__item--read\">\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t\t\t\t\t<i class=\"flaticon2-safe kt-font-primary\"></i>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-title\">\r\n\t\t\t\t\t\t\t\t\t\tCompany meeting canceled\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-time\">\r\n\t\t\t\t\t\t\t\t\t\t19 hrs ago\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t<a href=\"javascript:;\" class=\"kt-notification__item\">\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t\t\t\t\t<i class=\"flaticon2-psd kt-font-success\"></i>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-title\">\r\n\t\t\t\t\t\t\t\t\t\tNew report has been received\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-time\">\r\n\t\t\t\t\t\t\t\t\t\t23 hrs ago\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t<a href=\"javascript:;\" class=\"kt-notification__item\">\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t\t\t\t\t<i class=\"flaticon-download-1 kt-font-danger\"></i>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-title\">\r\n\t\t\t\t\t\t\t\t\t\tFinance report has been generated\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-time\">\r\n\t\t\t\t\t\t\t\t\t\t25 hrs ago\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t<a href=\"javascript:;\" class=\"kt-notification__item\">\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t\t\t\t\t<i class=\"flaticon-security kt-font-warning\"></i>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-title\">\r\n\t\t\t\t\t\t\t\t\t\tNew customer comment recieved\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-time\">\r\n\t\t\t\t\t\t\t\t\t\t2 days ago\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t<a href=\"javascript:;\" class=\"kt-notification__item\">\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t\t\t\t\t<i class=\"flaticon2-pie-chart kt-font-focus\"></i>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-title\">\r\n\t\t\t\t\t\t\t\t\t\tNew customer is registered\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-time\">\r\n\t\t\t\t\t\t\t\t\t\t3 days ago\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t<div class=\"ps__rail-x\" style=\"left: 0px; bottom: 0px;\">\r\n\t\t\t\t\t\t\t\t<div class=\"ps__thumb-x\" tabindex=\"0\" style=\"left: 0px; width: 0px;\"></div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div class=\"ps__rail-y\" style=\"top: 0px; right: 0px;\">\r\n\t\t\t\t\t\t\t\t<div class=\"ps__thumb-y\" tabindex=\"0\" style=\"top: 0px; height: 0px;\"></div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</ng-template>\r\n\t\t\t\t</ngb-tab>\r\n\t\t\t\t<ngb-tab id=\"tab-id-2\">\r\n\t\t\t\t\t<ng-template ngbTabContent>\r\n\t\t\t\t\t\t<div [perfectScrollbar]=\"{wheelPropagation: false}\" [ngStyle]=\"{'max-height': '40vh', 'position': 'relative'}\" class=\"kt-notification kt-margin-t-10 kt-margin-b-10\">\r\n\t\t\t\t\t\t\t<a href=\"javascript:;\" class=\"kt-notification__item\">\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t\t\t\t\t<i class=\"flaticon2-psd kt-font-success\"></i>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-title\">\r\n\t\t\t\t\t\t\t\t\t\tNew report has been received\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-time\">\r\n\t\t\t\t\t\t\t\t\t\t23 hrs ago\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t<a href=\"javascript:;\" class=\"kt-notification__item\">\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t\t\t\t\t<i class=\"flaticon-download-1 kt-font-danger\"></i>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-title\">\r\n\t\t\t\t\t\t\t\t\t\tFinance report has been generated\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-time\">\r\n\t\t\t\t\t\t\t\t\t\t25 hrs ago\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t<a href=\"javascript:;\" class=\"kt-notification__item\">\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t\t\t\t\t<i class=\"flaticon2-line-chart kt-font-success\"></i>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-title\">\r\n\t\t\t\t\t\t\t\t\t\tNew order has been received\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-time\">\r\n\t\t\t\t\t\t\t\t\t\t2 hrs ago\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t<a href=\"javascript:;\" class=\"kt-notification__item\">\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t\t\t\t\t<i class=\"flaticon2-box-1 kt-font-brand\"></i>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-title\">\r\n\t\t\t\t\t\t\t\t\t\tNew customer is registered\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-time\">\r\n\t\t\t\t\t\t\t\t\t\t3 hrs ago\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t<a href=\"javascript:;\" class=\"kt-notification__item\">\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t\t\t\t\t<i class=\"flaticon2-chart2 kt-font-danger\"></i>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-title\">\r\n\t\t\t\t\t\t\t\t\t\tApplication has been approved\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-time\">\r\n\t\t\t\t\t\t\t\t\t\t3 hrs ago\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t<a href=\"javascript:;\" class=\"kt-notification__item\">\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t\t\t\t\t<i class=\"flaticon2-image-file kt-font-warning\"></i>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-title\">\r\n\t\t\t\t\t\t\t\t\t\tNew file has been uploaded\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-time\">\r\n\t\t\t\t\t\t\t\t\t\t5 hrs ago\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t<a href=\"javascript:;\" class=\"kt-notification__item\">\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t\t\t\t\t<i class=\"flaticon2-drop kt-font-info\"></i>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-title\">\r\n\t\t\t\t\t\t\t\t\t\tNew user feedback received\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-time\">\r\n\t\t\t\t\t\t\t\t\t\t8 hrs ago\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t<a href=\"javascript:;\" class=\"kt-notification__item\">\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t\t\t\t\t<i class=\"flaticon2-pie-chart-2 kt-font-success\"></i>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-title\">\r\n\t\t\t\t\t\t\t\t\t\tSystem reboot has been successfully completed\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-time\">\r\n\t\t\t\t\t\t\t\t\t\t12 hrs ago\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t<a href=\"javascript:;\" class=\"kt-notification__item\">\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t\t\t\t\t<i class=\"flaticon2-favourite kt-font-focus\"></i>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-title\">\r\n\t\t\t\t\t\t\t\t\t\tNew order has been placed\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-time\">\r\n\t\t\t\t\t\t\t\t\t\t15 hrs ago\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t<a href=\"javascript:;\" class=\"kt-notification__item kt-notification__item--read\">\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t\t\t\t\t<i class=\"flaticon2-safe kt-font-primary\"></i>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-title\">\r\n\t\t\t\t\t\t\t\t\t\tCompany meeting canceled\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-time\">\r\n\t\t\t\t\t\t\t\t\t\t19 hrs ago\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t<a href=\"javascript:;\" class=\"kt-notification__item\">\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t\t\t\t\t<i class=\"flaticon2-psd kt-font-success\"></i>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-title\">\r\n\t\t\t\t\t\t\t\t\t\tNew report has been received\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-time\">\r\n\t\t\t\t\t\t\t\t\t\t23 hrs ago\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t<a href=\"javascript:;\" class=\"kt-notification__item\">\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t\t\t\t\t<i class=\"flaticon-download-1 kt-font-danger\"></i>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-title\">\r\n\t\t\t\t\t\t\t\t\t\tFinance report has been generated\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-time\">\r\n\t\t\t\t\t\t\t\t\t\t25 hrs ago\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t<a href=\"javascript:;\" class=\"kt-notification__item\">\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t\t\t\t\t<i class=\"flaticon-security kt-font-warning\"></i>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-title\">\r\n\t\t\t\t\t\t\t\t\t\tNew customer comment recieved\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-time\">\r\n\t\t\t\t\t\t\t\t\t\t2 days ago\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t<a href=\"javascript:;\" class=\"kt-notification__item\">\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t\t\t\t\t<i class=\"flaticon2-pie-chart kt-font-focus\"></i>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-title\">\r\n\t\t\t\t\t\t\t\t\t\tNew customer is registered\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-time\">\r\n\t\t\t\t\t\t\t\t\t\t3 days ago\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t<div class=\"ps__rail-x\" style=\"left: 0px; bottom: 0px;\">\r\n\t\t\t\t\t\t\t\t<div class=\"ps__thumb-x\" tabindex=\"0\" style=\"left: 0px; width: 0px;\"></div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div class=\"ps__rail-y\" style=\"top: 0px; right: 0px;\">\r\n\t\t\t\t\t\t\t\t<div class=\"ps__thumb-y\" tabindex=\"0\" style=\"top: 0px; height: 0px;\"></div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</ng-template>\r\n\t\t\t\t</ngb-tab>\r\n\t\t\t\t<ngb-tab id=\"tab-id-3\">\r\n\t\t\t\t\t<ng-template ngbTabContent>\r\n\t\t\t\t\t\t<div class=\"kt-grid kt-grid--ver\" style=\"min-height: 200px;\">\r\n\t\t\t\t\t\t\t<div class=\"kt-grid kt-grid--hor kt-grid__item kt-grid__item--fluid kt-grid__item--middle\">\r\n\t\t\t\t\t\t\t\t<div class=\"kt-grid__item kt-grid__item--middle kt-align-center\">\r\n\t\t\t\t\t\t\t\t\tAll caught up!\r\n\t\t\t\t\t\t\t\t\t<br>No new notifications.\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</ng-template>\r\n\t\t\t\t</ngb-tab>\r\n\t\t\t</ngb-tabset>\r\n\t\t</form>\r\n\t</div>\r\n</div>\r\n"
-
-/***/ }),
-
-/***/ "./src/app/views/partials/layout/topbar/notifiacion/notifiacion.component.scss":
-/*!*************************************************************************************!*\
-  !*** ./src/app/views/partials/layout/topbar/notifiacion/notifiacion.component.scss ***!
-  \*************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ":host ::ng-deep ngb-tabset > .nav-tabs {\n  display: none; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdmlld3MvcGFydGlhbHMvbGF5b3V0L3RvcGJhci9ub3RpZmlhY2lvbi9FOlxcR0VNSU5cXGd5bWluLTIuMC1zYWFzLWZyb250ZW5kL3NyY1xcYXBwXFx2aWV3c1xccGFydGlhbHNcXGxheW91dFxcdG9wYmFyXFxub3RpZmlhY2lvblxcbm90aWZpYWNpb24uY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFHRyxhQUFhLEVBQUEiLCJmaWxlIjoic3JjL2FwcC92aWV3cy9wYXJ0aWFscy9sYXlvdXQvdG9wYmFyL25vdGlmaWFjaW9uL25vdGlmaWFjaW9uLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOmhvc3Qge1xyXG5cdDo6bmctZGVlcCB7XHJcblx0XHRuZ2ItdGFic2V0ID4gLm5hdi10YWJzIHtcclxuXHRcdFx0ZGlzcGxheTogbm9uZTtcclxuXHRcdH1cclxuXHR9XHJcbn1cclxuIl19 */"
-
-/***/ }),
-
-/***/ "./src/app/views/partials/layout/topbar/notifiacion/notifiacion.component.ts":
-/*!***********************************************************************************!*\
-  !*** ./src/app/views/partials/layout/topbar/notifiacion/notifiacion.component.ts ***!
-  \***********************************************************************************/
+/***/ "./src/app/views/partials/layout/topbar/notification/messaging.service.ts":
+/*!********************************************************************************!*\
+  !*** ./src/app/views/partials/layout/topbar/notification/messaging.service.ts ***!
+  \********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15454,74 +15568,244 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var database_1 = __webpack_require__(/*! @angular/fire/database */ "./node_modules/@angular/fire/database/index.js");
+var auth_1 = __webpack_require__(/*! @angular/fire/auth */ "./node_modules/@angular/fire/auth/index.js");
+var messaging_1 = __webpack_require__(/*! @angular/fire/messaging */ "./node_modules/@angular/fire/messaging/index.js");
+var rxjs_1 = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+var http_1 = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+var _services_1 = __webpack_require__(/*! ../../../../../core/auth/_services */ "./src/app/core/auth/_services/index.ts");
+var MessagingService = /** @class */ (function () {
+    function MessagingService(angularFireDB, angularFireAuth, http, generalservice, angularFireMessaging) {
+        this.angularFireDB = angularFireDB;
+        this.angularFireAuth = angularFireAuth;
+        this.http = http;
+        this.generalservice = generalservice;
+        this.angularFireMessaging = angularFireMessaging;
+        this.currentMessage = new rxjs_1.BehaviorSubject(null);
+        this.angularFireMessaging.messaging.subscribe(function (_messaging) {
+            _messaging.onMessage = _messaging.onMessage.bind(_messaging);
+            _messaging.onTokenRefresh = _messaging.onTokenRefresh.bind(_messaging);
+        });
+    }
+    /**
+     * update token in firebase database
+     *
+     * @param userId userId as a key
+     * @param token token as a value
+     */
+    MessagingService.prototype.updateToken = function (userId, token) {
+        // we can change this function to request our backend service
+        // this.angularFireAuth.authState.pipe(take(1)).subscribe(
+        //   () => {
+        //     const data = {};
+        //     data[userId] = token
+        //     this.angularFireDB.object('fcmTokens/').update(data)
+        //   })
+        this.generalservice.subscribeToTopic(userId, token, 'allUsers').subscribe(function (res) {
+            console.log(res['msg']);
+        });
+    };
+    /**
+     * request permission for notification from firebase cloud messaging
+     *
+     * @param userId userId
+     */
+    MessagingService.prototype.requestPermission = function (userId) {
+        var _this = this;
+        //  if (!localStorage.getItem("fcmToken")) {
+        this.angularFireMessaging.requestToken.subscribe(function (fcmToken) {
+            console.log(userId, fcmToken);
+            localStorage.setItem("fcmToken", fcmToken);
+            _this.updateToken(userId, fcmToken);
+        }, function (err) {
+            console.error('Unable to get permission to notify.', err);
+        });
+        //}
+    };
+    /**
+     * hook method when new notification received in foreground
+     */
+    MessagingService.prototype.receiveMessage = function (callback) {
+        var _this = this;
+        // In your service worker
+        // messaging.setBackgroundMessageHandler(function(payload) {
+        //   console.log('[firebase-messaging-sw.js] Received background message ', payload);
+        //   // ...
+        // });
+        this.angularFireMessaging.messages.subscribe(function (payload) {
+            callback(payload);
+            console.log("new message received. ", _this.angularFireMessaging.messages, payload);
+            // this.currentMessage.next(payload);
+        });
+    };
+    MessagingService = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [database_1.AngularFireDatabase,
+            auth_1.AngularFireAuth,
+            http_1.HttpClient,
+            _services_1.GeneralService,
+            messaging_1.AngularFireMessaging])
+    ], MessagingService);
+    return MessagingService;
+}());
+exports.MessagingService = MessagingService;
+
+
+/***/ }),
+
+/***/ "./src/app/views/partials/layout/topbar/notification/notification.component.html":
+/*!***************************************************************************************!*\
+  !*** ./src/app/views/partials/layout/topbar/notification/notification.component.html ***!
+  \***************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div ngbDropdown (click)=\"showNoticationAction()\" placement=\"bottom-right\" autoClose=\"outside\" class=\"kt-header__topbar-item\">\r\n\t<div ngbDropdownToggle  class=\"kt-header__topbar-wrapper\">\r\n\t\t<span class=\"kt-header__topbar-icon\" [ngClass]=\"{'kt-pulse kt-pulse--brand': pulse}\">\r\n\t\t\t<i *ngIf=\"!useSVG\" [ngClass]=\"icon\"></i>\r\n\t\t\t<span class=\"kt-svg-icon\" *ngIf=\"useSVG\" [inlineSVG]=\"icon\"></span>\r\n\t\t\t<span class=\"kt-pulse__ring\" [hidden]=\"!pulse\"></span>\r\n\t\t</span>\r\n\t\t<span class=\"kt-badge kt-badge--dot kt-badge--notify kt-badge--sm kt-badge--brand\" [hidden]=\"!dot\"></span>\r\n\t</div>\r\n\t<div ngbDropdownMenu class=\"dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround dropdown-menu-lg\">\r\n\t\t<form>\r\n\t\t\t<!--begin: Head -->\r\n\t\t\t<div class=\"kt-head kt-head--skin-{{skin}} kt-head--fit-x kt-head--fit-b\" [ngStyle]=\"{'background-image': 'url('+bgImage+')'}\">\r\n\t\t\t\t<h3 class=\"kt-head__title\">\r\n\t\t\t\t\tUser Notifications&nbsp;<span class=\"btn btn-success btn-sm btn-bold btn-font-md\">{{new}} new</span>\r\n\t\t\t\t</h3>\r\n\t\t\t\t<ul ktTabClickEvent class=\"nav nav-tabs nav-tabs-line nav-tabs-bold nav-tabs-line-3x nav-tabs-line-success kt-notification-item-padding-x\" role=\"tablist\">\r\n\t\t\t\t\t<li class=\"nav-item\">\r\n\t\t\t\t\t\t<a (click)=\"tab.select('tab-id-1')\" class=\"nav-link active show\" data-toggle=\"tab\" href=\"javascript:;\" role=\"tab\" aria-selected=\"true\">Alerts</a>\r\n\t\t\t\t\t</li>\r\n\t\t\t\t\t<li class=\"nav-item\">\r\n\t\t\t\t\t\t<a (click)=\"tab.select('tab-id-2')\" class=\"nav-link\" data-toggle=\"tab\" href=\"javascript:;\" role=\"tab\" aria-selected=\"false\">Events</a>\r\n\t\t\t\t\t</li>\r\n\t\t\t\t\t<li class=\"nav-item\">\r\n\t\t\t\t\t\t<a (click)=\"tab.select('tab-id-3')\" class=\"nav-link\" data-toggle=\"tab\" href=\"javascript:;\" role=\"tab\" aria-selected=\"false\">Logs</a>\r\n\t\t\t\t\t</li>\r\n\t\t\t\t</ul>\r\n\t\t\t</div>\r\n\t\t\t<!--end: Head -->\r\n\r\n\t\t\t<ngb-tabset #tab=\"ngbTabset\">\r\n\t\t\t\t<ngb-tab id=\"tab-id-1\">\r\n\t\t\t\t\t<ng-template ngbTabContent>\r\n\t\t\t\t\t\t<div [perfectScrollbar]=\"{wheelPropagation: false}\" [ngStyle]=\"{'max-height': '40vh', 'position': 'relative'}\" class=\"kt-notification kt-margin-t-10 kt-margin-b-10\">\r\n\t\t\t\t\t\t\t<a  *ngFor=\"let notify of notifications\" [routerLink]=\"notify.data.url\" [queryParams]=\"notify.data.queryParams\" class=\"kt-notification__item\">\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t\t\t\t\t<i class=\"flaticon2-line-chart kt-font-success\"></i>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-title\">\r\n\t\t\t\t\t\t\t\t\t\t{{notify.data.title}}\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-time\">\r\n\t\t\t\t\t\t\t\t\t\t{{notify.data.time}}\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</a>\r\n\r\n\t\t\t\t\t\t\t<div class=\"ps__rail-x\" style=\"left: 0px; bottom: 0px;\">\r\n\t\t\t\t\t\t\t\t<div class=\"ps__thumb-x\" tabindex=\"0\" style=\"left: 0px; width: 0px;\"></div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div class=\"ps__rail-y\" style=\"top: 0px; right: 0px;\">\r\n\t\t\t\t\t\t\t\t<div class=\"ps__thumb-y\" tabindex=\"0\" style=\"top: 0px; height: 0px;\"></div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</ng-template>\r\n\t\t\t\t</ngb-tab>\r\n\t\t\t\t<ngb-tab id=\"tab-id-2\">\r\n\t\t\t\t\t<ng-template ngbTabContent>\r\n\t\t\t\t\t\t<div [perfectScrollbar]=\"{wheelPropagation: false}\" [ngStyle]=\"{'max-height': '40vh', 'position': 'relative'}\" class=\"kt-notification kt-margin-t-10 kt-margin-b-10\">\r\n\r\n\t\t\t\t\t\t\t<div class=\"ps__rail-x\" style=\"left: 0px; bottom: 0px;\">\r\n\t\t\t\t\t\t\t\t<div class=\"ps__thumb-x\" tabindex=\"0\" style=\"left: 0px; width: 0px;\"></div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div class=\"ps__rail-y\" style=\"top: 0px; right: 0px;\">\r\n\t\t\t\t\t\t\t\t<div class=\"ps__thumb-y\" tabindex=\"0\" style=\"top: 0px; height: 0px;\"></div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</ng-template>\r\n\t\t\t\t</ngb-tab>\r\n\t\t\t\t<ngb-tab id=\"tab-id-3\">\r\n\t\t\t\t\t<ng-template ngbTabContent>\r\n\t\t\t\t\t\t<div class=\"kt-grid kt-grid--ver\" style=\"min-height: 200px;\">\r\n\t\t\t\t\t\t\t<div class=\"kt-grid kt-grid--hor kt-grid__item kt-grid__item--fluid kt-grid__item--middle\">\r\n\t\t\t\t\t\t\t\t<div class=\"kt-grid__item kt-grid__item--middle kt-align-center\">\r\n\t\t\t\t\t\t\t\t\tAll caught up!\r\n\t\t\t\t\t\t\t\t\t<br>No new notifications.\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</ng-template>\r\n\t\t\t\t</ngb-tab>\r\n\t\t\t</ngb-tabset>\r\n\t\t</form>\r\n\t</div>\r\n</div>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/views/partials/layout/topbar/notification/notification.component.scss":
+/*!***************************************************************************************!*\
+  !*** ./src/app/views/partials/layout/topbar/notification/notification.component.scss ***!
+  \***************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ":host ::ng-deep ngb-tabset > .nav-tabs {\n  display: none; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdmlld3MvcGFydGlhbHMvbGF5b3V0L3RvcGJhci9ub3RpZmljYXRpb24vRTpcXEdFTUlOXFxneW1pbi0yLjAtc2Fhcy1mcm9udGVuZC9zcmNcXGFwcFxcdmlld3NcXHBhcnRpYWxzXFxsYXlvdXRcXHRvcGJhclxcbm90aWZpY2F0aW9uXFxub3RpZmljYXRpb24uY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFHRyxhQUFhLEVBQUEiLCJmaWxlIjoic3JjL2FwcC92aWV3cy9wYXJ0aWFscy9sYXlvdXQvdG9wYmFyL25vdGlmaWNhdGlvbi9ub3RpZmljYXRpb24uY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcblx0OjpuZy1kZWVwIHtcclxuXHRcdG5nYi10YWJzZXQgPiAubmF2LXRhYnMge1xyXG5cdFx0XHRkaXNwbGF5OiBub25lO1xyXG5cdFx0fVxyXG5cdH1cclxufVxyXG4iXX0= */"
+
+/***/ }),
+
+/***/ "./src/app/views/partials/layout/topbar/notification/notification.component.ts":
+/*!*************************************************************************************!*\
+  !*** ./src/app/views/partials/layout/topbar/notification/notification.component.ts ***!
+  \*************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+// Angular
+var core_1 = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 var platform_browser_1 = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
-var NotifiacionComponent = /** @class */ (function () {
+var _services_1 = __webpack_require__(/*! ../../../../../core/auth/_services */ "./src/app/core/auth/_services/index.ts");
+var messaging_service_1 = __webpack_require__(/*! ./messaging.service */ "./src/app/views/partials/layout/topbar/notification/messaging.service.ts");
+var NotificationComponent = /** @class */ (function () {
     /**
      * Component constructor
      *
      * @param sanitizer: DomSanitizer
      */
-    function NotifiacionComponent(sanitizer) {
+    function NotificationComponent(sanitizer, generalservice, messagingService) {
         this.sanitizer = sanitizer;
+        this.generalservice = generalservice;
+        this.messagingService = messagingService;
+        this.new = 0;
         // Set icon class name
         this.icon = 'flaticon2-bell-alarm-symbol';
         // Set skin color, default to light
         this.skin = 'light';
-        this.type = 'success';
     }
-    NotifiacionComponent.prototype.backGroundStyle = function () {
-        if (!this.bgImage) {
-            return 'none';
+    NotificationComponent.prototype.ngOnInit = function () {
+        this.notifications = [];
+        this.user$ = (JSON.parse(localStorage.getItem('user')));
+        var userId = this.user$['pub_key'];
+        this.messagingService.requestPermission(userId);
+        this.messagingService.receiveMessage(this.notificationcallback.bind(this));
+        this.getallnotification(userId);
+    };
+    NotificationComponent.prototype.notificationcallback = function (data) {
+        this.pulse = true;
+        this.dot = true;
+        this.new++;
+        var urldata = this.redirectNotification(data["data"]);
+        data['data']['url'] = urldata['url'];
+        data['data']['queryParams'] = urldata['queryParams'];
+        this.notifications.unshift({ 'data': data['data'] });
+    };
+    NotificationComponent.prototype.getallnotification = function (user_key) {
+        var _this = this;
+        this.generalservice.getNotificationByUser(user_key).subscribe(function (res) {
+            if (res['result']) {
+                Object.keys(res['data']).forEach(function (key) {
+                    var item = res['data'][key]['data'];
+                    var urldata = this.redirectNotification(item);
+                    res['data'][key]['data']['url'] = urldata['url'];
+                    res['data'][key]['data']['queryParams'] = urldata['queryParams'];
+                }.bind(_this));
+                _this.notifications = res['data'];
+            }
+        });
+    };
+    NotificationComponent.prototype.redirectNotification = function (item) {
+        var url = '';
+        var queryParams = {};
+        if (item['topic'].includes('newSubscriptionNotification')) {
+            if (item['user_type'] == 'member')
+                url = '/default/members/list/profile/' + item["user_key"] + '/about';
+            else
+                url = '/default/user-management/users/edit/' + item["user_key"];
         }
-        return 'url(' + this.bgImage + ')';
+        else if (item['topic'].includes('membershipNotification')) {
+            url = '/default/members/list/profile/' + item["user_key"] + '/memership/list';
+            queryParams = { ids: item["membership_id"] };
+        }
+        return { url: url, queryParams: queryParams };
+    };
+    NotificationComponent.prototype.showNoticationAction = function () {
+        var _this = this;
+        setTimeout(function () {
+            _this.pulse = false;
+            _this.dot = false;
+            _this.new = 0;
+        }, 2000);
     };
     __decorate([
         core_1.Input(),
-        __metadata("design:type", String)
-    ], NotifiacionComponent.prototype, "dot", void 0);
+        __metadata("design:type", Boolean)
+    ], NotificationComponent.prototype, "dot", void 0);
     __decorate([
         core_1.Input(),
         __metadata("design:type", Boolean)
-    ], NotifiacionComponent.prototype, "pulse", void 0);
+    ], NotificationComponent.prototype, "pulse", void 0);
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", String)
+    ], NotificationComponent.prototype, "icon", void 0);
     __decorate([
         core_1.Input(),
         __metadata("design:type", Boolean)
-    ], NotifiacionComponent.prototype, "pulseLight", void 0);
+    ], NotificationComponent.prototype, "useSVG", void 0);
     __decorate([
         core_1.Input(),
         __metadata("design:type", String)
-    ], NotifiacionComponent.prototype, "icon", void 0);
+    ], NotificationComponent.prototype, "bgImage", void 0);
     __decorate([
         core_1.Input(),
         __metadata("design:type", String)
-    ], NotifiacionComponent.prototype, "iconType", void 0);
-    __decorate([
-        core_1.Input(),
-        __metadata("design:type", Boolean)
-    ], NotifiacionComponent.prototype, "useSVG", void 0);
-    __decorate([
-        core_1.Input(),
-        __metadata("design:type", String)
-    ], NotifiacionComponent.prototype, "bgImage", void 0);
-    __decorate([
-        core_1.Input(),
-        __metadata("design:type", String)
-    ], NotifiacionComponent.prototype, "skin", void 0);
-    __decorate([
-        core_1.Input(),
-        __metadata("design:type", String)
-    ], NotifiacionComponent.prototype, "type", void 0);
-    NotifiacionComponent = __decorate([
+    ], NotificationComponent.prototype, "skin", void 0);
+    NotificationComponent = __decorate([
         core_1.Component({
-            selector: 'kt-notifiacion',
-            template: __webpack_require__(/*! ./notifiacion.component.html */ "./src/app/views/partials/layout/topbar/notifiacion/notifiacion.component.html"),
-            styles: [__webpack_require__(/*! ./notifiacion.component.scss */ "./src/app/views/partials/layout/topbar/notifiacion/notifiacion.component.scss")]
+            selector: 'kt-notification',
+            template: __webpack_require__(/*! ./notification.component.html */ "./src/app/views/partials/layout/topbar/notification/notification.component.html"),
+            styles: [__webpack_require__(/*! ./notification.component.scss */ "./src/app/views/partials/layout/topbar/notification/notification.component.scss")]
         }),
-        __metadata("design:paramtypes", [platform_browser_1.DomSanitizer])
-    ], NotifiacionComponent);
-    return NotifiacionComponent;
+        __metadata("design:paramtypes", [platform_browser_1.DomSanitizer,
+            _services_1.GeneralService,
+            messaging_service_1.MessagingService])
+    ], NotificationComponent);
+    return NotificationComponent;
 }());
-exports.NotifiacionComponent = NotifiacionComponent;
+exports.NotificationComponent = NotificationComponent;
 
 
 /***/ }),
@@ -15769,7 +16053,7 @@ var ng_inline_svg_1 = __webpack_require__(/*! ng-inline-svg */ "./node_modules/n
 var error_component_1 = __webpack_require__(/*! ./content/general/error/error.component */ "./src/app/views/partials/content/general/error/error.component.ts");
 var progress_bar_1 = __webpack_require__(/*! @angular/material/progress-bar */ "./node_modules/@angular/material/esm5/progress-bar.es5.js");
 var renew_entity_dialog_component_1 = __webpack_require__(/*! ./content/crud/renew-entity-dialog/renew-entity-dialog.component */ "./src/app/views/partials/content/crud/renew-entity-dialog/renew-entity-dialog.component.ts");
-var notifiacion_component_1 = __webpack_require__(/*! ./layout/topbar/notifiacion/notifiacion.component */ "./src/app/views/partials/layout/topbar/notifiacion/notifiacion.component.ts");
+var notification_component_1 = __webpack_require__(/*! ./layout/topbar/notification/notification.component */ "./src/app/views/partials/layout/topbar/notification/notification.component.ts");
 var PartialsModule = /** @class */ (function () {
     function PartialsModule() {
     }
@@ -15788,11 +16072,12 @@ var PartialsModule = /** @class */ (function () {
                 layout_1.ScrollTopComponent,
                 layout_1.SplashScreenComponent,
                 layout_1.Subheader1Component,
+                layout_1.Subheader2Component,
                 layout_1.LanguageSelectorComponent,
                 layout_1.UserProfileComponent,
                 layout_1.UserProfile2Component,
                 renew_entity_dialog_component_1.RenewEntityDialogComponent,
-                notifiacion_component_1.NotifiacionComponent,
+                notification_component_1.NotificationComponent,
             ],
             exports: [
                 widget_module_1.WidgetModule,
@@ -15812,10 +16097,11 @@ var PartialsModule = /** @class */ (function () {
                 layout_1.ScrollTopComponent,
                 layout_1.SplashScreenComponent,
                 layout_1.Subheader1Component,
+                layout_1.Subheader2Component,
                 layout_1.LanguageSelectorComponent,
                 layout_1.UserProfileComponent,
                 layout_1.UserProfile2Component,
-                notifiacion_component_1.NotifiacionComponent
+                notification_component_1.NotificationComponent
             ], providers: [],
             imports: [
                 common_1.CommonModule,

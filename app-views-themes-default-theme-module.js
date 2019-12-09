@@ -1152,7 +1152,7 @@ exports.HeaderComponent = HeaderComponent;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"kt-subheader__main kt-portlet__head--lg cont\">\r\n    <h4 class=\"kt-subheader__title\">{{club}}/{{user$.name}}</h4>\r\n</div>"
+module.exports = "<div class=\"kt-subheader__main kt-portlet__head--lg cont\">\r\n    <h4 class=\"kt-subheader__title\" *ngIf=\"club\">{{club}}/{{user$.name}}</h4>\r\n</div>"
 
 /***/ }),
 
@@ -1226,7 +1226,7 @@ exports.MenuHorizontalComponent = MenuHorizontalComponent;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- begin:: Header Topbar -->\r\n<div class=\"kt-header__topbar\">\r\n\t<kt-notifiacion></kt-notifiacion>\r\n\t<!--begin: User bar -->\r\n\t <kt-user-profile></kt-user-profile> \r\n\t<!--end: User bar -->\r\n</div>\r\n<!-- end:: Header Topbar -->\r\n"
+module.exports = "<!-- begin:: Header Topbar -->\r\n<div class=\"kt-header__topbar\">\r\n\t<kt-notification></kt-notification>\r\n\t<!--begin: User bar -->\r\n\t <kt-user-profile></kt-user-profile> \r\n\t<!--end: User bar -->\r\n</div>\r\n<!-- end:: Header Topbar -->\r\n"
 
 /***/ }),
 
@@ -1532,7 +1532,9 @@ var routes = [
             },
             {
                 path: 'billing',
-                loadChildren: 'app/views/pages/billing/billing.module#BillingModule'
+                loadChildren: 'app/views/pages/billing/billing.module#BillingModule',
+                data: { title: 'billing' },
+                canActivate: [permission_guard_1.PermissionGuard]
             },
             {
                 path: 'user-management',
@@ -1547,7 +1549,9 @@ var routes = [
             },
             {
                 path: 'workouts',
-                loadChildren: 'app/views/pages/workouts/workouts.module#WorkoutsModule'
+                loadChildren: 'app/views/pages/workouts/workouts.module#WorkoutsModule',
+                data: { title: 'workouts' },
+                canActivate: [permission_guard_1.PermissionGuard]
             },
             {
                 path: 'error/403',
@@ -1594,7 +1598,7 @@ exports.PagesRoutingModule = PagesRoutingModule;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = " <kt-subheader1 *ngIf=\"!layout || layout === 'subheader-v1'\"></kt-subheader1> \r\n"
+module.exports = " <kt-subheader1 *ngIf=\"!layout || layout === 'subheader-v1'\"></kt-subheader1> \r\n  <kt-subheader2 *ngIf=\"layout === 'subheader-v2'\" ></kt-subheader2>"
 
 /***/ }),
 

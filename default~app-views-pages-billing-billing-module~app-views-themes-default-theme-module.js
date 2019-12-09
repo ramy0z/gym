@@ -99,6 +99,17 @@ module.exports = "<kt-portlet>\r\n  <!-- See prop => '../../_core/models/data-so
 
 /***/ }),
 
+/***/ "./src/app/views/pages/billing/billing/billing.component.scss":
+/*!********************************************************************!*\
+  !*** ./src/app/views/pages/billing/billing/billing.component.scss ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".warn-snackbar {\n  background-color: #ff4081; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdmlld3MvcGFnZXMvYmlsbGluZy9iaWxsaW5nL0U6XFxHRU1JTlxcZ3ltaW4tMi4wLXNhYXMtZnJvbnRlbmQvc3JjXFxhcHBcXHZpZXdzXFxwYWdlc1xcYmlsbGluZ1xcYmlsbGluZ1xcYmlsbGluZy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFDQTtFQUNJLHlCQUF5QixFQUFBIiwiZmlsZSI6InNyYy9hcHAvdmlld3MvcGFnZXMvYmlsbGluZy9iaWxsaW5nL2JpbGxpbmcuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJcclxuLndhcm4tc25hY2tiYXJ7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmY0MDgxO1xyXG4gIH0iXX0= */"
+
+/***/ }),
+
 /***/ "./src/app/views/pages/billing/billing/billing.component.ts":
 /*!******************************************************************!*\
   !*** ./src/app/views/pages/billing/billing/billing.component.ts ***!
@@ -123,9 +134,11 @@ var dialog_1 = __webpack_require__(/*! @angular/material/dialog */ "./node_modul
 var view_billing_component_1 = __webpack_require__(/*! ../view-billing/view-billing.component */ "./src/app/views/pages/billing/view-billing/view-billing.component.ts");
 var billing_service_1 = __webpack_require__(/*! ../../../../core/auth/_services/billing.service */ "./src/app/core/auth/_services/billing.service.ts");
 var forms_1 = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+var material_1 = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 var BillingComponent = /** @class */ (function () {
-    function BillingComponent(billingService, dialog, changeDetectorRefs, fb) {
+    function BillingComponent(billingService, snackBar, dialog, changeDetectorRefs, fb) {
         this.billingService = billingService;
+        this.snackBar = snackBar;
         this.dialog = dialog;
         this.changeDetectorRefs = changeDetectorRefs;
         this.fb = fb;
@@ -158,52 +171,99 @@ var BillingComponent = /** @class */ (function () {
         var d2 = new Date(end_date);
         end_date = d2.getFullYear() + "-" + (d2.getMonth() + 1) + "-" + d2.getDate();
         this.club_id = JSON.parse(localStorage.getItem('user'))['pub_key'];
-        this.billingService.getBilling(start_date, end_date, this.club_id).subscribe(function (res) {
-            var result = res['result'];
-            var data = res['data'][0];
-            if (result == true && typeof data != "undefined") {
-                _this.NoDataMessage = " ";
-                _this.clubName = JSON.parse(localStorage.getItem('user'))['name'];
-                _this.billing = res['data'][0];
-                _this.dataSource = [_this.billing];
-                console.log(_this.dataSource);
-                console.log(result);
-                console.log('data');
-                _this.changeDetectorRefs.detectChanges();
-            }
-            else if (result == true && typeof data == "undefined") {
-                _this.clubName = '';
-                _this.dataSource = '';
-                _this.NoDataMessage = "There is no invoice for this date";
-                _this.changeDetectorRefs.detectChanges();
-                console.log('no data', _this.NoDataMessage);
-            }
-            else if (result == false) {
-                _this.clubName = '';
-                _this.dataSource = '';
-                _this.NoDataMessage = "Insert valid date to show the invoice";
-                _this.changeDetectorRefs.detectChanges();
-                console.log('no data', _this.NoDataMessage);
-            }
-            console.log(res);
-        });
+        if (this.checkedpermission('getbillings')) {
+            this.billingService.getBilling(start_date, end_date, this.club_id).subscribe(function (res) {
+                var result = res['result'];
+                var data = res['data'];
+                if (result == true && data.length > 0) {
+                    _this.NoDataMessage = "";
+                    _this.clubName = JSON.parse(localStorage.getItem('user'))['name'];
+                    _this.dataSource = _this.dataSource = new material_1.MatTableDataSource(data);
+                    console.log("datasource", _this.dataSource);
+                    console.log("billing", _this.billing);
+                    _this.changeDetectorRefs.detectChanges();
+                }
+                else if (result == true && data.length == 0) {
+                    _this.clubName = '';
+                    _this.dataSource = '';
+                    _this.NoDataMessage = "There is no invoice for this date";
+                    _this.changeDetectorRefs.detectChanges();
+                    console.log('no data', _this.NoDataMessage);
+                }
+                else if (result == false) {
+                    _this.clubName = '';
+                    _this.dataSource = '';
+                    _this.NoDataMessage = "Insert valid date to show the invoice";
+                    _this.changeDetectorRefs.detectChanges();
+                    console.log('no data', _this.NoDataMessage);
+                }
+                console.log(res);
+            });
+        }
+        else {
+            this.open();
+        }
     };
     BillingComponent.prototype.viewBilling = function (billing) {
-        var dialogRef = this.dialog.open(view_billing_component_1.ViewBillingComponent, {
-            width: '80%',
-            height: '80%',
-            data: { 'billing': billing, 'clubName': this.clubName }
-        });
-        dialogRef.afterClosed().subscribe(function (result) {
-            console.log('The dialog was closed');
-        });
+        if (this.checkedpermission('getbillings')) {
+            var dialogRef = this.dialog.open(view_billing_component_1.ViewBillingComponent, {
+                width: '80%',
+                height: '80%',
+                data: { 'billing': billing, 'clubName': this.clubName }
+            });
+            dialogRef.afterClosed().subscribe(function (result) {
+                console.log('The dialog was closed');
+            });
+        }
+        else {
+            this.open();
+        }
+    };
+    BillingComponent.prototype.checkedpermission = function (key) {
+        var checked = false;
+        if (localStorage.getItem('user')) {
+            if (JSON.parse(localStorage.getItem('user'))) {
+                var user = JSON.parse(localStorage.getItem('user'));
+                if (user['allPrivilidge']) {
+                    var privilidge_1 = user['allPrivilidge'];
+                    Object.keys(privilidge_1).forEach(function (role) {
+                        Object.keys(privilidge_1[role]).forEach(function (pri) {
+                            var per = (privilidge_1[role][pri].toString()).trim();
+                            if (key.trim() == per) {
+                                checked = true;
+                            }
+                        });
+                    });
+                }
+            }
+        }
+        return checked;
+    };
+    BillingComponent.prototype.open = function () {
+        var message = 'Oh Snap ! You dont have permission to get this data';
+        var actionButtonLabel = '';
+        var action = true;
+        var setAutoHide = true;
+        var autoHide = 4000;
+        var horizontalPosition = 'center';
+        var verticalPosition = 'top';
+        var addExtraClass = false;
+        var config = new material_1.MatSnackBarConfig();
+        config.verticalPosition = verticalPosition;
+        config.horizontalPosition = horizontalPosition;
+        config.duration = setAutoHide ? autoHide : 0;
+        //  config['extraClasses'] = addExtraClass ? ['warn-snackbar'] : undefined;
+        config.panelClass = ['warn-snackbar'];
+        this.snackBar.open(message, action ? actionButtonLabel : undefined, config);
     };
     BillingComponent = __decorate([
         core_1.Component({
             selector: 'kt-billing',
             template: __webpack_require__(/*! ./billing.component.html */ "./src/app/views/pages/billing/billing/billing.component.html"),
+            encapsulation: core_1.ViewEncapsulation.None,
+            styles: [__webpack_require__(/*! ./billing.component.scss */ "./src/app/views/pages/billing/billing/billing.component.scss")]
         }),
-        __metadata("design:paramtypes", [billing_service_1.BillingService, dialog_1.MatDialog, core_1.ChangeDetectorRef, forms_1.FormBuilder])
+        __metadata("design:paramtypes", [billing_service_1.BillingService, material_1.MatSnackBar, dialog_1.MatDialog, core_1.ChangeDetectorRef, forms_1.FormBuilder])
     ], BillingComponent);
     return BillingComponent;
 }());
@@ -230,7 +290,7 @@ module.exports = "<div class=\"container\">\r\n    <button class=\"btn btn-succe
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "body {\n  background: grey;\n  margin-top: 120px;\n  margin-bottom: 120px; }\n\nbutton {\n  margin: 15px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdmlld3MvcGFnZXMvYmlsbGluZy92aWV3LWJpbGxpbmcvRTpcXEdFTUlOXFxneW1pbi0yLjAtc2Fhcy1mcm9udGVuZC9zcmNcXGFwcFxcdmlld3NcXHBhZ2VzXFxiaWxsaW5nXFx2aWV3LWJpbGxpbmdcXHZpZXctYmlsbGluZy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGdCQUFnQjtFQUNoQixpQkFBaUI7RUFDakIsb0JBQW9CLEVBQUE7O0FBRXhCO0VBQ0ksWUFBWSxFQUFBIiwiZmlsZSI6InNyYy9hcHAvdmlld3MvcGFnZXMvYmlsbGluZy92aWV3LWJpbGxpbmcvdmlldy1iaWxsaW5nLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiYm9keSB7XHJcbiAgICBiYWNrZ3JvdW5kOiBncmV5O1xyXG4gICAgbWFyZ2luLXRvcDogMTIwcHg7XHJcbiAgICBtYXJnaW4tYm90dG9tOiAxMjBweDtcclxufVxyXG5idXR0b257XHJcbiAgICBtYXJnaW46IDE1cHg7XHJcbn1cclxuIl19 */"
+module.exports = "body {\n  background: grey;\n  margin-top: 120px;\n  margin-bottom: 120px; }\n\nbutton {\n  margin: 15px; }\n\n.warn-snackbar {\n  background-color: #ff4081; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdmlld3MvcGFnZXMvYmlsbGluZy92aWV3LWJpbGxpbmcvRTpcXEdFTUlOXFxneW1pbi0yLjAtc2Fhcy1mcm9udGVuZC9zcmNcXGFwcFxcdmlld3NcXHBhZ2VzXFxiaWxsaW5nXFx2aWV3LWJpbGxpbmdcXHZpZXctYmlsbGluZy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGdCQUFnQjtFQUNoQixpQkFBaUI7RUFDakIsb0JBQW9CLEVBQUE7O0FBRXhCO0VBQ0ksWUFBWSxFQUFBOztBQUVoQjtFQUNJLHlCQUF5QixFQUFBIiwiZmlsZSI6InNyYy9hcHAvdmlld3MvcGFnZXMvYmlsbGluZy92aWV3LWJpbGxpbmcvdmlldy1iaWxsaW5nLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiYm9keSB7XHJcbiAgICBiYWNrZ3JvdW5kOiBncmV5O1xyXG4gICAgbWFyZ2luLXRvcDogMTIwcHg7XHJcbiAgICBtYXJnaW4tYm90dG9tOiAxMjBweDtcclxufVxyXG5idXR0b257XHJcbiAgICBtYXJnaW46IDE1cHg7XHJcbn1cclxuLndhcm4tc25hY2tiYXJ7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmY0MDgxO1xyXG4gIH0iXX0= */"
 
 /***/ }),
 
@@ -280,23 +340,25 @@ var ViewBillingComponent = /** @class */ (function () {
         start_date = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
         var d2 = new Date(end_date);
         end_date = d2.getFullYear() + "-" + (d2.getMonth() + 1) + "-" + d2.getDate();
-        this.billingService.getBillingDetails(start_date, end_date, this.club_id)
-            .subscribe(function (res) {
-            _this.billingDetails = res;
-            for (var i = 0; i < _this.billingDetails.length; i++) {
-                if (_this.billingDetails[i].calc == 0) {
-                    _this.billingDetails[i].tRevneu = 0;
-                    _this.billingDetails[i].tTrans = 0;
+        if (this.checkedpermission('getbillings')) {
+            this.billingService.getBillingDetails(start_date, end_date, this.club_id)
+                .subscribe(function (res) {
+                _this.billingDetails = res;
+                for (var i = 0; i < _this.billingDetails.length; i++) {
+                    if (_this.billingDetails[i].calc == 0) {
+                        _this.billingDetails[i].tRevneu = 0;
+                        _this.billingDetails[i].tTrans = 0;
+                    }
+                    _this.TotalRevneu = _this.TotalRevneu + _this.billingDetails[i].tRevneu;
+                    _this.totalTransaction = _this.totalTransaction + _this.billingDetails[i].tTrans;
+                    // this.userService.getUserbyId(this.billingDetails[i].branch).subscribe(res=>{
+                    //      this.branch=res[i];
+                    //      this.branchName=this.branch.username
+                    // })
                 }
-                _this.TotalRevneu = _this.TotalRevneu + _this.billingDetails[i].tRevneu;
-                _this.totalTransaction = _this.totalTransaction + _this.billingDetails[i].tTrans;
-                // this.userService.getUserbyId(this.billingDetails[i].branch).subscribe(res=>{
-                //      this.branch=res[i];
-                //      this.branchName=this.branch.username
-                // })
-            }
-            _this.payment = Math.round((_this.billing.sub_total - (_this.billing.sub_total * _this.billing.discount / 100)));
-        });
+                _this.payment = Math.round((_this.billing.sub_total - (_this.billing.sub_total * _this.billing.discount / 100)));
+            });
+        }
     };
     ViewBillingComponent.prototype.print = function () {
         var printContents, popupWin;
@@ -305,6 +367,26 @@ var ViewBillingComponent = /** @class */ (function () {
         popupWin.document.open();
         popupWin.document.write("\n      <html>\n        <head>\n          <title>Gymin Invoice</title>\n          <link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css\" integrity=\"sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T\" crossorigin=\"anonymous\">\n          <style>\n          body {\n            background: grey;\n            margin-top: 30px;\n            margin-bottom: 30px;\n        }\n          </style>\n        </head>\n    <body onload=\"window.print();window.close()\">" + printContents + "</body>\n      </html>");
         popupWin.document.close();
+    };
+    ViewBillingComponent.prototype.checkedpermission = function (key) {
+        var checked = false;
+        if (localStorage.getItem('user')) {
+            if (JSON.parse(localStorage.getItem('user'))) {
+                var user = JSON.parse(localStorage.getItem('user'));
+                if (user['allPrivilidge']) {
+                    var privilidge_1 = user['allPrivilidge'];
+                    Object.keys(privilidge_1).forEach(function (role) {
+                        Object.keys(privilidge_1[role]).forEach(function (pri) {
+                            var per = (privilidge_1[role][pri].toString()).trim();
+                            if (key.trim() == per) {
+                                checked = true;
+                            }
+                        });
+                    });
+                }
+            }
+        }
+        return checked;
     };
     __decorate([
         core_1.ViewChild('billingFile'),
