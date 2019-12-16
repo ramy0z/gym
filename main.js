@@ -2951,60 +2951,60 @@ var map = {
 	],
 	"app/views/pages/billing/billing.module": [
 		"./src/app/views/pages/billing/billing.module.ts",
-		"default~app-views-pages-billing-billing-module~app-views-themes-default-theme-module"
+		"common",
+		"app-views-pages-billing-billing-module"
 	],
 	"app/views/pages/dashboard/dashboard.module": [
 		"./src/app/views/pages/dashboard/dashboard.module.ts",
 		"default~app-views-pages-dashboard-dashboard-module~app-views-pages-members-members-module~app-views-~ec792400",
 		"default~app-views-pages-dashboard-dashboard-module~app-views-themes-default-theme-module",
+		"common",
 		"app-views-pages-dashboard-dashboard-module"
 	],
 	"app/views/pages/members/members.module": [
 		"./src/app/views/pages/members/members.module.ts",
 		"default~app-views-pages-dashboard-dashboard-module~app-views-pages-members-members-module~app-views-~ec792400",
-		"default~app-views-pages-members-members-module~app-views-pages-membership-membership-module~app-view~39a03660",
-		"default~app-views-pages-members-members-module~app-views-themes-default-theme-module"
+		"default~app-views-pages-members-members-module~app-views-pages-membership-membership-module~app-view~8008bd02",
+		"default~app-views-pages-members-members-module~app-views-themes-default-theme-module",
+		"common",
+		"app-views-pages-members-members-module"
 	],
 	"app/views/pages/membership/membership.module": [
 		"./src/app/views/pages/membership/membership.module.ts",
 		"default~app-views-pages-dashboard-dashboard-module~app-views-pages-members-members-module~app-views-~ec792400",
-		"default~app-views-pages-members-members-module~app-views-pages-membership-membership-module~app-view~39a03660",
-		"default~app-views-pages-membership-membership-module~app-views-themes-default-theme-module",
+		"default~app-views-pages-members-members-module~app-views-pages-membership-membership-module~app-view~8008bd02",
+		"common",
 		"app-views-pages-membership-membership-module"
 	],
 	"app/views/pages/reports/reports.module": [
 		"./src/app/views/pages/reports/reports.module.ts",
 		"default~app-views-pages-dashboard-dashboard-module~app-views-pages-members-members-module~app-views-~ec792400",
-		"default~app-views-pages-reports-reports-module~app-views-themes-default-theme-module"
+		"common",
+		"app-views-pages-reports-reports-module"
 	],
 	"app/views/pages/user-management/user-management.module": [
 		"./src/app/views/pages/user-management/user-management.module.ts",
-		"default~app-views-pages-user-management-user-management-module~app-views-themes-default-theme-module",
+		"common",
 		"app-views-pages-user-management-user-management-module"
 	],
 	"app/views/pages/user-settings/user-settings.module": [
 		"./src/app/views/pages/user-settings/user-settings.module.ts",
-		"default~app-views-pages-user-settings-user-settings-module~app-views-themes-default-theme-module",
+		"common",
 		"app-views-pages-user-settings-user-settings-module"
 	],
 	"app/views/pages/workouts/workouts.module": [
 		"./src/app/views/pages/workouts/workouts.module.ts",
 		"default~app-views-pages-dashboard-dashboard-module~app-views-pages-members-members-module~app-views-~ec792400",
-		"default~app-views-pages-members-members-module~app-views-pages-membership-membership-module~app-view~39a03660",
-		"default~app-views-pages-workouts-workouts-module~app-views-themes-default-theme-module"
+		"default~app-views-pages-members-members-module~app-views-pages-membership-membership-module~app-view~8008bd02",
+		"common",
+		"app-views-pages-workouts-workouts-module"
 	],
 	"app/views/themes/default/theme.module": [
 		"./src/app/views/themes/default/theme.module.ts",
 		"default~app-views-pages-dashboard-dashboard-module~app-views-pages-members-members-module~app-views-~ec792400",
-		"default~app-views-pages-members-members-module~app-views-pages-membership-membership-module~app-view~39a03660",
-		"default~app-views-pages-reports-reports-module~app-views-themes-default-theme-module",
 		"default~app-views-pages-members-members-module~app-views-themes-default-theme-module",
-		"default~app-views-pages-user-management-user-management-module~app-views-themes-default-theme-module",
-		"default~app-views-pages-workouts-workouts-module~app-views-themes-default-theme-module",
-		"default~app-views-pages-membership-membership-module~app-views-themes-default-theme-module",
-		"default~app-views-pages-billing-billing-module~app-views-themes-default-theme-module",
-		"default~app-views-pages-user-settings-user-settings-module~app-views-themes-default-theme-module",
 		"default~app-views-pages-dashboard-dashboard-module~app-views-themes-default-theme-module",
+		"common",
 		"app-views-themes-default-theme-module"
 	]
 };
@@ -3030,6 +3030,31 @@ module.exports = webpackAsyncContext;
 
 /***/ }),
 
+/***/ "./src/app/SelectivePreloadingStrategy.ts":
+/*!************************************************!*\
+  !*** ./src/app/SelectivePreloadingStrategy.ts ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var rxjs_1 = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+var AppCustomPreloader = /** @class */ (function () {
+    function AppCustomPreloader() {
+    }
+    AppCustomPreloader.prototype.preload = function (route, load) {
+        console.log(route.data);
+        return route.data && route.data.preload ? load() : rxjs_1.of(null);
+    };
+    return AppCustomPreloader;
+}());
+exports.AppCustomPreloader = AppCustomPreloader;
+
+
+/***/ }),
+
 /***/ "./src/app/app-routing.module.ts":
 /*!***************************************!*\
   !*** ./src/app/app-routing.module.ts ***!
@@ -3049,17 +3074,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // Angular
 var core_1 = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 var router_1 = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+var ngx_quicklink_1 = __webpack_require__(/*! ngx-quicklink */ "./node_modules/ngx-quicklink/fesm5/ngx-quicklink.js");
 var routes = [
     { path: 'auth', loadChildren: 'app/views/pages/auth/auth.module#AuthModule' },
     // enable this router to set which default theme to load,
     // leave the path value empty to enter into nested router in ThemeModule
-    // {path: '', loadChildren: 'app/views/themes/default/theme.module#ThemeModule'},
+    //{path: 'default', loadChildren: 'app/views/themes/default/theme.module#ThemeModule'},
+    // {path: '', loadChildren: 'app/v'},
     /** START: remove this themes list on production */
-    { path: 'load', redirectTo: 'default', pathMatch: 'full' },
+    // {path:'load',redirectTo: 'default', pathMatch: 'full'},
     { path: '', redirectTo: 'default', pathMatch: 'full' },
-    // list of routers specified by demos, for demo purpose only!
-    { path: 'default', loadChildren: 'app/views/themes/default/theme.module#ThemeModule' },
-    /** END: themes list end */
+    // // list of routers specified by demos, for demo purpose only!
+    { path: 'default', loadChildren: 'app/views/themes/default/theme.module#ThemeModule', data: { preload: false } },
+    // /** END: themes list end */
     { path: '**', redirectTo: 'default/error/403', pathMatch: 'full' },
 ];
 var AppRoutingModule = /** @class */ (function () {
@@ -3068,7 +3095,8 @@ var AppRoutingModule = /** @class */ (function () {
     AppRoutingModule = __decorate([
         core_1.NgModule({
             imports: [
-                router_1.RouterModule.forRoot(routes, { useHash: true }),
+                ngx_quicklink_1.QuicklinkModule,
+                router_1.RouterModule.forRoot(routes, { useHash: true, preloadingStrategy: ngx_quicklink_1.QuicklinkStrategy })
             ],
             exports: [router_1.RouterModule]
         })
@@ -3266,6 +3294,7 @@ var core_module_1 = __webpack_require__(/*! ./core/core.module */ "./src/app/cor
 var partials_module_1 = __webpack_require__(/*! ./views/partials/partials.module */ "./src/app/views/partials/partials.module.ts");
 // Metronic Services
 var metronic_1 = __webpack_require__(/*! ./core/_base/metronic */ "./src/app/core/_base/metronic/index.ts");
+var SelectivePreloadingStrategy_1 = __webpack_require__(/*! ./SelectivePreloadingStrategy */ "./src/app/SelectivePreloadingStrategy.ts");
 // Layout Services
 var layout_1 = __webpack_require__(/*! ./core/_base/layout */ "./src/app/core/_base/layout/index.ts");
 // Auth
@@ -3357,6 +3386,7 @@ var AppModule = /** @class */ (function () {
                 { provide: http_2.HTTP_INTERCEPTORS, useClass: _public_2.HttpErrorInterceptor, multi: true },
                 auth_1.AuthService,
                 billing_service_1.BillingService,
+                SelectivePreloadingStrategy_1.AppCustomPreloader,
                 public_service_1.publicService,
                 layout_1.LayoutConfigService,
                 layout_1.LayoutRefService,
@@ -6745,549 +6775,6 @@ exports.LayoutConfig = LayoutConfig;
 
 /***/ }),
 
-/***/ "./src/app/core/_config/default/menu.config.ts":
-/*!*****************************************************!*\
-  !*** ./src/app/core/_config/default/menu.config.ts ***!
-  \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var MenuConfig = /** @class */ (function () {
-    function MenuConfig() {
-        this.defaults = {
-            header: {
-                self: {},
-                'items': [
-                    {
-                        'title': 'Pages',
-                        'root': true,
-                        'icon-': 'flaticon-add',
-                        'toggle': 'click',
-                        'custom-class': 'kt-menu__item--active',
-                        'alignment': 'left',
-                        'translate': 'MENU.PAGES',
-                        'submenu': {
-                            'type': 'classic',
-                            'alignment': 'left',
-                            'items': [
-                                {
-                                    'title': 'My Account',
-                                    'icon': 'flaticon-file',
-                                    'page': 'index'
-                                },
-                                {
-                                    'title': 'Task Manager',
-                                    'icon': 'flaticon-diagram',
-                                    'badge': {
-                                        'type': 'kt-badge--success',
-                                        'value': '2'
-                                    }
-                                },
-                                {
-                                    'title': 'Team Manager',
-                                    'icon': 'flaticon-business',
-                                    'submenu': {
-                                        'type': 'classic',
-                                        'alignment': 'right',
-                                        'bullet': 'line',
-                                        'items': [
-                                            {
-                                                'title': 'Add Team Member',
-                                                'icon': ''
-                                            },
-                                            {
-                                                'title': 'Edit Team Member',
-                                                'icon': ''
-                                            },
-                                            {
-                                                'title': 'Delete Team Member',
-                                                'icon': ''
-                                            },
-                                            {
-                                                'title': 'Team Member Reports',
-                                                'icon': ''
-                                            },
-                                            {
-                                                'title': 'Assign Tasks',
-                                                'icon': ''
-                                            },
-                                            {
-                                                'title': 'Promote Team Member',
-                                                'icon': ''
-                                            }
-                                        ]
-                                    }
-                                },
-                                {
-                                    'title': 'Projects Manager',
-                                    'page': '#',
-                                    'icon': 'flaticon-chat-1',
-                                    'submenu': {
-                                        'type': 'classic',
-                                        'alignment': 'right',
-                                        'bullet': 'dot',
-                                        'items': [
-                                            {
-                                                'title': 'Latest Projects',
-                                                'icon': ''
-                                            },
-                                            {
-                                                'title': 'Ongoing Projects',
-                                                'icon': ''
-                                            },
-                                            {
-                                                'title': 'Urgent Projects',
-                                                'icon': ''
-                                            },
-                                            {
-                                                'title': 'Completed Projects',
-                                                'icon': ''
-                                            },
-                                            {
-                                                'title': 'Dropped Projects',
-                                                'icon': ''
-                                            }
-                                        ]
-                                    }
-                                },
-                                {
-                                    'title': 'Create New Project',
-                                    'icon': 'flaticon-users'
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        'title': 'Features',
-                        'root': true,
-                        'icon-': 'flaticon-line-graph',
-                        'toggle': 'click',
-                        'alignment': 'left',
-                        'translate': 'MENU.FEATURES',
-                        'submenu': {
-                            'type': 'mega',
-                            'width': '1000px',
-                            'alignment': 'left',
-                            'columns': [
-                                {
-                                    'heading': {
-                                        'heading': true,
-                                        'title': 'Task Reports',
-                                        'bullet': 'dot'
-                                    },
-                                    'items': [
-                                        {
-                                            'title': 'Latest Tasks',
-                                            'icon': 'flaticon-map'
-                                        },
-                                        {
-                                            'title': 'Pending Tasks',
-                                            'icon': 'flaticon-user'
-                                        },
-                                        {
-                                            'title': 'Urgent Tasks',
-                                            'icon': 'flaticon-clipboard'
-                                        },
-                                        {
-                                            'title': 'Completed Tasks',
-                                            'icon': 'flaticon-graphic-1'
-                                        },
-                                        {
-                                            'title': 'Failed Tasks',
-                                            'icon': 'flaticon-graphic-2'
-                                        }
-                                    ]
-                                },
-                                {
-                                    'bullet': 'line',
-                                    'heading': {
-                                        'heading': true,
-                                        'title': 'Profit Margins',
-                                        'bullet': 'dot'
-                                    },
-                                    'items': [
-                                        {
-                                            'title': 'Overall Profits',
-                                            'icon': ''
-                                        },
-                                        {
-                                            'title': 'Gross Profits',
-                                            'icon': ''
-                                        },
-                                        {
-                                            'title': 'Nett Profits',
-                                            'icon': ''
-                                        },
-                                        {
-                                            'title': 'Year to Date Reports',
-                                            'icon': ''
-                                        },
-                                        {
-                                            'title': 'Quarterly Profits',
-                                            'icon': ''
-                                        },
-                                        {
-                                            'title': 'Monthly Profits',
-                                            'icon': ''
-                                        }
-                                    ]
-                                },
-                                {
-                                    'bullet': 'dot',
-                                    'heading': {
-                                        'heading': true,
-                                        'title': 'Staff Management',
-                                        'bullet': 'dot'
-                                    },
-                                    'items': [
-                                        {
-                                            'title': 'Top Management',
-                                            'icon': ''
-                                        },
-                                        {
-                                            'title': 'Project Managers',
-                                            'icon': ''
-                                        },
-                                        {
-                                            'title': 'Development Staff',
-                                            'icon': ''
-                                        },
-                                        {
-                                            'title': 'Customer Service',
-                                            'icon': ''
-                                        },
-                                        {
-                                            'title': 'Sales and Marketing',
-                                            'icon': ''
-                                        },
-                                        {
-                                            'title': 'Executives',
-                                            'icon': ''
-                                        }
-                                    ]
-                                },
-                                {
-                                    'heading': {
-                                        'heading': true,
-                                        'title': 'Tools',
-                                        'icon': '',
-                                        'bullet': 'dot'
-                                    },
-                                    'items': [
-                                        {
-                                            'title': 'Analytical Reports',
-                                            'icon': ''
-                                        },
-                                        {
-                                            'title': 'Customer CRM',
-                                            'icon': ''
-                                        },
-                                        {
-                                            'title': 'Operational Growth',
-                                            'icon': ''
-                                        },
-                                        {
-                                            'title': 'Social Media Presence',
-                                            'icon': ''
-                                        },
-                                        {
-                                            'title': 'Files and Directories',
-                                            'icon': ''
-                                        },
-                                        {
-                                            'title': 'Audit & Logs',
-                                            'icon': ''
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        'title': 'Apps',
-                        'root': true,
-                        'icon-': 'flaticon-paper-plane',
-                        'toggle': 'click',
-                        'alignment': 'left',
-                        'translate': 'MENU.APPS',
-                        'submenu': {
-                            'type': 'classic',
-                            'alignment': 'left',
-                            'items': [
-                                {
-                                    'title': 'Reporting',
-                                    'icon': 'flaticon-business'
-                                },
-                                {
-                                    'title': 'Social Presence',
-                                    'page': 'components/datatable_v1',
-                                    'icon': 'flaticon-computer',
-                                    'submenu': {
-                                        'type': 'classic',
-                                        'alignment': 'right',
-                                        'items': [
-                                            {
-                                                'title': 'Reached Users',
-                                                'icon': 'flaticon-users'
-                                            },
-                                            {
-                                                'title': 'SEO Ranking',
-                                                'icon': 'flaticon-interface-1'
-                                            },
-                                            {
-                                                'title': 'User Dropout Points',
-                                                'icon': 'flaticon-lifebuoy'
-                                            },
-                                            {
-                                                'title': 'Market Segments',
-                                                'icon': 'flaticon-graphic-1'
-                                            },
-                                            {
-                                                'title': 'Opportunity Growth',
-                                                'icon': 'flaticon-graphic'
-                                            }
-                                        ]
-                                    }
-                                },
-                                {
-                                    'title': 'Sales & Marketing',
-                                    'icon': 'flaticon-map'
-                                },
-                                {
-                                    'title': 'Campaigns',
-                                    'icon': 'flaticon-graphic-2',
-                                    'badge': {
-                                        'type': 'kt-badge--success',
-                                        'value': '3'
-                                    }
-                                },
-                                {
-                                    'title': 'Deployment Center',
-                                    'page': '',
-                                    'icon': 'flaticon-infinity',
-                                    'submenu': {
-                                        'type': 'classic',
-                                        'alignment': 'right',
-                                        'items': [
-                                            {
-                                                'title': 'Merge Branch',
-                                                'icon': 'flaticon-add',
-                                                'badge': {
-                                                    'type': 'kt-badge--danger',
-                                                    'value': '3'
-                                                }
-                                            },
-                                            {
-                                                'title': 'Version Controls',
-                                                'icon': 'flaticon-signs-1'
-                                            },
-                                            {
-                                                'title': 'Database Manager',
-                                                'icon': 'flaticon-folder'
-                                            },
-                                            {
-                                                'title': 'System Settings',
-                                                'icon': 'flaticon-cogwheel-2'
-                                            }
-                                        ]
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                ]
-            },
-            aside: {
-                self: {},
-                items: [
-                    {
-                        title: 'Dashboard',
-                        root: true,
-                        icon: 'flaticon2-architecture-and-city',
-                        page: 'dashboard',
-                        translate: 'MENU.DASHBOARD',
-                        bullet: 'dot',
-                    },
-                    {
-                        title: 'Members',
-                        root: true,
-                        icon: 'flaticon2-user',
-                        page: 'members',
-                    },
-                    {
-                        title: 'Billing',
-                        root: true,
-                        icon: 'flaticon-coins',
-                        page: 'billing',
-                    }, {
-                        title: 'Workouts',
-                        root: true,
-                        icon: 'flaticon-presentation-1',
-                        page: 'workouts',
-                    },
-                    { section: 'Membership' },
-                    {
-                        title: 'Packages',
-                        icon: 'flaticon2-digital-marketing',
-                        page: 'membership/packages',
-                        translate: 'PACKAGES.PACKAGE'
-                    },
-                    {
-                        title: 'Activities',
-                        icon: 'flaticon2-digital-marketing',
-                        page: 'membership/activities'
-                    },
-                    { section: 'ADMINSTRATION' },
-                    {
-                        title: 'User Management',
-                        root: true,
-                        bullet: 'dot',
-                        icon: 'flaticon2-list-2',
-                        submenu: [
-                            {
-                                title: 'Users',
-                                page: 'user-management/users'
-                            },
-                            {
-                                title: 'Roles',
-                                page: 'user-management/roles'
-                            },
-                            {
-                                title: 'Invitations',
-                                page: 'user-management/invitations'
-                            },
-                        ]
-                    }, {
-                        title: 'Club Tree',
-                        icon: 'flaticon2-user-outline-symbol',
-                        page: 'user-management/clubtree'
-                    },
-                    {
-                        title: 'Advanced Settings',
-                        page: 'user-settings',
-                        icon: 'flaticon2-user-outline-symbol',
-                    },
-                ]
-            },
-        };
-    }
-    Object.defineProperty(MenuConfig.prototype, "configs", {
-        get: function () {
-            this.checkedpermission();
-            console.log(this.defaults);
-            return this.defaults;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    MenuConfig.prototype.checkedpermission = function () {
-        if (localStorage.getItem('user')) {
-            var user = JSON.parse(localStorage.getItem('user'));
-            if (user['allPrivilidge']) {
-                var permission = user['allPrivilidge'];
-                console.log('permission', Object.keys(permission).length);
-                if (Object.keys(permission).length > 0) {
-                    if (permission['Users Mangement'] && permission['Roles']) {
-                        if (Object.keys(permission['Users Mangement']).length == 0 && Object.keys(permission['Roles']).length == 0) {
-                            this.filtersumenu('aside', 'User Management', 'Roles');
-                            this.filtersumenu('aside', 'User Management', 'Invitations');
-                            this.FilterMenu('aside', 'User Management');
-                            this.FilterMenu('aside', 'Advanced Settings');
-                            this.FilterMenu('aside', 'Club Tree');
-                            console.log('22');
-                        }
-                        else {
-                            if (Object.keys(permission['Users Mangement']).length == 0) {
-                                this.filtersumenu('aside', 'User Management', 'Users');
-                                this.filtersumenu('aside', 'User Management', 'Invitations');
-                                this.FilterMenu('aside', 'Club Tree');
-                                this.FilterMenu('aside', 'Advanced Settings');
-                                console.log('44');
-                            }
-                            else {
-                                if (!permission['Users Mangement']['Get All Users']) {
-                                    console.log('55');
-                                    this.FilterMenu('aside', 'Club Tree');
-                                    this.filtersumenu('aside', 'User Management', 'Users');
-                                }
-                                if (!permission['Users Mangement']['Setting']) {
-                                    console.log('66');
-                                    this.FilterMenu('aside', 'Advanced Settings');
-                                }
-                                if (!permission['Users Mangement']['Invitation']) {
-                                    console.log('77');
-                                    this.filtersumenu('aside', 'User Management', 'Invitations');
-                                }
-                            }
-                            if (Object.keys(permission['Roles']).length == 0) {
-                                this.filtersumenu('aside', 'User Management', 'Roles');
-                            }
-                        }
-                    }
-                    if (!permission['Membership'] || Object.keys(permission['Membership']).length == 0) {
-                        this.FilterMenu('aside', 'Packages');
-                    }
-                    if (!permission['Activities'] || Object.keys(permission['Activities']).length == 0) {
-                        this.FilterMenu('aside', 'Activities');
-                    }
-                    if (!permission['Attendance'] || Object.keys(permission['Attendance']).length == 0) {
-                        this.FilterMenu('aside', 'Workouts');
-                    }
-                    if (permission['Attendance'] && Object.keys(permission['Attendance']).length > 0) {
-                        if (!permission['Attendance']['Get Workouts'])
-                            this.FilterMenu('aside', 'Workouts');
-                    }
-                    if (!permission['Billing'] || Object.keys(permission['Billing']).length == 0) {
-                        this.FilterMenu('aside', 'Billing');
-                    }
-                    if (permission['Billing'] && Object.keys(permission['Billing']).length > 0) {
-                        if (!permission['Billing']['Get Billing'])
-                            this.FilterMenu('aside', 'Billing');
-                    }
-                }
-                else {
-                    this.defaults['aside'] = {};
-                }
-            }
-        }
-    };
-    MenuConfig.prototype.FilterMenu = function (obj, title) {
-        this.defaults[obj].items = this.defaults[obj].items.filter(function (x) { return x.title !== title; });
-    };
-    MenuConfig.prototype.filtersumenu = function (header, title, submenu) {
-        //console.log(this.defaults[header].items.find(x => x.title == title)['submenu'].filter(x => x.title == 'Roles'))
-        this.defaults[header].items.find(function (x) { return x.title == title; })['submenu'] = this.defaults[header].items.find(function (x) { return x.title == title; })['submenu'].filter(function (x) { return x.title !== submenu; });
-    };
-    MenuConfig.prototype.checkedPermission = function (object) {
-        var length = 0;
-        if (object) {
-            Object.values(object).forEach(function (elem) {
-                length += Object.values(elem).length;
-                console.log(Object.values(elem).length);
-            });
-        }
-        return length;
-    };
-    MenuConfig.prototype.checked = function () {
-        var length = 0;
-        if (localStorage.getItem('user')) {
-            Object.values(JSON.parse(localStorage.getItem('user'))['allPrivilidge']).forEach(function (elem) {
-                length += Object.values(elem).length;
-                console.log(Object.values(elem).length);
-            });
-        }
-        return length;
-    };
-    return MenuConfig;
-}());
-exports.MenuConfig = MenuConfig;
-
-
-/***/ }),
-
 /***/ "./src/app/core/_config/i18n/ar.ts":
 /*!*****************************************!*\
   !*** ./src/app/core/_config/i18n/ar.ts ***!
@@ -7641,13 +7128,13 @@ var PublicMethods = /** @class */ (function () {
         if (prepage === void 0) { prepage = 30; }
         if (search === void 0) { search = null; }
         var _timeStamp = Date.now(), _signature = md5_1.Md5.hashStr((md5_1.Md5.hashStr("gyminAppwsds548_$%#@" + _timeStamp + "@#!$$#@#$844%^^&(SDF%*%)")).toString()), 
-        //_url = `http://localhost:3000/api/v1/${module}/${service}/${account_key}?timestamp=${_timeStamp}&signature=${_signature}`
+        // _url = `http://localhost:3000/api/v1/${module}/${service}/${account_key}?timestamp=${_timeStamp}&signature=${_signature}`
         _url = "https://mygymin.herokuapp.com/api/v1/" + module + "/" + service + "/" + account_key + "?timestamp=" + _timeStamp + "&signature=" + _signature;
         return _url;
     };
     PublicMethods.createURL_Invitation = function (parent_key, email, timestamp, signature, all, user_type) {
         return "https://mygymin.herokuapp.com/api/v1/customers/emailinvitationlink/" + parent_key + "/" + email + "/" + timestamp + "/" + signature + "/" + user_type + "/" + all;
-        // return `http://localhost:3000/api/v1/customers/emailinvitationlink/${parent_key}/${email}/${timestamp}/${signature}/${user_type}/${all}`;
+        //return `http://localhost:3000/api/v1/customers/emailinvitationlink/${parent_key}/${email}/${timestamp}/${signature}/${user_type}/${all}`;
     };
     PublicMethods.createHeaders = function () {
         var httpHeaders = new http_1.HttpHeaders();
@@ -7701,10 +7188,12 @@ var rxjs_1 = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js
 var operators_1 = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 var router_1 = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 var _services_1 = __webpack_require__(/*! ../auth/_services */ "./src/app/core/auth/_services/index.ts");
+var material_1 = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 var HttpErrorInterceptor = /** @class */ (function () {
-    function HttpErrorInterceptor(route, userService) {
+    function HttpErrorInterceptor(route, userService, snackBar) {
         this.route = route;
         this.userService = userService;
+        this.snackBar = snackBar;
     }
     HttpErrorInterceptor.prototype.intercept = function (request, next) {
         var _this = this;
@@ -7734,10 +7223,12 @@ var HttpErrorInterceptor = /** @class */ (function () {
                 //     })
                 //     }
                 // }
-                if (error.status == 403) {
+                if (error.status == 401 || error.status == 403) {
+                    _this.openAlert();
                     console.log(error.status);
                     localStorage.clear();
-                    _this.route.navigate(['/auth/login']);
+                    //this.route.navigate(['/auth/login']);
+                    window.location.reload();
                 }
                 errMsg = "Error Code: " + error.status + ",  Message: " + error.message;
             }
@@ -7745,9 +7236,30 @@ var HttpErrorInterceptor = /** @class */ (function () {
             return rxjs_1.throwError(errMsg);
         }));
     };
+    HttpErrorInterceptor.prototype.openAlert = function () {
+        var message = 'Oh Snap ! You dont have permission .. Page Will Reload.';
+        var actionButtonLabel = '';
+        var action = true;
+        var setAutoHide = true;
+        var autoHide = 4000;
+        var horizontalPosition = 'center';
+        var verticalPosition = 'top';
+        var addExtraClass = true;
+        var config = new material_1.MatSnackBarConfig();
+        config.verticalPosition = verticalPosition;
+        config.horizontalPosition = horizontalPosition;
+        config.duration = setAutoHide ? autoHide : 0;
+        config['extraClasses'] = addExtraClass ? ['warn-snackbar'] : undefined;
+        config.panelClass = ['warn-snackbar'];
+        this.snackBar.open(message, action ? actionButtonLabel : undefined, config);
+    };
     HttpErrorInterceptor = __decorate([
         core_1.Injectable(),
-        __metadata("design:paramtypes", [router_1.Router, _services_1.UserService])
+        core_1.Component({
+            encapsulation: core_1.ViewEncapsulation.None,
+            styles: [".warn-snackbar{background-color: #ff4081;}"]
+        }),
+        __metadata("design:paramtypes", [router_1.Router, _services_1.UserService, material_1.MatSnackBar])
     ], HttpErrorInterceptor);
     return HttpErrorInterceptor;
 }());
@@ -7804,7 +7316,7 @@ var InterceptorTokenService = /** @class */ (function () {
     InterceptorTokenService.prototype.intercept = function (req, next) {
         var auth = this.inject.get(_services_1.AuthService);
         var token;
-        console.log(auth.getToken());
+        //console.log(auth.getToken());
         if (auth.getToken()) {
             token = req.clone({
                 setHeaders: { Authorization: "" + auth.getToken() }
@@ -9701,7 +9213,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // Angular
 var core_1 = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 var http_1 = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+// RxJS
+var rxjs_1 = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
 var operators_1 = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+// Lodash
+var lodash_1 = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 // CRUD
 var crud_1 = __webpack_require__(/*! ../../_base/crud */ "./src/app/core/_base/crud/index.ts");
 var _public_methods_1 = __webpack_require__(/*! ../../_public/-public-methods */ "./src/app/core/_public/-public-methods.ts");
@@ -9732,24 +9248,21 @@ var AuthService = /** @class */ (function () {
             return null;
         }));
     };
-    // requestPassword(email: string): Observable<any> {
-    // 	return this.http.get("API_USERS_URL").pipe(
-    //         map((users: User[]) => {
-    //             if (users.length <= 0) {
-    //                 return null;
-    //             }
-    //             const user = find(users, function(item: User) {
-    //                 return (item.email.toLowerCase() === email.toLowerCase());
-    //             });
-    //             if (!user) {
-    //                 return null;
-    //             }
-    //             user.password = undefined;
-    //             return user;
-    //         }),
-    //         catchError(this.handleError('forgot-password', []))
-    //     );
-    // }
+    AuthService.prototype.requestPassword = function (email) {
+        return this.http.get("API_USERS_URL").pipe(operators_1.map(function (users) {
+            if (users.length <= 0) {
+                return null;
+            }
+            var user = lodash_1.find(users, function (item) {
+                return (item.email.toLowerCase() === email.toLowerCase());
+            });
+            if (!user) {
+                return null;
+            }
+            user.password = undefined;
+            return user;
+        }), operators_1.catchError(this.handleError('forgot-password', [])));
+    };
     //  getUserByToken(): Observable<User> {
     //      const userToken = localStorage.getItem(environment.authTokenKey);
     //      if (!userToken) {
@@ -9907,14 +9420,15 @@ var AuthService = /** @class */ (function () {
     //         })
     //     );
     // }
-    // private handleError<T>(operation = 'operation', result?: any) {
-    //     return (error: any): Observable<any> => {
-    //         // TODO: send the error to remote logging infrastructure
-    //         console.error(error); // log to console instead
-    //         // Let the app keep running by returning an empty result.
-    //         return of(result);
-    //     };
-    // }
+    AuthService.prototype.handleError = function (operation, result) {
+        if (operation === void 0) { operation = 'operation'; }
+        return function (error) {
+            // TODO: send the error to remote logging infrastructure
+            console.error(error); // log to console instead
+            // Let the app keep running by returning an empty result.
+            return rxjs_1.of(result);
+        };
+    };
     AuthService.prototype.loggedin = function () {
         if (JSON.parse(localStorage.getItem('user'))) {
             return JSON.parse(localStorage.getItem('user'))['token'];
@@ -10226,7 +9740,7 @@ var PermissionsService = /** @class */ (function () {
                 id += 1;
                 dataPrivlidgesSource_1.push({ id: id, title: title, _children: _this.prepareChildPermission(id - 1), isSelected: false });
             });
-            return dataPrivlidgesSource_1.slice(1, dataPrivlidgesSource_1.length - 1);
+            return dataPrivlidgesSource_1.slice(1, dataPrivlidgesSource_1.length);
         }
     };
     PermissionsService.prototype.prepareChildPermission = function (index) {
@@ -11223,6 +10737,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 var forms_1 = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 var router_1 = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+// RxJS
+var operators_1 = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 var rxjs_1 = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
 // Translate
 var core_2 = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
@@ -11286,6 +10802,7 @@ var ForgotPasswordComponent = /** @class */ (function () {
      * Form Submit
      */
     ForgotPasswordComponent.prototype.submit = function () {
+        var _this = this;
         var controls = this.forgotPasswordForm.controls;
         /** check form */
         if (this.forgotPasswordForm.invalid) {
@@ -11296,21 +10813,18 @@ var ForgotPasswordComponent = /** @class */ (function () {
         }
         this.loading = true;
         var email = controls['email'].value;
-        // this.authService.requestPassword(email).pipe(
-        // 	tap(response => {
-        // 		if (response) {
-        // 			this.authNoticeService.setNotice(this.translate.instant('AUTH.FORGOT.SUCCESS'), 'success');
-        // 			this.router.navigateByUrl('/auth/login');
-        // 		} else {
-        // 			this.authNoticeService.setNotice(this.translate.instant('AUTH.VALIDATION.NOT_FOUND', {name: this.translate.instant('AUTH.INPUT.EMAIL')}), 'danger');
-        // 		}
-        // 	}),
-        // 	takeUntil(this.unsubscribe),
-        // 	finalize(() => {
-        // 		this.loading = false;
-        // 		this.cdr.detectChanges();
-        // 	})
-        // ).subscribe();
+        this.authService.requestPassword(email).pipe(operators_1.tap(function (response) {
+            if (response) {
+                _this.authNoticeService.setNotice(_this.translate.instant('AUTH.FORGOT.SUCCESS'), 'success');
+                _this.router.navigateByUrl('/auth/login');
+            }
+            else {
+                _this.authNoticeService.setNotice(_this.translate.instant('AUTH.VALIDATION.NOT_FOUND', { name: _this.translate.instant('AUTH.INPUT.EMAIL') }), 'danger');
+            }
+        }), operators_1.takeUntil(this.unsubscribe), operators_1.finalize(function () {
+            _this.loading = false;
+            _this.cdr.detectChanges();
+        })).subscribe();
     };
     /**
      * Checking control validation
@@ -11383,7 +10897,6 @@ var router_1 = __webpack_require__(/*! @angular/router */ "./node_modules/@angul
 var forms_1 = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 // RxJS
 var rxjs_1 = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-var operators_1 = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 // Translate
 var core_2 = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
 // Store
@@ -11495,22 +11008,38 @@ var LoginComponent = /** @class */ (function () {
         };
         this.auth
             .login(authData.email, authData.password)
-            .pipe(operators_1.tap(function (res) {
+            // .pipe(
+            // 	tap(res => {
+            // 		if (res['result']) {
+            // 			//this.store.dispatch(new Login({authToken:res['user']['token']}));
+            // 			localStorage.setItem('user', JSON.stringify(res['user']));
+            // 			console.log(res['user']);
+            // 			this.router.navigateByUrl('/'); // Main page
+            // 		} else {
+            // 			this.authNoticeService.setNotice(this.translate.instant('AUTH.VALIDATION.INVALID_LOGIN'), 'danger');
+            // 			console.log(res)
+            // 		}
+            // 	}),
+            // 	takeUntil(this.unsubscribe),
+            // 	finalize(() => {
+            // 		this.loading = false;
+            // 		this.cdr.detectChanges();
+            // 	}
+            // 	)
+            // )
+            .subscribe(function (res) {
             if (res['result']) {
                 //this.store.dispatch(new Login({authToken:res['user']['token']}));
                 localStorage.setItem('user', JSON.stringify(res['user']));
                 console.log(res['user']);
+                _this.cdr.detectChanges();
                 _this.router.navigateByUrl('/'); // Main page
             }
             else {
                 _this.authNoticeService.setNotice(_this.translate.instant('AUTH.VALIDATION.INVALID_LOGIN'), 'danger');
                 console.log(res);
             }
-        }), operators_1.takeUntil(this.unsubscribe), operators_1.finalize(function () {
-            _this.loading = false;
-            _this.cdr.detectChanges();
-        }))
-            .subscribe();
+        });
     };
     /**
      * Checking control validation
@@ -14391,7 +13920,7 @@ var Widget12Component = /** @class */ (function () {
         this.changeDetectref = changeDetectref;
         this.model = '7';
         this.profitShareData = [];
-        this.LoadData(7);
+        //	  this.LoadData(7)
     }
     Widget12Component.prototype.LoadData = function (range) {
         var _this = this;
@@ -14413,8 +13942,8 @@ var Widget12Component = /** @class */ (function () {
         });
     };
     Widget12Component.prototype.changeFilter = function (range) {
-        this.LoadData(range);
-        console.log(this.profitShareData);
+        //	this.LoadData(range)
+        //	console.log(this.profitShareData)
     };
     Widget12Component.prototype.ngOnInit = function () {
     };
@@ -15660,7 +15189,7 @@ exports.MessagingService = MessagingService;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div ngbDropdown (click)=\"showNoticationAction()\" placement=\"bottom-right\" autoClose=\"outside\" class=\"kt-header__topbar-item\">\r\n\t<div ngbDropdownToggle  class=\"kt-header__topbar-wrapper\">\r\n\t\t<span class=\"kt-header__topbar-icon\" [ngClass]=\"{'kt-pulse kt-pulse--brand': pulse}\">\r\n\t\t\t<i *ngIf=\"!useSVG\" [ngClass]=\"icon\"></i>\r\n\t\t\t<span class=\"kt-svg-icon\" *ngIf=\"useSVG\" [inlineSVG]=\"icon\"></span>\r\n\t\t\t<span class=\"kt-pulse__ring\" [hidden]=\"!pulse\"></span>\r\n\t\t</span>\r\n\t\t<span class=\"kt-badge kt-badge--dot kt-badge--notify kt-badge--sm kt-badge--brand\" [hidden]=\"!dot\"></span>\r\n\t</div>\r\n\t<div ngbDropdownMenu class=\"dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround dropdown-menu-lg\">\r\n\t\t<form>\r\n\t\t\t<!--begin: Head -->\r\n\t\t\t<div class=\"kt-head kt-head--skin-{{skin}} kt-head--fit-x kt-head--fit-b\" [ngStyle]=\"{'background-image': 'url('+bgImage+')'}\">\r\n\t\t\t\t<h3 class=\"kt-head__title\">\r\n\t\t\t\t\tUser Notifications&nbsp;<span class=\"btn btn-success btn-sm btn-bold btn-font-md\">{{new}} new</span>\r\n\t\t\t\t</h3>\r\n\t\t\t\t<ul ktTabClickEvent class=\"nav nav-tabs nav-tabs-line nav-tabs-bold nav-tabs-line-3x nav-tabs-line-success kt-notification-item-padding-x\" role=\"tablist\">\r\n\t\t\t\t\t<li class=\"nav-item\">\r\n\t\t\t\t\t\t<a (click)=\"tab.select('tab-id-1')\" class=\"nav-link active show\" data-toggle=\"tab\" href=\"javascript:;\" role=\"tab\" aria-selected=\"true\">Alerts</a>\r\n\t\t\t\t\t</li>\r\n\t\t\t\t\t<li class=\"nav-item\">\r\n\t\t\t\t\t\t<a (click)=\"tab.select('tab-id-2')\" class=\"nav-link\" data-toggle=\"tab\" href=\"javascript:;\" role=\"tab\" aria-selected=\"false\">Events</a>\r\n\t\t\t\t\t</li>\r\n\t\t\t\t\t<li class=\"nav-item\">\r\n\t\t\t\t\t\t<a (click)=\"tab.select('tab-id-3')\" class=\"nav-link\" data-toggle=\"tab\" href=\"javascript:;\" role=\"tab\" aria-selected=\"false\">Logs</a>\r\n\t\t\t\t\t</li>\r\n\t\t\t\t</ul>\r\n\t\t\t</div>\r\n\t\t\t<!--end: Head -->\r\n\r\n\t\t\t<ngb-tabset #tab=\"ngbTabset\">\r\n\t\t\t\t<ngb-tab id=\"tab-id-1\">\r\n\t\t\t\t\t<ng-template ngbTabContent>\r\n\t\t\t\t\t\t<div [perfectScrollbar]=\"{wheelPropagation: false}\" [ngStyle]=\"{'max-height': '40vh', 'position': 'relative'}\" class=\"kt-notification kt-margin-t-10 kt-margin-b-10\">\r\n\t\t\t\t\t\t\t<a  *ngFor=\"let notify of notifications\" [routerLink]=\"notify.data.url\" [queryParams]=\"notify.data.queryParams\" class=\"kt-notification__item\">\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t\t\t\t\t<i class=\"flaticon2-line-chart kt-font-success\"></i>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-title\">\r\n\t\t\t\t\t\t\t\t\t\t{{notify.data.title}}\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-time\">\r\n\t\t\t\t\t\t\t\t\t\t{{notify.data.time}}\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</a>\r\n\r\n\t\t\t\t\t\t\t<div class=\"ps__rail-x\" style=\"left: 0px; bottom: 0px;\">\r\n\t\t\t\t\t\t\t\t<div class=\"ps__thumb-x\" tabindex=\"0\" style=\"left: 0px; width: 0px;\"></div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div class=\"ps__rail-y\" style=\"top: 0px; right: 0px;\">\r\n\t\t\t\t\t\t\t\t<div class=\"ps__thumb-y\" tabindex=\"0\" style=\"top: 0px; height: 0px;\"></div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</ng-template>\r\n\t\t\t\t</ngb-tab>\r\n\t\t\t\t<ngb-tab id=\"tab-id-2\">\r\n\t\t\t\t\t<ng-template ngbTabContent>\r\n\t\t\t\t\t\t<div [perfectScrollbar]=\"{wheelPropagation: false}\" [ngStyle]=\"{'max-height': '40vh', 'position': 'relative'}\" class=\"kt-notification kt-margin-t-10 kt-margin-b-10\">\r\n\r\n\t\t\t\t\t\t\t<div class=\"ps__rail-x\" style=\"left: 0px; bottom: 0px;\">\r\n\t\t\t\t\t\t\t\t<div class=\"ps__thumb-x\" tabindex=\"0\" style=\"left: 0px; width: 0px;\"></div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div class=\"ps__rail-y\" style=\"top: 0px; right: 0px;\">\r\n\t\t\t\t\t\t\t\t<div class=\"ps__thumb-y\" tabindex=\"0\" style=\"top: 0px; height: 0px;\"></div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</ng-template>\r\n\t\t\t\t</ngb-tab>\r\n\t\t\t\t<ngb-tab id=\"tab-id-3\">\r\n\t\t\t\t\t<ng-template ngbTabContent>\r\n\t\t\t\t\t\t<div class=\"kt-grid kt-grid--ver\" style=\"min-height: 200px;\">\r\n\t\t\t\t\t\t\t<div class=\"kt-grid kt-grid--hor kt-grid__item kt-grid__item--fluid kt-grid__item--middle\">\r\n\t\t\t\t\t\t\t\t<div class=\"kt-grid__item kt-grid__item--middle kt-align-center\">\r\n\t\t\t\t\t\t\t\t\tAll caught up!\r\n\t\t\t\t\t\t\t\t\t<br>No new notifications.\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</ng-template>\r\n\t\t\t\t</ngb-tab>\r\n\t\t\t</ngb-tabset>\r\n\t\t</form>\r\n\t</div>\r\n</div>\r\n"
+module.exports = "<!-- <div ngbDropdown (click)=\"showNoticationAction()\" placement=\"bottom-right\" autoClose=\"outside\" class=\"kt-header__topbar-item\">\r\n\t<div ngbDropdownToggle  class=\"kt-header__topbar-wrapper\">\r\n\t\t<span class=\"kt-header__topbar-icon\" [ngClass]=\"{'kt-pulse kt-pulse--brand': pulse}\">\r\n\t\t\t<i *ngIf=\"!useSVG\" [ngClass]=\"icon\"></i>\r\n\t\t\t<span class=\"kt-svg-icon\" *ngIf=\"useSVG\" [inlineSVG]=\"icon\"></span>\r\n\t\t\t<span class=\"kt-pulse__ring\" [hidden]=\"!pulse\"></span>\r\n\t\t</span>\r\n\t\t<span class=\"kt-badge kt-badge--dot kt-badge--notify kt-badge--sm kt-badge--brand\" [hidden]=\"!dot\"></span>\r\n\t</div>\r\n\t<div ngbDropdownMenu class=\"dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround dropdown-menu-lg\">\r\n\t\t<form>\r\n\r\n\t\t\t<div class=\"kt-head kt-head--skin-{{skin}} kt-head--fit-x kt-head--fit-b\" [ngStyle]=\"{'background-image': 'url('+bgImage+')'}\">\r\n\t\t\t\t<h3 class=\"kt-head__title\">\r\n\t\t\t\t\tUser Notifications&nbsp;<span class=\"btn btn-success btn-sm btn-bold btn-font-md\">{{new}} new</span>\r\n\t\t\t\t</h3>\r\n\t\t\t\t<ul ktTabClickEvent class=\"nav nav-tabs nav-tabs-line nav-tabs-bold nav-tabs-line-3x nav-tabs-line-success kt-notification-item-padding-x\" role=\"tablist\">\r\n\t\t\t\t\t<li class=\"nav-item\">\r\n\t\t\t\t\t\t<a (click)=\"tab.select('tab-id-1')\" class=\"nav-link active show\" data-toggle=\"tab\" href=\"javascript:;\" role=\"tab\" aria-selected=\"true\">Alerts</a>\r\n\t\t\t\t\t</li>\r\n\t\t\t\t\t<li class=\"nav-item\">\r\n\t\t\t\t\t\t<a (click)=\"tab.select('tab-id-2')\" class=\"nav-link\" data-toggle=\"tab\" href=\"javascript:;\" role=\"tab\" aria-selected=\"false\">Events</a>\r\n\t\t\t\t\t</li>\r\n\t\t\t\t\t<li class=\"nav-item\">\r\n\t\t\t\t\t\t<a (click)=\"tab.select('tab-id-3')\" class=\"nav-link\" data-toggle=\"tab\" href=\"javascript:;\" role=\"tab\" aria-selected=\"false\">Logs</a>\r\n\t\t\t\t\t</li>\r\n\t\t\t\t</ul>\r\n\t\t\t</div>\r\n\r\n\t\t\t<ngb-tabset #tab=\"ngbTabset\">\r\n\t\t\t\t<ngb-tab id=\"tab-id-1\">\r\n\t\t\t\t\t<ng-template ngbTabContent>\r\n\t\t\t\t\t\t<div [perfectScrollbar]=\"{wheelPropagation: false}\" [ngStyle]=\"{'max-height': '40vh', 'position': 'relative'}\" class=\"kt-notification kt-margin-t-10 kt-margin-b-10\">\r\n\t\t\t\t\t\t\t<a  *ngFor=\"let notify of notifications\" [routerLink]=\"notify.data.url\" [queryParams]=\"notify.data.queryParams\" class=\"kt-notification__item\">\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t\t\t\t\t<i class=\"flaticon2-line-chart kt-font-success\"></i>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-title\">\r\n\t\t\t\t\t\t\t\t\t\t{{notify.data.title}}\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"kt-notification__item-time\">\r\n\t\t\t\t\t\t\t\t\t\t{{notify.data.time}}\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</a>\r\n\r\n\t\t\t\t\t\t\t<div class=\"ps__rail-x\" style=\"left: 0px; bottom: 0px;\">\r\n\t\t\t\t\t\t\t\t<div class=\"ps__thumb-x\" tabindex=\"0\" style=\"left: 0px; width: 0px;\"></div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div class=\"ps__rail-y\" style=\"top: 0px; right: 0px;\">\r\n\t\t\t\t\t\t\t\t<div class=\"ps__thumb-y\" tabindex=\"0\" style=\"top: 0px; height: 0px;\"></div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</ng-template>\r\n\t\t\t\t</ngb-tab>\r\n\t\t\t\t<ngb-tab id=\"tab-id-2\">\r\n\t\t\t\t\t<ng-template ngbTabContent>\r\n\t\t\t\t\t\t<div [perfectScrollbar]=\"{wheelPropagation: false}\" [ngStyle]=\"{'max-height': '40vh', 'position': 'relative'}\" class=\"kt-notification kt-margin-t-10 kt-margin-b-10\">\r\n\r\n\t\t\t\t\t\t\t<div class=\"ps__rail-x\" style=\"left: 0px; bottom: 0px;\">\r\n\t\t\t\t\t\t\t\t<div class=\"ps__thumb-x\" tabindex=\"0\" style=\"left: 0px; width: 0px;\"></div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div class=\"ps__rail-y\" style=\"top: 0px; right: 0px;\">\r\n\t\t\t\t\t\t\t\t<div class=\"ps__thumb-y\" tabindex=\"0\" style=\"top: 0px; height: 0px;\"></div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</ng-template>\r\n\t\t\t\t</ngb-tab>\r\n\t\t\t\t<ngb-tab id=\"tab-id-3\">\r\n\t\t\t\t\t<ng-template ngbTabContent>\r\n\t\t\t\t\t\t<div class=\"kt-grid kt-grid--ver\" style=\"min-height: 200px;\">\r\n\t\t\t\t\t\t\t<div class=\"kt-grid kt-grid--hor kt-grid__item kt-grid__item--fluid kt-grid__item--middle\">\r\n\t\t\t\t\t\t\t\t<div class=\"kt-grid__item kt-grid__item--middle kt-align-center\">\r\n\t\t\t\t\t\t\t\t\tAll caught up!\r\n\t\t\t\t\t\t\t\t\t<br>No new notifications.\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</ng-template>\r\n\t\t\t\t</ngb-tab>\r\n\t\t\t</ngb-tabset>\r\n\t\t</form>\r\n\t</div>\r\n</div> -->\r\n"
 
 /***/ }),
 
@@ -15848,7 +15377,6 @@ var store_1 = __webpack_require__(/*! @ngrx/store */ "./node_modules/@ngrx/store
 //service 
 var layout_1 = __webpack_require__(/*! ../../../../../core/_base/layout */ "./src/app/core/_base/layout/index.ts");
 var layout_2 = __webpack_require__(/*! ../../../../../core/_base/layout */ "./src/app/core/_base/layout/index.ts");
-var menu_config_1 = __webpack_require__(/*! ../../../../../core/_config/default/menu.config */ "./src/app/core/_config/default/menu.config.ts");
 var _user_service_1 = __webpack_require__(/*! ../../../../../core/auth/_services/-user.service */ "./src/app/core/auth/_services/-user.service.ts");
 var router_1 = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 var UserProfileComponent = /** @class */ (function () {
@@ -15880,10 +15408,10 @@ var UserProfileComponent = /** @class */ (function () {
     UserProfileComponent.prototype.logout = function () {
         //this.store.dispatch(new Logout())
         localStorage.clear();
-        this.route.navigate(['/auth/login']);
+        window.location.reload();
+        //this.route.navigate(['/auth/login']);
     };
     UserProfileComponent.prototype.switchAccount = function (key, name) {
-        var _this = this;
         this.user
             .switchAccount(key)
             .pipe(operators_1.tap(function (res) {
@@ -15891,21 +15419,15 @@ var UserProfileComponent = /** @class */ (function () {
                 var user = JSON.parse(localStorage.getItem('user'));
                 user['allPrivilidge'] = res['allPrivilidge'];
                 user['lastloginaccount'] = key;
-                user['name'] =
-                    localStorage.setItem('user', JSON.stringify(user));
-                _this.layoutconfig.setConfig(menu_config_1.MenuConfig);
-                _this.menAsideservice.loadMenu();
-                _this.layoutconfig.reloadConfigs().loader.enabled;
-                _this.route.navigate(['load']);
-                _this.menAsideservice.menuList$.subscribe(function (res) {
-                    console.log(res);
-                });
-                location.reload();
-                // this.route.navigateByUrl('', {skipLocationChange: true}).then(()=>
-                //   this.route.navigate([
-                // 	  this.route.url
-                //   ])); 
-                //this.router.navigateByUrl('default')
+                localStorage.setItem('user', JSON.stringify(user));
+                // this.layoutconfig.setConfig(MenuConfig);
+                // this.menAsideservice.loadMenu()
+                // this.layoutconfig.reloadConfigs().loader.enabled
+                // this.route.navigate(['load'])
+                // this.menAsideservice.menuList$.subscribe(res=>{
+                // 	console.log(res)
+                // })
+                window.location.reload();
             }
             else {
             }

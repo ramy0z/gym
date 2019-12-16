@@ -1,5 +1,548 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["app-views-themes-default-theme-module"],{
 
+/***/ "./src/app/core/_config/default/menu.config.ts":
+/*!*****************************************************!*\
+  !*** ./src/app/core/_config/default/menu.config.ts ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var MenuConfig = /** @class */ (function () {
+    function MenuConfig() {
+        this.defaults = {
+            header: {
+                self: {},
+                'items': [
+                    {
+                        'title': 'Pages',
+                        'root': true,
+                        'icon-': 'flaticon-add',
+                        'toggle': 'click',
+                        'custom-class': 'kt-menu__item--active',
+                        'alignment': 'left',
+                        'translate': 'MENU.PAGES',
+                        'submenu': {
+                            'type': 'classic',
+                            'alignment': 'left',
+                            'items': [
+                                {
+                                    'title': 'My Account',
+                                    'icon': 'flaticon-file',
+                                    'page': 'index'
+                                },
+                                {
+                                    'title': 'Task Manager',
+                                    'icon': 'flaticon-diagram',
+                                    'badge': {
+                                        'type': 'kt-badge--success',
+                                        'value': '2'
+                                    }
+                                },
+                                {
+                                    'title': 'Team Manager',
+                                    'icon': 'flaticon-business',
+                                    'submenu': {
+                                        'type': 'classic',
+                                        'alignment': 'right',
+                                        'bullet': 'line',
+                                        'items': [
+                                            {
+                                                'title': 'Add Team Member',
+                                                'icon': ''
+                                            },
+                                            {
+                                                'title': 'Edit Team Member',
+                                                'icon': ''
+                                            },
+                                            {
+                                                'title': 'Delete Team Member',
+                                                'icon': ''
+                                            },
+                                            {
+                                                'title': 'Team Member Reports',
+                                                'icon': ''
+                                            },
+                                            {
+                                                'title': 'Assign Tasks',
+                                                'icon': ''
+                                            },
+                                            {
+                                                'title': 'Promote Team Member',
+                                                'icon': ''
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    'title': 'Projects Manager',
+                                    'page': '#',
+                                    'icon': 'flaticon-chat-1',
+                                    'submenu': {
+                                        'type': 'classic',
+                                        'alignment': 'right',
+                                        'bullet': 'dot',
+                                        'items': [
+                                            {
+                                                'title': 'Latest Projects',
+                                                'icon': ''
+                                            },
+                                            {
+                                                'title': 'Ongoing Projects',
+                                                'icon': ''
+                                            },
+                                            {
+                                                'title': 'Urgent Projects',
+                                                'icon': ''
+                                            },
+                                            {
+                                                'title': 'Completed Projects',
+                                                'icon': ''
+                                            },
+                                            {
+                                                'title': 'Dropped Projects',
+                                                'icon': ''
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    'title': 'Create New Project',
+                                    'icon': 'flaticon-users'
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        'title': 'Features',
+                        'root': true,
+                        'icon-': 'flaticon-line-graph',
+                        'toggle': 'click',
+                        'alignment': 'left',
+                        'translate': 'MENU.FEATURES',
+                        'submenu': {
+                            'type': 'mega',
+                            'width': '1000px',
+                            'alignment': 'left',
+                            'columns': [
+                                {
+                                    'heading': {
+                                        'heading': true,
+                                        'title': 'Task Reports',
+                                        'bullet': 'dot'
+                                    },
+                                    'items': [
+                                        {
+                                            'title': 'Latest Tasks',
+                                            'icon': 'flaticon-map'
+                                        },
+                                        {
+                                            'title': 'Pending Tasks',
+                                            'icon': 'flaticon-user'
+                                        },
+                                        {
+                                            'title': 'Urgent Tasks',
+                                            'icon': 'flaticon-clipboard'
+                                        },
+                                        {
+                                            'title': 'Completed Tasks',
+                                            'icon': 'flaticon-graphic-1'
+                                        },
+                                        {
+                                            'title': 'Failed Tasks',
+                                            'icon': 'flaticon-graphic-2'
+                                        }
+                                    ]
+                                },
+                                {
+                                    'bullet': 'line',
+                                    'heading': {
+                                        'heading': true,
+                                        'title': 'Profit Margins',
+                                        'bullet': 'dot'
+                                    },
+                                    'items': [
+                                        {
+                                            'title': 'Overall Profits',
+                                            'icon': ''
+                                        },
+                                        {
+                                            'title': 'Gross Profits',
+                                            'icon': ''
+                                        },
+                                        {
+                                            'title': 'Nett Profits',
+                                            'icon': ''
+                                        },
+                                        {
+                                            'title': 'Year to Date Reports',
+                                            'icon': ''
+                                        },
+                                        {
+                                            'title': 'Quarterly Profits',
+                                            'icon': ''
+                                        },
+                                        {
+                                            'title': 'Monthly Profits',
+                                            'icon': ''
+                                        }
+                                    ]
+                                },
+                                {
+                                    'bullet': 'dot',
+                                    'heading': {
+                                        'heading': true,
+                                        'title': 'Staff Management',
+                                        'bullet': 'dot'
+                                    },
+                                    'items': [
+                                        {
+                                            'title': 'Top Management',
+                                            'icon': ''
+                                        },
+                                        {
+                                            'title': 'Project Managers',
+                                            'icon': ''
+                                        },
+                                        {
+                                            'title': 'Development Staff',
+                                            'icon': ''
+                                        },
+                                        {
+                                            'title': 'Customer Service',
+                                            'icon': ''
+                                        },
+                                        {
+                                            'title': 'Sales and Marketing',
+                                            'icon': ''
+                                        },
+                                        {
+                                            'title': 'Executives',
+                                            'icon': ''
+                                        }
+                                    ]
+                                },
+                                {
+                                    'heading': {
+                                        'heading': true,
+                                        'title': 'Tools',
+                                        'icon': '',
+                                        'bullet': 'dot'
+                                    },
+                                    'items': [
+                                        {
+                                            'title': 'Analytical Reports',
+                                            'icon': ''
+                                        },
+                                        {
+                                            'title': 'Customer CRM',
+                                            'icon': ''
+                                        },
+                                        {
+                                            'title': 'Operational Growth',
+                                            'icon': ''
+                                        },
+                                        {
+                                            'title': 'Social Media Presence',
+                                            'icon': ''
+                                        },
+                                        {
+                                            'title': 'Files and Directories',
+                                            'icon': ''
+                                        },
+                                        {
+                                            'title': 'Audit & Logs',
+                                            'icon': ''
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        'title': 'Apps',
+                        'root': true,
+                        'icon-': 'flaticon-paper-plane',
+                        'toggle': 'click',
+                        'alignment': 'left',
+                        'translate': 'MENU.APPS',
+                        'submenu': {
+                            'type': 'classic',
+                            'alignment': 'left',
+                            'items': [
+                                {
+                                    'title': 'Reporting',
+                                    'icon': 'flaticon-business'
+                                },
+                                {
+                                    'title': 'Social Presence',
+                                    'page': 'components/datatable_v1',
+                                    'icon': 'flaticon-computer',
+                                    'submenu': {
+                                        'type': 'classic',
+                                        'alignment': 'right',
+                                        'items': [
+                                            {
+                                                'title': 'Reached Users',
+                                                'icon': 'flaticon-users'
+                                            },
+                                            {
+                                                'title': 'SEO Ranking',
+                                                'icon': 'flaticon-interface-1'
+                                            },
+                                            {
+                                                'title': 'User Dropout Points',
+                                                'icon': 'flaticon-lifebuoy'
+                                            },
+                                            {
+                                                'title': 'Market Segments',
+                                                'icon': 'flaticon-graphic-1'
+                                            },
+                                            {
+                                                'title': 'Opportunity Growth',
+                                                'icon': 'flaticon-graphic'
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    'title': 'Sales & Marketing',
+                                    'icon': 'flaticon-map'
+                                },
+                                {
+                                    'title': 'Campaigns',
+                                    'icon': 'flaticon-graphic-2',
+                                    'badge': {
+                                        'type': 'kt-badge--success',
+                                        'value': '3'
+                                    }
+                                },
+                                {
+                                    'title': 'Deployment Center',
+                                    'page': '',
+                                    'icon': 'flaticon-infinity',
+                                    'submenu': {
+                                        'type': 'classic',
+                                        'alignment': 'right',
+                                        'items': [
+                                            {
+                                                'title': 'Merge Branch',
+                                                'icon': 'flaticon-add',
+                                                'badge': {
+                                                    'type': 'kt-badge--danger',
+                                                    'value': '3'
+                                                }
+                                            },
+                                            {
+                                                'title': 'Version Controls',
+                                                'icon': 'flaticon-signs-1'
+                                            },
+                                            {
+                                                'title': 'Database Manager',
+                                                'icon': 'flaticon-folder'
+                                            },
+                                            {
+                                                'title': 'System Settings',
+                                                'icon': 'flaticon-cogwheel-2'
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            aside: {
+                self: {},
+                items: [
+                    {
+                        title: 'Dashboard',
+                        root: true,
+                        icon: 'flaticon2-architecture-and-city',
+                        page: 'dashboard',
+                        translate: 'MENU.DASHBOARD',
+                        bullet: 'dot',
+                    },
+                    {
+                        title: 'Members',
+                        root: true,
+                        icon: 'flaticon2-user',
+                        page: 'members',
+                    },
+                    {
+                        title: 'Billing',
+                        root: true,
+                        icon: 'flaticon-coins',
+                        page: 'billing',
+                    }, {
+                        title: 'Workouts',
+                        root: true,
+                        icon: 'flaticon-presentation-1',
+                        page: 'workouts',
+                    },
+                    { section: 'Membership' },
+                    {
+                        title: 'Packages',
+                        icon: 'flaticon2-digital-marketing',
+                        page: 'membership/packages',
+                        translate: 'PACKAGES.PACKAGE'
+                    },
+                    {
+                        title: 'Activities',
+                        icon: 'flaticon2-digital-marketing',
+                        page: 'membership/activities'
+                    },
+                    { section: 'ADMINSTRATION' },
+                    {
+                        title: 'User Management',
+                        root: true,
+                        bullet: 'dot',
+                        icon: 'flaticon2-list-2',
+                        submenu: [
+                            {
+                                title: 'Users',
+                                page: 'user-management/users'
+                            },
+                            {
+                                title: 'Roles',
+                                page: 'user-management/roles'
+                            },
+                            {
+                                title: 'Invitations',
+                                page: 'user-management/invitations'
+                            },
+                        ]
+                    }, {
+                        title: 'Club Tree',
+                        icon: 'flaticon2-user-outline-symbol',
+                        page: 'user-management/clubtree'
+                    },
+                    {
+                        title: 'Advanced Settings',
+                        page: 'user-settings',
+                        icon: 'flaticon2-user-outline-symbol',
+                    },
+                ]
+            },
+        };
+    }
+    Object.defineProperty(MenuConfig.prototype, "configs", {
+        get: function () {
+            this.checkedpermission();
+            console.log(this.defaults);
+            return this.defaults;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    MenuConfig.prototype.checkedpermission = function () {
+        if (localStorage.getItem('user')) {
+            var user = JSON.parse(localStorage.getItem('user'));
+            if (user['allPrivilidge']) {
+                var permission = user['allPrivilidge'];
+                console.log('permission', Object.keys(permission).length);
+                if (Object.keys(permission).length > 0) {
+                    if (permission['Users Mangement'] && permission['Roles']) {
+                        if (Object.keys(permission['Users Mangement']).length == 0 && Object.keys(permission['Roles']).length == 0) {
+                            this.filtersumenu('aside', 'User Management', 'Roles');
+                            this.filtersumenu('aside', 'User Management', 'Invitations');
+                            this.FilterMenu('aside', 'User Management');
+                            this.FilterMenu('aside', 'Advanced Settings');
+                            this.FilterMenu('aside', 'Club Tree');
+                            console.log('22');
+                        }
+                        else {
+                            if (Object.keys(permission['Users Mangement']).length == 0) {
+                                this.filtersumenu('aside', 'User Management', 'Users');
+                                this.filtersumenu('aside', 'User Management', 'Invitations');
+                                this.FilterMenu('aside', 'Club Tree');
+                                this.FilterMenu('aside', 'Advanced Settings');
+                                console.log('44');
+                            }
+                            else {
+                                if (!permission['Users Mangement']['Get All Users']) {
+                                    console.log('55');
+                                    this.FilterMenu('aside', 'Club Tree');
+                                    this.filtersumenu('aside', 'User Management', 'Users');
+                                }
+                                if (!permission['Users Mangement']['Setting']) {
+                                    console.log('66');
+                                    this.FilterMenu('aside', 'Advanced Settings');
+                                }
+                                if (!permission['Users Mangement']['Invitation']) {
+                                    console.log('77');
+                                    this.filtersumenu('aside', 'User Management', 'Invitations');
+                                }
+                            }
+                            if (Object.keys(permission['Roles']).length == 0) {
+                                this.filtersumenu('aside', 'User Management', 'Roles');
+                            }
+                        }
+                    }
+                    if (!permission['Membership'] || Object.keys(permission['Membership']).length == 0) {
+                        this.FilterMenu('aside', 'Packages');
+                    }
+                    if (!permission['Activities'] || Object.keys(permission['Activities']).length == 0) {
+                        this.FilterMenu('aside', 'Activities');
+                    }
+                    if (!permission['Attendance'] || Object.keys(permission['Attendance']).length == 0) {
+                        this.FilterMenu('aside', 'Workouts');
+                    }
+                    if (permission['Attendance'] && Object.keys(permission['Attendance']).length > 0) {
+                        if (!permission['Attendance']['Get Workouts'])
+                            this.FilterMenu('aside', 'Workouts');
+                    }
+                    if (!permission['Billing'] || Object.keys(permission['Billing']).length == 0) {
+                        this.FilterMenu('aside', 'Billing');
+                    }
+                    if (permission['Billing'] && Object.keys(permission['Billing']).length > 0) {
+                        if (!permission['Billing']['Get Billing'])
+                            this.FilterMenu('aside', 'Billing');
+                    }
+                }
+                else {
+                    this.defaults['aside'] = {};
+                }
+            }
+        }
+    };
+    MenuConfig.prototype.FilterMenu = function (obj, title) {
+        this.defaults[obj].items = this.defaults[obj].items.filter(function (x) { return x.title !== title; });
+    };
+    MenuConfig.prototype.filtersumenu = function (header, title, submenu) {
+        //console.log(this.defaults[header].items.find(x => x.title == title)['submenu'].filter(x => x.title == 'Roles'))
+        this.defaults[header].items.find(function (x) { return x.title == title; })['submenu'] = this.defaults[header].items.find(function (x) { return x.title == title; })['submenu'].filter(function (x) { return x.title !== submenu; });
+    };
+    MenuConfig.prototype.checkedPermission = function (object) {
+        var length = 0;
+        if (object) {
+            Object.values(object).forEach(function (elem) {
+                length += Object.values(elem).length;
+                console.log(Object.values(elem).length);
+            });
+        }
+        return length;
+    };
+    MenuConfig.prototype.checked = function () {
+        var length = 0;
+        if (localStorage.getItem('user')) {
+            Object.values(JSON.parse(localStorage.getItem('user'))['allPrivilidge']).forEach(function (elem) {
+                length += Object.values(elem).length;
+                console.log(Object.values(elem).length);
+            });
+        }
+        return length;
+    };
+    return MenuConfig;
+}());
+exports.MenuConfig = MenuConfig;
+
+
+/***/ }),
+
 /***/ "./src/app/core/_config/default/page.config.ts":
 /*!*****************************************************!*\
   !*** ./src/app/core/_config/default/page.config.ts ***!
@@ -87,6 +630,153 @@ exports.PageConfig = PageConfig;
 
 /***/ }),
 
+/***/ "./src/app/core/auth/_guards/permission.guard.ts":
+/*!*******************************************************!*\
+  !*** ./src/app/core/auth/_guards/permission.guard.ts ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+// Angular
+var core_1 = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var router_1 = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+// NGRX
+var store_1 = __webpack_require__(/*! @ngrx/store */ "./node_modules/@ngrx/store/fesm5/store.js");
+var permissions_service_1 = __webpack_require__(/*! ../../../core/auth/_services/permissions.service */ "./src/app/core/auth/_services/permissions.service.ts");
+var _user_service_1 = __webpack_require__(/*! ../../../core/auth/_services/-user.service */ "./src/app/core/auth/_services/-user.service.ts");
+var PermissionGuard = /** @class */ (function () {
+    function PermissionGuard(store, router, permission, user) {
+        this.store = store;
+        this.router = router;
+        this.permission = permission;
+        this.user = user;
+    }
+    PermissionGuard.prototype.canActivate = function (route, state) {
+        var _this = this;
+        var moduleName = route.data['title'];
+        var permissions = JSON.parse(localStorage.getItem('user'))['allPrivilidge'];
+        console.log(moduleName, permissions, this.permission['Roles']);
+        if (!this.checked()) {
+            this.router.navigateByUrl('/error/403');
+        }
+        else {
+            if (moduleName == 'roles') {
+                if (!this.checkedPermission(permissions['Roles']))
+                    this.router.navigateByUrl('/error/403');
+                if (!permissions['Roles']['Get Roles'])
+                    this.router.navigateByUrl('/error/403');
+            }
+            else if (moduleName == 'workouts') {
+                if (!permissions['Attendance'])
+                    this.router.navigateByUrl('/error/403');
+                if (!permissions['Attendance']['Get Workouts'])
+                    this.router.navigateByUrl('/error/403');
+            }
+            else if (moduleName == 'billing') {
+                if (!permissions['Billing'])
+                    this.router.navigateByUrl('/error/403');
+                if (!permissions['Billing']['Get Billing'])
+                    this.router.navigateByUrl('/error/403');
+            }
+            else if (moduleName == 'users') {
+                if (!this.checkedPermission(['Users Mangement']))
+                    this.router.navigateByUrl('/error/403');
+                if (!permissions['Users Mangement']['Get All Users'])
+                    this.router.navigateByUrl('/error/403');
+            }
+            else if (moduleName == 'invitations') {
+                if (!permissions['Users Mangement'])
+                    this.router.navigateByUrl('/error/403');
+                if (!permissions['Users Mangement']['Invitation'])
+                    this.router.navigateByUrl('/error/403');
+            }
+            else if (moduleName == 'editUser') {
+                this.user.currentUser.subscribe(function (res) {
+                    if (!res) {
+                        _this.router.navigateByUrl('user-management/users');
+                    }
+                });
+                if (!permissions['Users Mangement'])
+                    this.router.navigateByUrl('/error/403');
+                if (!permissions['Users Mangement']['Update User'])
+                    this.router.navigateByUrl('/error/403');
+            }
+            else if (moduleName == 'setting') {
+                if (!permissions['Users Mangement'])
+                    this.router.navigateByUrl('/error/403');
+                if (!permissions['Users Mangement']['Setting'])
+                    this.router.navigateByUrl('/error/403');
+            }
+            else if (moduleName == 'addUser') {
+                if (!permissions['Users Mangement'])
+                    this.router.navigateByUrl('/error/403');
+                if (!permissions['Users Mangement']['Create User'])
+                    this.router.navigateByUrl('/error/403');
+            }
+            else if (moduleName == 'clubtree') {
+                if (!permissions['Users Mangement'])
+                    this.router.navigateByUrl('/error/403');
+                if (!permissions['Users Mangement']['Get All Users'])
+                    this.router.navigateByUrl('/error/403');
+            }
+            else if (moduleName == 'activities') {
+                if (!permissions['Activities'])
+                    this.router.navigateByUrl('/error/403');
+                if (!permissions['Activities']['Get Activities'])
+                    this.router.navigateByUrl('/error/403');
+            }
+            else if (moduleName == 'packages') {
+                if (!permissions['Membership'])
+                    this.router.navigateByUrl('/error/403');
+                if (!permissions['Membership']['Get Membership'])
+                    this.router.navigateByUrl('/error/403');
+            }
+        }
+        return true;
+    };
+    PermissionGuard.prototype.checked = function () {
+        var length = 0;
+        if (localStorage.getItem('user')) {
+            Object.values(JSON.parse(localStorage.getItem('user'))['allPrivilidge']).forEach(function (elem) {
+                length += Object.values(elem).length;
+                console.log(Object.values(elem).length);
+            });
+        }
+        return length;
+    };
+    PermissionGuard.prototype.checkedPermission = function (object) {
+        var length = 0;
+        if (object) {
+            Object.values(object).forEach(function (elem) {
+                length += Object.values(elem).length;
+                console.log(Object.values(elem).length);
+            });
+        }
+        return length;
+    };
+    PermissionGuard = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [store_1.Store, router_1.Router, permissions_service_1.PermissionsService, _user_service_1.UserService])
+    ], PermissionGuard);
+    return PermissionGuard;
+}());
+exports.PermissionGuard = PermissionGuard;
+
+
+/***/ }),
+
 /***/ "./src/app/views/pages/pages.module.ts":
 /*!*********************************************!*\
   !*** ./src/app/views/pages/pages.module.ts ***!
@@ -112,18 +802,10 @@ var http_1 = __webpack_require__(/*! @angular/common/http */ "./node_modules/@an
 var ng_bootstrap_1 = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
 // Partials
 var partials_module_1 = __webpack_require__(/*! ../partials/partials.module */ "./src/app/views/partials/partials.module.ts");
-// Pages
-var reports_module_1 = __webpack_require__(/*! ./reports/reports.module */ "./src/app/views/pages/reports/reports.module.ts");
-var user_management_module_1 = __webpack_require__(/*! ./user-management/user-management.module */ "./src/app/views/pages/user-management/user-management.module.ts");
-var membership_module_1 = __webpack_require__(/*! ./membership/membership.module */ "./src/app/views/pages/membership/membership.module.ts");
 var core_module_1 = __webpack_require__(/*! ../../core/core.module */ "./src/app/core/core.module.ts");
 var my_page_module_1 = __webpack_require__(/*! ./my-page/my-page.module */ "./src/app/views/pages/my-page/my-page.module.ts");
 var reschedual_module_1 = __webpack_require__(/*! ./reschedual/reschedual.module */ "./src/app/views/pages/reschedual/reschedual.module.ts");
-var user_settings_module_1 = __webpack_require__(/*! ./user-settings/user-settings.module */ "./src/app/views/pages/user-settings/user-settings.module.ts");
-var members_module_1 = __webpack_require__(/*! ./members/members.module */ "./src/app/views/pages/members/members.module.ts");
-var billing_module_1 = __webpack_require__(/*! ../pages/billing/billing.module */ "./src/app/views/pages/billing/billing.module.ts");
 var material_1 = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
-var workouts_module_1 = __webpack_require__(/*! ./workouts/workouts.module */ "./src/app/views/pages/workouts/workouts.module.ts");
 //FileSelectDirective
 var PagesModule = /** @class */ (function () {
     function PagesModule() {
@@ -139,12 +821,12 @@ var PagesModule = /** @class */ (function () {
                 ng_bootstrap_1.NgbModule,
                 core_module_1.CoreModule,
                 partials_module_1.PartialsModule,
-                billing_module_1.BillingModule,
-                reports_module_1.ReportsModule,
-                user_management_module_1.UserManagementModule,
-                membership_module_1.MembershipModule,
-                user_settings_module_1.UserSettingsModule,
-                members_module_1.MembersModule,
+                //BillingModule,
+                //ReportsModule,
+                //UserManagementModule,
+                //MembershipModule,
+                //UserSettingsModule,
+                //MembersModule,
                 my_page_module_1.MyPageModule,
                 reschedual_module_1.ReschedualModule,
                 material_1.MatIconModule,
@@ -162,7 +844,6 @@ var PagesModule = /** @class */ (function () {
                 material_1.MatDialogModule,
                 forms_1.ReactiveFormsModule,
                 material_1.MatAutocompleteModule,
-                workouts_module_1.WorkoutsModule
             ],
             entryComponents: [],
             providers: []
@@ -1152,7 +1833,7 @@ exports.HeaderComponent = HeaderComponent;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"kt-subheader__main kt-portlet__head--lg cont\">\r\n    <h4 class=\"kt-subheader__title\" *ngIf=\"club\">{{club}}/{{user$.name}}</h4>\r\n</div>"
+module.exports = "<div class=\"kt-subheader__main kt-portlet__head--lg cont\">\r\n    <h4 class=\"kt-subheader__title\" *ngIf=\"club\">{{club}}/{{user$}}</h4>\r\n    <h4 class=\"kt-subheader__title\" *ngIf=\"!club\">{{user$}}/{{user$}}</h4>\r\n</div>"
 
 /***/ }),
 
@@ -1195,9 +1876,10 @@ var MenuHorizontalComponent = /** @class */ (function () {
         this.currentUser = JSON.parse(localStorage.getItem('user'));
     }
     MenuHorizontalComponent.prototype.ngOnInit = function () {
-        this.user$ = (JSON.parse(localStorage.getItem('user')));
-        this.club = (JSON.parse(localStorage.getItem('user'))['acounts'][0]['name']);
-        console.log(this.user$, this.club);
+        var userObj = JSON.parse(localStorage.getItem('user'));
+        this.user$ = (userObj['name']);
+        //this.club=(JSON.parse(localStorage.getItem('user'))['username']);
+        this.club = (userObj['acounts'].length > 0) ? (userObj['acounts'][0]['name']) : '';
     };
     __decorate([
         core_1.Input(),
@@ -1512,7 +2194,8 @@ var routes = [
             },
             {
                 path: 'reports',
-                loadChildren: 'app/views/pages/reports/reports.module#ReportsModule'
+                loadChildren: 'app/views/pages/reports/reports.module#ReportsModule',
+                data: { preload: true }
             },
             {
                 path: 'dashboard',
@@ -1520,38 +2203,40 @@ var routes = [
             },
             {
                 path: 'my-page',
-                component: my_page_component_1.MyPageComponent // <= Page component registration
+                component: my_page_component_1.MyPageComponent,
+                data: { preload: true }
             }, {
                 path: 'reschedual',
-                component: reschedual_component_1.ReschedualComponent // <= Page component registration
+                component: reschedual_component_1.ReschedualComponent,
+                data: { preload: true }
+                // <= Page component registration
             }, {
                 path: 'user-settings',
                 loadChildren: 'app/views/pages/user-settings/user-settings.module#UserSettingsModule',
-                data: { title: 'setting' },
-                canActivate: [permission_guard_1.PermissionGuard]
+                data: { title: 'setting', preload: true },
             },
             {
                 path: 'billing',
                 loadChildren: 'app/views/pages/billing/billing.module#BillingModule',
-                data: { title: 'billing' },
-                canActivate: [permission_guard_1.PermissionGuard]
+                data: { title: 'billing', preload: true }
             },
             {
                 path: 'user-management',
                 loadChildren: 'app/views/pages/user-management/user-management.module#UserManagementModule',
             }, {
                 path: 'membership',
-                loadChildren: 'app/views/pages/membership/membership.module#MembershipModule'
+                loadChildren: 'app/views/pages/membership/membership.module#MembershipModule',
+                data: { preload: true }
             },
             {
                 path: 'members',
-                loadChildren: 'app/views/pages/members/members.module#MembersModule'
+                loadChildren: 'app/views/pages/members/members.module#MembersModule',
+                data: { preload: true }
             },
             {
                 path: 'workouts',
                 loadChildren: 'app/views/pages/workouts/workouts.module#WorkoutsModule',
                 data: { title: 'workouts' },
-                canActivate: [permission_guard_1.PermissionGuard]
             },
             {
                 path: 'error/403',
