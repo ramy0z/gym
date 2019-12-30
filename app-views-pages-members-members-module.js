@@ -126,7 +126,7 @@ var WorkOutService = /** @class */ (function () {
         this.http = http;
     }
     WorkOutService.prototype.getWorkOuts = function (club_key) {
-        var parent_keys = (JSON.parse(localStorage.getItem('user')))['lastloginaccount'];
+        var parent_keys = (JSON.parse(localStorage.getItem('user')))['current_club_login'];
         var public_keys = (JSON.parse(localStorage.getItem('user')))['pub_key'];
         var WORKOUT_URL = _url('workouts', 'getclubworkoutGrouped', '', public_keys, parent_keys, 1, 30);
         return this.http.post(WORKOUT_URL, { club_key: club_key });
@@ -272,8 +272,10 @@ var MemberListComponent = /** @class */ (function () {
                 _this.data = res['users'];
                 _this.changeDetectRef.detectChanges();
             }
-            else
+            else {
                 _this.data = [];
+                _this.changeDetectRef.detectChanges();
+            }
         });
     };
     MemberListComponent.prototype.nextPage = function (event) {
@@ -365,6 +367,7 @@ var forms_1 = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular
 var crud_1 = __webpack_require__(/*! ../../../../../core/_base/crud */ "./src/app/core/_base/crud/index.ts");
 //
 var _services_1 = __webpack_require__(/*! ../../../../../core/auth/_services */ "./src/app/core/auth/_services/index.ts");
+var ng2_validation_1 = __webpack_require__(/*! ng2-validation */ "./node_modules/ng2-validation/dist/index.js");
 var ng2_file_upload_1 = __webpack_require__(/*! ng2-file-upload/ng2-file-upload */ "./node_modules/ng2-file-upload/ng2-file-upload.js");
 var material_1 = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 var router_1 = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
@@ -417,13 +420,13 @@ var AboutMemberComponent = /** @class */ (function () {
             member.emergancyContact = {};
         // this.model=member.dateOfBirth
         this.basicInfoForm = this.formBuilder.group({
-            name: [member.name, forms_1.Validators.required],
-            username: [member.username, forms_1.Validators.required],
-            email: [member.email, [forms_1.Validators.required, forms_1.Validators.email]],
-            addressLine: [member.addressLine, forms_1.Validators.required],
+            name: [member.name, [forms_1.Validators.required, forms_1.Validators.pattern(/^[a-zA-Z- ]*$/)]],
+            username: [member.username, [forms_1.Validators.required, forms_1.Validators.pattern(/^[a-zA-Z- ]*$/)]],
+            email: [member.email, [forms_1.Validators.required, ng2_validation_1.CustomValidators.email]],
+            addressLine: [member.addressLine, [forms_1.Validators.required, forms_1.Validators.pattern(/^[a-zA-Z0-9-, ]*$/)]],
             instagram: [member.instagram, forms_1.Validators.pattern(reg)],
             twitter: [member.twitter, forms_1.Validators.pattern(reg)],
-            phone: [member.phone, forms_1.Validators.maxLength(10)],
+            phone: [member.phone, [forms_1.Validators.pattern("^[0-9]*$"), forms_1.Validators.maxLength(11), forms_1.Validators.minLength(11)]],
             emergancyContact: this.formBuilder.group({
                 name: [member.emergancyContact.name],
                 relationship: [member.emergancyContact.relationship],
@@ -431,12 +434,12 @@ var AboutMemberComponent = /** @class */ (function () {
                 medicalCases: [member.emergancyContact.medicalCases]
             }),
             linkedIn: [member.linkedIn, forms_1.Validators.pattern(reg)],
-            BD: [member.birthday],
+            BD: [member.birthday, ng2_validation_1.CustomValidators.date],
             gender: [member.gender],
-            tagNumber: [member.tagNumber],
-            address: [member.addressLine],
-            city: [member.city],
-            zipCode: [member.zipCode],
+            tagNumber: [member.tagNumber, forms_1.Validators.pattern(/^[0-9]*$/)],
+            address: [member.addressLine, forms_1.Validators.pattern(/^[a-zA-Z0-9-, ]*$/)],
+            city: [member.city, forms_1.Validators.pattern(/^[a-zA-Z]*$/)],
+            zipCode: [member.zipCode, forms_1.Validators.pattern(/^[0-9]*$/)],
         });
     };
     Object.defineProperty(AboutMemberComponent.prototype, "valid", {
@@ -459,7 +462,7 @@ var AboutMemberComponent = /** @class */ (function () {
             return;
         }
         if (this.checkedpermission('updateuserdata')) {
-            this.userservice.updateUserData({ 'addressLine': controls['addressLine'].value,
+            this.userservice.updateData({ 'addressLine': controls['addressLine'].value,
                 'email': controls['email'].value, 'name': controls['name'].value,
                 'username': controls['username'].value, 'twitter': controls['twitter'].value,
                 'instagram': controls['instagram'].value, 'gender': controls['gender'].value,
@@ -3885,6 +3888,7 @@ var reschdual_andcancel_component_1 = __webpack_require__(/*! ./member-profile/r
 var workout_component_1 = __webpack_require__(/*! ./member-profile/workout/workout.component */ "./src/app/views/pages/members/member-profile/workout/workout.component.ts");
 var categories_component_1 = __webpack_require__(/*! ./member-profile/workout/categories/categories.component */ "./src/app/views/pages/members/member-profile/workout/categories/categories.component.ts");
 var ng2_search_filter_1 = __webpack_require__(/*! ng2-search-filter */ "./node_modules/ng2-search-filter/ng2-search-filter.es5.js");
+var ng2_file_upload_1 = __webpack_require__(/*! ng2-file-upload */ "./node_modules/ng2-file-upload/index.js");
 var routes = [
     {
         path: '',
@@ -4056,8 +4060,8 @@ var MembersModule = /** @class */ (function () {
                     provide: angular_calendar_1.DateAdapter,
                     useFactory: date_fns_1.adapterFactory
                 }),
-                ng2_search_filter_1.Ng2SearchPipeModule
-                // FileUploadModule
+                ng2_search_filter_1.Ng2SearchPipeModule,
+                ng2_file_upload_1.FileUploadModule
             ],
             providers: [
                 crud_1.InterceptService,

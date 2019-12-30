@@ -1,5 +1,146 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["app-views-pages-workouts-workouts-module"],{
 
+/***/ "./src/app/core/auth/_guards/permission.guard.ts":
+/*!*******************************************************!*\
+  !*** ./src/app/core/auth/_guards/permission.guard.ts ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+// Angular
+var core_1 = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var router_1 = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+// NGRX
+var store_1 = __webpack_require__(/*! @ngrx/store */ "./node_modules/@ngrx/store/fesm5/store.js");
+var permissions_service_1 = __webpack_require__(/*! ../../../core/auth/_services/permissions.service */ "./src/app/core/auth/_services/permissions.service.ts");
+var _user_service_1 = __webpack_require__(/*! ../../../core/auth/_services/-user.service */ "./src/app/core/auth/_services/-user.service.ts");
+var PermissionGuard = /** @class */ (function () {
+    function PermissionGuard(store, router, permission, user) {
+        this.store = store;
+        this.router = router;
+        this.permission = permission;
+        this.user = user;
+    }
+    PermissionGuard.prototype.canActivate = function (route, state) {
+        var moduleName = route.data['title'];
+        var permissions = JSON.parse(localStorage.getItem('user'))['allPrivilidge'];
+        console.log(moduleName, permissions, this.permission['Roles']);
+        if (!this.checked()) {
+            this.router.navigateByUrl('/error/403');
+        }
+        else {
+            if (moduleName == 'roles') {
+                if (!this.checkedPermission(permissions['Roles']))
+                    this.router.navigateByUrl('/error/403');
+                if (!permissions['Roles']['Get Roles'])
+                    this.router.navigateByUrl('/error/403');
+            }
+            else if (moduleName == 'workouts') {
+                if (!permissions['Attendance'])
+                    this.router.navigateByUrl('/error/403');
+                if (!permissions['Attendance']['Get Workouts'])
+                    this.router.navigateByUrl('/error/403');
+            }
+            else if (moduleName == 'billing') {
+                if (!permissions['Billing'])
+                    this.router.navigateByUrl('/error/403');
+                if (!permissions['Billing']['Get Billing'])
+                    this.router.navigateByUrl('/error/403');
+            }
+            else if (moduleName == 'users') {
+                if (!this.checkedPermission(['Users Mangement']))
+                    this.router.navigateByUrl('/error/403');
+                if (!permissions['Users Mangement']['Get All Users'])
+                    this.router.navigateByUrl('/error/403');
+            }
+            else if (moduleName == 'invitations') {
+                if (!permissions['Users Mangement'])
+                    this.router.navigateByUrl('/error/403');
+                if (!permissions['Users Mangement']['Invitation'])
+                    this.router.navigateByUrl('/error/403');
+            }
+            else if (moduleName == 'editUser') {
+                if (!permissions['Users Mangement'])
+                    this.router.navigateByUrl('/error/403');
+                if (!permissions['Users Mangement']['Update User'])
+                    this.router.navigateByUrl('/error/403');
+            }
+            else if (moduleName == 'setting') {
+                if (!permissions['Users Mangement'])
+                    this.router.navigateByUrl('/error/403');
+                if (!permissions['Users Mangement']['Setting'])
+                    this.router.navigateByUrl('/error/403');
+            }
+            else if (moduleName == 'addUser') {
+                if (!permissions['Users Mangement'])
+                    this.router.navigateByUrl('/error/403');
+                if (!permissions['Users Mangement']['Create User'])
+                    this.router.navigateByUrl('/error/403');
+            }
+            else if (moduleName == 'clubtree') {
+                if (!permissions['Users Mangement'])
+                    this.router.navigateByUrl('/error/403');
+                if (!permissions['Users Mangement']['Get All Users'])
+                    this.router.navigateByUrl('/error/403');
+            }
+            else if (moduleName == 'activities') {
+                if (!permissions['Activities'])
+                    this.router.navigateByUrl('/error/403');
+                if (!permissions['Activities']['Get Activities'])
+                    this.router.navigateByUrl('/error/403');
+            }
+            else if (moduleName == 'packages') {
+                if (!permissions['Membership'])
+                    this.router.navigateByUrl('/error/403');
+                if (!permissions['Membership']['Get Membership'])
+                    this.router.navigateByUrl('/error/403');
+            }
+        }
+        return true;
+    };
+    PermissionGuard.prototype.checked = function () {
+        var length = 0;
+        if (localStorage.getItem('user')) {
+            Object.values(JSON.parse(localStorage.getItem('user'))['allPrivilidge']).forEach(function (elem) {
+                length += Object.values(elem).length;
+                console.log(Object.values(elem).length);
+            });
+        }
+        return length;
+    };
+    PermissionGuard.prototype.checkedPermission = function (object) {
+        var length = 0;
+        if (object) {
+            Object.values(object).forEach(function (elem) {
+                length += Object.values(elem).length;
+                console.log(Object.values(elem).length);
+            });
+        }
+        return length;
+    };
+    PermissionGuard = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [store_1.Store, router_1.Router, permissions_service_1.PermissionsService, _user_service_1.UserService])
+    ], PermissionGuard);
+    return PermissionGuard;
+}());
+exports.PermissionGuard = PermissionGuard;
+
+
+/***/ }),
+
 /***/ "./src/app/core/auth/_services/workouts.service.ts":
 /*!*********************************************************!*\
   !*** ./src/app/core/auth/_services/workouts.service.ts ***!
@@ -553,7 +694,7 @@ var WorkoutsComponent = /** @class */ (function () {
         }
     }
     WorkoutsComponent.prototype.ngOnInit = function () {
-        this.club_id = JSON.parse(localStorage.getItem('user'))['pub_key'];
+        this.club_id = JSON.parse(localStorage.getItem('user'))['current_club_login'];
         this.getallWorkouts(this.club_id);
     };
     WorkoutsComponent.prototype.applyFilter = function (filterValue) {
@@ -573,7 +714,6 @@ var WorkoutsComponent = /** @class */ (function () {
                     // Assign the paginator *after* dataSource is set
                     _this.dataSource.paginator = _this.paginator;
                     // this.dataSource.sort = this.sort;
-                    //this.Url=res['data']['url'].trim();
                     _this.changeDetectorRefs.detectChanges();
                 }
                 else {
@@ -657,7 +797,6 @@ var WorkoutsComponent = /** @class */ (function () {
     WorkoutsComponent.prototype.deleteworkout = function (row) {
         var _this = this;
         if (this.checkedpermission('deleteworkouts')) {
-            var id = row.id;
             var _title = 'Workout';
             var _description = 'Are you sure to permanently delete this Workout?';
             var _waitDesciption = 'Workout is deleting...';
@@ -703,6 +842,7 @@ var WorkoutsComponent = /** @class */ (function () {
             selector: 'kt-workouts',
             template: __webpack_require__(/*! ./workouts.component.html */ "./src/app/views/pages/workouts/workouts.component.html"),
             changeDetection: core_1.ChangeDetectionStrategy.OnPush,
+            encapsulation: core_1.ViewEncapsulation.None,
             styles: [__webpack_require__(/*! ./workouts.component.scss */ "./src/app/views/pages/workouts/workouts.component.scss")]
         }),
         __metadata("design:paramtypes", [workouts_service_1.WorkoutsService, material_1.MatDialog,
@@ -764,7 +904,7 @@ var auth_1 = __webpack_require__(/*! ../../../core/auth */ "./src/app/core/auth/
 var workouts_component_1 = __webpack_require__(/*! ./workouts.component */ "./src/app/views/pages/workouts/workouts.component.ts");
 var workout_add_edit_component_1 = __webpack_require__(/*! ./workout-add-edit/workout-add-edit.component */ "./src/app/views/pages/workouts/workout-add-edit/workout-add-edit.component.ts");
 var ng2_file_upload_1 = __webpack_require__(/*! ng2-file-upload */ "./node_modules/ng2-file-upload/index.js");
-//import { Ng2ImgMaxModule } from 'ng2-img-max';
+var ng2_img_max_1 = __webpack_require__(/*! ng2-img-max */ "./node_modules/ng2-img-max/dist/ng2-img-max.js");
 var routes = [
     {
         path: '',
@@ -827,6 +967,7 @@ var WorkoutsModule = /** @class */ (function () {
                 }),
                 material_1.MatFormFieldModule,
                 ng2_file_upload_1.FileUploadModule,
+                ng2_img_max_1.Ng2ImgMaxModule
             ],
             providers: [
                 crud_1.InterceptService,

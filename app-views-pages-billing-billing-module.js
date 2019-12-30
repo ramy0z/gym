@@ -34,7 +34,6 @@ var PermissionGuard = /** @class */ (function () {
         this.user = user;
     }
     PermissionGuard.prototype.canActivate = function (route, state) {
-        var _this = this;
         var moduleName = route.data['title'];
         var permissions = JSON.parse(localStorage.getItem('user'))['allPrivilidge'];
         console.log(moduleName, permissions, this.permission['Roles']);
@@ -73,11 +72,6 @@ var PermissionGuard = /** @class */ (function () {
                     this.router.navigateByUrl('/error/403');
             }
             else if (moduleName == 'editUser') {
-                this.user.currentUser.subscribe(function (res) {
-                    if (!res) {
-                        _this.router.navigateByUrl('user-management/users');
-                    }
-                });
                 if (!permissions['Users Mangement'])
                     this.router.navigateByUrl('/error/403');
                 if (!permissions['Users Mangement']['Update User'])

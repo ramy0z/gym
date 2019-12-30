@@ -1,548 +1,5 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["app-views-themes-default-theme-module"],{
 
-/***/ "./src/app/core/_config/default/menu.config.ts":
-/*!*****************************************************!*\
-  !*** ./src/app/core/_config/default/menu.config.ts ***!
-  \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var MenuConfig = /** @class */ (function () {
-    function MenuConfig() {
-        this.defaults = {
-            header: {
-                self: {},
-                'items': [
-                    {
-                        'title': 'Pages',
-                        'root': true,
-                        'icon-': 'flaticon-add',
-                        'toggle': 'click',
-                        'custom-class': 'kt-menu__item--active',
-                        'alignment': 'left',
-                        'translate': 'MENU.PAGES',
-                        'submenu': {
-                            'type': 'classic',
-                            'alignment': 'left',
-                            'items': [
-                                {
-                                    'title': 'My Account',
-                                    'icon': 'flaticon-file',
-                                    'page': 'index'
-                                },
-                                {
-                                    'title': 'Task Manager',
-                                    'icon': 'flaticon-diagram',
-                                    'badge': {
-                                        'type': 'kt-badge--success',
-                                        'value': '2'
-                                    }
-                                },
-                                {
-                                    'title': 'Team Manager',
-                                    'icon': 'flaticon-business',
-                                    'submenu': {
-                                        'type': 'classic',
-                                        'alignment': 'right',
-                                        'bullet': 'line',
-                                        'items': [
-                                            {
-                                                'title': 'Add Team Member',
-                                                'icon': ''
-                                            },
-                                            {
-                                                'title': 'Edit Team Member',
-                                                'icon': ''
-                                            },
-                                            {
-                                                'title': 'Delete Team Member',
-                                                'icon': ''
-                                            },
-                                            {
-                                                'title': 'Team Member Reports',
-                                                'icon': ''
-                                            },
-                                            {
-                                                'title': 'Assign Tasks',
-                                                'icon': ''
-                                            },
-                                            {
-                                                'title': 'Promote Team Member',
-                                                'icon': ''
-                                            }
-                                        ]
-                                    }
-                                },
-                                {
-                                    'title': 'Projects Manager',
-                                    'page': '#',
-                                    'icon': 'flaticon-chat-1',
-                                    'submenu': {
-                                        'type': 'classic',
-                                        'alignment': 'right',
-                                        'bullet': 'dot',
-                                        'items': [
-                                            {
-                                                'title': 'Latest Projects',
-                                                'icon': ''
-                                            },
-                                            {
-                                                'title': 'Ongoing Projects',
-                                                'icon': ''
-                                            },
-                                            {
-                                                'title': 'Urgent Projects',
-                                                'icon': ''
-                                            },
-                                            {
-                                                'title': 'Completed Projects',
-                                                'icon': ''
-                                            },
-                                            {
-                                                'title': 'Dropped Projects',
-                                                'icon': ''
-                                            }
-                                        ]
-                                    }
-                                },
-                                {
-                                    'title': 'Create New Project',
-                                    'icon': 'flaticon-users'
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        'title': 'Features',
-                        'root': true,
-                        'icon-': 'flaticon-line-graph',
-                        'toggle': 'click',
-                        'alignment': 'left',
-                        'translate': 'MENU.FEATURES',
-                        'submenu': {
-                            'type': 'mega',
-                            'width': '1000px',
-                            'alignment': 'left',
-                            'columns': [
-                                {
-                                    'heading': {
-                                        'heading': true,
-                                        'title': 'Task Reports',
-                                        'bullet': 'dot'
-                                    },
-                                    'items': [
-                                        {
-                                            'title': 'Latest Tasks',
-                                            'icon': 'flaticon-map'
-                                        },
-                                        {
-                                            'title': 'Pending Tasks',
-                                            'icon': 'flaticon-user'
-                                        },
-                                        {
-                                            'title': 'Urgent Tasks',
-                                            'icon': 'flaticon-clipboard'
-                                        },
-                                        {
-                                            'title': 'Completed Tasks',
-                                            'icon': 'flaticon-graphic-1'
-                                        },
-                                        {
-                                            'title': 'Failed Tasks',
-                                            'icon': 'flaticon-graphic-2'
-                                        }
-                                    ]
-                                },
-                                {
-                                    'bullet': 'line',
-                                    'heading': {
-                                        'heading': true,
-                                        'title': 'Profit Margins',
-                                        'bullet': 'dot'
-                                    },
-                                    'items': [
-                                        {
-                                            'title': 'Overall Profits',
-                                            'icon': ''
-                                        },
-                                        {
-                                            'title': 'Gross Profits',
-                                            'icon': ''
-                                        },
-                                        {
-                                            'title': 'Nett Profits',
-                                            'icon': ''
-                                        },
-                                        {
-                                            'title': 'Year to Date Reports',
-                                            'icon': ''
-                                        },
-                                        {
-                                            'title': 'Quarterly Profits',
-                                            'icon': ''
-                                        },
-                                        {
-                                            'title': 'Monthly Profits',
-                                            'icon': ''
-                                        }
-                                    ]
-                                },
-                                {
-                                    'bullet': 'dot',
-                                    'heading': {
-                                        'heading': true,
-                                        'title': 'Staff Management',
-                                        'bullet': 'dot'
-                                    },
-                                    'items': [
-                                        {
-                                            'title': 'Top Management',
-                                            'icon': ''
-                                        },
-                                        {
-                                            'title': 'Project Managers',
-                                            'icon': ''
-                                        },
-                                        {
-                                            'title': 'Development Staff',
-                                            'icon': ''
-                                        },
-                                        {
-                                            'title': 'Customer Service',
-                                            'icon': ''
-                                        },
-                                        {
-                                            'title': 'Sales and Marketing',
-                                            'icon': ''
-                                        },
-                                        {
-                                            'title': 'Executives',
-                                            'icon': ''
-                                        }
-                                    ]
-                                },
-                                {
-                                    'heading': {
-                                        'heading': true,
-                                        'title': 'Tools',
-                                        'icon': '',
-                                        'bullet': 'dot'
-                                    },
-                                    'items': [
-                                        {
-                                            'title': 'Analytical Reports',
-                                            'icon': ''
-                                        },
-                                        {
-                                            'title': 'Customer CRM',
-                                            'icon': ''
-                                        },
-                                        {
-                                            'title': 'Operational Growth',
-                                            'icon': ''
-                                        },
-                                        {
-                                            'title': 'Social Media Presence',
-                                            'icon': ''
-                                        },
-                                        {
-                                            'title': 'Files and Directories',
-                                            'icon': ''
-                                        },
-                                        {
-                                            'title': 'Audit & Logs',
-                                            'icon': ''
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        'title': 'Apps',
-                        'root': true,
-                        'icon-': 'flaticon-paper-plane',
-                        'toggle': 'click',
-                        'alignment': 'left',
-                        'translate': 'MENU.APPS',
-                        'submenu': {
-                            'type': 'classic',
-                            'alignment': 'left',
-                            'items': [
-                                {
-                                    'title': 'Reporting',
-                                    'icon': 'flaticon-business'
-                                },
-                                {
-                                    'title': 'Social Presence',
-                                    'page': 'components/datatable_v1',
-                                    'icon': 'flaticon-computer',
-                                    'submenu': {
-                                        'type': 'classic',
-                                        'alignment': 'right',
-                                        'items': [
-                                            {
-                                                'title': 'Reached Users',
-                                                'icon': 'flaticon-users'
-                                            },
-                                            {
-                                                'title': 'SEO Ranking',
-                                                'icon': 'flaticon-interface-1'
-                                            },
-                                            {
-                                                'title': 'User Dropout Points',
-                                                'icon': 'flaticon-lifebuoy'
-                                            },
-                                            {
-                                                'title': 'Market Segments',
-                                                'icon': 'flaticon-graphic-1'
-                                            },
-                                            {
-                                                'title': 'Opportunity Growth',
-                                                'icon': 'flaticon-graphic'
-                                            }
-                                        ]
-                                    }
-                                },
-                                {
-                                    'title': 'Sales & Marketing',
-                                    'icon': 'flaticon-map'
-                                },
-                                {
-                                    'title': 'Campaigns',
-                                    'icon': 'flaticon-graphic-2',
-                                    'badge': {
-                                        'type': 'kt-badge--success',
-                                        'value': '3'
-                                    }
-                                },
-                                {
-                                    'title': 'Deployment Center',
-                                    'page': '',
-                                    'icon': 'flaticon-infinity',
-                                    'submenu': {
-                                        'type': 'classic',
-                                        'alignment': 'right',
-                                        'items': [
-                                            {
-                                                'title': 'Merge Branch',
-                                                'icon': 'flaticon-add',
-                                                'badge': {
-                                                    'type': 'kt-badge--danger',
-                                                    'value': '3'
-                                                }
-                                            },
-                                            {
-                                                'title': 'Version Controls',
-                                                'icon': 'flaticon-signs-1'
-                                            },
-                                            {
-                                                'title': 'Database Manager',
-                                                'icon': 'flaticon-folder'
-                                            },
-                                            {
-                                                'title': 'System Settings',
-                                                'icon': 'flaticon-cogwheel-2'
-                                            }
-                                        ]
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                ]
-            },
-            aside: {
-                self: {},
-                items: [
-                    {
-                        title: 'Dashboard',
-                        root: true,
-                        icon: 'flaticon2-architecture-and-city',
-                        page: 'dashboard',
-                        translate: 'MENU.DASHBOARD',
-                        bullet: 'dot',
-                    },
-                    {
-                        title: 'Members',
-                        root: true,
-                        icon: 'flaticon2-user',
-                        page: 'members',
-                    },
-                    {
-                        title: 'Billing',
-                        root: true,
-                        icon: 'flaticon-coins',
-                        page: 'billing',
-                    }, {
-                        title: 'Workouts',
-                        root: true,
-                        icon: 'flaticon-presentation-1',
-                        page: 'workouts',
-                    },
-                    { section: 'Membership' },
-                    {
-                        title: 'Packages',
-                        icon: 'flaticon2-digital-marketing',
-                        page: 'membership/packages',
-                        translate: 'PACKAGES.PACKAGE'
-                    },
-                    {
-                        title: 'Activities',
-                        icon: 'flaticon2-digital-marketing',
-                        page: 'membership/activities'
-                    },
-                    { section: 'ADMINSTRATION' },
-                    {
-                        title: 'User Management',
-                        root: true,
-                        bullet: 'dot',
-                        icon: 'flaticon2-list-2',
-                        submenu: [
-                            {
-                                title: 'Users',
-                                page: 'user-management/users'
-                            },
-                            {
-                                title: 'Roles',
-                                page: 'user-management/roles'
-                            },
-                            {
-                                title: 'Invitations',
-                                page: 'user-management/invitations'
-                            },
-                        ]
-                    }, {
-                        title: 'Club Tree',
-                        icon: 'flaticon2-user-outline-symbol',
-                        page: 'user-management/clubtree'
-                    },
-                    {
-                        title: 'Advanced Settings',
-                        page: 'user-settings',
-                        icon: 'flaticon2-user-outline-symbol',
-                    },
-                ]
-            },
-        };
-    }
-    Object.defineProperty(MenuConfig.prototype, "configs", {
-        get: function () {
-            this.checkedpermission();
-            console.log(this.defaults);
-            return this.defaults;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    MenuConfig.prototype.checkedpermission = function () {
-        if (localStorage.getItem('user')) {
-            var user = JSON.parse(localStorage.getItem('user'));
-            if (user['allPrivilidge']) {
-                var permission = user['allPrivilidge'];
-                console.log('permission', Object.keys(permission).length);
-                if (Object.keys(permission).length > 0) {
-                    if (permission['Users Mangement'] && permission['Roles']) {
-                        if (Object.keys(permission['Users Mangement']).length == 0 && Object.keys(permission['Roles']).length == 0) {
-                            this.filtersumenu('aside', 'User Management', 'Roles');
-                            this.filtersumenu('aside', 'User Management', 'Invitations');
-                            this.FilterMenu('aside', 'User Management');
-                            this.FilterMenu('aside', 'Advanced Settings');
-                            this.FilterMenu('aside', 'Club Tree');
-                            console.log('22');
-                        }
-                        else {
-                            if (Object.keys(permission['Users Mangement']).length == 0) {
-                                this.filtersumenu('aside', 'User Management', 'Users');
-                                this.filtersumenu('aside', 'User Management', 'Invitations');
-                                this.FilterMenu('aside', 'Club Tree');
-                                this.FilterMenu('aside', 'Advanced Settings');
-                                console.log('44');
-                            }
-                            else {
-                                if (!permission['Users Mangement']['Get All Users']) {
-                                    console.log('55');
-                                    this.FilterMenu('aside', 'Club Tree');
-                                    this.filtersumenu('aside', 'User Management', 'Users');
-                                }
-                                if (!permission['Users Mangement']['Setting']) {
-                                    console.log('66');
-                                    this.FilterMenu('aside', 'Advanced Settings');
-                                }
-                                if (!permission['Users Mangement']['Invitation']) {
-                                    console.log('77');
-                                    this.filtersumenu('aside', 'User Management', 'Invitations');
-                                }
-                            }
-                            if (Object.keys(permission['Roles']).length == 0) {
-                                this.filtersumenu('aside', 'User Management', 'Roles');
-                            }
-                        }
-                    }
-                    if (!permission['Membership'] || Object.keys(permission['Membership']).length == 0) {
-                        this.FilterMenu('aside', 'Packages');
-                    }
-                    if (!permission['Activities'] || Object.keys(permission['Activities']).length == 0) {
-                        this.FilterMenu('aside', 'Activities');
-                    }
-                    if (!permission['Attendance'] || Object.keys(permission['Attendance']).length == 0) {
-                        this.FilterMenu('aside', 'Workouts');
-                    }
-                    if (permission['Attendance'] && Object.keys(permission['Attendance']).length > 0) {
-                        if (!permission['Attendance']['Get Workouts'])
-                            this.FilterMenu('aside', 'Workouts');
-                    }
-                    if (!permission['Billing'] || Object.keys(permission['Billing']).length == 0) {
-                        this.FilterMenu('aside', 'Billing');
-                    }
-                    if (permission['Billing'] && Object.keys(permission['Billing']).length > 0) {
-                        if (!permission['Billing']['Get Billing'])
-                            this.FilterMenu('aside', 'Billing');
-                    }
-                }
-                else {
-                    this.defaults['aside'] = {};
-                }
-            }
-        }
-    };
-    MenuConfig.prototype.FilterMenu = function (obj, title) {
-        this.defaults[obj].items = this.defaults[obj].items.filter(function (x) { return x.title !== title; });
-    };
-    MenuConfig.prototype.filtersumenu = function (header, title, submenu) {
-        //console.log(this.defaults[header].items.find(x => x.title == title)['submenu'].filter(x => x.title == 'Roles'))
-        this.defaults[header].items.find(function (x) { return x.title == title; })['submenu'] = this.defaults[header].items.find(function (x) { return x.title == title; })['submenu'].filter(function (x) { return x.title !== submenu; });
-    };
-    MenuConfig.prototype.checkedPermission = function (object) {
-        var length = 0;
-        if (object) {
-            Object.values(object).forEach(function (elem) {
-                length += Object.values(elem).length;
-                console.log(Object.values(elem).length);
-            });
-        }
-        return length;
-    };
-    MenuConfig.prototype.checked = function () {
-        var length = 0;
-        if (localStorage.getItem('user')) {
-            Object.values(JSON.parse(localStorage.getItem('user'))['allPrivilidge']).forEach(function (elem) {
-                length += Object.values(elem).length;
-                console.log(Object.values(elem).length);
-            });
-        }
-        return length;
-    };
-    return MenuConfig;
-}());
-exports.MenuConfig = MenuConfig;
-
-
-/***/ }),
-
 /***/ "./src/app/core/_config/default/page.config.ts":
 /*!*****************************************************!*\
   !*** ./src/app/core/_config/default/page.config.ts ***!
@@ -564,9 +21,13 @@ var PageConfig = /** @class */ (function () {
             },
             'reports': {
                 geoMember: {
-                    page: { title: 'Geo Member', desc: 'Reports' }
+                    page: { title: 'Geo Member statistic', desc: 'Reports' }
                     // <= Page name and description
-                }
+                },
+                memberReports: {
+                    page: { title: 'Payment statistic', desc: 'Reports' }
+                    // <= Page name and description
+                },
             },
             'members': {
                 list: {
@@ -664,7 +125,6 @@ var PermissionGuard = /** @class */ (function () {
         this.user = user;
     }
     PermissionGuard.prototype.canActivate = function (route, state) {
-        var _this = this;
         var moduleName = route.data['title'];
         var permissions = JSON.parse(localStorage.getItem('user'))['allPrivilidge'];
         console.log(moduleName, permissions, this.permission['Roles']);
@@ -703,11 +163,6 @@ var PermissionGuard = /** @class */ (function () {
                     this.router.navigateByUrl('/error/403');
             }
             else if (moduleName == 'editUser') {
-                this.user.currentUser.subscribe(function (res) {
-                    if (!res) {
-                        _this.router.navigateByUrl('user-management/users');
-                    }
-                });
                 if (!permissions['Users Mangement'])
                     this.router.navigateByUrl('/error/403');
                 if (!permissions['Users Mangement']['Update User'])
@@ -863,7 +318,7 @@ exports.PagesModule = PagesModule;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- BEGIN: Left Aside -->\r\n\r\n<div ktOffcanvas [options]=\"menuCanvasOptions\" class=\"kt-aside kt-aside--fixed kt-grid__item kt-grid kt-grid--desktop kt-grid--hor-desktop\" id=\"kt_aside\" >\r\n\t<kt-brand></kt-brand>\r\n\t<!-- BEGIN: Aside Menu -->\r\n\t<div class=\"kt-aside-menu-wrapper kt-grid__item kt-grid__item--fluid\" id=\"kt_aside_menu_wrapper\">\r\n\t\t<div #asideMenu ktMenu [options]=\"menuOptions\" [perfectScrollbar]=\"{wheelPropagation: false}\" [ngStyle]=\"{'max-height': '90vh', 'position': 'relative'}\" id=\"kt_aside_menu\" class=\"kt-aside-menu\"\r\n\t\t\t[attr.data-ktmenu-vertical]=\"1\" (mouseenter)=\"mouseEnter($event)\" (mouseleave)=\"mouseLeave($event)\"\r\n\t\t\t[ngClass]=\"htmlClassService.getClasses('aside_menu', true)\">\r\n\t\t\t<ul class=\"kt-menu__nav\" [ngClass]=\"htmlClassService.getClasses('aside_menu_nav', true)\">\r\n\t\t\t\t<ng-container [ngTemplateOutlet]=\"menuListTemplate\"></ng-container>\r\n\t\t\t</ul>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<!-- END: Aside Menu -->\r\n</div>\r\n<!-- END: Left Aside -->\r\n\r\n<ng-template #menuListTemplate>\r\n\t<ng-container *ngFor=\"let child of menuAsideService.menuList$ | async\">\r\n\t\t<ng-container *ngIf=\"child.section\" [ngTemplateOutlet]=\"menuItemSectionTemplate\"\r\n\t\t\t[ngTemplateOutletContext]=\"{ item: child }\"></ng-container>\r\n\t\t<ng-container *ngIf=\"child.separator\" [ngTemplateOutlet]=\"menuItemSeparatorTemplate\"\r\n\t\t\t[ngTemplateOutletContext]=\"{ item: child }\"></ng-container>\r\n\t\t<ng-container *ngIf=\"child.title\" [ngTemplateOutlet]=\"menuItemTemplate\"\r\n\t\t\t[ngTemplateOutletContext]=\"{ item: child }\"></ng-container>\r\n\t</ng-container>\r\n</ng-template>\r\n\r\n<ng-template #menuItemTemplate let-item=\"item\" let-parentItem=\"parentItem\">\r\n\t<ng-container *ngIf=\"!item.permission\" [ngTemplateOutlet]=\"menuItemInnerTemplate\" [ngTemplateOutletContext]=\"{ item: item, parentItem: parentItem  }\"></ng-container>\r\n\t<ng-template *ngIf=\"item.permission\" ngxPermissionsOnly=\"{{ item.permission }}\">\r\n\t\t<ng-container [ngTemplateOutlet]=\"menuItemInnerTemplate\" [ngTemplateOutletContext]=\"{ item: item, parentItem: parentItem  }\"></ng-container>\r\n\t</ng-template>\r\n</ng-template>\r\n\r\n<ng-template #menuItemInnerTemplate let-item=\"item\" let-parentItem=\"parentItem\">\r\n\t<li [attr.aria-haspopup]=\"true\"\r\n\t\t[attr.data-ktmenu-submenu-toggle]=\"getItemAttrSubmenuToggle(item)\"\r\n\t\t[attr.data-ktmenu-submenu-mode]=\"item.mode\"\r\n\t\t[attr.data-ktmenu-dropdown-toggle-class]=\"item['dropdown-toggle-class']\" [ngClass]=\"getItemCssClasses(item)\"\r\n\t\t[ngbTooltip]=\"item.tooltip\" data-placement=\"right\">\r\n\r\n\t\t<!-- if menu item hasn't submenu -->\r\n\t\t<a *ngIf=\"!item.submenu\" [routerLink]=\"item.page\" class=\"kt-menu__link kt-menu__toggle\">\r\n\t\t\t<ng-container [ngTemplateOutlet]=\"menuItemTextTemplate\"\r\n\t\t\t\t[ngTemplateOutletContext]=\"{ item: item, parentItem: parentItem }\"></ng-container>\r\n\t\t</a>\r\n\t\t<!-- if menu item has sumnenu child  -->\r\n\t\t<a *ngIf=\"item.submenu\" class=\"kt-menu__link kt-menu__toggle\">\r\n\t\t\t<ng-container [ngTemplateOutlet]=\"menuItemTextTemplate\"\r\n\t\t\t\t[ngTemplateOutletContext]=\"{ item: item, parentItem: parentItem }\"></ng-container>\r\n\t\t</a>\r\n\r\n\t\t<!-- if menu item has submenu child then recursively call new menu item component -->\r\n\t\t<div *ngIf=\"item.submenu\" class=\"kt-menu__submenu\">\r\n\t\t\t<span class=\"kt-menu__arrow\"></span>\r\n\t\t\t<div *ngIf=\"item['custom-class'] === 'kt-menu__item--submenu-fullheight'\" class=\"kt-menu__wrapper\">\r\n\t\t\t\t<!-- wrap submenu to full height -->\r\n\t\t\t\t<ng-container [ngTemplateOutlet]=\"menuSubmenuTemplate\"\r\n\t\t\t\t\t[ngTemplateOutletContext]=\"{ item: item, parentItem: parentItem }\"></ng-container>\r\n\t\t\t</div>\r\n\t\t\t<!-- normal submenu -->\r\n\t\t\t<ng-container *ngIf=\"item['custom-class'] !== 'kt-menu__item--submenu-fullheight'\"\r\n\t\t\t\t[ngTemplateOutlet]=\"menuSubmenuTemplate\"\r\n\t\t\t\t[ngTemplateOutletContext]=\"{ item: item, parentItem: parentItem }\">\r\n\t\t\t</ng-container>\r\n\t\t</div>\r\n\t</li>\r\n\r\n</ng-template>\r\n\r\n<ng-template #menuSubmenuTemplate let-item=\"item\" let-parentItem=\"parentItem\">\r\n\t<ul class=\"kt-menu__subnav\">\r\n\t\t<ng-container *ngFor=\"let child of item.submenu\">\r\n\t\t\t<ng-container *ngIf=\"child.section\" [ngTemplateOutlet]=\"menuItemSectionTemplate\"\r\n\t\t\t\t[ngTemplateOutletContext]=\"{ item: child, parentItem: item }\"></ng-container>\r\n\t\t\t<ng-container *ngIf=\"child.separator\" [ngTemplateOutlet]=\"menuItemSeparatorTemplate\"\r\n\t\t\t\t[ngTemplateOutletContext]=\"{ item: child, parentItem: item }\"></ng-container>\r\n\t\t\t<ng-container *ngIf=\"child.title\" [ngTemplateOutlet]=\"menuItemTemplate\"\r\n\t\t\t\t[ngTemplateOutletContext]=\"{ item: child, parentItem: item }\"></ng-container>\r\n\t\t</ng-container>\r\n\t</ul>\r\n</ng-template>\r\n\r\n<ng-template #menuItemTextTemplate let-item=\"item\" let-parentItem=\"parentItem\">\r\n\t<!-- if menu item has icon -->\r\n\t<i *ngIf=\"item.icon\" class=\"kt-menu__link-icon\" [ngClass]=\"item.icon\"></i>\r\n\r\n\t<!-- if menu item using bullet -->\r\n\t<i *ngIf=\"parentItem && parentItem.bullet === 'dot'\" class=\"kt-menu__link-bullet kt-menu__link-bullet--dot\">\r\n\t\t<span></span>\r\n\t</i>\r\n\t<i *ngIf=\"parentItem && parentItem.bullet === 'line'\" class=\"kt-menu__link-bullet kt-menu__link-bullet--line\">\r\n\t\t<span></span>\r\n\t</i>\r\n\r\n\t<!-- menu item title text -->\r\n\t<span class=\"kt-menu__link-text\" [translate]=\"item.translate\">{{item.title}}</span>\r\n\t<!-- menu item with badge -->\r\n\t<span *ngIf=\"item.badge\" class=\"kt-menu__link-badge\">\r\n\t\t<span class=\"kt-badge\" [ngClass]=\"item.badge.type\">{{item.badge.value}}</span>\r\n\t</span>\r\n\r\n\t<!-- if menu item has submenu child then put arrow icon -->\r\n\t<i *ngIf=\"item.submenu\" class=\"kt-menu__ver-arrow la la-angle-right\"></i>\r\n</ng-template>\r\n\r\n<ng-template #menuItemSeparatorTemplate let-item=\"item\" let-parentItem=\"parentItem\">\r\n\t<li class=\"kt-menu__separator\"><span></span></li>\r\n</ng-template>\r\n\r\n<ng-template #menuItemSectionTemplate let-item=\"item\" let-parentItem=\"parentItem\">\r\n\t<li class=\"kt-menu__section\">\r\n\t\t<h4 class=\"kt-menu__section-text\">{{item.section}}</h4>\r\n\t\t<i class=\"kt-menu__section-icon flaticon-more-v2\"></i>\r\n\t</li>\r\n</ng-template>\r\n"
+module.exports = "<!-- BEGIN: Left Aside -->\r\n<div ktOffcanvas [options]=\"menuCanvasOptions\" class=\"kt-aside kt-aside--fixed kt-grid__item kt-grid kt-grid--desktop kt-grid--hor-desktop\" id=\"kt_aside\">\r\n\t<kt-brand></kt-brand>\r\n\t<!-- BEGIN: Aside Menu -->\r\n\t<div class=\"kt-aside-menu-wrapper kt-grid__item kt-grid__item--fluid\" id=\"kt_aside_menu_wrapper\">\r\n\t\t<div #asideMenu ktMenu [options]=\"menuOptions\" [perfectScrollbar]=\"{wheelPropagation: false}\" [ngStyle]=\"{'max-height': '90vh', 'position': 'relative'}\" id=\"kt_aside_menu\" class=\"kt-aside-menu\"\r\n\t\t\t[attr.data-ktmenu-vertical]=\"1\" (mouseenter)=\"mouseEnter($event)\" (mouseleave)=\"mouseLeave($event)\"\r\n\t\t\t[ngClass]=\"htmlClassService.getClasses('aside_menu', true)\">\r\n\t\t\t<ul class=\"kt-menu__nav\" [ngClass]=\"htmlClassService.getClasses('aside_menu_nav', true)\">\r\n\t\t\t\t<ng-container [ngTemplateOutlet]=\"menuListTemplate\"></ng-container>\r\n\t\t\t</ul>\r\n\t\t</div>\r\n\t</div>\r\n\t<!-- END: Aside Menu -->\r\n</div>\r\n<!-- END: Left Aside -->\r\n\r\n<ng-template #menuListTemplate>\r\n\t<ng-container *ngFor=\"let child of menuAsideService.menuList$ | async\">\r\n\t\t<ng-container *ngIf=\"child.section\" [ngTemplateOutlet]=\"menuItemSectionTemplate\"\r\n\t\t\t[ngTemplateOutletContext]=\"{ item: child }\"></ng-container>\r\n\t\t<ng-container *ngIf=\"child.separator\" [ngTemplateOutlet]=\"menuItemSeparatorTemplate\"\r\n\t\t\t[ngTemplateOutletContext]=\"{ item: child }\"></ng-container>\r\n\t\t<ng-container *ngIf=\"child.title\" [ngTemplateOutlet]=\"menuItemTemplate\"\r\n\t\t\t[ngTemplateOutletContext]=\"{ item: child }\"></ng-container>\r\n\t</ng-container>\r\n</ng-template>\r\n\r\n<ng-template #menuItemTemplate let-item=\"item\" let-parentItem=\"parentItem\">\r\n\t<ng-container *ngIf=\"!item.permission\" [ngTemplateOutlet]=\"menuItemInnerTemplate\" [ngTemplateOutletContext]=\"{ item: item, parentItem: parentItem  }\"></ng-container>\r\n\t<ng-template *ngIf=\"item.permission\" ngxPermissionsOnly=\"{{ item.permission }}\">\r\n\t\t<ng-container [ngTemplateOutlet]=\"menuItemInnerTemplate\" [ngTemplateOutletContext]=\"{ item: item, parentItem: parentItem  }\"></ng-container>\r\n\t</ng-template>\r\n</ng-template>\r\n\r\n<ng-template #menuItemInnerTemplate let-item=\"item\" let-parentItem=\"parentItem\">\r\n\t<li [attr.aria-haspopup]=\"true\"\r\n\t\t[attr.data-ktmenu-submenu-toggle]=\"getItemAttrSubmenuToggle(item)\"\r\n\t\t[attr.data-ktmenu-submenu-mode]=\"item.mode\"\r\n\t\t[attr.data-ktmenu-dropdown-toggle-class]=\"item['dropdown-toggle-class']\" [ngClass]=\"getItemCssClasses(item)\"\r\n\t\t[ngbTooltip]=\"item.tooltip\" data-placement=\"right\">\r\n\r\n\t\t<!-- if menu item hasn't submenu -->\r\n\t\t<a *ngIf=\"!item.submenu\" [routerLink]=\"item.page\" class=\"kt-menu__link kt-menu__toggle\">\r\n\t\t\t<ng-container [ngTemplateOutlet]=\"menuItemTextTemplate\"\r\n\t\t\t\t[ngTemplateOutletContext]=\"{ item: item, parentItem: parentItem }\"></ng-container>\r\n\t\t</a>\r\n\t\t<!-- if menu item has sumnenu child  -->\r\n\t\t<a *ngIf=\"item.submenu\" class=\"kt-menu__link kt-menu__toggle\">\r\n\t\t\t<ng-container [ngTemplateOutlet]=\"menuItemTextTemplate\"\r\n\t\t\t\t[ngTemplateOutletContext]=\"{ item: item, parentItem: parentItem }\"></ng-container>\r\n\t\t</a>\r\n\r\n\t\t<!-- if menu item has submenu child then recursively call new menu item component -->\r\n\t\t<div *ngIf=\"item.submenu\" class=\"kt-menu__submenu\">\r\n\t\t\t<span class=\"kt-menu__arrow\"></span>\r\n\t\t\t<div *ngIf=\"item['custom-class'] === 'kt-menu__item--submenu-fullheight'\" class=\"kt-menu__wrapper\">\r\n\t\t\t\t<!-- wrap submenu to full height -->\r\n\t\t\t\t<ng-container [ngTemplateOutlet]=\"menuSubmenuTemplate\"\r\n\t\t\t\t\t[ngTemplateOutletContext]=\"{ item: item, parentItem: parentItem }\"></ng-container>\r\n\t\t\t</div>\r\n\t\t\t<!-- normal submenu -->\r\n\t\t\t<ng-container *ngIf=\"item['custom-class'] !== 'kt-menu__item--submenu-fullheight'\"\r\n\t\t\t\t[ngTemplateOutlet]=\"menuSubmenuTemplate\"\r\n\t\t\t\t[ngTemplateOutletContext]=\"{ item: item, parentItem: parentItem }\">\r\n\t\t\t</ng-container>\r\n\t\t</div>\r\n\t</li>\r\n\r\n</ng-template>\r\n\r\n<ng-template #menuSubmenuTemplate let-item=\"item\" let-parentItem=\"parentItem\">\r\n\t<ul class=\"kt-menu__subnav\">\r\n\t\t<ng-container *ngFor=\"let child of item.submenu\">\r\n\t\t\t<ng-container *ngIf=\"child.section\" [ngTemplateOutlet]=\"menuItemSectionTemplate\"\r\n\t\t\t\t[ngTemplateOutletContext]=\"{ item: child, parentItem: item }\"></ng-container>\r\n\t\t\t<ng-container *ngIf=\"child.separator\" [ngTemplateOutlet]=\"menuItemSeparatorTemplate\"\r\n\t\t\t\t[ngTemplateOutletContext]=\"{ item: child, parentItem: item }\"></ng-container>\r\n\t\t\t<ng-container *ngIf=\"child.title\" [ngTemplateOutlet]=\"menuItemTemplate\"\r\n\t\t\t\t[ngTemplateOutletContext]=\"{ item: child, parentItem: item }\"></ng-container>\r\n\t\t</ng-container>\r\n\t</ul>\r\n</ng-template>\r\n\r\n<ng-template #menuItemTextTemplate let-item=\"item\" let-parentItem=\"parentItem\">\r\n\t<!-- if menu item has icon -->\r\n\t<i *ngIf=\"item.icon\" class=\"kt-menu__link-icon\" [ngClass]=\"item.icon\"></i>\r\n\r\n\t<!-- if menu item using bullet -->\r\n\t<i *ngIf=\"parentItem && parentItem.bullet === 'dot'\" class=\"kt-menu__link-bullet kt-menu__link-bullet--dot\">\r\n\t\t<span></span>\r\n\t</i>\r\n\t<i *ngIf=\"parentItem && parentItem.bullet === 'line'\" class=\"kt-menu__link-bullet kt-menu__link-bullet--line\">\r\n\t\t<span></span>\r\n\t</i>\r\n\r\n\t<!-- menu item title text -->\r\n\t<span class=\"kt-menu__link-text\" [translate]=\"item.translate\">{{item.title}}</span>\r\n\t<!-- menu item with badge -->\r\n\t<span *ngIf=\"item.badge\" class=\"kt-menu__link-badge\">\r\n\t\t<span class=\"kt-badge\" [ngClass]=\"item.badge.type\">{{item.badge.value}}</span>\r\n\t</span>\r\n\r\n\t<!-- if menu item has submenu child then put arrow icon -->\r\n\t<i *ngIf=\"item.submenu\" class=\"kt-menu__ver-arrow la la-angle-right\"></i>\r\n</ng-template>\r\n\r\n<ng-template #menuItemSeparatorTemplate let-item=\"item\" let-parentItem=\"parentItem\">\r\n\t<li class=\"kt-menu__separator\"><span></span></li>\r\n</ng-template>\r\n\r\n<ng-template #menuItemSectionTemplate let-item=\"item\" let-parentItem=\"parentItem\">\r\n\t<li class=\"kt-menu__section\">\r\n\t\t<h4 class=\"kt-menu__section-text\">{{item.section}}</h4>\r\n\t\t<i class=\"kt-menu__section-icon flaticon-more-v2\"></i>\r\n\t</li>\r\n</ng-template>\r\n"
 
 /***/ }),
 
@@ -874,7 +329,7 @@ module.exports = "<!-- BEGIN: Left Aside -->\r\n\r\n<div ktOffcanvas [options]=\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host .kt-aside {\n  height: 100%; }\n\n:host .kt-menu__link-text {\n  white-space: nowrap; }\n\n:host .kt-content {\n  position: relative;\n  right: 0; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdmlld3MvdGhlbWVzL2RlZmF1bHQvYXNpZGUvRTpcXEdFTUlOXFxneW1pbi0yLjAtc2Fhcy1mcm9udGVuZC9zcmNcXGFwcFxcdmlld3NcXHRoZW1lc1xcZGVmYXVsdFxcYXNpZGVcXGFzaWRlLWxlZnQuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFFRSxZQUFZLEVBQUE7O0FBRmQ7RUFRRSxtQkFBbUIsRUFBQTs7QUFSckI7RUFXRyxrQkFBa0I7RUFDbkIsUUFBUSxFQUFBIiwiZmlsZSI6InNyYy9hcHAvdmlld3MvdGhlbWVzL2RlZmF1bHQvYXNpZGUvYXNpZGUtbGVmdC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIjpob3N0IHtcclxuXHQua3QtYXNpZGUge1xyXG5cdFx0aGVpZ2h0OiAxMDAlO1xyXG5cdH1cclxuXHJcblxyXG5cdC8vIGZpeGVkIHRleHQgbGluZSBicmVhayBpc3N1ZSBvbiBtaW5pbWl6ZWQgYXNpZGUgaG92ZXJcclxuXHQua3QtbWVudV9fbGluay10ZXh0IHtcclxuXHRcdHdoaXRlLXNwYWNlOiBub3dyYXA7XHJcblx0fVxyXG5cdC5rdC1jb250ZW50e1xyXG5cdCAgcG9zaXRpb246IHJlbGF0aXZlO1xyXG5cdFx0cmlnaHQ6IDA7XHJcblx0XHJcblx0fVxyXG5cclxufVxyXG5cclxuIl19 */"
+module.exports = ":host .kt-aside {\n  height: 100%; }\n\n:host .kt-menu__link-text {\n  white-space: nowrap; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdmlld3MvdGhlbWVzL2RlZmF1bHQvYXNpZGUvRTpcXEdFTUlOXFxneW1pbi0yLjAtc2Fhcy1mcm9udGVuZC9zcmNcXGFwcFxcdmlld3NcXHRoZW1lc1xcZGVmYXVsdFxcYXNpZGVcXGFzaWRlLWxlZnQuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFFRSxZQUFZLEVBQUE7O0FBRmQ7RUFPRSxtQkFBbUIsRUFBQSIsImZpbGUiOiJzcmMvYXBwL3ZpZXdzL3RoZW1lcy9kZWZhdWx0L2FzaWRlL2FzaWRlLWxlZnQuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcblx0Lmt0LWFzaWRlIHtcclxuXHRcdGhlaWdodDogMTAwJTtcclxuXHR9XHJcblxyXG5cdC8vIGZpeGVkIHRleHQgbGluZSBicmVhayBpc3N1ZSBvbiBtaW5pbWl6ZWQgYXNpZGUgaG92ZXJcclxuXHQua3QtbWVudV9fbGluay10ZXh0IHtcclxuXHRcdHdoaXRlLXNwYWNlOiBub3dyYXA7XHJcblx0fVxyXG59XHJcbiJdfQ== */"
 
 /***/ }),
 
@@ -1083,7 +538,7 @@ exports.AsideLeftComponent = AsideLeftComponent;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- begin:: Page -->\r\n<ng-container *ngIf=\"selfLayout !== 'blank'; else blankLayout\" >\r\n\t<div class=\"kt-grid kt-grid--hor kt-grid--root\">\r\n\t\t<!-- begin:: Header Mobile -->\r\n\t\t<kt-header-mobile></kt-header-mobile>\r\n\t\t<!-- end:: Header Mobile -->\r\n\r\n\t\t<!-- begin::Body -->\r\n\t\t<div class=\"kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-page\" >\r\n\t\t\t<!-- begin:: Aside Left -->\r\n\t\t\t<ng-container *ngIf=\"asideDisplay\" >\r\n\t\t\t\t<button  class=\"kt-aside-close\" id=\"kt_aside_close_btn\"><i class=\"la la-close\"></i></button>\t\r\n\t\t\t\t<kt-aside-left ></kt-aside-left>\r\n\t\t\t</ng-container>\r\n\t\t\r\n\t\t\t<!-- end:: Aside Left -->\r\n\r\n\t\t\t<div class=\"kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper\" id=\"kt_wrapper\">\r\n\t\t\t\t<!-- begin:: Header -->\r\n\t\t\t\t<kt-header></kt-header>\r\n\t\t\t\t<!-- end:: Header -->\r\n\r\n\t\t\t\t<!-- begin:: Content -->\r\n\t\t\t\t<div class=\"kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor\">\r\n\t\t\t\t\t<!-- begin:: Content Head -->\r\n\t\t\t\t\t<kt-subheader *ngIf=\"subheaderDisplay\"></kt-subheader>\r\n\t\t\t\t\t<!-- end:: Content Head -->\r\n\r\n\t\t\t\t\t<!-- begin:: Content Body -->\r\n\t\t\t\t\t<div ktContentAnimate class=\"kt-content kt-grid__item kt-grid__item--fluid\" id=\"kt_content\">\r\n\t\t\t\t\t\t<router-outlet></router-outlet>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<!-- end:: Content Body -->\r\n\t\t\t\t</div>\r\n\t\t\t\t<!-- end:: Content -->\r\n\r\n\t\t\t\t<kt-footer></kt-footer>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t<!-- end:: Body -->\r\n\r\n\t\t<!-- <kt-quick-panel></kt-quick-panel> -->\r\n\t\t<kt-scroll-top></kt-scroll-top>\r\n\t\t<!-- <kt-sticky-toolbar></kt-sticky-toolbar> -->\r\n\t</div>\r\n</ng-container>\r\n<!-- end:: Page -->\r\n\r\n<ng-template #blankLayout>\r\n\t<router-outlet></router-outlet>\r\n</ng-template>\r\n"
+module.exports = "<!-- begin:: Page -->\r\n<ng-container *ngIf=\"selfLayout !== 'blank'; else blankLayout\">\r\n\t<div class=\"kt-grid kt-grid--hor kt-grid--root\">\r\n\t\t<!-- begin:: Header Mobile -->\r\n\t\t<kt-header-mobile></kt-header-mobile>\r\n\t\t<!-- end:: Header Mobile -->\r\n\r\n\t\t<!-- begin::Body -->\r\n\t\t<div class=\"kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-page\">\r\n\t\t\t<!-- begin:: Aside Left -->\r\n\t\t\t<ng-container *ngIf=\"asideDisplay\">\r\n\t\t\t\t<button class=\"kt-aside-close\" id=\"kt_aside_close_btn\"><i class=\"la la-close\"></i></button>\r\n\t\t\t\t<kt-aside-left></kt-aside-left>\r\n\t\t\t</ng-container>\r\n\t\t\t<!-- end:: Aside Left -->\r\n\r\n\t\t\t<div class=\"kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper\" id=\"kt_wrapper\">\r\n\t\t\t\t<!-- begin:: Header -->\r\n\t\t\t\t<kt-header></kt-header>\r\n\t\t\t\t<!-- end:: Header -->\r\n\r\n\t\t\t\t<!-- begin:: Content -->\r\n\t\t\t\t<div class=\"kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor\">\r\n\t\t\t\t\t<!-- begin:: Content Head -->\r\n\t\t\t\t\t<kt-subheader *ngIf=\"subheaderDisplay\"></kt-subheader>\r\n\t\t\t\t\t<!-- end:: Content Head -->\r\n\r\n\t\t\t\t\t<!-- begin:: Content Body -->\r\n\t\t\t\t\t<div ktContentAnimate class=\"kt-content kt-grid__item kt-grid__item--fluid\" id=\"kt_content\">\r\n\t\t\t\t\t\t<router-outlet></router-outlet>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<!-- end:: Content Body -->\r\n\t\t\t\t</div>\r\n\t\t\t\t<!-- end:: Content -->\r\n\r\n\t\t\t\t<kt-footer></kt-footer>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t<!-- end:: Body -->\r\n\r\n\t\t<!-- <kt-quick-panel></kt-quick-panel> -->\r\n\t\t<!-- <kt-scroll-top></kt-scroll-top> -->\r\n\t\t<!-- <kt-sticky-toolbar></kt-sticky-toolbar> -->\r\n\t</div>\r\n</ng-container>\r\n<!-- end:: Page -->\r\n\r\n<ng-template #blankLayout>\r\n\t<router-outlet></router-outlet>\r\n</ng-template>\r\n"
 
 /***/ }),
 
@@ -1539,7 +994,7 @@ exports.FooterComponent = FooterComponent;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- begin:: Brand -->\r\n\r\n<div class=\"kt-aside__brand m-grid__item\" [ngClass]=\"htmlClassService.getClasses('brand', true)\" id=\"kt_aside_brand\">\r\n\t<div class=\"kt-aside__brand-logo\">\r\n\t\t<a href=\"javascript:;\" routerLink=\"/default\">\r\n\t\t\t<img alt=\"logo\" src=\"./assets/media/logos/log.png\" />\r\n\t\t\t<!-- [attr.src]=\"headerLogo\" -->\r\n\t\t</a>\r\n\t</div>\r\n\t<div class=\"kt-aside__brand-tools\">\r\n\t\t<button ktToggle [options]=\"toggleOptions\" class=\"kt-aside__brand-aside-toggler kt-aside__brand-aside-toggler--left\" id=\"kt_aside_toggler\">\r\n\t\t\t<span [inlineSVG]=\"'./assets/media/icons/svg/Navigation/Angle-double-left.svg'\"></span>\r\n\t\t\t<span [inlineSVG]=\"'./assets/media/icons/svg/Navigation/Angle-double-right.svg'\"></span>\r\n\t\t</button>\r\n\t</div>\r\n</div>\r\n\r\n<!-- end:: Brand -->\r\n"
+module.exports = "<!-- begin:: Brand -->\r\n<div class=\"kt-aside__brand m-grid__item\" [ngClass]=\"htmlClassService.getClasses('brand', true)\" id=\"kt_aside_brand\">\r\n\t<div class=\"kt-aside__brand-logo\">\r\n\t\t<a href=\"javascript:;\" routerLink=\"/default\">\r\n\t\t\t<img alt=\"logo\" [attr.src]=\"headerLogo\"/>\r\n\t\t</a>\r\n\t</div>\r\n\t<div class=\"kt-aside__brand-tools\">\r\n\t\t<button ktToggle [options]=\"toggleOptions\" class=\"kt-aside__brand-aside-toggler kt-aside__brand-aside-toggler--left\" id=\"kt_aside_toggler\">\r\n\t\t\t<span [inlineSVG]=\"'./assets/media/icons/svg/Navigation/Angle-double-left.svg'\"></span>\r\n\t\t\t<span [inlineSVG]=\"'./assets/media/icons/svg/Navigation/Angle-double-right.svg'\"></span>\r\n\t\t</button>\r\n\t</div>\r\n</div>\r\n<!-- end:: Brand -->\r\n"
 
 /***/ }),
 
@@ -1703,7 +1158,7 @@ exports.HeaderMobileComponent = HeaderMobileComponent;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- begin: Header -->\r\n<div ktHeader #ktHeader class=\"kt-header kt-grid__item\" [ngClass]=\"htmlClassService.getClasses('header', true)\" id=\"kt_header\">\r\n\t<ngb-progressbar class=\"kt-loading-bar\" *ngIf=\"(loader.progress$|async) > 0\" [value]=\"loader.progress$|async\" height=\"3px\"></ngb-progressbar>\r\n\r\n\t<!-- begin: Header Menu -->\r\n\t <kt-menu-horizontal *ngIf=\"menuHeaderDisplay\"></kt-menu-horizontal> \r\n\t<!-- end: Header Menu -->\r\n\r\n\t<!-- begin:: Header Topbar -->\r\n\t<kt-topbar></kt-topbar>\r\n\t<!-- end:: Header Topbar -->\r\n</div>\r\n<!-- end: Header -->\r\n"
+module.exports = "<!-- begin: Header -->\r\n<div ktHeader #ktHeader class=\"kt-header kt-grid__item\" [ngClass]=\"htmlClassService.getClasses('header', true)\" id=\"kt_header\">\r\n\t<ngb-progressbar class=\"kt-loading-bar\" *ngIf=\"(loader.progress$|async) > 0\" [value]=\"loader.progress$|async\" height=\"3px\"></ngb-progressbar>\r\n\r\n\t<!-- begin: Header Menu -->\r\n\t<kt-menu-horizontal *ngIf=\"menuHeaderDisplay\"></kt-menu-horizontal>\r\n\t<!-- end: Header Menu -->\r\n\r\n\t<!-- begin:: Header Topbar -->\r\n\t<kt-topbar></kt-topbar>\r\n\t<!-- end:: Header Topbar -->\r\n</div>\r\n<!-- end: Header -->\r\n"
 
 /***/ }),
 
@@ -1833,7 +1288,7 @@ exports.HeaderComponent = HeaderComponent;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"kt-subheader__main kt-portlet__head--lg cont\">\r\n    <h4 class=\"kt-subheader__title\" *ngIf=\"club\">{{club}}/{{user$}}</h4>\r\n    <h4 class=\"kt-subheader__title\" *ngIf=\"!club\">{{user$}}/{{user$}}</h4>\r\n</div>"
+module.exports = "<!-- BEGIN: Horizontal Menu -->\r\n<button class=\"kt-header-menu-wrapper-close\" id=\"kt_header_menu_mobile_close_btn\"><i class=\"la la-close\"></i></button>\r\n<div ktOffcanvas [options]=\"offcanvasOptions\" class=\"kt-header-menu-wrapper\" id=\"kt_header_menu_wrapper\">\r\n\t<div ktMenu [options]=\"menuOptions\" id=\"kt_header_menu\" class=\"kt-header-menu kt-header-menu-mobile\" [ngClass]=\"htmlClassService.getClasses('header_menu', true)\">\r\n\t\t<ul class=\"kt-menu__nav\" [ngClass]=\"htmlClassService.getClasses('header_menu_nav', true)\">\r\n\t\t\t<!-- *ngFor=\"let item of menuHorService.menuList$ | async\" -->\r\n\t\t\t<ng-container >\r\n\t\t\t\t<ng-container >\r\n\t\t\t\t\t<h4 class=\"kt-subheader__title\" *ngIf=\"club\"> {{club}} / {{user$}} </h4>\r\n\t\t\t\t   <h4 class=\"kt-subheader__title\" *ngIf=\"!club\"> {{user$}} / {{user$}} </h4>\r\n\t\t\t\t</ng-container>\r\n\t\t\t</ng-container>\r\n\t\t</ul>\r\n\t</div>\r\n</div>\r\n<!-- END: Horizontal Menu -->\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -1844,7 +1299,7 @@ module.exports = "<div class=\"kt-subheader__main kt-portlet__head--lg cont\">\r
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\n  width: 100%; }\n  :host .kt-header-menu-wrapper {\n    height: 100%; }\n  :host .cont {\n    margin: 15px; }\n  :host .cont h4 {\n    color: black;\n    font-family: 'Roboto', sans-serif; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdmlld3MvdGhlbWVzL2RlZmF1bHQvaGVhZGVyL21lbnUtaG9yaXpvbnRhbC9FOlxcR0VNSU5cXGd5bWluLTIuMC1zYWFzLWZyb250ZW5kL3NyY1xcYXBwXFx2aWV3c1xcdGhlbWVzXFxkZWZhdWx0XFxoZWFkZXJcXG1lbnUtaG9yaXpvbnRhbFxcbWVudS1ob3Jpem9udGFsLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0MsV0FBVyxFQUFBO0VBRFo7SUFJRSxZQUFZLEVBQUE7RUFKZDtJQU9FLFlBQVksRUFBQTtFQVBkO0lBVUUsWUFBWTtJQUNaLGlDQUFpQyxFQUFBIiwiZmlsZSI6InNyYy9hcHAvdmlld3MvdGhlbWVzL2RlZmF1bHQvaGVhZGVyL21lbnUtaG9yaXpvbnRhbC9tZW51LWhvcml6b250YWwuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcblx0d2lkdGg6IDEwMCU7XHJcblxyXG5cdC5rdC1oZWFkZXItbWVudS13cmFwcGVyIHtcclxuXHRcdGhlaWdodDogMTAwJTtcclxuXHR9XHJcblx0LmNvbnR7XHJcblx0XHRtYXJnaW46IDE1cHg7XHJcblx0fVxyXG5cdC5jb250IGg0e1xyXG5cdFx0Y29sb3I6IGJsYWNrO1xyXG5cdFx0Zm9udC1mYW1pbHk6ICdSb2JvdG8nLCBzYW5zLXNlcmlmO1xyXG5cdH1cclxuXHRcclxufVxyXG5cclxuXHJcbiJdfQ== */"
+module.exports = ":host {\n  width: 100%; }\n  :host .kt-header-menu-wrapper {\n    height: 100%; }\n  :host .kt-header-menu {\n    margin: 15px; }\n  :host h4 {\n    color: black;\n    font-size: 14.4px;\n    font-family: Poppins, Helvetica, sans-serif;\n    padding: 6px 15px 6px 0px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdmlld3MvdGhlbWVzL2RlZmF1bHQvaGVhZGVyL21lbnUtaG9yaXpvbnRhbC9FOlxcR0VNSU5cXGd5bWluLTIuMC1zYWFzLWZyb250ZW5kL3NyY1xcYXBwXFx2aWV3c1xcdGhlbWVzXFxkZWZhdWx0XFxoZWFkZXJcXG1lbnUtaG9yaXpvbnRhbFxcbWVudS1ob3Jpem9udGFsLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0MsV0FBVyxFQUFBO0VBRFo7SUFJRSxZQUFZLEVBQUE7RUFKZDtJQU9FLFlBQVksRUFBQTtFQVBkO0lBVUUsWUFBWTtJQUNaLGlCQUFpQjtJQUNqQiwyQ0FBMkM7SUFDM0MseUJBQXlCLEVBQUEiLCJmaWxlIjoic3JjL2FwcC92aWV3cy90aGVtZXMvZGVmYXVsdC9oZWFkZXIvbWVudS1ob3Jpem9udGFsL21lbnUtaG9yaXpvbnRhbC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIjpob3N0IHtcclxuXHR3aWR0aDogMTAwJTtcclxuXHJcblx0Lmt0LWhlYWRlci1tZW51LXdyYXBwZXIge1xyXG5cdFx0aGVpZ2h0OiAxMDAlO1xyXG5cdH1cclxuXHQua3QtaGVhZGVyLW1lbnV7XHJcblx0XHRtYXJnaW46IDE1cHg7XHJcblx0fVxyXG5cdCBoNHtcclxuXHRcdGNvbG9yOiBibGFjaztcclxuXHRcdGZvbnQtc2l6ZTogMTQuNHB4O1xyXG5cdFx0Zm9udC1mYW1pbHk6IFBvcHBpbnMsIEhlbHZldGljYSwgc2Fucy1zZXJpZjtcclxuXHRcdHBhZGRpbmc6IDZweCAxNXB4IDZweCAwcHg7XHJcblx0fVxyXG5cdFxyXG59XHJcbiJdfQ== */"
 
 /***/ }),
 
@@ -1869,17 +1324,199 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 // Angular
 var core_1 = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-var _user_service_1 = __webpack_require__(/*! ../../../../../core/auth/_services/-user.service */ "./src/app/core/auth/_services/-user.service.ts");
+var router_1 = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+// RxJS
+var operators_1 = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+// Object-Path
+var objectPath = __webpack_require__(/*! object-path */ "./node_modules/object-path/index.js");
+// Layout
+var layout_1 = __webpack_require__(/*! ../../../../../core/_base/layout */ "./src/app/core/_base/layout/index.ts");
+// HTML Class
+var html_class_service_1 = __webpack_require__(/*! ../../html-class.service */ "./src/app/views/themes/default/html-class.service.ts");
 var MenuHorizontalComponent = /** @class */ (function () {
-    function MenuHorizontalComponent(user) {
-        this.user = user;
+    /**
+     * Component Conctructor
+     *
+     * @param el: ElementRef
+     * @param htmlClassService: HtmlClassService
+     * @param menuHorService: MenuHorService
+     * @param menuConfigService: MenuConfigService
+     * @param layoutConfigService: LayouConfigService
+     * @param router: Router
+     * @param render: Renderer2
+     */
+    function MenuHorizontalComponent(el, htmlClassService, menuHorService, menuConfigService, layoutConfigService, router, render) {
+        this.el = el;
+        this.htmlClassService = htmlClassService;
+        this.menuHorService = menuHorService;
+        this.menuConfigService = menuConfigService;
+        this.layoutConfigService = layoutConfigService;
+        this.router = router;
+        this.render = render;
+        // Public properties
+        this.currentRouteUrl = '';
         this.currentUser = JSON.parse(localStorage.getItem('user'));
+        this.menuOptions = {
+            submenu: {
+                desktop: 'dropdown',
+                tablet: 'accordion',
+                mobile: 'accordion'
+            },
+            accordion: {
+                slideSpeed: 200,
+                expandAll: false // allow having multiple expanded accordions in the menu
+            }
+        };
+        this.offcanvasOptions = {
+            overlay: true,
+            baseClass: 'kt-header-menu-wrapper',
+            closeBy: 'kt_header_menu_mobile_close_btn',
+            toggleBy: {
+                target: 'kt_header_mobile_toggler',
+                state: 'kt-header-mobile__toolbar-toggler--active'
+            }
+        };
     }
+    /**
+     * @ Lifecycle sequences => https://angular.io/guide/lifecycle-hooks
+     */
+    /**
+     * After view init
+     */
+    MenuHorizontalComponent.prototype.ngAfterViewInit = function () {
+    };
+    /**
+     * On init
+     */
     MenuHorizontalComponent.prototype.ngOnInit = function () {
+        var _this = this;
         var userObj = JSON.parse(localStorage.getItem('user'));
         this.user$ = (userObj['name']);
-        //this.club=(JSON.parse(localStorage.getItem('user'))['username']);
-        this.club = (userObj['acounts'].length > 0) ? (userObj['acounts'][0]['name']) : '';
+        var club_key = userObj['current_club_login'];
+        this.club = (Object.keys(userObj['account']).length > 0) ? (userObj['account'][club_key]['name']) : '';
+        this.rootArrowEnabled = this.layoutConfigService.getConfig('header.menu.self.root-arrow');
+        this.currentRouteUrl = this.router.url;
+        this.router.events
+            .pipe(operators_1.filter(function (event) { return event instanceof router_1.NavigationEnd; }))
+            .subscribe(function (event) {
+            _this.currentRouteUrl = _this.router.url;
+        });
+    };
+    /**
+     * Mouse Leave event
+     * @param event: MouseEvent
+     */
+    MenuHorizontalComponent.prototype.mouseLeave = function (event) {
+        this.render.removeClass(event.target, 'kt-menu__item--hover');
+    };
+    /**
+     * Return Css Class Name
+     * @param item: any
+     */
+    MenuHorizontalComponent.prototype.getItemCssClasses = function (item) {
+        var classes = 'kt-menu__item';
+        if (objectPath.get(item, 'submenu')) {
+            classes += ' kt-menu__item--submenu';
+        }
+        if (objectPath.get(item, 'resizer')) {
+            classes += ' kt-menu__item--resize';
+        }
+        var menuType = objectPath.get(item, 'submenu.type') || 'classic';
+        if ((objectPath.get(item, 'root') && menuType === 'classic')
+            || parseInt(objectPath.get(item, 'submenu.width'), 10) > 0) {
+            classes += ' kt-menu__item--rel';
+        }
+        var customClass = objectPath.get(item, 'custom-class');
+        if (customClass) {
+            classes += ' ' + customClass;
+        }
+        if (objectPath.get(item, 'icon-only')) {
+            classes += ' kt-menu__item--icon-only';
+        }
+        if (this.isMenuItemIsActive(item)) {
+            classes += ' kt-menu__item--active kt-menu__item--here';
+        }
+        return classes;
+    };
+    /**
+     * Returns Attribute SubMenu Toggle
+     * @param item: any
+     */
+    MenuHorizontalComponent.prototype.getItemAttrSubmenuToggle = function (item) {
+        var toggle = 'hover';
+        if (objectPath.get(item, 'toggle') === 'click') {
+            toggle = 'click';
+        }
+        else if (objectPath.get(item, 'submenu.type') === 'tabs') {
+            toggle = 'tabs';
+        }
+        else {
+            // submenu toggle default to 'hover'
+        }
+        return toggle;
+    };
+    /**
+     * Returns Submenu CSS Class Name
+     * @param item: any
+     */
+    MenuHorizontalComponent.prototype.getItemMenuSubmenuClass = function (item) {
+        var classes = '';
+        var alignment = objectPath.get(item, 'alignment') || 'right';
+        if (alignment) {
+            classes += ' kt-menu__submenu--' + alignment;
+        }
+        var type = objectPath.get(item, 'type') || 'classic';
+        if (type === 'classic') {
+            classes += ' kt-menu__submenu--classic';
+        }
+        if (type === 'tabs') {
+            classes += ' kt-menu__submenu--tabs';
+        }
+        if (type === 'mega') {
+            if (objectPath.get(item, 'width')) {
+                classes += ' kt-menu__submenu--fixed';
+            }
+        }
+        if (objectPath.get(item, 'pull')) {
+            classes += ' kt-menu__submenu--pull';
+        }
+        return classes;
+    };
+    /**
+     * Check Menu is active
+     * @param item: any
+     */
+    MenuHorizontalComponent.prototype.isMenuItemIsActive = function (item) {
+        if (item.submenu) {
+            return this.isMenuRootItemIsActive(item);
+        }
+        if (!item.page) {
+            return false;
+        }
+        return this.currentRouteUrl.indexOf(item.page) !== -1;
+    };
+    /**
+     * Check Menu Root Item is active
+     * @param item: any
+     */
+    MenuHorizontalComponent.prototype.isMenuRootItemIsActive = function (item) {
+        if (item.submenu.items) {
+            for (var _i = 0, _a = item.submenu.items; _i < _a.length; _i++) {
+                var subItem = _a[_i];
+                if (this.isMenuItemIsActive(subItem)) {
+                    return true;
+                }
+            }
+        }
+        if (item.submenu) {
+            for (var _b = 0, _c = item.submenu; _b < _c.length; _b++) {
+                var subItem = _c[_b];
+                if (this.isMenuItemIsActive(subItem)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     };
     __decorate([
         core_1.Input(),
@@ -1892,7 +1529,13 @@ var MenuHorizontalComponent = /** @class */ (function () {
             changeDetection: core_1.ChangeDetectionStrategy.OnPush,
             styles: [__webpack_require__(/*! ./menu-horizontal.component.scss */ "./src/app/views/themes/default/header/menu-horizontal/menu-horizontal.component.scss")]
         }),
-        __metadata("design:paramtypes", [_user_service_1.UserService])
+        __metadata("design:paramtypes", [core_1.ElementRef,
+            html_class_service_1.HtmlClassService,
+            layout_1.MenuHorizontalService,
+            layout_1.MenuConfigService,
+            layout_1.LayoutConfigService,
+            router_1.Router,
+            core_1.Renderer2])
     ], MenuHorizontalComponent);
     return MenuHorizontalComponent;
 }());
@@ -1908,7 +1551,7 @@ exports.MenuHorizontalComponent = MenuHorizontalComponent;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- begin:: Header Topbar -->\r\n<div class=\"kt-header__topbar\">\r\n\t<kt-notification></kt-notification>\r\n\t<!--begin: User bar -->\r\n\t <kt-user-profile></kt-user-profile> \r\n\t<!--end: User bar -->\r\n</div>\r\n<!-- end:: Header Topbar -->\r\n"
+module.exports = "<!-- begin:: Header Topbar -->\r\n<div class=\"kt-header__topbar\">\r\n\t<!--begin: Search -->\r\n\t<!-- <kt-search-dropdown [icon]=\"'./assets/media/icons/svg/General/Search.svg'\" [useSVG]=\"true\"></kt-search-dropdown> -->\r\n\t<!--end: Search -->\r\n\t<!--begin: Notifications -->\r\n\t<kt-notification [bgImage]=\"'./assets/media/misc/bg-1.jpg'\" [pulse]=\"true\" [skin]=\"'dark'\" [icon]=\"'./assets/media/icons/svg/Code/Compiling.svg'\" [useSVG]=\"true\"></kt-notification>\r\n\t<!--end: Notifications -->\r\n\t<!--begin: Quick actions -->\r\n\t<!-- <kt-quick-action [bgImage]=\"'./assets/media/misc/bg-2.jpg'\" [skin]=\"'dark'\" [icon]=\"'./assets/media/icons/svg/Media/Equalizer.svg'\" [useSVG]=\"true\"></kt-quick-action> -->\r\n\t<!--end: Quick actions -->\r\n\t<!--begin: My Cart -->\r\n\t<!-- <kt-cart [bgImage]=\"'./assets/media/misc/bg-1.jpg'\" [icon]=\"'./assets/media/icons/svg/Shopping/Cart%233.svg'\" [useSVG]=\"true\"></kt-cart> -->\r\n\t<!--end: My Cart -->\r\n\t<!--begin: Quick panel toggler -->\r\n\t<!-- <div class=\"kt-header__topbar-item kt-header__topbar-item--quick-panel\" data-placement=\"bottom\" ngbTooltip=\"Quick panel\">\r\n\t\t<span class=\"kt-header__topbar-icon\" id=\"kt_quick_panel_toggler_btn\">\r\n\t\t\t<span class=\"kt-svg-icon\" [inlineSVG]=\"'./assets/media/icons/svg/Layout/Layout-4-blocks.svg'\"></span>\r\n\t\t</span>\r\n\t</div> -->\r\n\t<!--end: Quick panel toggler -->\r\n\t<!--begin: Language bar -->\r\n\t<!-- <kt-language-selector></kt-language-selector> -->\r\n\t<!--end: Language bar -->\r\n\t<!--begin: User bar -->\r\n\t<kt-user-profile></kt-user-profile>\r\n\t<!--end: User bar -->\r\n</div>\r\n<!-- end:: Header Topbar -->\r\n"
 
 /***/ }),
 
@@ -2226,12 +1869,10 @@ var routes = [
             }, {
                 path: 'membership',
                 loadChildren: 'app/views/pages/membership/membership.module#MembershipModule',
-                data: { preload: true }
             },
             {
                 path: 'members',
                 loadChildren: 'app/views/pages/members/members.module#MembersModule',
-                data: { preload: true }
             },
             {
                 path: 'workouts',
@@ -2283,7 +1924,7 @@ exports.PagesRoutingModule = PagesRoutingModule;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = " <kt-subheader1 *ngIf=\"!layout || layout === 'subheader-v1'\"></kt-subheader1> \r\n  <kt-subheader2 *ngIf=\"layout === 'subheader-v2'\" ></kt-subheader2>"
+module.exports = "<kt-subheader1 *ngIf=\"!layout || layout === 'subheader-v1'\"></kt-subheader1>\r\n<kt-subheader2 *ngIf=\"layout === 'subheader-v2'\"></kt-subheader2>\r\n<kt-subheader3 *ngIf=\"layout === 'subheader-v3'\"></kt-subheader3>\r\n"
 
 /***/ }),
 
