@@ -2964,8 +2964,8 @@ var map = {
 	"app/views/pages/members/members.module": [
 		"./src/app/views/pages/members/members.module.ts",
 		"default~app-views-pages-dashboard-dashboard-module~app-views-pages-members-members-module~app-views-~ec792400",
+		"default~app-views-pages-members-members-module~app-views-pages-membership-membership-module~app-view~ed4f6115",
 		"default~app-views-pages-members-members-module~app-views-pages-membership-membership-module~app-view~0185dcd4",
-		"default~app-views-pages-members-members-module~app-views-pages-membership-membership-module~app-view~8008bd02",
 		"default~app-views-pages-members-members-module~app-views-themes-default-theme-module",
 		"common",
 		"app-views-pages-members-members-module"
@@ -2973,9 +2973,8 @@ var map = {
 	"app/views/pages/membership/membership.module": [
 		"./src/app/views/pages/membership/membership.module.ts",
 		"default~app-views-pages-dashboard-dashboard-module~app-views-pages-members-members-module~app-views-~ec792400",
+		"default~app-views-pages-members-members-module~app-views-pages-membership-membership-module~app-view~ed4f6115",
 		"default~app-views-pages-members-members-module~app-views-pages-membership-membership-module~app-view~0185dcd4",
-		"default~app-views-pages-members-members-module~app-views-pages-membership-membership-module~app-view~8008bd02",
-		"default~app-views-pages-membership-membership-module~app-views-pages-workouts-workouts-module",
 		"common",
 		"app-views-pages-membership-membership-module"
 	],
@@ -2987,6 +2986,7 @@ var map = {
 	],
 	"app/views/pages/user-management/user-management.module": [
 		"./src/app/views/pages/user-management/user-management.module.ts",
+		"default~app-views-pages-members-members-module~app-views-pages-membership-membership-module~app-view~ed4f6115",
 		"default~app-views-pages-members-members-module~app-views-pages-membership-membership-module~app-view~0185dcd4",
 		"common",
 		"app-views-pages-user-management-user-management-module"
@@ -2999,8 +2999,7 @@ var map = {
 	"app/views/pages/workouts/workouts.module": [
 		"./src/app/views/pages/workouts/workouts.module.ts",
 		"default~app-views-pages-dashboard-dashboard-module~app-views-pages-members-members-module~app-views-~ec792400",
-		"default~app-views-pages-members-members-module~app-views-pages-membership-membership-module~app-view~8008bd02",
-		"default~app-views-pages-membership-membership-module~app-views-pages-workouts-workouts-module",
+		"default~app-views-pages-members-members-module~app-views-pages-membership-membership-module~app-view~ed4f6115",
 		"common",
 		"app-views-pages-workouts-workouts-module"
 	],
@@ -3322,7 +3321,7 @@ var http_2 = __webpack_require__(/*! @angular/common/http */ "./node_modules/@an
 var _public_1 = __webpack_require__(/*! ./core/_public */ "./src/app/core/_public/index.ts");
 var _public_2 = __webpack_require__(/*! ./core/_public */ "./src/app/core/_public/index.ts");
 var form_field_1 = __webpack_require__(/*! @angular/material/form-field */ "./node_modules/@angular/material/esm5/form-field.es5.js");
-//import { Ng2ImgMaxModule } from 'ng2-img-max';
+var ng2_img_max_1 = __webpack_require__(/*! ng2-img-max */ "./node_modules/ng2-img-max/dist/ng2-img-max.js");
 var messaging_service_1 = __webpack_require__(/*! ./views/partials/layout/topbar/notification/messaging.service */ "./src/app/views/partials/layout/topbar/notification/messaging.service.ts");
 //import {AmexioWidgetModule} from 'amexio-ng-extensions';
 //
@@ -3383,6 +3382,7 @@ var AppModule = /** @class */ (function () {
                 material_1.MatProgressSpinnerModule,
                 ng_inline_svg_1.InlineSVGModule.forRoot(),
                 form_field_1.MatFormFieldModule,
+                ng2_img_max_1.Ng2ImgMaxModule
             ],
             exports: [],
             providers: [
@@ -6791,6 +6791,7 @@ exports.LayoutConfig = LayoutConfig;
 Object.defineProperty(exports, "__esModule", { value: true });
 var MenuConfig = /** @class */ (function () {
     function MenuConfig() {
+        this.pub_key = JSON.parse(localStorage.getItem('user'))['pub_key'];
         this.defaults = {
             header: {
                 self: {},
@@ -7137,49 +7138,47 @@ var MenuConfig = /** @class */ (function () {
             aside: {
                 self: {},
                 items: [
+                    { section: 'ADMINSTRATION' },
                     {
-                        title: 'Dashboard',
-                        root: true,
-                        icon: 'flaticon2-architecture-and-city',
-                        page: 'dashboard',
-                        translate: 'MENU.DASHBOARD',
-                        bullet: 'dot',
+                        title: 'Club Details',
+                        icon: 'flaticon2-user-outline-symbol',
+                        page: "user-management/users/" + this.pub_key + "/edit/" + this.pub_key
                     },
                     {
-                        title: 'Reports',
-                        root: true,
+                        title: 'Club Tree',
+                        icon: 'flaticon2-user-outline-symbol',
+                        page: 'user-management/clubtree'
+                    },
+                    {
+                        title: 'User Management',
                         bullet: 'dot',
+                        root: true,
                         icon: 'flaticon2-list-2',
                         submenu: [
                             {
-                                title: 'Geo report',
-                                icon: 'flaticon-earth-globe',
-                                page: 'reports/geoMember',
-                                translate: 'PACKAGES.PACKAGE'
+                                title: 'Invitations',
+                                page: 'user-management/invitations'
                             },
                             {
-                                title: 'Payment report',
-                                icon: 'flaticon-graphic-1',
-                                page: 'reports/memberReports'
-                            }
+                                title: 'Staff Members',
+                                page: 'user-management/users'
+                            },
                         ]
                     },
                     {
-                        title: 'Members',
-                        root: true,
-                        icon: 'flaticon2-user',
-                        page: 'members',
+                        title: 'Privildges',
+                        page: 'user-management/roles',
+                        icon: 'flaticon2-soft-icons-1'
+                    },
+                    {
+                        title: 'Advanced Settings',
+                        page: 'user-settings',
+                        icon: 'flaticon2-user-outline-symbol',
                     },
                     {
                         title: 'Billing',
-                        root: true,
                         icon: 'flaticon-coins',
                         page: 'billing',
-                    }, {
-                        title: 'Workouts',
-                        root: true,
-                        icon: 'flaticon-presentation-1',
-                        page: 'workouts',
                     },
                     { section: 'Membership' },
                     {
@@ -7193,35 +7192,32 @@ var MenuConfig = /** @class */ (function () {
                         icon: 'flaticon2-digital-marketing',
                         page: 'membership/activities'
                     },
-                    { section: 'ADMINSTRATION' },
                     {
-                        title: 'User Management',
+                        title: 'Workouts',
+                        icon: 'flaticon-presentation-1',
+                        page: 'workouts',
+                    },
+                    { section: 'Reports' },
+                    {
+                        title: 'Members',
                         root: true,
-                        bullet: 'dot',
-                        icon: 'flaticon2-list-2',
-                        submenu: [
-                            {
-                                title: 'Users',
-                                page: 'user-management/users'
-                            },
-                            {
-                                title: 'Roles',
-                                page: 'user-management/roles'
-                            },
-                            {
-                                title: 'Invitations',
-                                page: 'user-management/invitations'
-                            },
-                        ]
-                    }, {
-                        title: 'Club Tree',
-                        icon: 'flaticon2-user-outline-symbol',
-                        page: 'user-management/clubtree'
+                        icon: 'flaticon2-user',
+                        page: 'members',
                     },
                     {
-                        title: 'Advanced Settings',
-                        page: 'user-settings',
-                        icon: 'flaticon2-user-outline-symbol',
+                        title: 'Geo report',
+                        root: true,
+                        icon: 'flaticon-earth-globe',
+                        page: 'reports/geoMember',
+                        translate: 'PACKAGES.PACKAGE'
+                    },
+                    {
+                        title: 'Dashboard',
+                        root: true,
+                        icon: 'flaticon2-architecture-and-city',
+                        page: 'dashboard',
+                        translate: 'MENU.DASHBOARD',
+                        bullet: 'dot',
                     },
                 ]
             },
@@ -7230,6 +7226,8 @@ var MenuConfig = /** @class */ (function () {
     Object.defineProperty(MenuConfig.prototype, "configs", {
         get: function () {
             this.checkedpermission();
+            var pub_key = JSON.parse(localStorage.getItem('user'))['pub_key'];
+            console.log(JSON.parse(localStorage.getItem('user'))['pub_key']);
             console.log(this.defaults);
             return this.defaults;
         },
@@ -7641,7 +7639,7 @@ var PublicMethods = /** @class */ (function () {
         if (start_date === void 0) { start_date = null; }
         if (end_date === void 0) { end_date = null; }
         var _timeStamp = Date.now(), _signature = md5_1.Md5.hashStr((md5_1.Md5.hashStr("gyminAppwsds548_$%#@" + _timeStamp + "@#!$$#@#$844%^^&(SDF%*%)")).toString()), _url = "https://mygymin.herokuapp.com/api/v1/" + module + "/" + service + "/" + account_key + "?timestamp=" + _timeStamp + "&signature=" + _signature;
-        // _url = `http://localhost:3000/api/v1/${module}/${service}/${account_key}?timestamp=${_timeStamp}&signature=${_signature}`
+        //_url = `http://192.168.1.2:3000/api/v1/${module}/${service}/${account_key}?timestamp=${_timeStamp}&signature=${_signature}`
         if (localStorage.getItem('user')) {
             var parent_keys = (JSON.parse(localStorage.getItem('user')))['pub_key'];
             var public_keys = (JSON.parse(localStorage.getItem('user')))['pub_key'];
@@ -7695,13 +7693,13 @@ var PublicMethods = /** @class */ (function () {
         if (prepage === void 0) { prepage = 30; }
         if (search === void 0) { search = null; }
         var _timeStamp = Date.now(), _signature = md5_1.Md5.hashStr((md5_1.Md5.hashStr("gyminAppwsds548_$%#@" + _timeStamp + "@#!$$#@#$844%^^&(SDF%*%)")).toString()), 
-        //_url = `http://localhost:3000/api/v1/${module}/${service}/${account_key}?timestamp=${_timeStamp}&signature=${_signature}`
+        //_url = `http://192.168.1.2:3000/api/v1/${module}/${service}/${account_key}?timestamp=${_timeStamp}&signature=${_signature}`
         _url = "https://mygymin.herokuapp.com/api/v1/" + module + "/" + service + "/" + account_key + "?timestamp=" + _timeStamp + "&signature=" + _signature;
         return _url;
     };
     PublicMethods.createURL_Invitation = function (parent_key, email, timestamp, signature, all, user_type) {
         return "https://mygymin.herokuapp.com/api/v1/customers/emailinvitationlink/" + parent_key + "/" + email + "/" + timestamp + "/" + signature + "/" + user_type + "/" + all;
-        //return `http://localhost:3000/api/v1/customers/emailinvitationlink/${parent_key}/${email}/${timestamp}/${signature}/${user_type}/${all}`;
+        //return `http://192.168.1.2:3000/api/v1/customers/emailinvitationlink/${parent_key}/${email}/${timestamp}/${signature}/${user_type}/${all}`;
     };
     PublicMethods.createHeaders = function () {
         var httpHeaders = new http_1.HttpHeaders();
@@ -7793,9 +7791,9 @@ var HttpErrorInterceptor = /** @class */ (function () {
                 if (error.status == 401 || error.status == 403) {
                     _this.openAlert();
                     console.log(error.status);
-                    localStorage.clear();
+                    //localStorage.clear();
                     //this.route.navigate(['/auth/login']);
-                    window.location.reload();
+                    //window.location.reload();
                 }
                 errMsg = "Error Code: " + error.status + ",  Message: " + error.message;
             }
@@ -9596,7 +9594,9 @@ var UserService = /** @class */ (function () {
         this.user = new rxjs_1.BehaviorSubject("");
         this.currentUser = this.user.asObservable();
         this.role = new rxjs_1.BehaviorSubject("");
+        this.accessright = new rxjs_1.BehaviorSubject("");
         this.currentUserRole = this.role.asObservable();
+        this.currentUserAccessRight = this.accessright.asObservable();
     }
     UserService.prototype.getallusers = function (pages, prepage, search, status, role, privilidge, orderby, order) {
         if (status === void 0) { status = ''; }
@@ -9662,6 +9662,13 @@ var UserService = /** @class */ (function () {
         });
         user.role = { privilidge: privilidge, typeOfRole: typeOfRole };
     };
+    UserService.prototype.updateAccessRightOfcurrentUser = function (accessrightKeyupdat, accessrightKeyDel) {
+        var user;
+        this.currentUser.subscribe(function (res) {
+            user = res;
+        });
+        user.accessright = { update: accessrightKeyupdat, delete: accessrightKeyDel };
+    };
     //method to update data of user params basic information {username,mail,name} and metaData
     UserService.prototype.updateUserData = function (id, user) {
         console.log(_url('customers', 'updateUserData', ''));
@@ -9681,8 +9688,7 @@ var UserService = /** @class */ (function () {
             obj = { privilidge: privilidge, type: type, key: key };
         else
             obj = { privilidge: privilidge, key: key };
-        this.publicservice.checkResponsePostMetthod(_url('allprivilidges', 'UsersPrivilidge', '', ''), obj);
-        return this.http.post(_url('allprivilidges', 'UsersPrivilidge', '', ''), obj);
+        return this.http.post(_url('allprivilidges', 'UsersPrivilidge', '', ''), obj).pipe(operators_1.map(function (res) { return res; }), operators_1.share());
     };
     UserService.prototype.getAllSettings = function (pages, prepage) {
         var API_getAllUsers_URL = _url('options', 'getAllSettings', '', '', '', pages, prepage);
@@ -9691,6 +9697,10 @@ var UserService = /** @class */ (function () {
     UserService.prototype.updateSettings = function (data) {
         var API_getAllUsers_URL = _url('options', 'updatesettings', '', '');
         return this.http.patch(API_getAllUsers_URL, data);
+    };
+    UserService.prototype.updateUserAccessRight = function (data) {
+        var API_getAllUsers_URL = _url('customers', 'editAccessRight', '', '');
+        return this.http.post(API_getAllUsers_URL, data);
     };
     UserService.prototype.getAllInvitations = function (pages, perpage, search, status, author_key, placeInvitation, orderby, order) {
         var API_getAllUsers_URL = _url('emails', 'getEmails', '', '', '', pages, perpage, search);
@@ -9739,8 +9749,15 @@ var UserService = /** @class */ (function () {
     UserService.prototype.getUserbyId = function (id) {
         return this.http.get(_url('customers', 'getuserbyid', id));
     };
+    UserService.prototype.upload_file = function () {
+        var API_getallactivities_URL = _url('membership', 'uploadimage', '', '', '');
+        return API_getallactivities_URL;
+    };
     UserService.prototype.getUserbyemail = function (email) {
         return this.http.post(_url('customers', 'getuserbyemail', ''), { 'email': email });
+    };
+    UserService.prototype.getAccessRightofUser = function (id) {
+        return this.http.get(_url('customers', 'getAccessBranchsandUnits', id));
     };
     UserService = __decorate([
         core_1.Injectable({
@@ -10302,7 +10319,8 @@ var PermissionsService = /** @class */ (function () {
             var dataPrivlidgesSource_1 = [{}];
             Object.keys(this.userPrviliedges).forEach(function (title, id) {
                 id += 1;
-                dataPrivlidgesSource_1.push({ id: id, title: title, _children: _this.prepareChildPermission(id - 1), isSelected: false });
+                if (_this.prepareChildPermission(id - 1))
+                    dataPrivlidgesSource_1.push({ id: id, title: title, _children: _this.prepareChildPermission(id - 1), isSelected: false });
             });
             return dataPrivlidgesSource_1.slice(1, dataPrivlidgesSource_1.length);
         }
@@ -10312,13 +10330,12 @@ var PermissionsService = /** @class */ (function () {
         var child = [];
         Object.keys(Object.values(this.userPrviliedges)[index]).forEach(function (key, id) {
             var value = Object.values(Object.values(_this.userPrviliedges)[index])[id];
-            if (key && value)
+            if (key && value) {
                 child.push({ key: key, value: value, isSelected: false });
+            }
         });
         if (child.length > 0)
             return child;
-        else
-            return [{ "title": '' }];
     };
     PermissionsService.prototype.getPriviliedgesType = function (pages, prepages, searchKey) {
         if (pages === void 0) { pages = 1; }
@@ -15878,7 +15895,7 @@ exports.Subheader5Component = Subheader5Component;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = "<div ngbDropdown placement=\"bottom\" class=\"kt-header__topbar-item kt-header__topbar-item--langs\">\r\n\t<div ngbDropdownToggle class=\"kt-header__topbar-wrapper\">\r\n\t\t<span class=\"kt-header__topbar-icon\"\r\n\t\t\t[ngClass]=\"{ 'kt-header__topbar-icon--brand' : iconType === 'brand' }\">\r\n\t\t\t<img class=\"\" src=\"{{language?.flag}}\" alt=\"\"/>\r\n\t\t</span>\r\n\t</div>\r\n\t<div ngbDropdownMenu aria-labelledby=\"dropdownBasic1\" class=\"dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround\">\r\n\t\t<ul class=\"kt-nav kt-margin-t-10 kt-margin-b-10\">\r\n\t\t\t<ng-container *ngFor=\"let language of languages\">\r\n\t\t\t\t<li class=\"kt-nav__item\" [ngClass]=\"{'kt-nav__item--active': language.active}\">\r\n\t\t\t\t\t<a href=\"javascript:;\" (click)=\"setLanguage(language.lang)\" [ngClass]=\"{'kt-nav__link--active': language.active}\" class=\"kt-nav__link\">\r\n\t\t\t\t\t\t<span class=\"kt-nav__link-icon\">\r\n\t\t\t\t\t\t\t<img src=\"{{language.flag}}\">\r\n\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t<span class=\"kt-nav__link-text\">{{language.name}}</span>\r\n\t\t\t\t\t</a>\r\n\t\t\t\t</li>\r\n\t\t\t</ng-container>\r\n\t\t</ul>\r\n\t</div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -16259,7 +16276,7 @@ exports.NotificationComponent = NotificationComponent;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div ngbDropdown placement=\"bottom-right\" *ngIf=\"user$ \" class=\"kt-header__topbar-item kt-header__topbar-item--user\">\r\n\t<div ngbDropdownToggle class=\"kt-header__topbar-wrapper\">\r\n\t\t<div class=\"kt-header__topbar-user\">\r\n\t\t\t<span class=\"kt-header__topbar-welcome kt-hidden-mobile\">Hi,</span>\r\n\t\t\t<span class=\"kt-header__topbar-username kt-hidden-mobile\">{{user$.username}}</span>\r\n\t\t\t<img *ngIf=\"user$.image_profile\" alt=\"Pic\" style=\"width: 27px;height: 27px;\"[attr.src]=\"user$.image_profile\"/>\r\n\t\t\t<span *ngIf=\"!user$.image_profile\"  class=\"kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold\">{{user$ .username|firstLetter}}</span>\r\n\t\t</div>\r\n\t</div>\r\n\t<div ngbDropdownMenu class=\"dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround dropdown-menu-xl\">\r\n\t\t<!--begin: Head -->\r\n\t\t<div class=\"kt-user-card kt-user-card--skin-dark kt-notification-item-padding-x\" style=\"background-image: url(./assets/media/misc/bg-1.jpg)\">\r\n\t\t\t<div class=\"kt-user-card__avatar\">\r\n\t\t\t\t<img alt=\"Pic\" style=\"width: 30px;height: 30px;\"[attr.src]=\"user$.image_profile\"/>\r\n\t\t\t\t<span [hidden]=\"true\" class=\"kt-badge kt-badge--lg kt-badge--rounded kt-badge--bold kt-font-success\">{{user$ .username|firstLetter}}</span>\r\n\t\t\t</div>\r\n\t\t\t<div class=\"kt-user-card__name\">\r\n\t\t\t\t{{user$.username}}\r\n\t\t\t</div>\r\n\r\n\t\t</div>\r\n\t\t<!--end: Head -->\r\n\r\n\t\t<!--begin: Navigation -->\r\n\t\t<div class=\"kt-notification\">\r\n\t\t\t<a class=\"kt-notification__item\">\r\n\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t<i class=\"flaticon2-calendar-3 kt-font-success\"></i>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t<div class=\"kt-notification__item-title kt-font-bold\">\r\n\t\t\t\t\t\tAccount settings and more\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class=\"kt-notification__item-time align-middle\" *ngFor=\"let account of account \">\r\n\t\t\t\t\t\t\t<a *ngIf=\"!(user$['current_club_login']==account.key)\" href=\"javascript:;\" class=\"kt-grid-nav__item btn btn-label-secondary\" (click)=\"switchAccount(account.key,account.name)\">\r\n\t\t\t\t\t\t\t\t\t<span class=\"kt-grid-nav__desc\"></span>\r\n\t\t\t\t\t\t\t\t\t<img *ngIf=\"account.image_profile\" style=\"width: 25px;height: 25px;\"  alt=\"Pic\" [attr.src]=\"account.image_profile\">\r\n\t\t\t\t\t\t\t\t\t<span *ngIf=\"!account.image_profile\"class=\"kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold\">{{account.name|firstLetter}}</span>\r\n\t\t\t\t\t\t\t\t\t<span class=\"kt-grid-nav__desc\"></span>\r\n\t\t\t\t\t\t\t\t\t<span colo>{{account.name}}</span>\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t<a  *ngIf=\"(user$['current_club_login']==account.key)\" href=\"javascript:;\" class=\"kt-grid-nav__item btn btn-label-success\" [ngClass]=\"{'isDisabled':(user$['current_club_login']==account.key)}\" (click)=\"switchAccount(account.key,account.name)\">\r\n\t\t\t\t\t\t\t\t\t<span class=\"kt-grid-nav__desc\"></span>\r\n\t\t\t\t\t\t\t\t\t<img *ngIf=\"account.image_profile\" style=\"width: 25px;height: 25px;\" alt=\"Pic\" [attr.src]=\"account.image_profile\">\r\n\t\t\t\t\t\t\t\t\t<span *ngIf=\"!account.image_profile\"class=\"kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold\">{{account.name|firstLetter}}</span>\r\n\t\t\t\t\t\t\t\t\t<span class=\"kt-grid-nav__desc\"></span>\r\n\t\t\t\t\t\t\t\t\t<span colo>{{account.name}}</span>\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</a>\r\n\t\t\r\n\t\t\t<a  (click)=\"saveUserInSubject('account')\" href=\"javascript:;\" class=\"kt-notification__item\">\r\n\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t<i class=\"flaticon-profile-1 kt-font-brand\"></i>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t<div class=\"kt-notification__item-title kt-font-bold\">\r\n\t\t\t\t\tMy Pofile\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</a>\r\n\r\n\t\t\t<a *ngIf=\"checkedpermission('getclubinfo')\"(click)=\"saveUserInSubject('club')\"  href=\"javascript:;\" class=\"kt-notification__item\">\r\n\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t<i class=\"flaticon2-hourglass kt-font-brand\"></i>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t<div class=\"kt-notification__item-title kt-font-bold\">\r\n\t\t\t\t     Club Information\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</a>\r\n\r\n\t\t\t<div class=\"kt-notification__custom\">\r\n\t\t\t\t<a href=\"javascript:;\" (click)=\"logout()\" class=\"btn btn-outline-brand btn-upper btn-sm btn-bold\">Sign Out</a>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t<!--end: Navigation -->\r\n\r\n\t\t<!--begin: Navigation(alternative) -->\r\n\t\t<ul class=\"kt-nav kt-margin-b-10 kt-hidden\">\r\n\t\t\t<li class=\"kt-nav__item\">\r\n\t\t\t\t<a routerLink=\"profile\" class=\"kt-nav__link\">\r\n\t\t\t\t\t<span class=\"kt-nav__link-icon\"><i class=\"flaticon2-calendar-3\"></i></span>\r\n\t\t\t\t\t<span class=\"kt-nav__link-text\">My Profile</span>\r\n\t\t\t\t</a>\r\n\t\t\t</li>\r\n\t\r\n\t\t\t<li class=\"kt-nav__item kt-nav__item--custom kt-margin-t-15\">\r\n\t\t\t\t<a (click)=\"logout()\" class=\"btn btn-outline-brand btn-upper btn-sm btn-bold\">Sign Out</a>\r\n\t\t\t</li>\r\n\t\t</ul>\r\n\t\t<!--end: Navigation(alternative) -->\r\n\t</div>\r\n</div>\r\n"
+module.exports = "<div ngbDropdown placement=\"bottom-right\" *ngIf=\"user$ \" class=\"kt-header__topbar-item kt-header__topbar-item--user\">\r\n\t<div ngbDropdownToggle class=\"kt-header__topbar-wrapper\">\r\n\t\t<div class=\"kt-header__topbar-user\">\r\n\t\t\t<span class=\"kt-header__topbar-welcome kt-hidden-mobile\">Hi,</span>\r\n\t\t\t<span class=\"kt-header__topbar-username kt-hidden-mobile\" *ngIf=\"club\">{{club}}/{{user$.username}}</span> \r\n\t\t\t<span class=\"kt-header__topbar-username kt-hidden-mobile\" *ngIf=\"!club\">{{user$.username}}</span>\r\n\t\t\t<img *ngIf=\"user$.image_profile\" alt=\"Pic\" style=\"width: 27px;height: 27px;\"[attr.src]=\"user$.image_profile\"/>\r\n\t\t\t<span *ngIf=\"!user$.image_profile\"  class=\"kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold\">{{user$ .username|firstLetter}}</span>\r\n\t\t</div>\r\n\t</div>\r\n\t<div ngbDropdownMenu class=\"dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround dropdown-menu-xl\">\r\n\t\t<!--begin: Head -->\r\n\t\t<div class=\"kt-user-card kt-user-card--skin-dark kt-notification-item-padding-x\" style=\"background-image: url(./assets/media/misc/bg-1.jpg)\">\r\n\t\t\t<div class=\"kt-user-card__avatar\">\r\n\t\t\t\t<img alt=\"Pic\" style=\"width: 30px;height: 30px;\"[attr.src]=\"user$.image_profile\"/>\r\n\t\t\t\t<span [hidden]=\"true\" class=\"kt-badge kt-badge--lg kt-badge--rounded kt-badge--bold kt-font-success\">{{user$ .username|firstLetter}}</span>\r\n\t\t\t</div>\r\n\t\t\t<div class=\"kt-user-card__name\">\r\n\t\t\t\t{{user$.username}}\r\n\t\t\t</div>\r\n\r\n\t\t</div>\r\n\t\t<!--end: Head -->\r\n\r\n\t\t<!--begin: Navigation -->\r\n\t\t<div class=\"kt-notification\">\r\n\t\t\t<a class=\"kt-notification__item\">\r\n\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t<i class=\"flaticon2-calendar-3 kt-font-success\"></i>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t<div class=\"kt-notification__item-title kt-font-bold\">\r\n\t\t\t\t\t\tAccount settings and more\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class=\"kt-notification__item-time align-middle\" *ngFor=\"let account of account \">\r\n\t\t\t\t\t\t\t<a *ngIf=\"!(user$['current_club_login']==account.key)\" href=\"javascript:;\" class=\"kt-grid-nav__item btn btn-label-secondary\" (click)=\"switchAccount(account.key,account.name)\">\r\n\t\t\t\t\t\t\t\t\t<span class=\"kt-grid-nav__desc\"></span>\r\n\t\t\t\t\t\t\t\t\t<img *ngIf=\"account.image_profile\" style=\"width: 25px;height: 25px;\"  alt=\"Pic\" [attr.src]=\"account.image_profile\">\r\n\t\t\t\t\t\t\t\t\t<span *ngIf=\"!account.image_profile\"class=\"kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold\">{{account.name|firstLetter}}</span>\r\n\t\t\t\t\t\t\t\t\t<span class=\"kt-grid-nav__desc\"></span>\r\n\t\t\t\t\t\t\t\t\t<span colo>{{account.name}}</span>\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t<a  *ngIf=\"(user$['current_club_login']==account.key)\" href=\"javascript:;\" class=\"kt-grid-nav__item btn btn-label-success\" [ngClass]=\"{'isDisabled':(user$['current_club_login']==account.key)}\" (click)=\"switchAccount(account.key,account.name)\">\r\n\t\t\t\t\t\t\t\t\t<span class=\"kt-grid-nav__desc\"></span>\r\n\t\t\t\t\t\t\t\t\t<img *ngIf=\"account.image_profile\" style=\"width: 25px;height: 25px;\" alt=\"Pic\" [attr.src]=\"account.image_profile\">\r\n\t\t\t\t\t\t\t\t\t<span *ngIf=\"!account.image_profile\"class=\"kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold\">{{account.name|firstLetter}}</span>\r\n\t\t\t\t\t\t\t\t\t<span class=\"kt-grid-nav__desc\"></span>\r\n\t\t\t\t\t\t\t\t\t<span colo>{{account.name}}</span>\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</a>\r\n\t\t\r\n\t\t\t<a  (click)=\"saveUserInSubject('account')\" href=\"javascript:;\" class=\"kt-notification__item\">\r\n\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t<i class=\"flaticon-profile-1 kt-font-brand\"></i>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t<div class=\"kt-notification__item-title kt-font-bold\">\r\n\t\t\t\t\tMy Pofile\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</a>\r\n\r\n\t\t<!--\t<a *ngIf=\"checkedpermission('getclubinfo')\"(click)=\"saveUserInSubject('club')\"  href=\"javascript:;\" class=\"kt-notification__item\">\r\n\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t<i class=\"flaticon2-hourglass kt-font-brand\"></i>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t<div class=\"kt-notification__item-title kt-font-bold\">\r\n\t\t\t\t     Club Information\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</a> -->\r\n\r\n\t\t\t<div class=\"kt-notification__custom\">\r\n\t\t\t\t<a href=\"javascript:;\" (click)=\"logout()\" class=\"btn btn-outline-brand btn-upper btn-sm btn-bold\">Sign Out</a>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t<!--end: Navigation -->\r\n\r\n\t\t<!--begin: Navigation(alternative) -->\r\n\t\t<ul class=\"kt-nav kt-margin-b-10 kt-hidden\">\r\n\t\t\t<li class=\"kt-nav__item\">\r\n\t\t\t\t<a routerLink=\"profile\" class=\"kt-nav__link\">\r\n\t\t\t\t\t<span class=\"kt-nav__link-icon\"><i class=\"flaticon2-calendar-3\"></i></span>\r\n\t\t\t\t\t<span class=\"kt-nav__link-text\">My Profile</span>\r\n\t\t\t\t</a>\r\n\t\t\t</li>\r\n\t\r\n\t\t\t<li class=\"kt-nav__item kt-nav__item--custom kt-margin-t-15\">\r\n\t\t\t\t<a (click)=\"logout()\" class=\"btn btn-outline-brand btn-upper btn-sm btn-bold\">Sign Out</a>\r\n\t\t\t</li>\r\n\t\t</ul>\r\n\t\t<!--end: Navigation(alternative) -->\r\n\t</div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -16293,7 +16310,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-// Angular
 var core_1 = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 var operators_1 = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 // NGRX
@@ -16332,6 +16348,7 @@ var UserProfileComponent = /** @class */ (function () {
         Object.keys(this.user$['account']).forEach(function (element) {
             var account = {};
             account['key'] = element;
+            _this.club = _this.user$['account'][element]['name'];
             _this.user$['account'][element]['image_profile'] = _this.user$['baseurl'].toString().trim() + _this.user$['account'][element]['image_profile'];
             Object.assign(account, _this.user$['account'][element]);
             _this.account.push(account);
@@ -16369,7 +16386,7 @@ var UserProfileComponent = /** @class */ (function () {
                     location.reload();
                     // this.route.navigateByUrl('', {skipLocationChange: true}).then(()=>
                     //   this.route.navigate([
-                    // 	  this.route.url
+                    //    this.route.url
                     //   ])); 
                     //this.router.navigateByUrl('default')
                 }

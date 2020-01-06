@@ -42,7 +42,28 @@ var PageConfig = /** @class */ (function () {
                 }
                 // <= Page name and description
             },
-            'workouts': {
+            'packages': {
+                page: {
+                    title: 'Packages',
+                    desc: 'packages'
+                }
+                // <= Page name and description
+            },
+            'activities': {
+                page: {
+                    title: 'Activities',
+                    desc: 'activities'
+                }
+                // <= Page name and description
+            },
+            'clubtree': {
+                page: {
+                    title: 'Club Tree',
+                    desc: 'Club Tree'
+                }
+                // <= Page name and description
+            },
+            workouts: {
                 page: { title: 'Workouts', desc: 'Workouts' }
             },
             forms: {
@@ -51,13 +72,14 @@ var PageConfig = /** @class */ (function () {
             mail: {
                 page: { title: 'Mail', desc: 'Mail' }
             },
-            'user-management': {
-                users: {
-                    page: { title: 'Users', desc: '' }
-                },
-                roles: {
-                    page: { title: 'Roles', desc: '' }
-                }
+            users: {
+                page: { title: 'Staff Members', desc: '' }
+            },
+            invitations: {
+                page: { title: 'Invitations', desc: '' }
+            },
+            'roles': {
+                page: { title: 'Privildges', desc: '' }
             },
             header: {
                 actions: {
@@ -1288,7 +1310,7 @@ exports.HeaderComponent = HeaderComponent;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- BEGIN: Horizontal Menu -->\r\n<button class=\"kt-header-menu-wrapper-close\" id=\"kt_header_menu_mobile_close_btn\"><i class=\"la la-close\"></i></button>\r\n<div ktOffcanvas [options]=\"offcanvasOptions\" class=\"kt-header-menu-wrapper\" id=\"kt_header_menu_wrapper\">\r\n\t<div ktMenu [options]=\"menuOptions\" id=\"kt_header_menu\" class=\"kt-header-menu kt-header-menu-mobile\" [ngClass]=\"htmlClassService.getClasses('header_menu', true)\">\r\n\t\t<ul class=\"kt-menu__nav\" [ngClass]=\"htmlClassService.getClasses('header_menu_nav', true)\">\r\n\t\t\t<!-- *ngFor=\"let item of menuHorService.menuList$ | async\" -->\r\n\t\t\t<ng-container >\r\n\t\t\t\t<ng-container >\r\n\t\t\t\t\t<h4 class=\"kt-subheader__title\" *ngIf=\"club\"> {{club}} / {{user$}} </h4>\r\n\t\t\t\t   <h4 class=\"kt-subheader__title\" *ngIf=\"!club\"> {{user$}} / {{user$}} </h4>\r\n\t\t\t\t</ng-container>\r\n\t\t\t</ng-container>\r\n\t\t</ul>\r\n\t</div>\r\n</div>\r\n<!-- END: Horizontal Menu -->\r\n\r\n\r\n"
+module.exports = "<!-- BEGIN: Horizontal Menu\r\n<button class=\"kt-header-menu-wrapper-close\" id=\"kt_header_menu_mobile_close_btn\"><i class=\"la la-close\"></i></button>\r\n<div ktOffcanvas [options]=\"offcanvasOptions\" class=\"kt-header-menu-wrapper\" id=\"kt_header_menu_wrapper\">\r\n\t<div ktMenu [options]=\"menuOptions\" id=\"kt_header_menu\" class=\"kt-header-menu kt-header-menu-mobile\" [ngClass]=\"htmlClassService.getClasses('header_menu', true)\">\r\n\t\t<ul class=\"kt-menu__nav\" [ngClass]=\"htmlClassService.getClasses('header_menu_nav', true)\">\r\n\t\t\t*ngFor=\"let item of menuHorService.menuList$ | async\" \r\n\t\t\t<ng-container >\r\n\t\t\t\t<ng-container >\r\n\t\t\t\t\t<h4 class=\"kt-subheader__title\" *ngIf=\"club\"> {{club}} / {{user$}} </h4>\r\n\t\t\t\t   <h4 class=\"kt-subheader__title\" *ngIf=\"!club\"> {{user$}} / {{user$}} </h4>\r\n\t\t\t\t</ng-container>\r\n\t\t\t</ng-container>\r\n\t\t</ul>\r\n\t</div>\r\n</div> -->\r\n<!-- END: Horizontal Menu -->\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -1551,7 +1573,7 @@ exports.MenuHorizontalComponent = MenuHorizontalComponent;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- begin:: Header Topbar -->\r\n<div class=\"kt-header__topbar\">\r\n\t<!--begin: Search -->\r\n\t<!-- <kt-search-dropdown [icon]=\"'./assets/media/icons/svg/General/Search.svg'\" [useSVG]=\"true\"></kt-search-dropdown> -->\r\n\t<!--end: Search -->\r\n\t<!--begin: Notifications -->\r\n\t<kt-notification [bgImage]=\"'./assets/media/misc/bg-1.jpg'\" [pulse]=\"true\" [skin]=\"'dark'\" [icon]=\"'./assets/media/icons/svg/Code/Compiling.svg'\" [useSVG]=\"true\"></kt-notification>\r\n\t<!--end: Notifications -->\r\n\t<!--begin: Quick actions -->\r\n\t<!-- <kt-quick-action [bgImage]=\"'./assets/media/misc/bg-2.jpg'\" [skin]=\"'dark'\" [icon]=\"'./assets/media/icons/svg/Media/Equalizer.svg'\" [useSVG]=\"true\"></kt-quick-action> -->\r\n\t<!--end: Quick actions -->\r\n\t<!--begin: My Cart -->\r\n\t<!-- <kt-cart [bgImage]=\"'./assets/media/misc/bg-1.jpg'\" [icon]=\"'./assets/media/icons/svg/Shopping/Cart%233.svg'\" [useSVG]=\"true\"></kt-cart> -->\r\n\t<!--end: My Cart -->\r\n\t<!--begin: Quick panel toggler -->\r\n\t<!-- <div class=\"kt-header__topbar-item kt-header__topbar-item--quick-panel\" data-placement=\"bottom\" ngbTooltip=\"Quick panel\">\r\n\t\t<span class=\"kt-header__topbar-icon\" id=\"kt_quick_panel_toggler_btn\">\r\n\t\t\t<span class=\"kt-svg-icon\" [inlineSVG]=\"'./assets/media/icons/svg/Layout/Layout-4-blocks.svg'\"></span>\r\n\t\t</span>\r\n\t</div> -->\r\n\t<!--end: Quick panel toggler -->\r\n\t<!--begin: Language bar -->\r\n\t<!-- <kt-language-selector></kt-language-selector> -->\r\n\t<!--end: Language bar -->\r\n\t<!--begin: User bar -->\r\n\t<kt-user-profile></kt-user-profile>\r\n\t<!--end: User bar -->\r\n</div>\r\n<!-- end:: Header Topbar -->\r\n"
+module.exports = "<!-- begin:: Header Topbar -->\r\n<div class=\"kt-header__topbar\">\r\n\t<!--begin: Search -->\r\n\t<!-- <kt-search-dropdown [icon]=\"'./assets/media/icons/svg/General/Search.svg'\" [useSVG]=\"true\"></kt-search-dropdown> -->\r\n\t<!--end: Search -->\r\n\t<!--begin: Notifications -->\r\n\t<kt-notification [bgImage]=\"'./assets/media/misc/bg-1.jpg'\" [pulse]=\"true\" [skin]=\"'dark'\" [icon]=\"'./assets/media/icons/svg/Code/Compiling.svg'\" [useSVG]=\"true\"></kt-notification>\r\n\t<!--end: Notifications -->\r\n\t<!--begin: Quick actions -->\r\n\t<!-- <kt-quick-action [bgImage]=\"'./assets/media/misc/bg-2.jpg'\" [skin]=\"'dark'\" [icon]=\"'./assets/media/icons/svg/Media/Equalizer.svg'\" [useSVG]=\"true\"></kt-quick-action> -->\r\n\t<!--end: Quick actions -->\r\n\t<!--begin: My Cart -->\r\n\t<!-- <kt-cart [bgImage]=\"'./assets/media/misc/bg-1.jpg'\" [icon]=\"'./assets/media/icons/svg/Shopping/Cart%233.svg'\" [useSVG]=\"true\"></kt-cart> -->\r\n\t<!--end: My Cart -->\r\n\t<!--begin: Quick panel toggler\r\n\t<div class=\"kt-header__topbar-item kt-header__topbar-item--quick-panel\" data-placement=\"bottom\" ngbTooltip=\"Quick panel\">\r\n\t\t<span class=\"kt-header__topbar-icon\" id=\"kt_quick_panel_toggler_btn\">\r\n\t\t\t<span class=\"kt-svg-icon\" [inlineSVG]=\"'./assets/media/icons/svg/Layout/Layout-4-blocks.svg'\"></span>\r\n\t\t</span>\r\n\t</div>  -->\r\n\t<!--end: Quick panel toggler -->\r\n\t<!--begin: Language bar -->\r\n\t <kt-language-selector></kt-language-selector> \r\n\t<!--end: Language bar -->\r\n\t<!--begin: User bar -->\r\n\t<kt-user-profile></kt-user-profile>\r\n\t<!--end: User bar -->\r\n</div>\r\n<!-- end:: Header Topbar -->\r\n"
 
 /***/ }),
 
