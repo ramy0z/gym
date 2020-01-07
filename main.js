@@ -7136,60 +7136,70 @@ var MenuConfig = /** @class */ (function () {
                 ]
             },
             aside: {
-                self: {},
+                //	self: {},
                 items: [
+                    {
+                        title: 'Dashboard',
+                        icon: 'flaticon2-architecture-and-city',
+                        root: true,
+                        page: 'dashboard',
+                        translate: 'MENU.DASHBOARD',
+                    },
                     { section: 'ADMINSTRATION' },
                     {
                         title: 'Club Details',
-                        icon: 'flaticon2-user-outline-symbol',
-                        page: "user-management/users/" + this.pub_key + "/edit/" + this.pub_key
+                        icon: 'flaticon-customer',
+                        root: true,
+                        page: "user-management/users/" + this.pub_key + "/edit/" + this.pub_key,
                     },
                     {
                         title: 'Club Tree',
-                        icon: 'flaticon2-user-outline-symbol',
+                        icon: 'flaticon-map',
+                        root: true,
                         page: 'user-management/clubtree'
                     },
                     {
                         title: 'User Management',
-                        bullet: 'dot',
                         root: true,
+                        //	bullet: 'dot',
                         icon: 'flaticon2-list-2',
                         submenu: [
                             {
                                 title: 'Invitations',
-                                page: 'user-management/invitations'
+                                page: 'user-management/invitations',
+                                icon: 'flaticon-mail'
                             },
                             {
                                 title: 'Staff Members',
-                                page: 'user-management/users'
+                                page: 'user-management/users',
+                                icon: 'flaticon-users'
+                            },
+                            {
+                                title: 'Privildges',
+                                page: 'user-management/roles',
+                                icon: 'flaticon2-protection'
                             },
                         ]
                     },
                     {
-                        title: 'Privildges',
-                        page: 'user-management/roles',
-                        icon: 'flaticon2-soft-icons-1'
-                    },
-                    {
                         title: 'Advanced Settings',
                         page: 'user-settings',
-                        icon: 'flaticon2-user-outline-symbol',
+                        icon: 'flaticon-user-settings',
                     },
                     {
-                        title: 'Billing',
+                        title: 'Subscription',
                         icon: 'flaticon-coins',
                         page: 'billing',
                     },
                     { section: 'Membership' },
                     {
-                        title: 'Packages',
-                        icon: 'flaticon2-digital-marketing',
-                        page: 'membership/packages',
-                        translate: 'PACKAGES.PACKAGE'
+                        title: 'memberships',
+                        icon: 'flaticon-clipboard',
+                        page: 'membership/Memberships',
                     },
                     {
                         title: 'Activities',
-                        icon: 'flaticon2-digital-marketing',
+                        icon: 'flaticon-list-3',
                         page: 'membership/activities'
                     },
                     {
@@ -7197,27 +7207,22 @@ var MenuConfig = /** @class */ (function () {
                         icon: 'flaticon-presentation-1',
                         page: 'workouts',
                     },
-                    { section: 'Reports' },
+                    { section: 'Members' },
                     {
                         title: 'Members',
-                        root: true,
                         icon: 'flaticon2-user',
                         page: 'members',
                     },
+                    { section: 'Reports' },
                     {
-                        title: 'Geo report',
-                        root: true,
+                        title: 'Geo Member',
                         icon: 'flaticon-earth-globe',
                         page: 'reports/geoMember',
-                        translate: 'PACKAGES.PACKAGE'
                     },
                     {
-                        title: 'Dashboard',
-                        root: true,
-                        icon: 'flaticon2-architecture-and-city',
-                        page: 'dashboard',
-                        translate: 'MENU.DASHBOARD',
-                        bullet: 'dot',
+                        title: 'Total Payment',
+                        icon: 'flaticon-price-tag',
+                        page: 'reports/memberReports',
                     },
                 ]
             },
@@ -7243,7 +7248,7 @@ var MenuConfig = /** @class */ (function () {
                 if (Object.keys(permission).length > 0) {
                     if (permission['Users Mangement'] && permission['Roles']) {
                         if (Object.keys(permission['Users Mangement']).length == 0 && Object.keys(permission['Roles']).length == 0) {
-                            this.filtersumenu('aside', 'User Management', 'Roles');
+                            this.filtersumenu('aside', 'User Management', 'Privildges');
                             this.filtersumenu('aside', 'User Management', 'Invitations');
                             this.FilterMenu('aside', 'User Management');
                             this.FilterMenu('aside', 'Advanced Settings');
@@ -7274,12 +7279,12 @@ var MenuConfig = /** @class */ (function () {
                                 }
                             }
                             if (Object.keys(permission['Roles']).length == 0) {
-                                this.filtersumenu('aside', 'User Management', 'Roles');
+                                this.filtersumenu('aside', 'User Management', 'Privildges');
                             }
                         }
                     }
                     if (!permission['Membership'] || Object.keys(permission['Membership']).length == 0) {
-                        this.FilterMenu('aside', 'Packages');
+                        this.FilterMenu('aside', 'Memberships');
                     }
                     if (!permission['Activities'] || Object.keys(permission['Activities']).length == 0) {
                         this.FilterMenu('aside', 'Activities');
@@ -7292,11 +7297,11 @@ var MenuConfig = /** @class */ (function () {
                             this.FilterMenu('aside', 'Workouts');
                     }
                     if (!permission['Billing'] || Object.keys(permission['Billing']).length == 0) {
-                        this.FilterMenu('aside', 'Billing');
+                        this.FilterMenu('aside', 'Subscription');
                     }
                     if (permission['Billing'] && Object.keys(permission['Billing']).length > 0) {
                         if (!permission['Billing']['Get Billing'])
-                            this.FilterMenu('aside', 'Billing');
+                            this.FilterMenu('aside', 'Subscription');
                     }
                 }
                 else {
@@ -7544,7 +7549,7 @@ exports.locale = {
         },
         ECOMMERCE: {
             COMMON: {
-                SELECTED_RECORDS_COUNT: 'Selected records count: ',
+                SELECTED_ROWS: 'Selected Rows:',
                 ALL: 'All',
                 SUSPENDED: 'Suspended',
                 ACTIVE: 'Active',
@@ -7639,7 +7644,7 @@ var PublicMethods = /** @class */ (function () {
         if (start_date === void 0) { start_date = null; }
         if (end_date === void 0) { end_date = null; }
         var _timeStamp = Date.now(), _signature = md5_1.Md5.hashStr((md5_1.Md5.hashStr("gyminAppwsds548_$%#@" + _timeStamp + "@#!$$#@#$844%^^&(SDF%*%)")).toString()), _url = "https://mygymin.herokuapp.com/api/v1/" + module + "/" + service + "/" + account_key + "?timestamp=" + _timeStamp + "&signature=" + _signature;
-        //_url = `http://192.168.1.2:3000/api/v1/${module}/${service}/${account_key}?timestamp=${_timeStamp}&signature=${_signature}`
+        //_url = `http://192.168.1.5:3000/api/v1/${module}/${service}/${account_key}?timestamp=${_timeStamp}&signature=${_signature}`
         if (localStorage.getItem('user')) {
             var parent_keys = (JSON.parse(localStorage.getItem('user')))['pub_key'];
             var public_keys = (JSON.parse(localStorage.getItem('user')))['pub_key'];
@@ -7693,13 +7698,13 @@ var PublicMethods = /** @class */ (function () {
         if (prepage === void 0) { prepage = 30; }
         if (search === void 0) { search = null; }
         var _timeStamp = Date.now(), _signature = md5_1.Md5.hashStr((md5_1.Md5.hashStr("gyminAppwsds548_$%#@" + _timeStamp + "@#!$$#@#$844%^^&(SDF%*%)")).toString()), 
-        //_url = `http://192.168.1.2:3000/api/v1/${module}/${service}/${account_key}?timestamp=${_timeStamp}&signature=${_signature}`
+        //_url = `http://192.168.1.5:3000/api/v1/${module}/${service}/${account_key}?timestamp=${_timeStamp}&signature=${_signature}`
         _url = "https://mygymin.herokuapp.com/api/v1/" + module + "/" + service + "/" + account_key + "?timestamp=" + _timeStamp + "&signature=" + _signature;
         return _url;
     };
     PublicMethods.createURL_Invitation = function (parent_key, email, timestamp, signature, all, user_type) {
         return "https://mygymin.herokuapp.com/api/v1/customers/emailinvitationlink/" + parent_key + "/" + email + "/" + timestamp + "/" + signature + "/" + user_type + "/" + all;
-        //return `http://192.168.1.2:3000/api/v1/customers/emailinvitationlink/${parent_key}/${email}/${timestamp}/${signature}/${user_type}/${all}`;
+        //return `http://192.168.1.5:3000/api/v1/customers/emailinvitationlink/${parent_key}/${email}/${timestamp}/${signature}/${user_type}/${all}`;
     };
     PublicMethods.createHeaders = function () {
         var httpHeaders = new http_1.HttpHeaders();
@@ -15309,7 +15314,7 @@ exports.SplashScreenComponent = SplashScreenComponent;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"kt-subheader kt-grid__item\" [hidden]=\"subheaderService.disabled$ | async\" id=\"kt_subheader\">\r\n\t<!-- <div class=\"kt-container\"> -->\r\n\t\t<div class=\"kt-subheader__main kt-portlet__head--lg\">\r\n\t\t\t<h3 *ngIf=\"title\" class=\"kt-subheader__title\">{{title}}</h3>\r\n\t\t\t<h4 *ngIf=\"desc\" class=\"kt-subheader__desc\">{{desc}}</h4>\r\n\t\t\t<div class=\"kt-subheader__breadcrumbs\" *ngIf=\"breadcrumbs.length > 0\">\r\n\t\t\t\t<span class=\"kt-subheader__separator\" [hidden]=\"true\"></span>\r\n\t\t\t\t<a class=\"kt-subheader__breadcrumbs-home\"><i class=\"flaticon2-shelter\"></i></a>\r\n\t\t\t\t<ng-container *ngFor=\"let item of breadcrumbs\">\r\n\t\t\t\t\t<span class=\"kt-subheader__breadcrumbs-separator\"></span>\r\n\t\t\t\t\t<a [routerLink]=\"item.page\" [queryParams]=\"item.queryParams\" class=\"kt-subheader__breadcrumbs-link\">\r\n\t\t\t\t\t\t{{item.title}}\r\n\t\t\t\t\t</a>\r\n\t\t\t\t</ng-container>\r\n\t\t\t\t<!-- <span class=\"kt-subheader__breadcrumbs-link kt-subheader__breadcrumbs-link--active\">Active link</span> -->\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t<!-- <div class=\"kt-subheader__toolbar\">\r\n\t\t\t<div class=\"kt-subheader__wrapper\">\r\n\t\t\t\t<a href=\"javascript:;\" class=\"btn kt-subheader__btn-secondary\">Today</a>-->\r\n\t\t\t\t<!--<a href=\"javascript:;\" class=\"btn kt-subheader__btn-secondary\">Month</a>-->\r\n\t\t\t\t<!--<a href=\"javascript:;\" class=\"btn kt-subheader__btn-secondary\">Year</a>\r\n\t\t\t\t<button  class=\"btn  btn-primary\">\r\n\t\t\t\t\tActions &nbsp;\r\n\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24px\" height=\"24px\" viewBox=\"0 0 24 24\" version=\"1.1\" class=\"kt-svg-icon kt-svg-icon--sm\" style=\"color:white\">\r\n\t\t\t\t\t\t<g stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\">\r\n\t\t\t\t\t\t\t<rect id=\"bound\" x=\"0\" y=\"0\" width=\"24\" height=\"24\"></rect>\r\n\t\t\t\t\t\t\t<rect id=\"Rectangle-8\" fill=\"#000000\" x=\"4\" y=\"5\" width=\"16\" height=\"3\" rx=\"1.5\"></rect>\r\n\t\t\t\t\t\t\t<path d=\"M7.5,11 L16.5,11 C17.3284271,11 18,11.6715729 18,12.5 C18,13.3284271 17.3284271,14 16.5,14 L7.5,14 C6.67157288,14 6,13.3284271 6,12.5 C6,11.6715729 6.67157288,11 7.5,11 Z M10.5,17 L13.5,17 C14.3284271,17 15,17.6715729 15,18.5 C15,19.3284271 14.3284271,20 13.5,20 L10.5,20 C9.67157288,20 9,19.3284271 9,18.5 C9,17.6715729 9.67157288,17 10.5,17 Z\" id=\"Combined-Shape\" fill=\"#000000\" opacity=\"0.3\"></path>\r\n\t\t\t\t\t\t</g>\r\n\t\t\t\t\t</svg>\r\n\t\t\t\t</button>\r\n\t\t\t</div>\r\n\t\t</div> -->\r\n\t<!-- </div> -->\r\n</div>\r\n"
+module.exports = "<div class=\"kt-subheader kt-grid__item\" [hidden]=\"subheaderService.disabled$ | async\" id=\"kt_subheader\">\r\n\t<!-- <div class=\"kt-container\"> -->\r\n\t\t<div class=\"kt-subheader__main kt-portlet__head--lg\">\r\n\t\t\t<h3 *ngIf=\"title\" class=\"kt-subheader__title\">{{title}}</h3>\r\n\t\t<!--\t<h4 *ngIf=\"desc\" class=\"kt-subheader__desc\">{{desc}}</h4> -->\r\n\t\t\t<div class=\"kt-subheader__breadcrumbs\" *ngIf=\"breadcrumbs.length > 0\">\r\n\t\t\t\t<span class=\"kt-subheader__separator\" [hidden]=\"true\"></span>\r\n\t\t\t\t<a class=\"kt-subheader__breadcrumbs-home\"><i class=\"flaticon2-shelter\"></i></a>\r\n\t\t\t\t<ng-container *ngFor=\"let item of breadcrumbs\">\r\n\t\t\t\t\t<span class=\"kt-subheader__breadcrumbs-separator\"></span>\r\n\t\t\t\t\t<a [routerLink]=\"item.page\" [queryParams]=\"item.queryParams\" class=\"kt-subheader__breadcrumbs-link\">\r\n\t\t\t\t\t\t{{item.title}}\r\n\t\t\t\t\t</a>\r\n\t\t\t\t</ng-container> \r\n\t\t\t\t<!-- <span class=\"kt-subheader__breadcrumbs-link kt-subheader__breadcrumbs-link--active\">Active link</span> -->\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t<!-- <div class=\"kt-subheader__toolbar\">\r\n\t\t\t<div class=\"kt-subheader__wrapper\">\r\n\t\t\t\t<a href=\"javascript:;\" class=\"btn kt-subheader__btn-secondary\">Today</a>-->\r\n\t\t\t\t<!--<a href=\"javascript:;\" class=\"btn kt-subheader__btn-secondary\">Month</a>-->\r\n\t\t\t\t<!--<a href=\"javascript:;\" class=\"btn kt-subheader__btn-secondary\">Year</a>\r\n\t\t\t\t<button  class=\"btn  btn-primary\">\r\n\t\t\t\t\tActions &nbsp;\r\n\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24px\" height=\"24px\" viewBox=\"0 0 24 24\" version=\"1.1\" class=\"kt-svg-icon kt-svg-icon--sm\" style=\"color:white\">\r\n\t\t\t\t\t\t<g stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\">\r\n\t\t\t\t\t\t\t<rect id=\"bound\" x=\"0\" y=\"0\" width=\"24\" height=\"24\"></rect>\r\n\t\t\t\t\t\t\t<rect id=\"Rectangle-8\" fill=\"#000000\" x=\"4\" y=\"5\" width=\"16\" height=\"3\" rx=\"1.5\"></rect>\r\n\t\t\t\t\t\t\t<path d=\"M7.5,11 L16.5,11 C17.3284271,11 18,11.6715729 18,12.5 C18,13.3284271 17.3284271,14 16.5,14 L7.5,14 C6.67157288,14 6,13.3284271 6,12.5 C6,11.6715729 6.67157288,11 7.5,11 Z M10.5,17 L13.5,17 C14.3284271,17 15,17.6715729 15,18.5 C15,19.3284271 14.3284271,20 13.5,20 L10.5,20 C9.67157288,20 9,19.3284271 9,18.5 C9,17.6715729 9.67157288,17 10.5,17 Z\" id=\"Combined-Shape\" fill=\"#000000\" opacity=\"0.3\"></path>\r\n\t\t\t\t\t\t</g>\r\n\t\t\t\t\t</svg>\r\n\t\t\t\t</button>\r\n\t\t\t</div>\r\n\t\t</div> -->\r\n\t<!-- </div> -->\r\n</div>\r\n"
 
 /***/ }),
 
@@ -16276,7 +16281,7 @@ exports.NotificationComponent = NotificationComponent;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div ngbDropdown placement=\"bottom-right\" *ngIf=\"user$ \" class=\"kt-header__topbar-item kt-header__topbar-item--user\">\r\n\t<div ngbDropdownToggle class=\"kt-header__topbar-wrapper\">\r\n\t\t<div class=\"kt-header__topbar-user\">\r\n\t\t\t<span class=\"kt-header__topbar-welcome kt-hidden-mobile\">Hi,</span>\r\n\t\t\t<span class=\"kt-header__topbar-username kt-hidden-mobile\" *ngIf=\"club\">{{club}}/{{user$.username}}</span> \r\n\t\t\t<span class=\"kt-header__topbar-username kt-hidden-mobile\" *ngIf=\"!club\">{{user$.username}}</span>\r\n\t\t\t<img *ngIf=\"user$.image_profile\" alt=\"Pic\" style=\"width: 27px;height: 27px;\"[attr.src]=\"user$.image_profile\"/>\r\n\t\t\t<span *ngIf=\"!user$.image_profile\"  class=\"kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold\">{{user$ .username|firstLetter}}</span>\r\n\t\t</div>\r\n\t</div>\r\n\t<div ngbDropdownMenu class=\"dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround dropdown-menu-xl\">\r\n\t\t<!--begin: Head -->\r\n\t\t<div class=\"kt-user-card kt-user-card--skin-dark kt-notification-item-padding-x\" style=\"background-image: url(./assets/media/misc/bg-1.jpg)\">\r\n\t\t\t<div class=\"kt-user-card__avatar\">\r\n\t\t\t\t<img alt=\"Pic\" style=\"width: 30px;height: 30px;\"[attr.src]=\"user$.image_profile\"/>\r\n\t\t\t\t<span [hidden]=\"true\" class=\"kt-badge kt-badge--lg kt-badge--rounded kt-badge--bold kt-font-success\">{{user$ .username|firstLetter}}</span>\r\n\t\t\t</div>\r\n\t\t\t<div class=\"kt-user-card__name\">\r\n\t\t\t\t{{user$.username}}\r\n\t\t\t</div>\r\n\r\n\t\t</div>\r\n\t\t<!--end: Head -->\r\n\r\n\t\t<!--begin: Navigation -->\r\n\t\t<div class=\"kt-notification\">\r\n\t\t\t<a class=\"kt-notification__item\">\r\n\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t<i class=\"flaticon2-calendar-3 kt-font-success\"></i>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t<div class=\"kt-notification__item-title kt-font-bold\">\r\n\t\t\t\t\t\tAccount settings and more\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class=\"kt-notification__item-time align-middle\" *ngFor=\"let account of account \">\r\n\t\t\t\t\t\t\t<a *ngIf=\"!(user$['current_club_login']==account.key)\" href=\"javascript:;\" class=\"kt-grid-nav__item btn btn-label-secondary\" (click)=\"switchAccount(account.key,account.name)\">\r\n\t\t\t\t\t\t\t\t\t<span class=\"kt-grid-nav__desc\"></span>\r\n\t\t\t\t\t\t\t\t\t<img *ngIf=\"account.image_profile\" style=\"width: 25px;height: 25px;\"  alt=\"Pic\" [attr.src]=\"account.image_profile\">\r\n\t\t\t\t\t\t\t\t\t<span *ngIf=\"!account.image_profile\"class=\"kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold\">{{account.name|firstLetter}}</span>\r\n\t\t\t\t\t\t\t\t\t<span class=\"kt-grid-nav__desc\"></span>\r\n\t\t\t\t\t\t\t\t\t<span colo>{{account.name}}</span>\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t<a  *ngIf=\"(user$['current_club_login']==account.key)\" href=\"javascript:;\" class=\"kt-grid-nav__item btn btn-label-success\" [ngClass]=\"{'isDisabled':(user$['current_club_login']==account.key)}\" (click)=\"switchAccount(account.key,account.name)\">\r\n\t\t\t\t\t\t\t\t\t<span class=\"kt-grid-nav__desc\"></span>\r\n\t\t\t\t\t\t\t\t\t<img *ngIf=\"account.image_profile\" style=\"width: 25px;height: 25px;\" alt=\"Pic\" [attr.src]=\"account.image_profile\">\r\n\t\t\t\t\t\t\t\t\t<span *ngIf=\"!account.image_profile\"class=\"kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold\">{{account.name|firstLetter}}</span>\r\n\t\t\t\t\t\t\t\t\t<span class=\"kt-grid-nav__desc\"></span>\r\n\t\t\t\t\t\t\t\t\t<span colo>{{account.name}}</span>\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</a>\r\n\t\t\r\n\t\t\t<a  (click)=\"saveUserInSubject('account')\" href=\"javascript:;\" class=\"kt-notification__item\">\r\n\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t<i class=\"flaticon-profile-1 kt-font-brand\"></i>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t<div class=\"kt-notification__item-title kt-font-bold\">\r\n\t\t\t\t\tMy Pofile\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</a>\r\n\r\n\t\t<!--\t<a *ngIf=\"checkedpermission('getclubinfo')\"(click)=\"saveUserInSubject('club')\"  href=\"javascript:;\" class=\"kt-notification__item\">\r\n\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t<i class=\"flaticon2-hourglass kt-font-brand\"></i>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t<div class=\"kt-notification__item-title kt-font-bold\">\r\n\t\t\t\t     Club Information\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</a> -->\r\n\r\n\t\t\t<div class=\"kt-notification__custom\">\r\n\t\t\t\t<a href=\"javascript:;\" (click)=\"logout()\" class=\"btn btn-outline-brand btn-upper btn-sm btn-bold\">Sign Out</a>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t<!--end: Navigation -->\r\n\r\n\t\t<!--begin: Navigation(alternative) -->\r\n\t\t<ul class=\"kt-nav kt-margin-b-10 kt-hidden\">\r\n\t\t\t<li class=\"kt-nav__item\">\r\n\t\t\t\t<a routerLink=\"profile\" class=\"kt-nav__link\">\r\n\t\t\t\t\t<span class=\"kt-nav__link-icon\"><i class=\"flaticon2-calendar-3\"></i></span>\r\n\t\t\t\t\t<span class=\"kt-nav__link-text\">My Profile</span>\r\n\t\t\t\t</a>\r\n\t\t\t</li>\r\n\t\r\n\t\t\t<li class=\"kt-nav__item kt-nav__item--custom kt-margin-t-15\">\r\n\t\t\t\t<a (click)=\"logout()\" class=\"btn btn-outline-brand btn-upper btn-sm btn-bold\">Sign Out</a>\r\n\t\t\t</li>\r\n\t\t</ul>\r\n\t\t<!--end: Navigation(alternative) -->\r\n\t</div>\r\n</div>\r\n"
+module.exports = "<div ngbDropdown placement=\"bottom-right\" *ngIf=\"user$ \" class=\"kt-header__topbar-item kt-header__topbar-item--user\">\r\n\t<div ngbDropdownToggle class=\"kt-header__topbar-wrapper\">\r\n\t\t<div class=\"kt-header__topbar-user\">\r\n\t\t\t<img *ngIf=\"user$.image_profile\" alt=\"Pic\" style=\"width: 27px;height: 27px; margin: 5px;\"[attr.src]=\"user$.image_profile\"/>\r\n\t\t\t<span *ngIf=\"!user$.image_profile\"  class=\"kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold\">{{user$ .username|firstLetter}}</span>\r\n\t\t\t<span class=\"kt-header__topbar-welcome kt-hidden-mobile\">Hi,</span>\r\n\t\t\t<span class=\"kt-header__topbar-username kt-hidden-mobile\" *ngIf=\"club\">{{club}}/{{user$.username}}</span> \r\n\t\t\t<span class=\"kt-header__topbar-username kt-hidden-mobile\" *ngIf=\"!club\">{{user$.username}}</span>\r\n\t\t\t\r\n\t\t</div>\r\n\t</div>\r\n\t<div ngbDropdownMenu class=\"dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround dropdown-menu-xl\">\r\n\t\t<!--begin: Head -->\r\n\t\t<div class=\"kt-user-card kt-user-card--skin-dark kt-notification-item-padding-x\" style=\"background-image: url(./assets/media/misc/bg-1.jpg)\">\r\n\t\t\t<div class=\"kt-user-card__avatar\">\r\n\t\t\t\t<img alt=\"Pic\" style=\"width: 30px;height: 30px;\"[attr.src]=\"user$.image_profile\"/>\r\n\t\t\t\t<span [hidden]=\"true\" class=\"kt-badge kt-badge--lg kt-badge--rounded kt-badge--bold kt-font-success\">{{user$ .username|firstLetter}}</span>\r\n\t\t\t</div>\r\n\t\t\t<div class=\"kt-user-card__name\">\r\n\t\t\t\t{{user$.username}}\r\n\t\t\t</div>\r\n\r\n\t\t</div>\r\n\t\t<!--end: Head -->\r\n\r\n\t\t<!--begin: Navigation -->\r\n\t\t<div class=\"kt-notification\">\r\n\t\t\t<a class=\"kt-notification__item\">\r\n\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t<i class=\"flaticon2-calendar-3 kt-font-success\"></i>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t<div class=\"kt-notification__item-title kt-font-bold\">\r\n\t\t\t\t\t\tAccount settings and more\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class=\"kt-notification__item-time align-middle\" *ngFor=\"let account of account \">\r\n\t\t\t\t\t\t\t<a *ngIf=\"!(user$['current_club_login']==account.key)\" href=\"javascript:;\" class=\"kt-grid-nav__item btn btn-label-secondary\" (click)=\"switchAccount(account.key,account.name)\">\r\n\t\t\t\t\t\t\t\t\t<span class=\"kt-grid-nav__desc\"></span>\r\n\t\t\t\t\t\t\t\t\t<img *ngIf=\"account.image_profile\" style=\"width: 25px;height: 25px;\"  alt=\"Pic\" [attr.src]=\"account.image_profile\">\r\n\t\t\t\t\t\t\t\t\t<span *ngIf=\"!account.image_profile\"class=\"kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold\">{{account.name|firstLetter}}</span>\r\n\t\t\t\t\t\t\t\t\t<span class=\"kt-grid-nav__desc\"></span>\r\n\t\t\t\t\t\t\t\t\t<span colo>{{account.name}}</span>\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t<a  *ngIf=\"(user$['current_club_login']==account.key)\" href=\"javascript:;\" class=\"kt-grid-nav__item btn btn-label-success\" [ngClass]=\"{'isDisabled':(user$['current_club_login']==account.key)}\" (click)=\"switchAccount(account.key,account.name)\">\r\n\t\t\t\t\t\t\t\t\t<span class=\"kt-grid-nav__desc\"></span>\r\n\t\t\t\t\t\t\t\t\t<img *ngIf=\"account.image_profile\" style=\"width: 25px;height: 25px;\" alt=\"Pic\" [attr.src]=\"account.image_profile\">\r\n\t\t\t\t\t\t\t\t\t<span *ngIf=\"!account.image_profile\"class=\"kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold\">{{account.name|firstLetter}}</span>\r\n\t\t\t\t\t\t\t\t\t<span class=\"kt-grid-nav__desc\"></span>\r\n\t\t\t\t\t\t\t\t\t<span colo>{{account.name}}</span>\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</a>\r\n\t\t\r\n\t\t\t<a  (click)=\"saveUserInSubject('account')\" href=\"javascript:;\" class=\"kt-notification__item\">\r\n\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t<i class=\"flaticon-profile-1 kt-font-brand\"></i>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t<div class=\"kt-notification__item-title kt-font-bold\">\r\n\t\t\t\t\tMy Pofile\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</a>\r\n\r\n\t\t<!--\t<a *ngIf=\"checkedpermission('getclubinfo')\"(click)=\"saveUserInSubject('club')\"  href=\"javascript:;\" class=\"kt-notification__item\">\r\n\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t<i class=\"flaticon2-hourglass kt-font-brand\"></i>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t<div class=\"kt-notification__item-title kt-font-bold\">\r\n\t\t\t\t     Club Information\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</a> -->\r\n\r\n\t\t\t<div class=\"kt-notification__custom\">\r\n\t\t\t\t<a href=\"javascript:;\" (click)=\"logout()\" class=\"btn btn-outline-brand btn-upper btn-sm btn-bold\">Sign Out</a>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t<!--end: Navigation -->\r\n\r\n\t\t<!--begin: Navigation(alternative) -->\r\n\t\t<ul class=\"kt-nav kt-margin-b-10 kt-hidden\">\r\n\t\t\t<li class=\"kt-nav__item\">\r\n\t\t\t\t<a routerLink=\"profile\" class=\"kt-nav__link\">\r\n\t\t\t\t\t<span class=\"kt-nav__link-icon\"><i class=\"flaticon2-calendar-3\"></i></span>\r\n\t\t\t\t\t<span class=\"kt-nav__link-text\">My Profile</span>\r\n\t\t\t\t</a>\r\n\t\t\t</li>\r\n\t\r\n\t\t\t<li class=\"kt-nav__item kt-nav__item--custom kt-margin-t-15\">\r\n\t\t\t\t<a (click)=\"logout()\" class=\"btn btn-outline-brand btn-upper btn-sm btn-bold\">Sign Out</a>\r\n\t\t\t</li>\r\n\t\t</ul>\r\n\t\t<!--end: Navigation(alternative) -->\r\n\t</div>\r\n</div>\r\n"
 
 /***/ }),
 

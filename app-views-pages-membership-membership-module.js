@@ -560,7 +560,6 @@ var ActivityComponent = /** @class */ (function () {
      * @param store: Store<AppState>
      * @param router: Router
      * @param layoutUtilsService: LayoutUtilsService
-     * @param subheaderService: SubheaderService
      */
     function ActivityComponent(activatedRoute, store, router, layoutUtilsService, dialog, snackBar, ser, changeDetectorRefs) {
         this.activatedRoute = activatedRoute;
@@ -901,13 +900,13 @@ var routes = [
                 data: { title: 'packages' },
             },
             {
-                path: 'packages',
+                path: 'Memberships',
                 component: packages_component_1.PackagesComponent,
                 data: { title: 'packages' },
                 canActivate: [permission_guard_1.PermissionGuard]
             },
             {
-                path: 'package',
+                path: 'Membership',
                 component: packages_component_1.PackagesComponent,
                 data: { title: 'packages' },
                 canActivate: [permission_guard_1.PermissionGuard]
@@ -1500,7 +1499,6 @@ var PackagesComponent = /** @class */ (function () {
      * @param store: Store<AppState>
      * @param router: Router
      * @param layoutUtilsService: LayoutUtilsService
-     * @param subheaderService: SubheaderService
      */
     function PackagesComponent(activatedRoute, store, router, layoutUtilsService, dialog, ser, snackBar, changeDetectorRefs) {
         this.activatedRoute = activatedRoute;

@@ -12,74 +12,94 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var PageConfig = /** @class */ (function () {
     function PageConfig() {
+        var _a, _b;
+        this.pub_key = JSON.parse(localStorage.getItem('user'))['current_club_login'];
+        this.club_Details = "users/" + this.pub_key + "/edit/" + this.pub_key;
         this.defaults = {
             'dashboard': {
                 page: {
-                    'title': 'Dashboard',
-                    'desc': 'Latest updates and statistic charts'
+                    title: ' ',
+                    desc: ''
                 }
+            },
+            "user-management": {
+                clubtree: {
+                    page: {
+                        title: 'Adminstration',
+                        desc: ''
+                    }
+                },
+                users: (_a = {
+                        page: { title: 'Adminstration', desc: '' }
+                    },
+                    _a[this.pub_key] = {
+                        edit: (_b = {},
+                            _b[this.pub_key] = {
+                                page: {
+                                    title: 'Adminstration',
+                                    desc: ''
+                                }
+                            },
+                            _b)
+                    },
+                    _a),
+                invitations: {
+                    page: { title: 'Adminstration', desc: '' }
+                },
+                roles: {
+                    page: { title: 'Adminstration', desc: '' }
+                },
+            },
+            'user-settings': {
+                page: {
+                    title: 'Adminstration',
+                    desc: 'Club Tree'
+                }
+            },
+            'billing': {
+                page: {
+                    'title': 'Adminstration',
+                    'desc': ''
+                }
+                // <= Page name and description
             },
             'reports': {
                 geoMember: {
-                    page: { title: 'Geo Member statistic', desc: 'Reports' }
+                    page: { title: 'Report', desc: '' }
                     // <= Page name and description
                 },
                 memberReports: {
-                    page: { title: 'Payment statistic', desc: 'Reports' }
+                    page: { title: 'Report', desc: '' }
                     // <= Page name and description
                 },
             },
             'members': {
                 list: {
                     page: { title: 'Members', desc: 'Members' },
-                    'desc': 'Latest updates and statistic charts'
                 } // <= Page name and description
             },
-            'billing': {
-                page: {
-                    'title': 'Billing',
-                    'desc': 'Enter date to show your invoice'
-                }
-                // <= Page name and description
-            },
-            'packages': {
-                page: {
-                    title: 'Packages',
-                    desc: 'packages'
-                }
-                // <= Page name and description
-            },
-            'activities': {
-                page: {
-                    title: 'Activities',
-                    desc: 'activities'
-                }
-                // <= Page name and description
-            },
-            'clubtree': {
-                page: {
-                    title: 'Club Tree',
-                    desc: 'Club Tree'
-                }
-                // <= Page name and description
+            "membership": {
+                'Memberships': {
+                    page: {
+                        title: 'Membership', desc: ''
+                    }
+                    // <= Page name and description
+                },
+                'activities': {
+                    page: {
+                        title: 'Membership', desc: 'activities'
+                    }
+                    // <= Page name and description
+                },
             },
             workouts: {
-                page: { title: 'Workouts', desc: 'Workouts' }
+                page: { title: 'Membership', desc: 'Workouts' }
             },
             forms: {
                 page: { title: 'Forms', desc: '' }
             },
             mail: {
                 page: { title: 'Mail', desc: 'Mail' }
-            },
-            users: {
-                page: { title: 'Staff Members', desc: '' }
-            },
-            invitations: {
-                page: { title: 'Invitations', desc: '' }
-            },
-            'roles': {
-                page: { title: 'Privildges', desc: '' }
             },
             header: {
                 actions: {
