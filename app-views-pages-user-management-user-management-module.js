@@ -1183,25 +1183,30 @@ var InvitationsEditDialogComponent = /** @class */ (function () {
         });
         console.log(invitationKey);
         if (this.checkedpermission('sendinvitations')) {
-            this.ser.sendInvitations({ email: this.invitation.email, user_type: this.invitation.user_type, invitation_key: invitationKey, club_key: this.current_club_login }).subscribe(function (res) {
-                console.log(res);
-                if (res['result']) {
-                    _this.dialogRef.close({});
-                    if (_this.router.url == '/default/user-management/invitations')
-                        _this.router.navigateByUrl("/default/user-management/invitation");
-                    else
-                        _this.router.navigateByUrl("/default/user-management/invitations");
-                    setTimeout(function () {
-                        _this.layoutUtilsService.showActionNotification(res['data'], crud_1.MessageType.Update);
-                    }, 1000);
-                }
-                else {
-                    _this.loadingAfterSubmit = false;
-                    _this.viewLoading = false;
-                    _this.hasFormErrors = true;
-                    _this.errormessage = res['data'];
-                }
-            });
+            if (this.invitation.email && this.invitation.user_type && invitationKey.length > 0 && this.current_club_login) {
+                this.ser.sendInvitations({ email: this.invitation.email, user_type: this.invitation.user_type, invitation_key: invitationKey, club_key: this.current_club_login }).subscribe(function (res) {
+                    console.log(res);
+                    if (res['result']) {
+                        _this.dialogRef.close({});
+                        if (_this.router.url == '/default/user-management/invitations')
+                            _this.router.navigateByUrl("/default/user-management/invitation");
+                        else
+                            _this.router.navigateByUrl("/default/user-management/invitations");
+                        setTimeout(function () {
+                            _this.layoutUtilsService.showActionNotification(res['data'], crud_1.MessageType.Update);
+                        }, 1000);
+                    }
+                    else {
+                        _this.loadingAfterSubmit = false;
+                        _this.viewLoading = false;
+                        _this.hasFormErrors = true;
+                        _this.errormessage = res['data'];
+                    }
+                });
+            }
+            else {
+                this.hasFormErrors = true;
+            }
         }
         else {
             this.checked = true;
@@ -1351,7 +1356,7 @@ exports.Invitation = Invitation;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<kt-portlet>\r\n\t<!-- PORTLET LOADING | Binded to TABLE Datasource -->\r\n\t<!-- See prop => '~/core/_crud/models/data-sources/_base.datasource.ts' (loading$) -->\r\n\t<kt-portlet-header [title]=\"\" [class]=\"'kt-portlet__head--lg'\">\r\n\t\t<ng-container ktPortletTools>\r\n\t\t\t<button (click)=\"addInvitations()\" mat-raised-button color=\"primary\" matTooltip=\"Invite new Staff\">Send\r\n\t\t\t\tInvitation </button>\r\n\t\t\t<!-- Buttons (Material Angular) | See off.documenations 'https://material.angular.io/components/button/overview' -->\r\n\t\t\t<!-- mat-raised-button | Rectangular contained button w/ elevation  -->\r\n\t\t</ng-container>\r\n\t</kt-portlet-header>\r\n\t<!-- end::Header -->\r\n\r\n\t<!-- start::Body (attribute: ktPortletBody) -->\r\n\t<div *ngIf=\"isLoading\" class=\"center\" style=\"padding: 150px;\">\r\n\t\t<mat-progress-spinner style=\"margin:0 auto;\" mode=\"indeterminate\" diameter=\"40\">\r\n\t\t</mat-progress-spinner>\r\n\t</div>\r\n\t<kt-portlet-body *ngIf=\"!isLoading\">\r\n\t\t<!-- start::FILTERS & GROUP ACTIONS -->\r\n\t\t<div class=\"kt-form\">\r\n\t\t\t<!-- start::FILTERS -->\r\n\t\t\t<div class=\"kt-form__filtration\">\r\n\t\t\t\t<div class=\"row align-items-center\">\r\n\r\n\t\t\t\t\t<div class=\"col-md-2 kt-margin-bottom-10-mobile\">\r\n\t\t\t\t\t\t<!-- 'm  margin-bottom-10-mobile' for adaptive make-up  -->\r\n\t\t\t\t\t\t<div class=\"kt-form__control\">\r\n\t\t\t\t\t\t\t<mat-form-field class=\"mat-form-field-fluid\">\r\n\t\t\t\t\t\t\t\t<mat-select [(value)]=\"filterStatus\" (selectionChange)=\"applyFilter()\">\r\n\t\t\t\t\t\t\t\t\t<mat-option value=\"\">All</mat-option>\r\n\t\t\t\t\t\t\t\t\t<mat-option value=\"pending\">Pending</mat-option>\r\n\t\t\t\t\t\t\t\t\t<mat-option value=\"approved\">Approved</mat-option>\r\n\t\t\t\t\t\t\t\t\t<mat-option value=\"revoked\">Revoked</mat-option>\r\n\t\t\t\t\t\t\t\t</mat-select>\r\n\t\t\t\t\t\t\t\t<mat-hint align=\"start\">\r\n\t\t\t\t\t\t\t\t\t<strong>Filter</strong> by Status\r\n\t\t\t\t\t\t\t\t</mat-hint>\r\n\t\t\t\t\t\t\t</mat-form-field>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"col-md-2 kt-margin-bottom-10-mobile\">\r\n\t\t\t\t\t\t<div class=\"kt-form__control\">\r\n\t\t\t\t\t\t\t<mat-form-field class=\"mat-form-field-fluid\">\r\n\t\t\t\t\t\t\t\t<mat-select [(value)]=\"filterPlace\" (selectionChange)=\"applyFilter()\">\r\n\t\t\t\t\t\t\t\t\t<mat-option value=\"\">All</mat-option>\r\n\t\t\t\t\t\t\t\t\t<mat-option *ngFor=\"let value of Places\" [value]=\"value.pub_key\">\r\n\t\t\t\t\t\t\t\t\t\t{{value.name}}\r\n\t\t\t\t\t\t\t\t\t</mat-option>\r\n\t\t\t\t\t\t\t\t</mat-select>\r\n\t\t\t\t\t\t\t\t<mat-hint align=\"start\">\r\n\t\t\t\t\t\t\t\t\t<strong>Filter</strong> by Branchs and Units\r\n\t\t\t\t\t\t\t\t</mat-hint>\r\n\t\t\t\t\t\t\t</mat-form-field>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"col-md-2 kt-margin-bottom-10-mobile\">\r\n\r\n\t\t\t\t\t\t<div class=\"kt-form__control\">\r\n\t\t\t\t\t\t\t<mat-form-field class=\"mat-form-field-fluid\">\r\n\t\t\t\t\t\t\t\t<mat-select [(value)]=\"filterInvitedBy\" (selectionChange)=\"applyFilter()\">\r\n\t\t\t\t\t\t\t\t\t<mat-option value=\"\">All</mat-option>\r\n\t\t\t\t\t\t\t\t\t<mat-option *ngFor=\"let value of getallinviteby\" [value]=\"value.pub_key\">\r\n\t\t\t\t\t\t\t\t\t\t{{value.name}}\r\n\t\t\t\t\t\t\t\t\t</mat-option>\r\n\t\t\t\t\t\t\t\t</mat-select>\r\n\t\t\t\t\t\t\t\t<mat-hint align=\"start\">\r\n\t\t\t\t\t\t\t\t\t<strong>Filter</strong> by Admin\r\n\t\t\t\t\t\t\t\t</mat-hint>\r\n\t\t\t\t\t\t\t</mat-form-field>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"col-md-2 kt-margin-bottom-10-mobile\">\r\n\t\t\t\t\t\t<mat-form-field class=\"mat-form-field-fluid\">\r\n\t\t\t\t\t\t\t<input matInput placeholder=\"Search user\" [(ngModel)]=\"SearchKey\"\r\n\t\t\t\t\t\t\t\tplaceholder=\"Search then Press Enter\" (keyup.enter)=\"applyFilter()\">\r\n\t\t\t\t\t\t\t<button mat-button matSuffix mat-icon-button aria-label=\"Clear\" *ngIf=\"SearchKey\"\r\n\t\t\t\t\t\t\t\t(click)=\"onSearchClear()\">\r\n\t\t\t\t\t\t\t\t<mat-icon>close</mat-icon>\r\n\t\t\t\t\t\t\t</button>\r\n\t\t\t\t\t\t\t<mat-hint align=\"start\">\r\n\t\t\t\t\t\t\t\t<strong>Search</strong> in all fields\r\n\t\t\t\t\t\t\t</mat-hint>\r\n\t\t\t\t\t\t</mat-form-field>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<!-- end::FILTERS -->\r\n\r\n\t\t\t<!-- start::GROUP ACTIONS -->\r\n\t\t\t<!-- Group actions list: 'Delete selected' | 'Fetch selected' | 'Update status for selected' -->\r\n\t\t\t<!-- Group actions are shared for all LISTS -->\r\n\t\t\t<div class=\"row align-items-center collapse kt-form__group-actions kt-margin-top-20 kt-margin-bottom-20\"\r\n\t\t\t\t[ngClass]=\"{'show' : selection.selected.length > 0}\">\r\n\t\t\t\t<!-- We show 'Group Actions' div if smth are selected -->\r\n\t\t\t\t<div class=\"col-xl-12\">\r\n\t\t\t\t\t<div class=\"kt-form__group kt-form__group--inline\">\r\n\t\t\t\t\t\t<div class=\"kt-form__label kt-form__label-no-wrap\">\r\n\t\t\t\t\t\t\t<label class=\"kt--font-bold kt-font-danger-\">\r\n\t\t\t\t\t\t\t\t<span translate=\"ECOMMERCE.COMMON.SELECTED_RECORDS_COUNT\"></span>\r\n\t\t\t\t\t\t\t\t{{ selection.selected.length }}\r\n\t\t\t\t\t\t\t</label>\r\n\t\t\t\t\t\t\t<!-- selectedCountsTitle => function from codeBehind (users-list.component.ts file) -->\r\n\t\t\t\t\t\t\t<!-- selectedCountsTitle => just returns title of selected items count -->\r\n\t\t\t\t\t\t\t<!-- for example: Selected records count: 4 -->\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<div class=\"kt-form__control kt-form__group--inline\">\r\n\t\t\t\t\t\t\t<button (click)=\"fetchUsers()\" mat-raised-button matTooltip=\"Fetch selected users\"\r\n\t\t\t\t\t\t\t\tclass=\"mat-button-mt-4\">\r\n\t\t\t\t\t\t\t\t<mat-icon>clear_all</mat-icon>\r\n\t\t\t\t\t\t\t\tFetch Selected\r\n\t\t\t\t\t\t\t</button>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<!-- end::GROUP ACTIONS -->\r\n\t\t</div>\r\n\t\t<!-- end::FILTERS & GROUP ACTIONS -->\r\n\r\n\t\t<!-- MATERIAL TABLE | Binded to datasources -->\r\n\t\t<!-- See off.documentations 'https://material.angular.io/components/table/overview' -->\r\n\r\n\t\t<div class=\"mat-table__wrapper\">\r\n\t\t\t<mat-table class=\"lmat-elevation-z8\" #table [dataSource]=\"dataSource\" matSort #sort1=\"matSort\"\r\n\t\t\t\tmatSortActive=\"id\" matSortDirection=\"asc\" matSortDisableClear>\r\n\t\t\t\t<!-- Checkbox Column -->\r\n\r\n\t\t\t\t<!-- Table with selection -->\r\n\t\t\t\t<!-- https://run.stackblitz.com/api/angular/v1?file=app%2Ftable-selection-example.ts -->\r\n\t\t\t\t<!-- <ng-container matColumnDef=\"select\">\r\n\t\t\t\t\t\t<mat-header-cell *matHeaderCellDef class=\"mat-column-checkbox\">\r\n\t\t\t\t\t\t\t<mat-checkbox (change)=\"$event ? masterToggle() : null\"\r\n\t\t\t\t\t\t\t\t[checked]=\"selection.hasValue() && isAllSelected()\"\r\n\t\t\t\t\t\t\t\t[indeterminate]=\"selection.hasValue() && !isAllSelected()\">\r\n\t\t\t\t\t\t\t</mat-checkbox>\r\n\t\t\t\t\t\t</mat-header-cell>\r\n\t\t\t\t\t\t<mat-cell *matCellDef=\"let row\" class=\"mat-column-checkbox\">\r\n\t\t\t\t\t\t\t<mat-checkbox (click)=\"$event.stopPropagation()\" (change)=\"$event ? selection.toggle(row) : null\" [checked]=\"selection.isSelected(row)\">\r\n\t\t\t\t\t\t\t</mat-checkbox>\r\n\t\t\t\t\t\t</mat-cell>\r\n\t\t\t\t\t</ng-container> -->\r\n\r\n\t\t\t\t<ng-container matColumnDef=\"id\">\r\n\t\t\t\t\t<!-- ATTRIBUTE mat-sort-header  for sorting | https://material.angular.io/components/sort/overview -->\r\n\t\t\t\t\t<mat-header-cell (click)=\"applyFilter('id')\" style=\"max-width:100px\" *matHeaderCellDef\r\n\t\t\t\t\t\tmat-sort-header>#</mat-header-cell>\r\n\t\t\t\t\t<mat-cell *matCellDef=\"let invitation; let i = index\">{{i+1}}</mat-cell>\r\n\t\t\t\t</ng-container>\r\n\r\n\t\t\t\t<ng-container matColumnDef=\"username\">\r\n\t\t\t\t\t<mat-header-cell *matHeaderCellDef (click)=\"applyFilter('email')\" mat-sort-header>Email\r\n\t\t\t\t\t</mat-header-cell>\r\n\t\t\t\t\t<mat-cell *matCellDef=\"let invitation\">{{invitation.to}}</mat-cell>\r\n\t\t\t\t</ng-container>\r\n\r\n\t\t\t\t<ng-container matColumnDef=\"admin\">\r\n\t\t\t\t\t<!-- ATTRIBUTE mat-sort-header  for sorting | https://material.angular.io/components/sort/overview -->\r\n\t\t\t\t\t<mat-header-cell *matHeaderCellDef>Invited By</mat-header-cell>\r\n\t\t\t\t\t<mat-cell *matCellDef=\"let invitation\">{{invitation.author.username}}</mat-cell>\r\n\t\t\t\t</ng-container>\r\n\r\n\t\t\t\t<ng-container matColumnDef=\"createdat\">\r\n\t\t\t\t\t<!-- ATTRIBUTE mat-sort-header  for sorting | https://material.angular.io/components/sort/overview -->\r\n\t\t\t\t\t<mat-header-cell *matHeaderCellDef>Invitation Date</mat-header-cell>\r\n\t\t\t\t\t<mat-cell *matCellDef=\"let invitation\">{{invitation.createdat | date :'M-d-yy h:mm a'}}</mat-cell>\r\n\t\t\t\t</ng-container>\r\n\r\n\t\t\t\t<ng-container matColumnDef=\"status\">\r\n\t\t\t\t\t<mat-header-cell (click)=\"applyFilter('status')\" *matHeaderCellDef mat-sort-header>Status\r\n\t\t\t\t\t</mat-header-cell>\r\n\t\t\t\t\t<mat-cell *matCellDef=\"let invitation\">\r\n\t\t\t\t\t\t<span *ngIf=\"invitation.status=='approved'\"class=\"kt-badge kt-badge--inline kt-badge--pill kt-badge--success kt-badge--wide\">Approved</span>\r\n\t\t\t\t\t\t<span *ngIf=\"invitation.status=='pending'\"class=\"kt-badge kt-badge--inline kt-badge--pill kt-badge--metal kt-badge--wide\">Pending</span>\r\n\t\t\t\t\t\t<span *ngIf=\"invitation.status=='revoked'\"class=\"kt-badge kt-badge--inline kt-badge--pill kt-badge--danger kt-badge--wide\">Revoked</span>\r\n\t\t\t\t\t</mat-cell>\r\n\t\t\t\t</ng-container>\r\n\r\n\t\t\t\t<ng-container matColumnDef=\"joindat\">\r\n\t\t\t\t\t<!-- ATTRIBUTE mat-sort-header  for sorting | https://material.angular.io/components/sort/overview -->\r\n\t\t\t\t\t<mat-header-cell *matHeaderCellDef>Join Date</mat-header-cell>\r\n\t\t\t\t\t<mat-cell *matCellDef=\"let invitation\">{{invitation.joindat | date :'M-d-yy h:mm a'}}</mat-cell>\r\n\t\t\t\t</ng-container>\r\n\r\n\t\t\t\t<ng-container matColumnDef=\"actions\">\r\n\t\t\t\t\t<mat-header-cell *matHeaderCellDef style=\"max-width:100px\">Actions</mat-header-cell>\r\n\t\t\t\t\t<mat-cell *matCellDef=\"let invitation; let rowIndex = index\" style=\"max-width:100px\">\r\n\r\n\t\t\t\t\t\t<button (click)=\"resendinvitation(invitation._id , rowIndex)\" mat-icon-button color=\"primary\"\r\n\t\t\t\t\t\t\t*ngIf=\"invitation.status!='approved' && checkedpermission('sendinvitations')\"\r\n\t\t\t\t\t\t\tmatTooltip=\"Resend invitation\">\r\n\t\t\t\t\t\t\t<mat-progress-spinner *ngIf=\"invitIconNo==1 && rowIndex == currentRowIndex\" style=\"margin:0 auto;\" mode=\"indeterminate\" diameter=\"30\">\r\n\t\t\t\t\t\t\t</mat-progress-spinner>\r\n\t\t\t\t\t\t\t<mat-icon *ngIf=\"invitIconNo==-1 && rowIndex != currentRowIndex\">cached</mat-icon>\r\n\t\t\t\t\t\t</button>&nbsp;\r\n\t\t\t\t\t\t<button mat-icon-button color=\"warn\" matTooltip=\"Revoke Invitation\" type=\"button\"\r\n\t\t\t\t\t\t\t*ngIf=\"invitation.status=='pending' && checkedpermission('sendinvitations')\"\r\n\t\t\t\t\t\t\t(click)=\"revokeinvitation(invitation._id , rowIndex)\">\r\n\t\t\t\t\t\t\t<mat-progress-spinner *ngIf=\"invitIconNo==2 && rowIndex == currentRowIndex\" style=\"margin:0 auto;\" mode=\"indeterminate\" diameter=\"30\">\r\n\t\t\t\t\t\t\t</mat-progress-spinner>\r\n\t\t\t\t\t\t\t<mat-icon *ngIf=\"invitIconNo==-1  && rowIndex != currentRowIndex\">pan_tool</mat-icon>\r\n\t\t\t\t\t\t</button>\r\n\t\t\t\t\t</mat-cell>\r\n\t\t\t\t</ng-container>\r\n\t\t\t\t<ng-container matColumnDef=\"loading\">\r\n\t\t\t\t\t<mat-footer-cell *matFooterCellDef colspan=\"6\">\r\n\t\t\t\t\t\tLoading...\r\n\t\t\t\t\t</mat-footer-cell>\r\n\t\t\t\t</ng-container>\r\n\r\n\t\t\t\t<mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\r\n\r\n\t\t\t\t<mat-row *matRowDef=\"let row; columns: displayedColumns\"></mat-row>\r\n\t\t\t\t<mat-footer-row *matFooterRowDef=\"['loading']\" [ngClass]=\"{'hide':checkedinvitations()}\">\r\n\t\t\t\t</mat-footer-row>\r\n\r\n\t\t\t</mat-table>\r\n\t\t\t<mat-paginator (page)=\"nextPage($event)\" [pageSizeOptions]=\"[5,10,25,100]\" [pageSize]=\"10\"></mat-paginator>\r\n\t\t</div>\r\n\t\t<!-- end: BOTTOM -->\r\n\t</kt-portlet-body>\r\n\t<!-- end::Body -->\r\n</kt-portlet>"
+module.exports = "<kt-portlet>\r\n\t<!-- PORTLET LOADING | Binded to TABLE Datasource -->\r\n\t<!-- See prop => '~/core/_crud/models/data-sources/_base.datasource.ts' (loading$) -->\r\n\t<kt-portlet-header [title]=\"\" [class]=\"'kt-portlet__head--lg'\">\r\n\t\t<ng-container ktPortletTools>\r\n\t\t\t<button (click)=\"addInvitations()\" mat-raised-button color=\"primary\" matTooltip=\"Invite new Staff\">Send\r\n\t\t\t\tInvitation </button>\r\n\t\t\t<!-- Buttons (Material Angular) | See off.documenations 'https://material.angular.io/components/button/overview' -->\r\n\t\t\t<!-- mat-raised-button | Rectangular contained button w/ elevation  -->\r\n\t\t</ng-container>\r\n\t</kt-portlet-header>\r\n\t<!-- end::Header -->\r\n\r\n\t<!-- start::Body (attribute: ktPortletBody) -->\r\n\t<div *ngIf=\"isLoading\" class=\"center\" style=\"padding: 150px;\">\r\n\t\t<mat-progress-spinner style=\"margin:0 auto;\" mode=\"indeterminate\" diameter=\"40\">\r\n\t\t</mat-progress-spinner>\r\n\t</div>\r\n\t<kt-portlet-body *ngIf=\"!isLoading\">\r\n\t\t<!-- start::FILTERS & GROUP ACTIONS -->\r\n\t\t<div class=\"kt-form\">\r\n\t\t\t<!-- start::FILTERS -->\r\n\t\t\t<div class=\"kt-form__filtration\">\r\n\t\t\t\t<div class=\"row align-items-center\">\r\n\r\n\t\t\t\t\t<div class=\"col-md-2 kt-margin-bottom-10-mobile\">\r\n\t\t\t\t\t\t<!-- 'm  margin-bottom-10-mobile' for adaptive make-up  -->\r\n\t\t\t\t\t\t<div class=\"kt-form__control\">\r\n\t\t\t\t\t\t\t<mat-form-field class=\"mat-form-field-fluid\">\r\n\t\t\t\t\t\t\t\t<mat-select [(value)]=\"filterStatus\" (selectionChange)=\"applyFilter()\">\r\n\t\t\t\t\t\t\t\t\t<mat-option value=\"\">All</mat-option>\r\n\t\t\t\t\t\t\t\t\t<mat-option value=\"pending\">Pending</mat-option>\r\n\t\t\t\t\t\t\t\t\t<mat-option value=\"approved\">Approved</mat-option>\r\n\t\t\t\t\t\t\t\t\t<mat-option value=\"revoked\">Revoked</mat-option>\r\n\t\t\t\t\t\t\t\t</mat-select>\r\n\t\t\t\t\t\t\t\t<mat-hint align=\"start\">\r\n\t\t\t\t\t\t\t\t\t<strong>Filter</strong> by Status\r\n\t\t\t\t\t\t\t\t</mat-hint>\r\n\t\t\t\t\t\t\t</mat-form-field>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"col-md-2 kt-margin-bottom-10-mobile\">\r\n\t\t\t\t\t\t<div class=\"kt-form__control\">\r\n\t\t\t\t\t\t\t<mat-form-field class=\"mat-form-field-fluid\">\r\n\t\t\t\t\t\t\t\t<mat-select [(value)]=\"filterPlace\" (selectionChange)=\"applyFilter()\">\r\n\t\t\t\t\t\t\t\t\t<mat-option value=\"\">All</mat-option>\r\n\t\t\t\t\t\t\t\t\t<mat-option *ngFor=\"let value of Places\" [value]=\"value.pub_key\">\r\n\t\t\t\t\t\t\t\t\t\t{{value.name}}\r\n\t\t\t\t\t\t\t\t\t</mat-option>\r\n\t\t\t\t\t\t\t\t</mat-select>\r\n\t\t\t\t\t\t\t\t<mat-hint align=\"start\">\r\n\t\t\t\t\t\t\t\t\t<strong>Filter</strong> by Branchs and Units\r\n\t\t\t\t\t\t\t\t</mat-hint>\r\n\t\t\t\t\t\t\t</mat-form-field>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"col-md-2 kt-margin-bottom-10-mobile\">\r\n\r\n\t\t\t\t\t\t<div class=\"kt-form__control\">\r\n\t\t\t\t\t\t\t<mat-form-field class=\"mat-form-field-fluid\">\r\n\t\t\t\t\t\t\t\t<mat-select [(value)]=\"filterInvitedBy\" (selectionChange)=\"applyFilter()\">\r\n\t\t\t\t\t\t\t\t\t<mat-option value=\"\">All</mat-option>\r\n\t\t\t\t\t\t\t\t\t<mat-option *ngFor=\"let value of getallinviteby\" [value]=\"value.pub_key\">\r\n\t\t\t\t\t\t\t\t\t\t{{value.name}}\r\n\t\t\t\t\t\t\t\t\t</mat-option>\r\n\t\t\t\t\t\t\t\t</mat-select>\r\n\t\t\t\t\t\t\t\t<mat-hint align=\"start\">\r\n\t\t\t\t\t\t\t\t\t<strong>Filter</strong> by Admin\r\n\t\t\t\t\t\t\t\t</mat-hint>\r\n\t\t\t\t\t\t\t</mat-form-field>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"col-md-4 kt-margin-bottom-10-mobile\">\r\n\t\t\t\t\t\t<mat-form-field class=\"mat-form-field-fluid\">\r\n\t\t\t\t\t\t\t<input matInput  [(ngModel)]=\"SearchKey\"placeholder=\"Search then Press Enter\" (keyup.enter)=\"applyFilter()\">\r\n\t\t\t\t\t\t\t<button mat-button matSuffix mat-icon-button aria-label=\"Clear\" *ngIf=\"SearchKey\"\r\n\t\t\t\t\t\t\t\t(click)=\"onSearchClear()\">\r\n\t\t\t\t\t\t\t\t<mat-icon>close</mat-icon>\r\n\t\t\t\t\t\t\t</button>\r\n\t\t\t\t\t\t\t<mat-hint align=\"start\">\r\n\t\t\t\t\t\t\t\t<strong>Search</strong> in all fields\r\n\t\t\t\t\t\t\t</mat-hint>\r\n\t\t\t\t\t\t</mat-form-field>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<!-- end::FILTERS -->\r\n\r\n\t\t\t<!-- start::GROUP ACTIONS -->\r\n\t\t\t<!-- Group actions list: 'Delete selected' | 'Fetch selected' | 'Update status for selected' -->\r\n\t\t\t<!-- Group actions are shared for all LISTS -->\r\n\t\t\t<div class=\"row align-items-center collapse kt-form__group-actions kt-margin-top-20 kt-margin-bottom-20\"\r\n\t\t\t\t[ngClass]=\"{'show' : selection.selected.length > 0}\">\r\n\t\t\t\t<!-- We show 'Group Actions' div if smth are selected -->\r\n\t\t\t\t<div class=\"col-xl-12\">\r\n\t\t\t\t\t<div class=\"kt-form__group kt-form__group--inline\">\r\n\t\t\t\t\t\t<div class=\"kt-form__label kt-form__label-no-wrap\">\r\n\t\t\t\t\t\t\t<label class=\"kt--font-bold kt-font-danger-\">\r\n\t\t\t\t\t\t\t\t<span translate=\"ECOMMERCE.COMMON.SELECTED_RECORDS_COUNT\"></span>\r\n\t\t\t\t\t\t\t\t{{ selection.selected.length }}\r\n\t\t\t\t\t\t\t</label>\r\n\t\t\t\t\t\t\t<!-- selectedCountsTitle => function from codeBehind (users-list.component.ts file) -->\r\n\t\t\t\t\t\t\t<!-- selectedCountsTitle => just returns title of selected items count -->\r\n\t\t\t\t\t\t\t<!-- for example: Selected records count: 4 -->\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<div class=\"kt-form__control kt-form__group--inline\">\r\n\t\t\t\t\t\t\t<button (click)=\"fetchUsers()\" mat-raised-button matTooltip=\"Fetch selected users\"\r\n\t\t\t\t\t\t\t\tclass=\"mat-button-mt-4\">\r\n\t\t\t\t\t\t\t\t<mat-icon>clear_all</mat-icon>\r\n\t\t\t\t\t\t\t\tFetch Selected\r\n\t\t\t\t\t\t\t</button>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<!-- end::GROUP ACTIONS -->\r\n\t\t</div>\r\n\t\t<!-- end::FILTERS & GROUP ACTIONS -->\r\n\r\n\t\t<!-- MATERIAL TABLE | Binded to datasources -->\r\n\t\t<!-- See off.documentations 'https://material.angular.io/components/table/overview' -->\r\n\r\n\t\t<div class=\"mat-table__wrapper\">\r\n\t\t\t<mat-table class=\"lmat-elevation-z8\" #table [dataSource]=\"dataSource\" matSort #sort1=\"matSort\"\r\n\t\t\t\tmatSortActive=\"id\" matSortDirection=\"asc\" matSortDisableClear>\r\n\t\t\t\t<!-- Checkbox Column -->\r\n\r\n\t\t\t\t<!-- Table with selection -->\r\n\t\t\t\t<!-- https://run.stackblitz.com/api/angular/v1?file=app%2Ftable-selection-example.ts -->\r\n\t\t\t\t<!-- <ng-container matColumnDef=\"select\">\r\n\t\t\t\t\t\t<mat-header-cell *matHeaderCellDef class=\"mat-column-checkbox\">\r\n\t\t\t\t\t\t\t<mat-checkbox (change)=\"$event ? masterToggle() : null\"\r\n\t\t\t\t\t\t\t\t[checked]=\"selection.hasValue() && isAllSelected()\"\r\n\t\t\t\t\t\t\t\t[indeterminate]=\"selection.hasValue() && !isAllSelected()\">\r\n\t\t\t\t\t\t\t</mat-checkbox>\r\n\t\t\t\t\t\t</mat-header-cell>\r\n\t\t\t\t\t\t<mat-cell *matCellDef=\"let row\" class=\"mat-column-checkbox\">\r\n\t\t\t\t\t\t\t<mat-checkbox (click)=\"$event.stopPropagation()\" (change)=\"$event ? selection.toggle(row) : null\" [checked]=\"selection.isSelected(row)\">\r\n\t\t\t\t\t\t\t</mat-checkbox>\r\n\t\t\t\t\t\t</mat-cell>\r\n\t\t\t\t\t</ng-container> -->\r\n\r\n\t\t\t\t<ng-container matColumnDef=\"id\">\r\n\t\t\t\t\t<!-- ATTRIBUTE mat-sort-header  for sorting | https://material.angular.io/components/sort/overview -->\r\n\t\t\t\t\t<mat-header-cell (click)=\"applyFilter('id')\" style=\"max-width:100px\" *matHeaderCellDef\r\n\t\t\t\t\t\tmat-sort-header>#</mat-header-cell>\r\n\t\t\t\t\t<mat-cell *matCellDef=\"let invitation; let i = index\">{{i+1}}</mat-cell>\r\n\t\t\t\t</ng-container>\r\n\r\n\t\t\t\t<ng-container matColumnDef=\"username\">\r\n\t\t\t\t\t<mat-header-cell *matHeaderCellDef (click)=\"applyFilter('email')\" mat-sort-header>Email\r\n\t\t\t\t\t</mat-header-cell>\r\n\t\t\t\t\t<mat-cell *matCellDef=\"let invitation\">{{invitation.to}}</mat-cell>\r\n\t\t\t\t</ng-container>\r\n\r\n\t\t\t\t<ng-container matColumnDef=\"admin\">\r\n\t\t\t\t\t<!-- ATTRIBUTE mat-sort-header  for sorting | https://material.angular.io/components/sort/overview -->\r\n\t\t\t\t\t<mat-header-cell *matHeaderCellDef>Invited By</mat-header-cell>\r\n\t\t\t\t\t<mat-cell *matCellDef=\"let invitation\">{{invitation.author.username}}</mat-cell>\r\n\t\t\t\t</ng-container>\r\n\r\n\t\t\t\t<ng-container matColumnDef=\"createdat\">\r\n\t\t\t\t\t<!-- ATTRIBUTE mat-sort-header  for sorting | https://material.angular.io/components/sort/overview -->\r\n\t\t\t\t\t<mat-header-cell *matHeaderCellDef>Invitation Date</mat-header-cell>\r\n\t\t\t\t\t<mat-cell *matCellDef=\"let invitation\">{{invitation.createdat | date :'M-d-yy h:mm a'}}</mat-cell>\r\n\t\t\t\t</ng-container>\r\n\r\n\t\t\t\t<ng-container matColumnDef=\"status\">\r\n\t\t\t\t\t<mat-header-cell (click)=\"applyFilter('status')\" *matHeaderCellDef mat-sort-header>Status\r\n\t\t\t\t\t</mat-header-cell>\r\n\t\t\t\t\t<mat-cell *matCellDef=\"let invitation\">\r\n\t\t\t\t\t\t<span *ngIf=\"invitation.status=='approved'\"class=\"kt-badge kt-badge--inline kt-badge--pill kt-badge--success kt-badge--wide\">Approved</span>\r\n\t\t\t\t\t\t<span *ngIf=\"invitation.status=='pending'\"class=\"kt-badge kt-badge--inline kt-badge--pill kt-badge--metal kt-badge--wide\">Pending</span>\r\n\t\t\t\t\t\t<span *ngIf=\"invitation.status=='revoked'\"class=\"kt-badge kt-badge--inline kt-badge--pill kt-badge--danger kt-badge--wide\">Revoked</span>\r\n\t\t\t\t\t</mat-cell>\r\n\t\t\t\t</ng-container>\r\n\r\n\t\t\t\t<ng-container matColumnDef=\"joindat\">\r\n\t\t\t\t\t<!-- ATTRIBUTE mat-sort-header  for sorting | https://material.angular.io/components/sort/overview -->\r\n\t\t\t\t\t<mat-header-cell *matHeaderCellDef>Join Date</mat-header-cell>\r\n\t\t\t\t\t<mat-cell *matCellDef=\"let invitation\">\r\n\t\t\t\t\t\t<span *ngIf=\"invitation.joindat\">{{invitation.joindat | date :'M-d-yy h:mm a'}}</span>\r\n\t\t\t\t\t\t<span *ngIf=\"!invitation.joindat\">N/A</span>\r\n\t\t\t\t\t</mat-cell>\r\n\t\t\t\t</ng-container>\r\n\r\n\t\t\t\t<ng-container matColumnDef=\"actions\">\r\n\t\t\t\t\t<mat-header-cell *matHeaderCellDef style=\"max-width:100px\">Actions</mat-header-cell>\r\n\t\t\t\t\t<mat-cell *matCellDef=\"let invitation; let rowIndex = index\" style=\"max-width:100px\">\r\n\r\n\t\t\t\t\t\t<button (click)=\"resendinvitation(invitation._id , rowIndex)\" mat-icon-button color=\"primary\"\r\n\t\t\t\t\t\t\t*ngIf=\"invitation.status!='approved' && checkedpermission('sendinvitations')\"\r\n\t\t\t\t\t\t\tmatTooltip=\"Resend invitation\">\r\n\t\t\t\t\t\t\t<mat-progress-spinner *ngIf=\"invitIconNo==1 && rowIndex == currentRowIndex\" style=\"margin:0 auto;\" mode=\"indeterminate\" diameter=\"30\">\r\n\t\t\t\t\t\t\t</mat-progress-spinner>\r\n\t\t\t\t\t\t\t<mat-icon *ngIf=\"invitIconNo==-1 && rowIndex != currentRowIndex\">cached</mat-icon>\r\n\t\t\t\t\t\t</button>&nbsp;\r\n\t\t\t\t\t\t<button mat-icon-button color=\"warn\" matTooltip=\"Revoke Invitation\" type=\"button\"\r\n\t\t\t\t\t\t\t*ngIf=\"invitation.status=='pending' && checkedpermission('sendinvitations')\"\r\n\t\t\t\t\t\t\t(click)=\"revokeinvitation(invitation._id , rowIndex)\">\r\n\t\t\t\t\t\t\t<mat-progress-spinner *ngIf=\"invitIconNo==2 && rowIndex == currentRowIndex\" style=\"margin:0 auto;\" mode=\"indeterminate\" diameter=\"30\">\r\n\t\t\t\t\t\t\t</mat-progress-spinner>\r\n\t\t\t\t\t\t\t<mat-icon *ngIf=\"invitIconNo==-1  && rowIndex != currentRowIndex\">pan_tool</mat-icon>\r\n\t\t\t\t\t\t</button>\r\n\t\t\t\t\t</mat-cell>\r\n\t\t\t\t</ng-container>\r\n\t\t\t\t<ng-container matColumnDef=\"loading\">\r\n\t\t\t\t\t<mat-footer-cell *matFooterCellDef colspan=\"6\">\r\n\t\t\t\t\t\tLoading...\r\n\t\t\t\t\t</mat-footer-cell>\r\n\t\t\t\t</ng-container>\r\n\r\n\t\t\t\t<mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\r\n\r\n\t\t\t\t<mat-row *matRowDef=\"let row; columns: displayedColumns\"></mat-row>\r\n\t\t\t\t<mat-footer-row *matFooterRowDef=\"['loading']\" [ngClass]=\"{'hide':checkedinvitations()}\">\r\n\t\t\t\t</mat-footer-row>\r\n\r\n\t\t\t</mat-table>\r\n\t\t\t<mat-paginator (page)=\"nextPage($event)\" [pageSizeOptions]=\"[5,10,25,100]\" [pageSize]=\"10\"></mat-paginator>\r\n\t\t</div>\r\n\t\t<!-- end: BOTTOM -->\r\n\t</kt-portlet-body>\r\n\t<!-- end::Body -->\r\n</kt-portlet>"
 
 /***/ }),
 
@@ -1684,7 +1689,7 @@ exports.InvitationComponent = InvitationComponent;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"kt-portlet\" [ngClass]=\"{ 'kt-portlet--body-progress' : viewLoading, 'kt-portlet--body-progress-overlay' : loadingAfterSubmit }\">\r\n    <div class=\"kt-portlet__head kt-portlet__head__custom\" *ngIf=\"role\">\r\n        <div class=\"kt-portlet__head-label\">\r\n            <h3 class=\"kt-portlet__head-title\">{{getTitle()}}</h3>\r\n        </div>\r\n    </div>\r\n    <div *ngIf=\"role\">\r\n        <div class=\"kt-form\">\r\n            <div class=\"kt-portlet__body\">\r\n\r\n                <div class=\"kt-portlet__body-progress\">\r\n                    <mat-spinner [diameter]=\"20\"></mat-spinner>\r\n                </div>\r\n\r\n                <kt-alert *ngIf=\"hasFormErrors\" type=\"warn\" [duration]=\"30000\" [showCloseButton]=\"true\" (close)=\"onAlertClose($event)\">\r\n                    Oh snap! Change a few things up and try submitting again.\r\n                </kt-alert>\r\n\r\n                <div class=\"form-group kt-form__group row d-block\">\r\n                    <div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n                        <mat-form-field class=\"mat-form-field-fluid\">\r\n                            <input matInput\r\n\r\n                                placeholder=\"Enter Title\"\r\n                                [(ngModel)]=\"role.type\" />\r\n                            <mat-error>Title is\r\n                                <strong>required</strong>\r\n                            </mat-error>\r\n                            <mat-hint align=\"start\">Please enter\r\n                                <strong>Title</strong>\r\n                            </mat-hint>\r\n                        </mat-form-field>\r\n                    </div>\r\n                </div>\r\n\r\n                <div class=\"form-group kt-form__group row d-block\" *ngIf=\"!data.isThereDefault || this.data.role.id\">\r\n                    <div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n\r\n                        <mat-checkbox [(ngModel)] = \"role.default\">\r\n                         <label> Defalut </label>\r\n                       </mat-checkbox>\r\n                     </div>\r\n                 </div>\r\n\r\n                <div class=\"kt-separator kt-separator--dashed\"></div>\r\n                <h6 class=\"kt-section__heading\">\r\n                    Permissions:\r\n                </h6>\r\n                <div class=\"form-group kt-form__group row\">\r\n                    <div class=\"col-lg-12 kt-margin-bottom-20-mobile\">\r\n                        <div class=\"kt-timeline-3 mb-5\">\r\n                            <div class=\"kt-timeline-3__items kt-timeline-3__items--rolePermissions\">\r\n                                <div *ngFor=\"let _rootRole of permissionsOfloggedUser\" class=\"kt-timeline-3__inner\">\r\n\r\n                                    <!-- {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}} -->\r\n                                    <!-- <button mat-icon-button>\r\n                                        <mat-icon class=\"mat-icon-rtl-mirror\">expand_more</mat-icon>\r\n                                    </button> -->\r\n                                    <div class=\"kt-timeline-3__item kt-border-bottom-grey kt-py-15 kt-bg-grey\">\r\n                                        <span class=\"kt-timeline-3__item-time\">\r\n                                            <mat-checkbox [(ngModel)]=\"_rootRole.isSelected\"\r\n                                                (change)=\"isSelectedChanged($event, _rootRole)\"\r\n                                            >{{_rootRole.title }}</mat-checkbox>\r\n                                        </span>\r\n                                    </div>\r\n                                    <div class=\"d-flex align-items-center kt-border-bottom-grey kt-py-15 kt-bg-grey\"style=\"flex-wrap:wrap;\">\r\n                                        <div class=\"kt-timeline-3__item kt-timeline-3__item-child\"\r\n                                            *ngFor=\"let _childRole of _rootRole._children\">\r\n                                            <span class=\"kt-timeline-3__item-time\">\r\n                                                <mat-checkbox [(ngModel)]=\"_childRole.isSelected\"\r\n                                                    (change)=\"isSelectedChanged($event, _childRole)\"\r\n                                                    [disabled]=\"role.isCoreRole\">{{ _childRole.key }}</mat-checkbox>\r\n                                            </span>\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            <div class=\"kt-portlet__foot kt-portlet__foot--fit kt-portlet__no-border\">\r\n                <div class=\"kt-form__actions kt-form__actions--solid\">\r\n                    <div class=\"row text-right\">\r\n                        <div class=\"col-lg-12\">\r\n                            <button type=\"button\" mat-raised-button [mat-dialog-close]=\"data.animal\" cdkFocusInitial matTooltip=\"Cancel changes\">\r\n                                Cancel\r\n                            </button>&nbsp;\r\n                            <button type=\"button\"  mat-raised-button color=\"primary\" (click)=\"onSubmit()\" [disabled]=\"viewLoading\" matTooltip=\"Save changes\">\r\n                                Save\r\n                            </button>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n"
+module.exports = "<div class=\"kt-portlet\" [ngClass]=\"{ 'kt-portlet--body-progress' : viewLoading }\">\r\n    <div class=\"kt-portlet__head kt-portlet__head__custom\" *ngIf=\"role\">\r\n        <div class=\"kt-portlet__head-label\">\r\n            <h3 class=\"kt-portlet__head-title\">{{getTitle()}}</h3>\r\n        </div>\r\n    </div>\r\n    <div *ngIf=\"role\">\r\n        <div class=\"kt-form\">\r\n            <div class=\"kt-portlet__body\">\r\n\r\n                <div class=\"kt-portlet__body-progress\" *ngIf=\"viewLoading\">\r\n                    <mat-spinner [diameter]=\"40\"></mat-spinner>\r\n                </div>\r\n\r\n                <kt-alert *ngIf=\"hasFormErrors\" type=\"warn\" [duration]=\"30000\" [showCloseButton]=\"true\" (close)=\"onAlertClose($event)\">\r\n                    No Change Happen ! , Change Then Try Again.\r\n                </kt-alert>\r\n\r\n                <div class=\"form-group kt-form__group row d-block\">\r\n                    <div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n                        <mat-form-field class=\"mat-form-field-fluid\">\r\n                            <input matInput\r\n\r\n                                placeholder=\"Enter Title\"\r\n                                [(ngModel)]=\"role.type\" />\r\n                            <mat-error>Title is\r\n                                <strong>required</strong>\r\n                            </mat-error>\r\n                            <mat-hint align=\"start\">Please enter\r\n                                <strong>Title</strong>\r\n                            </mat-hint>\r\n                        </mat-form-field>\r\n                    </div>\r\n                </div>\r\n\r\n                <div class=\"form-group kt-form__group row d-block\" *ngIf=\"!data.isThereDefault || this.data.role.id\">\r\n                    <div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n\r\n                        <mat-checkbox [(ngModel)] = \"role.default\"> Defalut\r\n                       </mat-checkbox>\r\n                     </div>\r\n                 </div>\r\n\r\n                <div class=\"kt-separator kt-separator--dashed\"></div>\r\n                <h6 class=\"kt-section__heading\">\r\n                    Permissions:\r\n                </h6>\r\n                <div class=\"form-group kt-form__group row\">\r\n                    <div class=\"col-lg-12 kt-margin-bottom-20-mobile\">\r\n                        <div class=\"kt-timeline-3 mb-5\">\r\n                            <div class=\"kt-timeline-3__items kt-timeline-3__items--rolePermissions\">\r\n                                <div *ngFor=\"let _rootRole of permissionsOfloggedUser\" class=\"kt-timeline-3__inner\">\r\n\r\n                                    <!-- {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}} -->\r\n                                    <!-- <button mat-icon-button>\r\n                                        <mat-icon class=\"mat-icon-rtl-mirror\">expand_more</mat-icon>\r\n                                    </button> -->\r\n                                    <div class=\"kt-timeline-3__item kt-border-bottom-grey kt-py-15 kt-bg-grey\">\r\n                                        <span class=\"kt-timeline-3__item-time\">\r\n                                            <mat-checkbox [(ngModel)]=\"_rootRole.isSelected\"\r\n                                                (change)=\"isSelectedChanged($event, _rootRole)\"\r\n                                            >{{_rootRole.title }}</mat-checkbox>\r\n                                        </span>\r\n                                    </div>\r\n                                    <div class=\"d-flex align-items-center kt-border-bottom-grey kt-py-15 kt-bg-grey\"style=\"flex-wrap:wrap;\">\r\n                                        <div class=\"kt-timeline-3__item kt-timeline-3__item-child\"\r\n                                            *ngFor=\"let _childRole of _rootRole._children\">\r\n                                            <span class=\"kt-timeline-3__item-time\">\r\n                                                <mat-checkbox [(ngModel)]=\"_childRole.isSelected\"\r\n                                                    (change)=\"isSelectedChanged($event, _childRole)\"\r\n                                                    [disabled]=\"role.isCoreRole\">{{ _childRole.key }}</mat-checkbox>\r\n                                            </span>\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            <div class=\"kt-portlet__foot kt-portlet__foot--fit kt-portlet__no-border\">\r\n                <div class=\"kt-form__actions kt-form__actions--solid\">\r\n                    <div class=\"row text-right\">\r\n                        <div class=\"col-lg-12\">\r\n                            <button type=\"button\" mat-raised-button [mat-dialog-close]=\"data.animal\" cdkFocusInitial matTooltip=\"Cancel changes\">\r\n                                Cancel\r\n                            </button>&nbsp;\r\n                            <button type=\"button\"  mat-raised-button color=\"primary\" (click)=\"onSubmit()\" [disabled]=\"viewLoading\" matTooltip=\"Save changes\">\r\n                                Save\r\n                            </button>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -1738,7 +1743,6 @@ var RoleEditDialogComponent = /** @class */ (function () {
         this.permission = permission;
         this.hasFormErrors = false;
         this.viewLoading = false;
-        this.loadingAfterSubmit = false;
         this.rolePermissions = [];
     }
     /**
@@ -1829,37 +1833,42 @@ var RoleEditDialogComponent = /** @class */ (function () {
      */
     RoleEditDialogComponent.prototype.onSubmit = function () {
         var _this = this;
-        console.log("this.data", this.data);
-        return;
-        this.hasFormErrors = false;
-        this.loadingAfterSubmit = false;
-        /** check form */
-        if (this.data.role.id) {
-            this.permission.editPrivilagesType(this.data.role.id, this.combinepermisson(), this.data.role.type, this.data.role.default).subscribe(function (res) {
-                if (res['result']) {
-                    _this.dialogRef.close({
-                        isEdit: true
-                    });
-                }
-            });
+        if (this.data.role.type == '' || this.combinepermisson() == '') {
+            this.hasFormErrors = true;
         }
         else {
-            if (this.role['type']) {
-                this.permission.addPriviliages(this.combinepermisson(), this.data.role.type, this.data.role.default).subscribe(function (res) {
+            this.viewLoading = true;
+            this.hasFormErrors = false;
+            /** check form */
+            if (this.data.role.id) {
+                this.permission.editPrivilagesType(this.data.role.id, this.combinepermisson(), this.data.role.type, this.data.role.default).subscribe(function (res) {
                     if (res['result']) {
+                        _this.viewLoading = false;
                         _this.dialogRef.close({
-                            isEdit: false
+                            isEdit: true
                         });
                     }
                 });
             }
+            else {
+                if (this.role['type']) {
+                    this.permission.addPriviliages(this.combinepermisson(), this.data.role.type, this.data.role.default).subscribe(function (res) {
+                        if (res['result']) {
+                            _this.viewLoading = false;
+                            _this.dialogRef.close({
+                                isEdit: false
+                            });
+                        }
+                    });
+                }
+            }
+            // const editedRole = this.prepareRole();
+            // if (editedRole.id > 0) {
+            // 	this.updateRole(editedRole);
+            // } else {
+            // 	this.createRole(editedRole);
+            // }
         }
-        // const editedRole = this.prepareRole();
-        // if (editedRole.id > 0) {
-        // 	this.updateRole(editedRole);
-        // } else {
-        // 	this.createRole(editedRole);
-        // }
     };
     /**
      * Update role
@@ -1868,7 +1877,6 @@ var RoleEditDialogComponent = /** @class */ (function () {
      */
     RoleEditDialogComponent.prototype.updateRole = function (_role) {
         var _this = this;
-        this.loadingAfterSubmit = true;
         this.viewLoading = true;
         /* Server loading imitation. Remove this on real code */
         var updateRole = {
@@ -1894,7 +1902,7 @@ var RoleEditDialogComponent = /** @class */ (function () {
      */
     RoleEditDialogComponent.prototype.createRole = function (_role) {
         var _this = this;
-        this.loadingAfterSubmit = true;
+        this.viewLoading = true;
         this.viewLoading = true;
         this.store.dispatch(new auth_1.RoleOnServerCreated({ role: _role }));
         this.componentSubscriptions = this.store.pipe(operators_1.delay(1000), // Remove this line
@@ -2020,7 +2028,7 @@ exports.RoleEditDialogComponent = RoleEditDialogComponent;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<kt-portlet>\r\n\t<!-- PORTLET LOADING | Binded to TABLE Datasource -->\r\n\t<!-- See prop => '~/core/_crud/models/data-sources/_base.datasource.ts' (loading$) -->\r\n\t<kt-portlet-header [title]=\"\" [class]=\"'kt-portlet__head--lg'\">\r\n\r\n\r\n\t</kt-portlet-header>\r\n\t<!-- end::Header -->\r\n\t<div *ngIf=\"isLoading\" class=\"center\" style=\"padding: 150px;\">\r\n\t\t<mat-progress-spinner style=\"margin:0 auto;\" mode=\"indeterminate\" diameter=\"40\">\r\n\t\t</mat-progress-spinner>\r\n\t</div>\r\n\t<kt-portlet-body *ngIf=\"!isLoading\">\r\n\t\t<!-- start::FILTERS & GROUP ACTIONS -->\r\n\t\t<div class=\"kt-form\">\r\n\t\t\t<!-- start::FILTERS -->\r\n\t\t\t<div class=\"kt-form__filtration\">\r\n\t\t\t\t<div class=\"row align-items-center\">\r\n\t\t\t\t\t<div class=\"col-md-3 kt-margin-bottom-20-mobile\">\r\n\t\t\t\t\t\t<mat-form-field class=\"mat-form-field-fluid\">\r\n\t\t\t\t\t\t\t<input matInput placeholder=\"Search role\" #searchInput [(ngModel)]=\"SearchKey\"\r\n\t\t\t\t\t\t\t\tplaceholder=\"Search then Press Enter\" (keyup.enter)=\"applyFilter()\">\r\n\t\t\t\t\t\t\t<button mat-button matSuffix mat-icon-button aria-label=\"Clear\" *ngIf=\"SearchKey\"\r\n\t\t\t\t\t\t\t\t(click)=\"onSearchClear()\">\r\n\t\t\t\t\t\t\t\t<mat-icon>close</mat-icon>\r\n\t\t\t\t\t\t\t</button>\r\n\t\t\t\t\t\t\t<mat-hint align=\"start\">\r\n\t\t\t\t\t\t\t\t<strong>Search</strong> in all fields\r\n\t\t\t\t\t\t\t</mat-hint>\r\n\t\t\t\t\t\t</mat-form-field>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class=\"col-md-7 kt-margin-bottom-20-mobile\">\r\n\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class='col-md-2 kt-margin-bottom-20-mobile row text-right'>\r\n\r\n\t\t\t\t\t<button *ngIf=\"checkedpermission('add')\" mat-raised-button color=\"primary\"\r\n\t\t\t\t\t\tmatTooltip=\"Create new role\" type=\"button\" (click)=\"addRole()\">\r\n\t\t\t\t\t\t<span>New Role</span>\r\n\t\t\t\t\t</button>\r\n\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\r\n\t\t<!-- end::FILTERS -->\r\n\r\n\t\t<!-- start::GROUP ACTIONS -->\r\n\t\t<!-- Group actions list: 'Delete selected' | 'Fetch selected' | 'Update status for selected' -->\r\n\t\t<!-- Group actions are shared for all LISTS -->\r\n\t\t<div class=\"row align-items-center collapse kt-form__group-actions kt-margin-top-20 kt-margin-bottom-20\"\r\n\t\t\t[ngClass]=\"{'show' : selection.selected.length > 0}\">\r\n\t\t\t<!-- We show 'Group Actions' div if smth are selected -->\r\n\t\t\t<div class=\"col-xl-12\">\r\n\t\t\t\t<div class=\"kt-form__group kt-form__group--inline\">\r\n\t\t\t\t\t<div class=\"kt-form__label kt-form__label-no-wrap\">\r\n\t\t\t\t\t\t<label class=\"kt--font-bold kt-font-danger-\">\r\n\t\t\t\t\t\t\t<span translate=\"ECOMMERCE.COMMON.SELECTED_RECORDS_COUNT\"></span>\r\n\t\t\t\t\t\t\t{{ selection.selected.length }}\r\n\t\t\t\t\t\t</label>\r\n\t\t\t\t\t\t<!-- selectedCountsTitle => function from codeBehind (users-list.component.ts file) -->\r\n\t\t\t\t\t\t<!-- selectedCountsTitle => just returns title of selected items count -->\r\n\t\t\t\t\t\t<!-- for example: Selected records count: 4 -->\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class=\"kt-form__control kt-form__group--inline\">\r\n\t\t\t\t\t\t<button (click)=\"fetchUsers()\" mat-raised-button matTooltip=\"Fetch selected users\"\r\n\t\t\t\t\t\t\tclass=\"mat-button-mt-4\">\r\n\t\t\t\t\t\t\t<mat-icon>clear_all</mat-icon>\r\n\t\t\t\t\t\t\tFetch Selected\r\n\t\t\t\t\t\t</button>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t<!-- end::GROUP ACTIONS -->\r\n\t\t</div>\r\n\r\n\t\t<!-- Buttons (Material Angular) | See off.documenations 'https://material.angular.io/components/button/overview' -->\r\n\t\t<!-- mat-raised-button | Rectangular contained button w/ elevation  -->\r\n\r\n\t\t<!-- end::FILTERS & GROUP ACTIONS -->\r\n\r\n\t\t<!-- MATERIAL TABLE | Binded to datasources -->\r\n\t\t<!-- See off.documentations 'https://material.angular.io/components/table/overview' -->\r\n\t\t<div class=\"mat-table__wrapper\">\r\n\t\t\t<mat-table class=\"lmat-elevation-z8\" #table [dataSource]=\"dataSource\" matSort #sort1=\"matSort\"\r\n\t\t\t\tmatSortActive=\"id\" matSortDirection=\"asc\" matSortDisableClear>\r\n\t\t\t\t<!-- Checkbox Column -->\r\n\r\n\t\t\t\t<!-- Table with selection -->\r\n\t\t\t\t<!-- https://run.stackblitz.com/api/angular/v1?file=app%2Ftable-selection-example.ts -->\r\n\t\t\t\t<ng-container matColumnDef=\"select\">\r\n\t\t\t\t\t<mat-header-cell *matHeaderCellDef class=\"mat-column-checkbox\">\r\n\t\t\t\t\t\t<mat-checkbox (change)=\"$event ? masterToggle() : null\"\r\n\t\t\t\t\t\t\t[checked]=\"selection.hasValue() && isAllSelected()\"\r\n\t\t\t\t\t\t\t[indeterminate]=\"selection.hasValue() && !isAllSelected()\">\r\n\t\t\t\t\t\t</mat-checkbox>\r\n\t\t\t\t\t</mat-header-cell>\r\n\t\t\t\t\t<mat-cell *matCellDef=\"let row\" class=\"mat-column-checkbox\">\r\n\t\t\t\t\t\t<mat-checkbox (click)=\"$event.stopPropagation()\"\r\n\t\t\t\t\t\t\t(change)=\"$event ? selection.toggle(row) : null\" [checked]=\"selection.isSelected(row)\">\r\n\t\t\t\t\t\t</mat-checkbox>\r\n\t\t\t\t\t</mat-cell>\r\n\t\t\t\t</ng-container>\r\n\r\n\t\t\t\t<ng-container matColumnDef=\"type\">\r\n\t\t\t\t\t<mat-header-cell *matHeaderCellDef mat-sort-header>Role Name</mat-header-cell>\r\n\t\t\t\t\t<mat-cell *matCellDef=\"let role\" >{{role.type}}</mat-cell>\r\n\t\t\t\t</ng-container>\r\n\r\n\t\t\t\t<ng-container matColumnDef=\"default\">\r\n\t\t\t\t\t<mat-header-cell *matHeaderCellDef mat-sort-header style=\"width: 50px;\">Default</mat-header-cell>\r\n\t\t\t\t\t<mat-cell *matCellDef=\"let role\" style=\"width: 50px;\">\r\n\t\t\t\t\t\t<span *ngIf=\"role.default\"\r\n\t\t\t\t\t\t\tclass=\"kt-badge kt-badge--inline kt-badge--pill kt-badge--success kt-badge--wide\">Defalut</span>\r\n\t\t\t\t\t</mat-cell>\r\n\t\t\t\t</ng-container>\r\n\r\n\t\t\t\t<ng-container matColumnDef=\"actions\">\r\n\t\t\t\t\t<mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>\r\n\t\t\t\t\t<mat-cell *matCellDef=\"let role\">\r\n\t\t\t\t\t\t<button *ngIf=\"checkedpermission(update)\" mat-icon-button color=\"primary\"\r\n\t\t\t\t\t\t\tmatTooltip=\"{{ role.isCoreRole ? 'View' : 'Edit'}} role\" (click)=\"editRole(role)\">\r\n\t\t\t\t\t\t\t<mat-icon>\r\n\t\t\t\t\t\t\t\t{{ role.isCoreRole ? 'visibility' : 'create' }}\r\n\t\t\t\t\t\t\t</mat-icon>\r\n\t\t\t\t\t\t</button>&nbsp;\r\n\t\t\t\t\t\t<button *ngIf=\"checkedpermission(del)\" mat-icon-button color=\"warn\" matTooltip=\"Delete role\"\r\n\t\t\t\t\t\t\ttype=\"button\" [disabled]=\"role.isCoreRole\" (click)=\"deleteRole(role)\">\r\n\t\t\t\t\t\t\t<mat-icon>delete</mat-icon>\r\n\t\t\t\t\t\t</button>\r\n\t\t\t\t\t</mat-cell>\r\n\t\t\t\t</ng-container>\r\n\t\t\t\t<ng-container matColumnDef=\"loading\">\r\n\t\t\t\t\t<mat-footer-cell *matFooterCellDef colspan=\"6\">\r\n\t\t\t\t\t\tLoading...\r\n\t\t\t\t\t</mat-footer-cell>\r\n\t\t\t\t</ng-container>\r\n\r\n\t\t\t\t<mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\r\n\r\n\t\t\t\t<mat-row *matRowDef=\"let row; columns: displayedColumns\"></mat-row>\r\n\t\t\t\t<mat-footer-row *matFooterRowDef=\"['loading']\" [ngClass]=\"{'hide':checkedDataSource()}\">\r\n\t\t\t\t</mat-footer-row>\r\n\t\t\t</mat-table>\r\n\t\t\t<mat-paginator (page)=\"nextPage($event)\" [pageSizeOptions]=\"[5,10,25,100]\" [pageSize]=\"10\"></mat-paginator>\r\n\r\n\t\t</div>\r\n\r\n\t\t<!-- start: BOTTOM -->\r\n\r\n\t\t<!-- end: BOTTOM -->\r\n\t</kt-portlet-body>\r\n\t<!-- end::Body -->\r\n</kt-portlet>\r\n"
+module.exports = "<kt-portlet>\r\n\t<!-- PORTLET LOADING | Binded to TABLE Datasource -->\r\n\t<!-- See prop => '~/core/_crud/models/data-sources/_base.datasource.ts' (loading$) -->\r\n\t<kt-portlet-header [title]=\"''\" [class]=\"'kt-portlet__head--lg'\">\r\n\t\t<ng-container ktPortletTools>\r\n\t\t\t<div class='col-md-4 kt-margin-bottom-10-mobile'>\r\n\t\t\t\t<button *ngIf=\"checkedpermission('add')\" mat-raised-button color=\"primary\" \r\n\t\t\t\tmatTooltip=\"Create new role\"(click)=\"addRole()\">New Role</button>\r\n\t\t\t</div>\r\n\t\t</ng-container>\r\n\t</kt-portlet-header>\r\n\t<!-- end::Header -->\r\n\t<div *ngIf=\"isLoading\" class=\"center\" style=\"padding: 150px;\">\r\n\t\t<mat-progress-spinner style=\"margin:0 auto;\" mode=\"indeterminate\" diameter=\"40\">\r\n\t\t</mat-progress-spinner>\r\n\t</div>\r\n\t<kt-portlet-body *ngIf=\"!isLoading\">\r\n\t\t<!-- start::FILTERS & GROUP ACTIONS -->\r\n\t\t<div class=\"kt-form\">\r\n\t\t\t<!-- start::FILTERS -->\r\n\t\t\t<div class=\"kt-form__filtration\">\r\n\t\t\t\t<div class=\"row align-items-center\">\r\n\t\t\t\t\t<div class=\"col-md-4 kt-margin-bottom-20-mobile\">\r\n\t\t\t\t\t\t<mat-form-field class=\"mat-form-field-fluid\">\r\n\t\t\t\t\t\t\t<input matInput placeholder=\"Search role\" #searchInput [(ngModel)]=\"SearchKey\"\r\n\t\t\t\t\t\t\t\tplaceholder=\"Search then Press Enter\" (keyup.enter)=\"applyFilter()\">\r\n\t\t\t\t\t\t\t<button mat-button matSuffix mat-icon-button aria-label=\"Clear\" *ngIf=\"SearchKey\"\r\n\t\t\t\t\t\t\t\t(click)=\"onSearchClear()\">\r\n\t\t\t\t\t\t\t\t<mat-icon>close</mat-icon>\r\n\t\t\t\t\t\t\t</button>\r\n\t\t\t\t\t\t\t<mat-hint align=\"start\"><strong>Search</strong> in all fields\r\n\t\t\t\t\t\t\t</mat-hint>\r\n\t\t\t\t\t\t</mat-form-field>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\r\n\t\t\t<!-- end::FILTERS -->\r\n\r\n\t\t\t<!-- start::GROUP ACTIONS -->\r\n\t\t\t<!-- Group actions list: 'Delete selected' | 'Fetch selected' | 'Update status for selected' -->\r\n\t\t\t<!-- Group actions are shared for all LISTS -->\r\n\t\t\t<div class=\"row align-items-center collapse kt-form__group-actions kt-margin-top-20 kt-margin-bottom-20\"\r\n\t\t\t\t[ngClass]=\"{'show' : selection.selected.length > 0}\">\r\n\t\t\t\t<!-- We show 'Group Actions' div if smth are selected -->\r\n\t\t\t\t<div class=\"col-xl-12\">\r\n\t\t\t\t\t<div class=\"kt-form__group kt-form__group--inline\">\r\n\t\t\t\t\t\t<div class=\"kt-form__label kt-form__label-no-wrap\">\r\n\t\t\t\t\t\t\t<label class=\"kt--font-bold kt-font-danger-\">\r\n\t\t\t\t\t\t\t\t<span translate=\"ECOMMERCE.COMMON.SELECTED_RECORDS_COUNT\"></span>\r\n\t\t\t\t\t\t\t\t{{ selection.selected.length }}\r\n\t\t\t\t\t\t\t</label>\r\n\t\t\t\t\t\t\t<!-- selectedCountsTitle => function from codeBehind (users-list.component.ts file) -->\r\n\t\t\t\t\t\t\t<!-- selectedCountsTitle => just returns title of selected items count -->\r\n\t\t\t\t\t\t\t<!-- for example: Selected records count: 4 -->\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<div class=\"kt-form__control kt-form__group--inline\">\r\n\t\t\t\t\t\t\t<button (click)=\"fetchUsers()\" mat-raised-button matTooltip=\"Fetch selected users\"\r\n\t\t\t\t\t\t\t\tclass=\"mat-button-mt-4\">\r\n\t\t\t\t\t\t\t\t<mat-icon>clear_all</mat-icon>\r\n\t\t\t\t\t\t\t\tFetch Selected\r\n\t\t\t\t\t\t\t</button>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<!-- end::GROUP ACTIONS -->\r\n\t\t</div>\r\n\r\n\t\t<!-- Buttons (Material Angular) | See off.documenations 'https://material.angular.io/components/button/overview' -->\r\n\t\t<!-- mat-raised-button | Rectangular contained button w/ elevation  -->\r\n\r\n\t\t<!-- end::FILTERS & GROUP ACTIONS -->\r\n\r\n\t\t<!-- MATERIAL TABLE | Binded to datasources -->\r\n\t\t<!-- See off.documentations 'https://material.angular.io/components/table/overview' -->\r\n\t\t<div class=\"mat-table__wrapper\">\r\n\t\t\t<mat-table class=\"lmat-elevation-z8\" #table [dataSource]=\"dataSource\" matSort #sort1=\"matSort\"\r\n\t\t\t\tmatSortActive=\"id\" matSortDirection=\"asc\" matSortDisableClear>\r\n\t\t\t\t<!-- Checkbox Column -->\r\n\r\n\t\t\t\t<!-- Table with selection -->\r\n\t\t\t\t<!-- https://run.stackblitz.com/api/angular/v1?file=app%2Ftable-selection-example.ts -->\r\n\t\t\t\t<ng-container matColumnDef=\"select\">\r\n\t\t\t\t\t<mat-header-cell *matHeaderCellDef class=\"mat-column-checkbox\">\r\n\t\t\t\t\t\t<mat-checkbox (change)=\"$event ? masterToggle() : null\"\r\n\t\t\t\t\t\t\t[checked]=\"selection.hasValue() && isAllSelected()\"\r\n\t\t\t\t\t\t\t[indeterminate]=\"selection.hasValue() && !isAllSelected()\">\r\n\t\t\t\t\t\t</mat-checkbox>\r\n\t\t\t\t\t</mat-header-cell>\r\n\t\t\t\t\t<mat-cell *matCellDef=\"let row\" class=\"mat-column-checkbox\">\r\n\t\t\t\t\t\t<mat-checkbox (click)=\"$event.stopPropagation()\"\r\n\t\t\t\t\t\t\t(change)=\"$event ? selection.toggle(row) : null\" [checked]=\"selection.isSelected(row)\">\r\n\t\t\t\t\t\t</mat-checkbox>\r\n\t\t\t\t\t</mat-cell>\r\n\t\t\t\t</ng-container>\r\n\r\n\t\t\t\t<ng-container matColumnDef=\"type\">\r\n\t\t\t\t\t<mat-header-cell *matHeaderCellDef mat-sort-header>Role Name</mat-header-cell>\r\n\t\t\t\t\t<mat-cell *matCellDef=\"let role\"><span *ngIf=\"role.type\">{{role.type}}</span></mat-cell>\r\n\t\t\t\t</ng-container>\r\n\r\n\t\t\t\t<ng-container matColumnDef=\"default\">\r\n\t\t\t\t\t<mat-header-cell *matHeaderCellDef mat-sort-header style=\"width: 50px;\">Default</mat-header-cell>\r\n\t\t\t\t\t<mat-cell *matCellDef=\"let role\" style=\"width: 50px;\">\r\n\t\t\t\t\t\t<span *ngIf=\"role.default\"\r\n\t\t\t\t\t\t\tclass=\"kt-badge kt-badge--inline kt-badge--pill kt-badge--success kt-badge--wide\">Defalut</span>\r\n\t\t\t\t\t</mat-cell>\r\n\t\t\t\t</ng-container>\r\n\r\n\t\t\t\t<ng-container matColumnDef=\"actions\">\r\n\t\t\t\t\t<mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>\r\n\t\t\t\t\t<mat-cell *matCellDef=\"let role ;let rowIndex = index\">\r\n\t\t\t\t\t\t<button *ngIf=\"checkedpermission(update)\" mat-icon-button color=\"primary\"\r\n\t\t\t\t\t\t\tmatTooltip=\"{{ role.isCoreRole ? 'View' : 'Edit'}} role\" (click)=\"editRole(role)\">\r\n\t\t\t\t\t\t\t<mat-icon>\r\n\t\t\t\t\t\t\t\t{{ role.isCoreRole ? 'visibility' : 'create' }}\r\n\t\t\t\t\t\t\t</mat-icon>\r\n\t\t\t\t\t\t</button>&nbsp;\r\n\t\t\t\t\t\t<button *ngIf=\"checkedpermission(del)\" mat-icon-button color=\"warn\" matTooltip=\"Delete role\"\r\n\t\t\t\t\t\t\ttype=\"button\" [disabled]=\"role.isCoreRole\" (click)=\"deleteRole(role , rowIndex)\">\r\n\t\t\t\t\t\t\t<mat-progress-spinner *ngIf=\"rowIndex == currentRowIndex\" style=\"margin:0 auto;\"\r\n\t\t\t\t\t\t\t\tmode=\"indeterminate\" diameter=\"30\">\r\n\t\t\t\t\t\t\t</mat-progress-spinner>\r\n\t\t\t\t\t\t\t<mat-icon *ngIf=\"rowIndex != currentRowIndex\">delete</mat-icon>\r\n\t\t\t\t\t\t</button>\r\n\t\t\t\t\t</mat-cell>\r\n\t\t\t\t</ng-container>\r\n\t\t\t\t<ng-container matColumnDef=\"loading\">\r\n\t\t\t\t\t<mat-footer-cell *matFooterCellDef colspan=\"6\">\r\n\t\t\t\t\t\tLoading...\r\n\t\t\t\t\t</mat-footer-cell>\r\n\t\t\t\t</ng-container>\r\n\r\n\t\t\t\t<mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\r\n\r\n\t\t\t\t<mat-row *matRowDef=\"let row; columns: displayedColumns\"></mat-row>\r\n\t\t\t\t<mat-footer-row *matFooterRowDef=\"['loading']\" [ngClass]=\"{'hide':checkedDataSource()}\">\r\n\t\t\t\t</mat-footer-row>\r\n\t\t\t</mat-table>\r\n\t\t\t<mat-paginator (page)=\"nextPage($event)\" [pageSizeOptions]=\"[5,10,25,100]\" [pageSize]=\"10\"></mat-paginator>\r\n\r\n\t\t</div>\r\n\r\n\t\t<!-- start: BOTTOM -->\r\n\r\n\t\t<!-- end: BOTTOM -->\r\n\t</kt-portlet-body>\r\n\t<!-- end::Body -->\r\n</kt-portlet>"
 
 /***/ }),
 
@@ -2048,7 +2056,6 @@ var core_1 = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/c
 // Material
 var collections_1 = __webpack_require__(/*! @angular/cdk/collections */ "./node_modules/@angular/cdk/esm5/collections.es5.js");
 var material_1 = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
-var rxjs_1 = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
 // NGRX
 var store_1 = __webpack_require__(/*! @ngrx/store */ "./node_modules/@ngrx/store/fesm5/store.js");
 // Services
@@ -2087,6 +2094,7 @@ var RolesListComponent = /** @class */ (function () {
         this.isLoading = false;
         // Subscriptions
         this.subscriptions = [];
+        this.currentRowIndex = -1;
         this.isThereDefault = false;
     }
     /**
@@ -2112,7 +2120,7 @@ var RolesListComponent = /** @class */ (function () {
         // 	.subscribe();
         // this.subscriptions.push(paginatorSubscriptions);
         // Filtration, bind to searchInput
-        var searchSubscription = rxjs_1.fromEvent(this.searchInput.nativeElement.value, 'keyup').pipe(
+        //const searchSubscription = fromEvent(this.searchInput.nativeElement.value, 'keyup').pipe(
         // tslint:disable-next-line:max-line-length
         // debounceTime(150), // The user can type quite quickly in the input box, and that could trigger a lot of server requests. With this operator, we are limiting the amount of server requests emitted to a maximum of one every 150ms
         // distinctUntilChanged(), // This operator will eliminate duplicate values
@@ -2120,9 +2128,9 @@ var RolesListComponent = /** @class */ (function () {
         // 	this.paginator.pageIndex = 0;
         // 	this.loadRolesList();
         // })
-        )
-            .subscribe();
-        this.subscriptions.push(searchSubscription);
+        //)
+        //	.subscribe();
+        //this.subscriptions.push(searchSubscription);
         // Init DataSource
         //
         // const entitiesSubscription = this.dataSource.entitySubject.pipe(
@@ -2174,8 +2182,9 @@ var RolesListComponent = /** @class */ (function () {
      *
      * @param _item: Role
      */
-    RolesListComponent.prototype.deleteRole = function (_item) {
+    RolesListComponent.prototype.deleteRole = function (_item, rowIndex) {
         var _this = this;
+        this.currentRowIndex = rowIndex;
         var _title = 'User Role';
         var _description = 'Are you sure to permanently delete this role?';
         var _waitDesciption = 'Role is deleting...';
@@ -2183,15 +2192,22 @@ var RolesListComponent = /** @class */ (function () {
         var dialogRef = this.layoutUtilsService.deleteElement(_title, _description, _waitDesciption);
         dialogRef.afterClosed().subscribe(function (res) {
             if (!res) {
+                _this.currentRowIndex = -1;
+                _this.changeDetectorRefs.detectChanges();
                 return;
             }
             _this.permission.deletePriviliages(_item.id).subscribe(function (res) {
                 if (res['result']) {
+                    _this.currentRowIndex = -1;
+                    _this.dataSource['data'].splice(rowIndex, 1);
+                    _this.dataSource = new material_1.MatTableDataSource(_this.dataSource['data']);
+                    _this.changeDetectorRefs.detectChanges();
                     _this.layoutUtilsService.showActionNotification(_deleteMessage, crud_1.MessageType.Delete);
-                    _this.LoadPriviliages();
+                    //this.LoadPriviliages()
                 }
                 else {
-                    _deleteMessage = 'Sorry, the role has not beeb deleted ,try again';
+                    _this.currentRowIndex = -1;
+                    _deleteMessage = 'Sorry, the role has not been deleted ,try again';
                     _this.layoutUtilsService.showActionNotification(_deleteMessage, crud_1.MessageType.Delete);
                 }
             });
@@ -2259,7 +2275,6 @@ var RolesListComponent = /** @class */ (function () {
             this.dataSource['data'].forEach(function (row) { return _this.selection.select(row); });
         }
     };
-    //	this.dataSource=new MatTableDataSource(roles)
     RolesListComponent.prototype.splitPriviliage = function (priviliageString) {
         var priviliadgeList = [];
         if (priviliageString) {
@@ -2332,8 +2347,8 @@ var RolesListComponent = /** @class */ (function () {
                     }
                     else if (key = 'add') {
                         //console.log('add')
-                        // if( JSON.parse(localStorage.getItem('user'))['allPrivilidge']['Roles']['Add Roles'])
-                        return true;
+                        if (JSON.parse(localStorage.getItem('user'))['allPrivilidge']['Roles']['Add Roles'])
+                            return true;
                     }
                 }
             }
@@ -2681,7 +2696,8 @@ var UserManagementModule = /** @class */ (function () {
                 crud_1.HttpUtilsService,
                 crud_1.TypesUtilsService,
                 crud_1.LayoutUtilsService,
-                permission_guard_1.PermissionGuard
+                permission_guard_1.PermissionGuard,
+                address_component_1.AddressComponent
             ],
             entryComponents: [
                 crud_2.ActionNotificationComponent,
@@ -2728,7 +2744,7 @@ exports.UserManagementModule = UserManagementModule;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"kt-portlet\">\r\n    <div class=\"kt-portlet__body\">\r\n        <div *ngIf=\"allbrancandunits[0]['unit'].length==0\" class=\"center\">\r\n            <mat-progress-spinner style=\"margin:0 auto;\" mode=\"indeterminate\" diameter=\"40\">\r\n            </mat-progress-spinner>\r\n        </div>\r\n        <div *ngIf=\"allbrancandunits[0]['unit'].length>0\" class=\"form-group kt-form__group row d-block\">\r\n            <div class=\"col-lg-8 kt-margin-bottom-20-mobile\">\r\n                <mat-list>\r\n\r\n                    <div *ngFor=\"let value of allbrancandunits\">\r\n                        <mat-expansion-panel class=\"no-shadow\" [hideToggle]=\"value.unit.length==0\">\r\n                            <mat-expansion-panel-header >\r\n                                <mat-checkbox *ngIf=\"currentLoggedUser!=_currentUser.pub_key\" [checked]='value.checked'\r\n                                     (click)=\"$event.stopPropagation();\"\r\n                                    (change)=\"value.checked=!value.checked;onChange(value)\">\r\n                                    <span style=\"color: black;font-size: 14px;\"\r\n                                        [ngClass]=\"{'text':(value.name== 'All Branchs')}\">\r\n                                        {{value.name}}</span>\r\n                                </mat-checkbox>\r\n                                <span *ngIf=\"currentLoggedUser==_currentUser.pub_key\"\r\n                                    [ngClass]=\"{'text':(value.name== 'All Branchs')} \"\r\n                                    style=\"color: black;\"> <i class=\"fas fa-circle fa-xs mr-2\"></i>\r\n                                    {{value.name}}</span>\r\n                            </mat-expansion-panel-header>\r\n                            <mat-list style=\"margin-left:30px;\" >\r\n                                <div  *ngFor=\"let branch of value.unit\">\r\n                                    <mat-expansion-panel class=\"no-shadow\" [hideToggle]=\"branch.unit.length==0\">\r\n                                        <mat-expansion-panel-header >\r\n                                        <mat-checkbox *ngIf=\"currentLoggedUser!=_currentUser.pub_key\"\r\n                                            [checked]='branch.checked'\r\n                                            (click)=\"$event.stopPropagation();\"\r\n                                            (change)=\"branch.checked=!branch.checked;onChange(branch)\">{{branch.name}}\r\n                                        </mat-checkbox>\r\n                                        <span *ngIf=\"currentLoggedUser==_currentUser.pub_key\"\r\n                                            [ngClass]=\"{'text':(value.name== 'All Branchs')}\"><i\r\n                                                class=\"fas fa-circle fa-xs mr-2\"></i> {{branch.name}}</span>\r\n                                            </mat-expansion-panel-header>\r\n                                            <div  *ngFor=\"let unit of branch.unit\">\r\n                                            <mat-list class=\"list-horizontal\">\r\n                                                <mat-checkbox *ngIf=\"currentLoggedUser!=_currentUser.pub_key\"\r\n                                                [checked]='unit.checked'\r\n                                                (click)=\"$event.stopPropagation();\"\r\n                                                (change)=\"unit.checked=!unit.checked;onChange(unit)\">{{unit.name}}\r\n                                            </mat-checkbox>\r\n                                            <span *ngIf=\"currentLoggedUser==_currentUser.pub_key\"\r\n                                    [ngClass]=\"{'text':(value.name== 'All Branchs')} \"\r\n                                    style=\"color: black;\"> <i class=\"fas fa-circle fa-xs mr-2\"></i>\r\n                                    {{unit.name}}</span>\r\n                                            </mat-list>\r\n                                            </div>\r\n                                </mat-expansion-panel>\r\n                                </div>\r\n                            </mat-list>\r\n                        </mat-expansion-panel>\r\n                    </div>\r\n                </mat-list>\r\n\r\n\r\n            </div>\r\n        </div>\r\n        <div class=\"kt-separator kt-separator--dashed\"></div>\r\n    </div>\r\n</div>"
+module.exports = "<div class=\"kt-portlet\">\r\n    <div class=\"kt-portlet__body\">\r\n        <div *ngIf=\"allbrancandunits[0]['unit'].length==0\" class=\"center\">\r\n            <mat-progress-spinner style=\"margin:0 auto;\" mode=\"indeterminate\" diameter=\"40\">\r\n            </mat-progress-spinner>\r\n        </div>\r\n        <div *ngIf=\"allbrancandunits[0]['unit'].length>0\" class=\"form-group kt-form__group row d-block\">\r\n            <div class=\"col-lg-8 kt-margin-bottom-20-mobile\">\r\n                <mat-list>\r\n\r\n                    <div *ngFor=\"let value of allbrancandunits\">\r\n                        <mat-expansion-panel class=\"no-shadow\" [ngClass]=\"{'prevent-click':value.unit.length==0}\"  [expanded]=\"true\" [hideToggle]=\"value.unit.length==0\">\r\n                            <mat-expansion-panel-header  >\r\n                                <mat-checkbox   *ngIf=\"currentLoggedUser!=_currentUser.pub_key\" [checked]='value.checked'\r\n                                     (click)=\"$event.stopPropagation();\"\r\n                                    (change)=\"value.checked=!value.checked;onChange(value)\">\r\n                                    <span style=\"color: black;font-size: 14px;\"\r\n                                        [ngClass]=\"{'text':(value.name== 'All Branchs')}\">\r\n                                        {{value.name}}</span>\r\n                                </mat-checkbox>\r\n                                <span *ngIf=\"currentLoggedUser==_currentUser.pub_key\"\r\n                                    [ngClass]=\"{'text':(value.name== 'All Branchs')} \"\r\n                                    style=\"color: black;\"> <i class=\"fas fa-circle fa-xs mr-2\"></i>\r\n                                    {{value.name}}</span>\r\n                            </mat-expansion-panel-header >\r\n                            <mat-list style=\" margin-left:30px;\" >\r\n                                <div   *ngFor=\"let branch of value.unit\">\r\n                                    <mat-expansion-panel   [expanded]=\"value.checked\" class=\"no-shadow\" [ngClass]=\"{'prevent-click':branch.unit.length==0}\" [hideToggle]=\"branch.unit.length==0\">\r\n                                        <mat-expansion-panel-header >\r\n                                        <mat-checkbox *ngIf=\"currentLoggedUser!=_currentUser.pub_key\"\r\n                                            [checked]='branch.checked'\r\n                                            (click)=\"$event.stopPropagation();\"\r\n                                            (change)=\"branch.checked=!branch.checked;onChange(branch)\">{{branch.name}}\r\n                                        </mat-checkbox>\r\n                                        <span *ngIf=\"currentLoggedUser==_currentUser.pub_key\"\r\n                                            [ngClass]=\"{'text':(value.name== 'All Branchs')}\"><i\r\n                                                class=\"fas fa-circle fa-xs mr-2\"></i> {{branch.name}}</span>\r\n                                            </mat-expansion-panel-header>\r\n                                            <div>\r\n                                            <div  *ngFor=\"let unit of branch.unit\">\r\n                                            <mat-list class=\"list-horizontal\">\r\n                                                <mat-checkbox *ngIf=\"currentLoggedUser!=_currentUser.pub_key\"\r\n                                                [checked]='unit.checked'\r\n                                                (click)=\"$event.stopPropagation();\"\r\n                                                (change)=\"unit.checked=!unit.checked;onChange(unit)\">{{unit.name}}\r\n                                            </mat-checkbox>\r\n                                            <span *ngIf=\"currentLoggedUser==_currentUser.pub_key\"\r\n                                    [ngClass]=\"{'text':(value.name== 'All Branchs')} \"\r\n                                    style=\"color: black;\"> <i class=\"fas fa-circle fa-xs mr-2\"></i>\r\n                                    {{unit.name}}</span>\r\n                                            </mat-list>\r\n                                            </div>\r\n                                        </div>\r\n                                </mat-expansion-panel>\r\n                                </div>\r\n                            </mat-list>\r\n                        </mat-expansion-panel>\r\n                    </div>\r\n                </mat-list>\r\n\r\n\r\n            </div>\r\n        </div>\r\n        <div class=\"kt-separator kt-separator--dashed\"></div>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -2739,7 +2755,7 @@ module.exports = "<div class=\"kt-portlet\">\r\n    <div class=\"kt-portlet__bod
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".text {\n  font-size: 15px;\n  color: black; }\n\n.postion {\n  margin-left: 30px; }\n\nmat-list.list-horizontal {\n  padding: 0;\n  margin-left: 30px; }\n\nmat-list.list-horizontal .mat-list-item {\n    display: inline-block;\n    height: auto;\n    width: auto; }\n\n.mat-expansion-panel:not([class*='mat-elevation-z']) {\n  box-shadow: 0px 0px 0px -2px rgba(0, 0, 0, 0.2), 0px 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12); }\n\n.mat-expansion-panel:not([class*='mat-content']) {\n  flex: 0.5; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdmlld3MvcGFnZXMvdXNlci1tYW5hZ2VtZW50L3VzZXJzL19zdWJzL2FjY2Vzc1JpZ2h0L0U6XFxHRU1JTlxcZ3ltaW4tMi4wLXNhYXMtZnJvbnRlbmQvc3JjXFxhcHBcXHZpZXdzXFxwYWdlc1xcdXNlci1tYW5hZ2VtZW50XFx1c2Vyc1xcX3N1YnNcXGFjY2Vzc1JpZ2h0XFxhY2Nlc3NSaWdodC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGVBQWU7RUFDZixZQUFZLEVBQUE7O0FBR2hCO0VBQ0ksaUJBQWdCLEVBQUE7O0FBRXBCO0VBQ0ksVUFBVTtFQUNWLGlCQUFpQixFQUFBOztBQUZyQjtJQUlNLHFCQUFxQjtJQUNyQixZQUFZO0lBQ1osV0FBVyxFQUFBOztBQUdmO0VBQ0UseUhBQXlILEVBQUE7O0FBRTNIO0VBQ0UsU0FBUSxFQUFBIiwiZmlsZSI6InNyYy9hcHAvdmlld3MvcGFnZXMvdXNlci1tYW5hZ2VtZW50L3VzZXJzL19zdWJzL2FjY2Vzc1JpZ2h0L2FjY2Vzc1JpZ2h0LmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnRleHQge1xyXG4gICAgZm9udC1zaXplOiAxNXB4O1xyXG4gICAgY29sb3I6IGJsYWNrO1xyXG59XHJcblxyXG4ucG9zdGlvbntcclxuICAgIG1hcmdpbi1sZWZ0OjMwcHg7XHJcbn1cclxubWF0LWxpc3QubGlzdC1ob3Jpem9udGFsIHtcclxuICAgIHBhZGRpbmc6IDA7XHJcbiAgICBtYXJnaW4tbGVmdDogMzBweDtcclxuICAgIC5tYXQtbGlzdC1pdGVtIHtcclxuICAgICAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xyXG4gICAgICBoZWlnaHQ6IGF1dG87XHJcbiAgICAgIHdpZHRoOiBhdXRvO1xyXG4gICAgfVxyXG4gIH1cclxuICAubWF0LWV4cGFuc2lvbi1wYW5lbDpub3QoW2NsYXNzKj0nbWF0LWVsZXZhdGlvbi16J10pIHtcclxuICAgIGJveC1zaGFkb3c6IDBweCAwcHggMHB4IC0ycHggcmdiYSgwLCAwLCAwLCAwLjIpLCAwcHggMHB4IDBweCAwcHggcmdiYSgwLCAwLCAwLCAwLjE0KSwgMHB4IDBweCAwcHggMHB4IHJnYmEoMCwgMCwgMCwgMC4xMik7IFxyXG4gIH1cclxuICAubWF0LWV4cGFuc2lvbi1wYW5lbDpub3QoW2NsYXNzKj0nbWF0LWNvbnRlbnQnXSkge1xyXG4gICAgZmxleDowLjU7XHJcbiAgfVxyXG4iXX0= */"
+module.exports = ".text {\n  font-size: 15px;\n  color: black; }\n\n.postion {\n  margin-left: 30px; }\n\nmat-list.list-horizontal {\n  padding: 0;\n  margin-left: 30px; }\n\nmat-list.list-horizontal .mat-list-item {\n    display: inline-block;\n    height: auto;\n    width: auto; }\n\n.mat-expansion-panel:not([class*='mat-elevation-z']) {\n  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.2), 0px 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12); }\n\n.prevent-click {\n  pointer-events: none; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdmlld3MvcGFnZXMvdXNlci1tYW5hZ2VtZW50L3VzZXJzL19zdWJzL2FjY2Vzc1JpZ2h0L0U6XFxHRU1JTlxcZ3ltaW4tMi4wLXNhYXMtZnJvbnRlbmQvc3JjXFxhcHBcXHZpZXdzXFxwYWdlc1xcdXNlci1tYW5hZ2VtZW50XFx1c2Vyc1xcX3N1YnNcXGFjY2Vzc1JpZ2h0XFxhY2Nlc3NSaWdodC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGVBQWU7RUFDZixZQUFZLEVBQUE7O0FBR2hCO0VBQ0ksaUJBQWdCLEVBQUE7O0FBRXBCO0VBQ0ksVUFBVTtFQUNWLGlCQUFpQixFQUFBOztBQUZyQjtJQUlNLHFCQUFxQjtJQUNyQixZQUFZO0lBQ1osV0FBVyxFQUFBOztBQUdmO0VBQ0Usd0hBQXdILEVBQUE7O0FBRzFIO0VBQ0Usb0JBQW9CLEVBQUEiLCJmaWxlIjoic3JjL2FwcC92aWV3cy9wYWdlcy91c2VyLW1hbmFnZW1lbnQvdXNlcnMvX3N1YnMvYWNjZXNzUmlnaHQvYWNjZXNzUmlnaHQuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIudGV4dCB7XHJcbiAgICBmb250LXNpemU6IDE1cHg7XHJcbiAgICBjb2xvcjogYmxhY2s7XHJcbn1cclxuXHJcbi5wb3N0aW9ue1xyXG4gICAgbWFyZ2luLWxlZnQ6MzBweDtcclxufVxyXG5tYXQtbGlzdC5saXN0LWhvcml6b250YWwge1xyXG4gICAgcGFkZGluZzogMDtcclxuICAgIG1hcmdpbi1sZWZ0OiAzMHB4O1xyXG4gICAgLm1hdC1saXN0LWl0ZW0ge1xyXG4gICAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XHJcbiAgICAgIGhlaWdodDogYXV0bztcclxuICAgICAgd2lkdGg6IGF1dG87XHJcbiAgICB9XHJcbiAgfVxyXG4gIC5tYXQtZXhwYW5zaW9uLXBhbmVsOm5vdChbY2xhc3MqPSdtYXQtZWxldmF0aW9uLXonXSkge1xyXG4gICAgYm94LXNoYWRvdzogMHB4IDBweCAwcHggMHB4IHJnYmEoMCwgMCwgMCwgMC4yKSwgMHB4IDBweCAwcHggMHB4IHJnYmEoMCwgMCwgMCwgMC4xNCksIDBweCAwcHggMHB4IDBweCByZ2JhKDAsIDAsIDAsIDAuMTIpOyBcclxuICB9XHJcbiBcclxuICAucHJldmVudC1jbGlja3tcclxuICAgIHBvaW50ZXItZXZlbnRzOiBub25lO1xyXG4gIH0iXX0= */"
 
 /***/ }),
 
@@ -3051,7 +3067,7 @@ exports.AccessRightComponent = AccessRightComponent;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!--begin::Form-->\r\n<form [formGroup]=\"addressForm\" class=\"kt-form kt-form--group-seperator-dashed\">\r\n\r\n\t<kt-alert *ngIf=\"hasFormErrors\" type=\"warn\" [showCloseButton]=\"true\" [duration]=\"10000\" (close)=\"onAlertClose($event)\">\r\n\t\tOh snap! Check the form fields please\r\n\t</kt-alert>\r\n\t<div class=\"kt-form__section kt-form__section--first\">\r\n\t\t<div class=\"form-group kt-form__group row\">\r\n\t\t\t<div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n\t\t\t\t<mat-form-field class=\"mat-form-field-fluid\">\r\n\t\t\t\t\t<input matInput placeholder=\"Enter Address Line\" formControlName=\"addressLine\" />\r\n\t\t\t\t\t<mat-error *ngIf=\"addressForm.controls['addressLine'].errors?.required\">Address Line is\r\n\t\t\t\t\t\t<strong>required</strong>\r\n\t\t\t\t\t</mat-error>\r\n\t\t\t\t\t<mat-error *ngIf=\"addressForm.controls['addressLine'].errors?.pattern\">Please enter\r\n\t\t\t\t\t\t<strong>valid addressLine</strong>\r\n\t\t\t\t\t</mat-error>\r\n\t\t\t\t\t<mat-error *ngIf=\"addressForm.controls['addressLine'].errors?.minlength\">Please enter\r\n\t\t\t\t\t\t\t<strong>at least 3 characters</strong>\r\n\t\t\t\t\t</mat-error>\r\n\t\t\t\t\t<mat-hint align=\"start\">Please enter\r\n\t\t\t\t\t\t<strong>Address Line</strong>\r\n\t\t\t\t\t</mat-hint>\r\n\t\t\t\t</mat-form-field>\r\n\t\t\t</div>\r\n\t\t\t<div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n\t\t\t\t<mat-form-field class=\"mat-form-field-fluid\">\r\n\t\t\t\t\t<input matInput placeholder=\"City\" formControlName=\"city\" />\r\n\t\t\t\t\t<mat-error *ngIf=\"addressForm.controls['city'].invalid&&addressForm.controls['city'].errors?.required\">City is\r\n\t\t\t\t\t\t<strong>required</strong>\r\n\t\t\t\t\t</mat-error>\r\n\t\t\t\t\t<mat-error *ngIf=\"addressForm.controls['city'].invalid&&addressForm.controls['city'].errors.pattern\">Please enter\r\n\t\t\t\t\t\t<strong>valid city</strong>\r\n\t\t\t\t\t</mat-error>\r\n\t\t\t\t\t<mat-error *ngIf=\"addressForm.controls['city'].errors?.minlength\">Please enter\r\n\t\t\t\t\t\t\t<strong>at least 3 characters</strong>\r\n\t\t\t\t\t</mat-error>\r\n\t\t\t\t\t<mat-hint align=\"start\">Please enter\r\n\t\t\t\t\t\t<strong>City</strong>\r\n\t\t\t\t\t</mat-hint>\r\n\t\t\t\t</mat-form-field>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t<div class=\"form-group kt-form__group row\">\r\n\t\t\t<div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n\t\t\t\t<mat-form-field class=\"mat-form-field-fluid\">\r\n\t\t\t\t\t<input matInput placeholder=\"Enter State Line\" formControlName=\"state\" />\r\n\t\t\t\t\t<mat-error *ngIf=\"addressForm.controls['state'].errors?.required\">State is\r\n\t\t\t\t\t\t<strong>required</strong>\r\n\t\t\t\t\t</mat-error>\r\n\t\t\t\t\t<mat-error *ngIf=\"addressForm.controls['state'].errors?.pattern\">Please enter\r\n\t\t\t\t\t\t<strong>valid state</strong>\r\n\t\t\t\t\t</mat-error>\r\n\t\t\t\t\t<mat-error *ngIf=\"addressForm.controls['state'].errors?.minlength\">Please enter\r\n\t\t\t\t\t\t\t<strong>at least 3 characters</strong>\r\n\t\t\t\t\t</mat-error>\r\n\t\t\t\t\t<mat-hint align=\"start\">Please enter\r\n\t\t\t\t\t\t<strong>State</strong>\r\n\t\t\t\t\t</mat-hint>\r\n\t\t\t\t</mat-form-field>\r\n\t\t\t</div>\r\n\t\t\t<div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n\t\t\t\t<mat-form-field class=\"mat-form-field-fluid\">\r\n\t\t\t\t\t<input matInput placeholder=\"Enter Postode\" formControlName=\"postCode\" />\r\n\t\t\t\t\t<mat-error *ngIf=\"addressForm.controls['postCode'].errors?.required\">PostCode is\r\n\t\t\t\t\t\t<strong>required</strong>\r\n\t\t\t\t\t</mat-error>\r\n\t\t\t\t\t<mat-error *ngIf=\"addressForm.controls['postCode'].errors?.pattern||addressForm.controls['postCode'].errors?.minlength||addressForm.controls['postCode'].errors?.maxlenght\">Please enter\r\n\t\t\t\t\t\t<strong>valid postCode</strong>\r\n\t\t\t\t\t</mat-error>\r\n\t\t\t\t\t<mat-hint align=\"start\">Please enter\r\n\t\t\t\t\t\t<strong>Postcode</strong>\r\n\t\t\t\t\t</mat-hint>\r\n\t\t\t\t</mat-form-field>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n</form>\r\n<!--end::Form-->\r\n"
+module.exports = "<!--begin::Form-->\r\n<form [formGroup]=\"addressForm\" class=\"kt-form kt-form--group-seperator-dashed\">\r\n\r\n\t<kt-alert *ngIf=\"hasFormErrors \" type=\"warn\" [showCloseButton]=\"true\" [duration]=\"10000\" (close)=\"onAlertClose($event)\">\r\n\t\tOh snap! Check the form fields please\r\n\t</kt-alert>\r\n\t<div class=\"kt-form__section kt-form__section--first\">\r\n\t\t<div class=\"form-group kt-form__group row\">\r\n\t\t\t<div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n\t\t\t\t<mat-form-field class=\"mat-form-field-fluid\">\r\n\t\t\t\t\t<input matInput placeholder=\"Enter Address Line\" formControlName=\"addressLine\" />\r\n\t\t\t\t\t<mat-error *ngIf=\"addressForm.controls['addressLine'].errors?.required\">Address Line is\r\n\t\t\t\t\t\t<strong>required</strong>\r\n\t\t\t\t\t</mat-error>\r\n\t\t\t\t\t<mat-error *ngIf=\"addressForm.controls['addressLine'].errors?.pattern\">Please enter\r\n\t\t\t\t\t\t<strong>valid addressLine</strong>\r\n\t\t\t\t\t</mat-error>\r\n\t\t\t\t\t<mat-error *ngIf=\"addressForm.controls['addressLine'].errors?.minlength\">Please enter\r\n\t\t\t\t\t\t\t<strong>at least 3 characters</strong>\r\n\t\t\t\t\t</mat-error>\r\n\t\t\t\t\t<!-- <mat-hint align=\"start\">Please enter\r\n\t\t\t\t\t\t<strong>Address Line</strong>\r\n\t\t\t\t\t</mat-hint> -->\r\n\t\t\t\t</mat-form-field>\r\n\t\t\t</div>\r\n\t\t\t<div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n\t\t\t\t<mat-form-field class=\"mat-form-field-fluid\">\r\n\t\t\t\t\t<input matInput placeholder=\"Enter City\" formControlName=\"city\" />\r\n\t\t\t\t\t<mat-error *ngIf=\"addressForm.controls['city'].invalid&&addressForm.controls['city'].errors?.required\">City is\r\n\t\t\t\t\t\t<strong>required</strong>\r\n\t\t\t\t\t</mat-error>\r\n\t\t\t\t\t<mat-error *ngIf=\"addressForm.controls['city'].invalid&&addressForm.controls['city'].errors.pattern\">Please enter\r\n\t\t\t\t\t\t<strong>valid city</strong>\r\n\t\t\t\t\t</mat-error>\r\n\t\t\t\t\t<mat-error *ngIf=\"addressForm.controls['city'].errors?.minlength\">Please enter\r\n\t\t\t\t\t\t\t<strong>at least 3 characters</strong>\r\n\t\t\t\t\t</mat-error>\r\n\t\t\t\t\t<!-- <mat-hint align=\"start\">Please enter\r\n\t\t\t\t\t\t<strong>City</strong>\r\n\t\t\t\t\t</mat-hint> -->\r\n\t\t\t\t</mat-form-field>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t<div class=\"form-group kt-form__group row\">\r\n\t\t\t<div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n\t\t\t\t<mat-form-field class=\"mat-form-field-fluid\">\r\n\t\t\t\t\t<input matInput placeholder=\"Enter State Line\" formControlName=\"state\" />\r\n\t\t\t\t\t<mat-error *ngIf=\"addressForm.controls['state'].errors?.required\">State is\r\n\t\t\t\t\t\t<strong>required</strong>\r\n\t\t\t\t\t</mat-error>\r\n\t\t\t\t\t<mat-error *ngIf=\"addressForm.controls['state'].errors?.pattern\">Please enter\r\n\t\t\t\t\t\t<strong>valid state</strong>\r\n\t\t\t\t\t</mat-error>\r\n\t\t\t\t\t<mat-error *ngIf=\"addressForm.controls['state'].errors?.minlength\">Please enter\r\n\t\t\t\t\t\t\t<strong>at least 3 characters</strong>\r\n\t\t\t\t\t</mat-error>\r\n\t\t\t\t\t<!-- <mat-hint align=\"start\">Please enter\r\n\t\t\t\t\t\t<strong>State</strong>\r\n\t\t\t\t\t</mat-hint> -->\r\n\t\t\t\t</mat-form-field>\r\n\t\t\t</div>\r\n\t\t\t<div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n\t\t\t\t<mat-form-field class=\"mat-form-field-fluid\">\r\n\t\t\t\t\t<input matInput placeholder=\"Enter Postode\" formControlName=\"postCode\" />\r\n\t\t\t\t\t<mat-error *ngIf=\"addressForm.controls['postCode'].errors?.required\">PostCode is\r\n\t\t\t\t\t\t<strong>required</strong>\r\n\t\t\t\t\t</mat-error>\r\n\t\t\t\t\t<mat-error *ngIf=\"addressForm.controls['postCode'].errors?.pattern||addressForm.controls['postCode'].errors?.minlength||addressForm.controls['postCode'].errors?.maxlenght\">Please enter\r\n\t\t\t\t\t\t<strong>valid postCode</strong>\r\n\t\t\t\t\t</mat-error>\r\n\t\t\t\t\t<!-- <mat-hint align=\"start\">Please enter\r\n\t\t\t\t\t\t<strong>Postcode</strong>\r\n\t\t\t\t\t</mat-hint> -->\r\n\t\t\t\t</mat-form-field>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n</form>\r\n<!--end::Form-->\r\n"
 
 /***/ }),
 
@@ -3129,6 +3145,7 @@ var AddressComponent = /** @class */ (function () {
                 _this.address['state'] = '';
                 _this.address['postCode'] = '';
             }
+            _this.oldAddress = _this.address;
         });
         this.createForm();
         console.log(this.addressForm);
@@ -3147,7 +3164,9 @@ var AddressComponent = /** @class */ (function () {
      */
     AddressComponent.prototype.createForm = function () {
         var _this = this;
+        console.log('create form');
         this.userservice.currentUser.subscribe(function (res) {
+            console.log('edit Address');
             _this.addressForm = _this.fb.group({
                 addressLine: [res['addressLine'], [forms_1.Validators.required, forms_1.Validators.minLength(3), forms_1.Validators.pattern(_this.regx)]],
                 city: [res['city'], [forms_1.Validators.required, forms_1.Validators.minLength(3), forms_1.Validators.pattern(_this.regx)]],
@@ -3195,6 +3214,15 @@ var AddressComponent = /** @class */ (function () {
      */
     AddressComponent.prototype.onAlertClose = function ($event) {
         this.hasFormErrors = false;
+    };
+    AddressComponent.prototype.reset = function () {
+        console.log('Address', this.hasFormErrors, this.addressForm.controls);
+        this.createForm();
+        this.hasFormErrors = false;
+        this.addressForm.markAsPristine();
+        this.addressForm.markAsUntouched();
+        this.addressForm.updateValueAndValidity();
+        console.log('Address', this.hasFormErrors, this.addressForm.controls);
     };
     __decorate([
         core_1.Input(),
@@ -3876,7 +3904,7 @@ exports.ShiftsComponent = ShiftsComponent;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!--begin::Form-->\r\n<div *ngIf=\"socialNetworksForm\">\r\n\t<form [formGroup]=\"socialNetworksForm\" class=\"kt-form kt-form--group-seperator-dashed\">\r\n\t\r\n\t\t<kt-alert *ngIf=\"hasFormErrors\" type=\"warn\" [showCloseButton]=\"true\" [duration]=\"10000\" (close)=\"onAlertClose($event)\">\r\n\t\t\tOh snap! Change a few things up and try submitting again.\r\n\t\t</kt-alert>\r\n\t\t<div class=\"kt-form__section kt-form__section--first\">\r\n\t\t\t<div class=\"form-group kt-form__group row\">\r\n\t\t\t\t<div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n\t\t\t\t\t<mat-form-field class=\"mat-form-field-fluid\">\r\n\t\t\t\t\t\t<input matInput placeholder=\"Enter LinkedIn address\" formControlName=\"linkedIn\" />\r\n\t\t\t\t\t\t<mat-error>Please enter\r\n\t\t\t\t\t\t\t\t<strong>valid URL</strong>\r\n\t\t\t\t\t\t\t</mat-error>\r\n\t\t\t\t\t\t<mat-hint align=\"start\">Please enter\r\n\t\t\t\t\t\t\t<strong>Linked In</strong> address\r\n\t\t\t\t\t\t</mat-hint>\r\n\t\t\t\t\t</mat-form-field>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n\t\t\t\t\t<mat-form-field class=\"mat-form-field-fluid\">\r\n\t\t\t\t\t\t<input matInput placeholder=\"Enter Facebook address\" formControlName=\"facebook\" />\r\n\t\t\t\t\t\t<mat-error>Please enter\r\n\t\t\t\t\t\t\t\t<strong>valid URL</strong>\r\n\t\t\t\t\t\t\t</mat-error>\r\n\t\t\t\t\t\t<mat-hint align=\"start\">Please enter\r\n\t\t\t\t\t\t\t<strong>Facebook</strong> address\r\n\t\t\t\t\t\t</mat-hint>\r\n\t\t\t\t\t</mat-form-field>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<div class=\"form-group kt-form__group row\">\r\n\t\t\t\t<div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n\t\t\t\t\t<mat-form-field class=\"mat-form-field-fluid\">\r\n\t\t\t\t\t\t<input matInput placeholder=\"Enter Twitter address\" formControlName=\"twitter\" />\r\n\t\t\t\t\t\t<mat-error>Please enter\r\n\t\t\t\t\t\t\t\t<strong>valid URL</strong>\r\n\t\t\t\t\t\t\t</mat-error>\r\n\t\t\t\t\t\t<mat-hint align=\"start\">Please enter\r\n\t\t\t\t\t\t\t<strong>Twitter</strong> address\r\n\t\t\t\t\t\t</mat-hint>\r\n\t\t\t\t\t</mat-form-field>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n\t\t\t\t\t<mat-form-field class=\"mat-form-field-fluid\">\r\n\t\t\t\t\t\t<input matInput placeholder=\"Enter Instagram address\" formControlName=\"instagram\" />\r\n\t\t\t\t\t\t<mat-error>Please enter\r\n\t\t\t\t\t\t\t\t<strong>valid URL</strong>\r\n\t\t\t\t\t\t\t</mat-error>\r\n\t\t\t\t\t\t<mat-hint align=\"start\">Please enter\r\n\t\t\t\t\t\t\t<strong>Instagram</strong> address\r\n\t\t\t\t\t\t</mat-hint>\r\n\t\t\t\t\t</mat-form-field>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</form>\r\n\t</div>\r\n\t<!--end::Form-->\r\n\t\r\n"
+module.exports = "<!--begin::Form-->\r\n<div *ngIf=\"socialNetworksForm\">\r\n\t<form [formGroup]=\"socialNetworksForm\" class=\"kt-form kt-form--group-seperator-dashed\">\r\n\t\r\n\t\t<kt-alert *ngIf=\"hasFormErrors\" type=\"warn\" [showCloseButton]=\"true\" [duration]=\"10000\" (close)=\"onAlertClose($event)\">\r\n\t\t\tOh snap! Change a few things up and try submitting again.\r\n\t\t</kt-alert>\r\n\t\t<div class=\"kt-form__section kt-form__section--first\">\r\n\t\t\t<div class=\"form-group kt-form__group row\">\r\n\t\t\t\t<div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n\t\t\t\t\t<mat-form-field class=\"mat-form-field-fluid\">\r\n\t\t\t\t\t\t<input matInput placeholder=\"Enter LinkedIn address\" formControlName=\"linkedIn\" />\r\n\t\t\t\t\t\t<mat-error>Please enter\r\n\t\t\t\t\t\t\t\t<strong>valid URL</strong>\r\n\t\t\t\t\t\t\t</mat-error>\r\n\t\t\t\t\t\t<!-- <mat-hint align=\"start\">Please enter\r\n\t\t\t\t\t\t\t<strong>Linked In</strong> address\r\n\t\t\t\t\t\t</mat-hint> -->\r\n\t\t\t\t\t</mat-form-field>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n\t\t\t\t\t<mat-form-field class=\"mat-form-field-fluid\">\r\n\t\t\t\t\t\t<input matInput placeholder=\"Enter Facebook address\" formControlName=\"facebook\" />\r\n\t\t\t\t\t\t<mat-error>Please enter\r\n\t\t\t\t\t\t\t\t<strong>valid URL</strong>\r\n\t\t\t\t\t\t\t</mat-error>\r\n\t\t\t\t\t\t<!-- <mat-hint align=\"start\">Please enter\r\n\t\t\t\t\t\t\t<strong>Facebook</strong> address\r\n\t\t\t\t\t\t</mat-hint> -->\r\n\t\t\t\t\t</mat-form-field>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<div class=\"form-group kt-form__group row\">\r\n\t\t\t\t<div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n\t\t\t\t\t<mat-form-field class=\"mat-form-field-fluid\">\r\n\t\t\t\t\t\t<input matInput placeholder=\"Enter Twitter address\" formControlName=\"twitter\" />\r\n\t\t\t\t\t\t<mat-error>Please enter\r\n\t\t\t\t\t\t\t\t<strong>valid URL</strong>\r\n\t\t\t\t\t\t\t</mat-error>\r\n\t\t\t\t\t\t<!-- <mat-hint align=\"start\">Please enter\r\n\t\t\t\t\t\t\t<strong>Twitter</strong> address\r\n\t\t\t\t\t\t</mat-hint> -->\r\n\t\t\t\t\t</mat-form-field>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n\t\t\t\t\t<mat-form-field class=\"mat-form-field-fluid\">\r\n\t\t\t\t\t\t<input matInput placeholder=\"Enter Instagram address\" formControlName=\"instagram\" />\r\n\t\t\t\t\t\t<mat-error>Please enter\r\n\t\t\t\t\t\t\t\t<strong>valid URL</strong>\r\n\t\t\t\t\t\t\t</mat-error>\r\n\t\t\t\t\t\t<!-- <mat-hint align=\"start\">Please enter\r\n\t\t\t\t\t\t\t<strong>Instagram</strong> address\r\n\t\t\t\t\t\t</mat-hint> -->\r\n\t\t\t\t\t</mat-form-field>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</form>\r\n\t</div>\r\n\t<!--end::Form-->\r\n\t\r\n"
 
 /***/ }),
 
@@ -4049,7 +4077,7 @@ exports.SocialNetworksComponent = SocialNetworksComponent;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"kt-portlet\">\r\n    <div  *ngIf=\"!allPermissions$\">\r\n        <mat-progress-spinner style=\"margin:0 auto;\"\r\n\t\tmode=\"indeterminate\" diameter=\"40\">\r\n\t</mat-progress-spinner> \r\n    </div>\r\n    <div  *ngIf=\"allPermissions$\">\r\n        <div class=\"kt-form\">\r\n            <div >\r\n \r\n                <mat-form-field *ngIf=\"allPermissions&&currentUser.pub_key!=currentLoggedUser\">\r\n                        <mat-label>Priviliedges</mat-label>\r\n                  <mat-select class=\"example-select\"  [(ngModel)]=\"selected\" (ngModelChange)=\"selectedPriviledgeType($event)\" >\r\n                    <mat-option  *ngFor=\"let role of  allPermissions$\" [value]=\"role.type\" >\r\n                        {{role.type}}\r\n                    </mat-option>\r\n                  </mat-select>\r\n                </mat-form-field>\r\n              </div>\r\n                  \r\n<!-- \r\n\r\n                <mat-form-field>\r\n                   \r\n                    <mat-select [(ngModel)]=\"selected\" (ngModelChange)=\"selectedPriviledgeType($event)\" *ngIf=\"allPermissions$\" >\r\n                        <mat-option  *ngFor=\"let role of  allPermissions$.result\" [value]=\"role.type\" >\r\n                            {{role.type}}\r\n                        </mat-option>\r\n                    </mat-select>\r\n                </mat-form-field> -->\r\n  \r\n                <div class=\"kt-portlet__body\">\r\n\r\n                    <div class=\"kt-separator kt-separator--dashed\"></div>\r\n                    <div class=\"form-group kt-form__group row\">\r\n                        <div class=\"col-lg-12 kt-margin-bottom-20-mobile\">\r\n                            <div class=\"kt-timeline-3 mb-5\">\r\n                                <div class=\"kt-timeline-3__items kt-timeline-3__items--rolePermissions\">\r\n                                    <div *ngFor=\"let _rootRole of rolePermissions\" class=\"kt-timeline-3__inner\">\r\n\r\n                                        <!-- {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}} -->\r\n                                        <!-- <button mat-icon-button>\r\n                                        <mat-icon class=\"mat-icon-rtl-mirror\">expand_more</mat-icon>\r\n                                    </button> -->\r\n                                        <div class=\"kt-timeline-3__item kt-border-bottom-grey kt-py-15 kt-bg-grey\">\r\n                                            <span class=\"kt-timeline-3__item-time\">\r\n                                                <mat-checkbox *ngIf=\"currentUser.pub_key!=currentLoggedUser\" [checked]=\"_rootRole.isSelected\"\r\n                                                    (change)=\"isSelectedChanged($event, _rootRole)\">\r\n                                                    {{ _rootRole.title }}</mat-checkbox>\r\n                                                    <span *ngIf=\"currentUser.pub_key==currentLoggedUser\"\r\n                                                  \r\n                                                    style=\"color: black;\"> <i class=\"fas fa-circle fa-xs mr-2\"></i>\r\n                                                    {{ _rootRole.title }}</span>\r\n                                            </span>\r\n                                        </div>\r\n                                        <div\r\n                                            class=\"d-flex align-items-center kt-border-bottom-grey kt-py-15 kt-bg-grey\" style=\"flex-wrap:wrap;\">\r\n                                            <div class=\"kt-timeline-3__item kt-timeline-3__item-child\"\r\n                                                *ngFor=\"let _childRole of _rootRole._children\">\r\n                                                <span class=\"kt-timeline-3__item-time\">\r\n                                                    <mat-checkbox *ngIf=\"currentUser.pub_key!=currentLoggedUser\" [checked]=\"_childRole.isSelected\"\r\n                                                        (change)=\"isSelectedChanged($event, _childRole)\">\r\n                                                        {{ _childRole.key }}</mat-checkbox>\r\n                                                        <span *ngIf=\"currentUser.pub_key==currentLoggedUser\"\r\n                                                      \r\n                                                        style=\"color: black;\"> <i class=\"fas fa-circle fa-xs mr-2\"></i>\r\n                                                        {{ _childRole.key }}</span>\r\n                                                </span>\r\n                                            </div>\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n\r\n        </div>\r\n    </div>\r\n</div>"
+module.exports = "<div class=\"kt-portlet\">\r\n    <div  *ngIf=\"!allPermissions$\">\r\n        <mat-progress-spinner style=\"margin:0 auto;\"\r\n\t\tmode=\"indeterminate\" diameter=\"40\">\r\n\t</mat-progress-spinner> \r\n    </div>\r\n    <div  *ngIf=\"allPermissions$\">\r\n        <div class=\"kt-form\">\r\n            <div >\r\n \r\n                <mat-form-field *ngIf=\"allPermissions$&&currentUser.pub_key!=currentLoggedUser\">\r\n                        <mat-label>Priviliedges</mat-label>\r\n                  <mat-select class=\"example-select\"  [(ngModel)]=\"selected\" (ngModelChange)=\"selectedPriviledgeType($event)\" >\r\n                    <mat-option  *ngFor=\"let role of  allPermissions$\" [value]=\"role.type\" >\r\n                        {{role.type}}\r\n                    </mat-option>\r\n                  </mat-select>\r\n                </mat-form-field>\r\n              </div>\r\n                  \r\n<!-- \r\n\r\n                <mat-form-field>\r\n                   \r\n                    <mat-select [(ngModel)]=\"selected\" (ngModelChange)=\"selectedPriviledgeType($event)\" *ngIf=\"allPermissions$\" >\r\n                        <mat-option  *ngFor=\"let role of  allPermissions$.result\" [value]=\"role.type\" >\r\n                            {{role.type}}\r\n                        </mat-option>\r\n                    </mat-select>\r\n                </mat-form-field> -->\r\n  \r\n                <div class=\"kt-portlet__body\">\r\n\r\n                    <div class=\"kt-separator kt-separator--dashed\"></div>\r\n                    <div class=\"form-group kt-form__group row\">\r\n                        <div class=\"col-lg-12 kt-margin-bottom-20-mobile\">\r\n                            <div class=\"kt-timeline-3 mb-5\">\r\n                                <div class=\"kt-timeline-3__items kt-timeline-3__items--rolePermissions\">\r\n                                    <div *ngFor=\"let _rootRole of rolePermissions\" class=\"kt-timeline-3__inner\">\r\n\r\n                                        <!-- {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}} -->\r\n                                        <!-- <button mat-icon-button>\r\n                                        <mat-icon class=\"mat-icon-rtl-mirror\">expand_more</mat-icon>\r\n                                    </button> -->\r\n                                        <div class=\"kt-timeline-3__item kt-border-bottom-grey kt-py-15 kt-bg-grey\">\r\n                                            <span class=\"kt-timeline-3__item-time\">\r\n                                                <mat-checkbox  *ngIf=\"currentUser.pub_key!=currentLoggedUser\" [checked]=\"_rootRole.isSelected\"\r\n                                                [indeterminate]='_rootRole.allestoneselected'\r\n                                                    (change)=\"isSelectedChanged($event, _rootRole)\">\r\n                                                    {{ _rootRole.title }}</mat-checkbox>\r\n                                                    <span *ngIf=\"currentUser.pub_key==currentLoggedUser\"\r\n                                                  \r\n                                                    style=\"color: black;\"> <i class=\"fas fa-circle fa-xs mr-2\"></i>\r\n                                                    {{ _rootRole.title }}</span>\r\n                                            </span>\r\n                                        </div>\r\n                                        <div\r\n                                            class=\"d-flex align-items-center kt-border-bottom-grey kt-py-15 kt-bg-grey\" style=\"flex-wrap:wrap;\">\r\n                                            <div class=\"kt-timeline-3__item kt-timeline-3__item-child\"\r\n                                                *ngFor=\"let _childRole of _rootRole._children\">\r\n                                                <span class=\"kt-timeline-3__item-time\">\r\n                                                    <mat-checkbox *ngIf=\"currentUser.pub_key!=currentLoggedUser\" [checked]=\"_childRole.isSelected\"\r\n                                                        (change)=\"isSelectedChanged($event, _childRole,_rootRole)\">\r\n                                                        {{ _childRole.key }}</mat-checkbox>\r\n                                                        <span *ngIf=\"currentUser.pub_key==currentLoggedUser\"\r\n                                                      \r\n                                                        style=\"color: black;\"> <i class=\"fas fa-circle fa-xs mr-2\"></i>\r\n                                                        {{ _childRole.key }}</span>\r\n                                                </span>\r\n                                            </div>\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n\r\n        </div>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -4082,6 +4110,7 @@ var _services_1 = __webpack_require__(/*! ../../../../../../core/auth/_services 
 var operators_1 = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 var router_1 = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 var UserRolesListComponent = /** @class */ (function () {
+    //selection = new SelectionModel<any>(true, []);
     /**
      * Component constructor
      *
@@ -4113,7 +4142,7 @@ var UserRolesListComponent = /** @class */ (function () {
             _this.currentUser = res['users'][0];
             _this.User.changeuser(res['users'][0]);
             _this.rolePermissions = _this.permission.preparePrivilidges();
-            console.log('mai', _this.rolePermissions);
+            // console.log('mai',this.rolePermissions)
             _this.checkedPermissions();
             _this.currentUser.role;
             _this.permission.getPriviliedgesType().subscribe(function (res) {
@@ -4276,7 +4305,7 @@ var UserRolesListComponent = /** @class */ (function () {
      * @param $event: Event
      * @param permission: Permission
      */
-    UserRolesListComponent.prototype.isSelectedChanged = function ($event, permission) {
+    UserRolesListComponent.prototype.isSelectedChanged = function ($event, permission, parentPermission) {
         console.log('permission', permission);
         if (permission._children) {
             permission._children.forEach(function (elem) {
@@ -4289,7 +4318,37 @@ var UserRolesListComponent = /** @class */ (function () {
         // if (this.checkedSelectedChildern(permission._children)) {
         // 	permission['isSelected'] = true
         //}
+        //checked of all row checked
+        if (parentPermission)
+            this.isAllrowselected(parentPermission);
+        else {
+            this.isAllrowselected(permission);
+        }
         this.assignRole();
+    };
+    UserRolesListComponent.prototype.isAllrowselected = function (parentPermission) {
+        var checkedChild = 0;
+        if (parentPermission) {
+            if (parentPermission._children && parentPermission._children instanceof Array) {
+                parentPermission._children.forEach(function (_child) {
+                    if (_child.isSelected) {
+                        checkedChild++;
+                    }
+                });
+                if (checkedChild == parentPermission._children.length) {
+                    parentPermission.allestoneselected = false;
+                    parentPermission.isSelected = true;
+                }
+                else if (checkedChild > 0 && checkedChild !== parentPermission._children.length) {
+                    parentPermission.isSelected = false;
+                    parentPermission.allestoneselected = true;
+                }
+                else {
+                    parentPermission.allestoneselected = false;
+                    parentPermission.isSelected = false;
+                }
+            }
+        }
     };
     /** UI */
     /**
@@ -4326,7 +4385,6 @@ var UserRolesListComponent = /** @class */ (function () {
         }
     };
     UserRolesListComponent.prototype.childernunPermission = function (item) {
-        console.log('vgrgr', this.rolePermissions);
         var allpermission = [];
         this.rolePermissions.forEach(function (elem) {
             if (elem['_children']) {
@@ -4341,6 +4399,7 @@ var UserRolesListComponent = /** @class */ (function () {
     };
     //this method to combine all permissions
     UserRolesListComponent.prototype.childernPermission = function (item) {
+        var _this = this;
         console.log('vgrgr', this.rolePermissions);
         var allpermission = [];
         this.rolePermissions.forEach(function (elem) {
@@ -4351,6 +4410,7 @@ var UserRolesListComponent = /** @class */ (function () {
                     }
                 });
             }
+            _this.isAllrowselected(elem);
         });
         return allpermission;
     };
@@ -4517,6 +4577,110 @@ exports.UpdateMessageComponent = UpdateMessageComponent;
 
 /***/ }),
 
+/***/ "./src/app/views/pages/user-management/users/user-edit/timeZone.ts":
+/*!*************************************************************************!*\
+  !*** ./src/app/views/pages/user-management/users/user-edit/timeZone.ts ***!
+  \*************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var timeZone = /** @class */ (function () {
+    function timeZone() {
+    }
+    timeZone.tzStrings = [
+        { "label": "(GMT-12:00) International Date Line West", "value": "Etc/GMT+12" },
+        { "label": "(GMT-11:00) Midway Island, Samoa", "value": "Pacific/Midway" },
+        { "label": "(GMT-10:00) Hawaii", "value": "Pacific/Honolulu" },
+        { "label": "(GMT-09:00) Alaska", "value": "US/Alaska" },
+        { "label": "(GMT-08:00) Pacific Time (US & Canada)", "value": "America/Los_Angeles" },
+        { "label": "(GMT-08:00) Tijuana, Baja California", "value": "America/Tijuana" },
+        { "label": "(GMT-07:00) Arizona", "value": "US/Arizona" },
+        { "label": "(GMT-07:00) Chihuahua, La Paz, Mazatlan", "value": "America/Chihuahua" },
+        { "label": "(GMT-07:00) Mountain Time (US & Canada)", "value": "US/Mountain" },
+        { "label": "(GMT-06:00) Central America", "value": "America/Managua" },
+        { "label": "(GMT-06:00) Central Time (US & Canada)", "value": "US/Central" },
+        { "label": "(GMT-06:00) Guadalajara, Mexico City, Monterrey", "value": "America/Mexico_City" },
+        { "label": "(GMT-06:00) Saskatchewan", "value": "Canada/Saskatchewan" },
+        { "label": "(GMT-05:00) Bogota, Lima, Quito, Rio Branco", "value": "America/Bogota" },
+        { "label": "(GMT-05:00) Eastern Time (US & Canada)", "value": "US/Eastern" },
+        { "label": "(GMT-05:00) Indiana (East)", "value": "US/East-Indiana" },
+        { "label": "(GMT-04:00) Atlantic Time (Canada)", "value": "Canada/Atlantic" },
+        { "label": "(GMT-04:00) Caracas, La Paz", "value": "America/Caracas" },
+        { "label": "(GMT-04:00) Manaus", "value": "America/Manaus" },
+        { "label": "(GMT-04:00) Santiago", "value": "America/Santiago" },
+        { "label": "(GMT-03:30) Newfoundland", "value": "Canada/Newfoundland" },
+        { "label": "(GMT-03:00) Brasilia", "value": "America/Sao_Paulo" },
+        { "label": "(GMT-03:00) Buenos Aires, Georgetown", "value": "America/Argentina/Buenos_Aires" },
+        { "label": "(GMT-03:00) Greenland", "value": "America/Godthab" },
+        { "label": "(GMT-03:00) Montevideo", "value": "America/Montevideo" },
+        { "label": "(GMT-02:00) Mid-Atlantic", "value": "America/Noronha" },
+        { "label": "(GMT-01:00) Cape Verde Is.", "value": "Atlantic/Cape_Verde" },
+        { "label": "(GMT-01:00) Azores", "value": "Atlantic/Azores" },
+        { "label": "(GMT+00:00) Casablanca, Monrovia, Reykjavik", "value": "Africa/Casablanca" },
+        { "label": "(GMT+00:00) Greenwich Mean Time : Dublin, Edinburgh, Lisbon, London", "value": "Etc/Greenwich" },
+        { "label": "(GMT+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna", "value": "Europe/Amsterdam" },
+        { "label": "(GMT+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague", "value": "Europe/Belgrade" },
+        { "label": "(GMT+01:00) Brussels, Copenhagen, Madrid, Paris", "value": "Europe/Brussels" },
+        { "label": "(GMT+01:00) Sarajevo, Skopje, Warsaw, Zagreb", "value": "Europe/Sarajevo" },
+        { "label": "(GMT+01:00) West Central Africa", "value": "Africa/Lagos" },
+        { "label": "(GMT+02:00) Amman", "value": "Asia/Amman" },
+        { "label": "(GMT+02:00) Athens, Bucharest, Istanbul", "value": "Europe/Athens" },
+        { "label": "(GMT+02:00) Beirut", "value": "Asia/Beirut" },
+        { "label": "(GMT+02:00) Cairo", "value": "Africa/Cairo" },
+        { "label": "(GMT+02:00) Harare, Pretoria", "value": "Africa/Harare" },
+        { "label": "(GMT+02:00) Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius", "value": "Europe/Helsinki" },
+        { "label": "(GMT+02:00) Jerusalem", "value": "Asia/Jerusalem" },
+        { "label": "(GMT+02:00) Minsk", "value": "Europe/Minsk" },
+        { "label": "(GMT+02:00) Windhoek", "value": "Africa/Windhoek" },
+        { "label": "(GMT+03:00) Kuwait, Riyadh, Baghdad", "value": "Asia/Kuwait" },
+        { "label": "(GMT+03:00) Moscow, St. Petersburg, Volgograd", "value": "Europe/Moscow" },
+        { "label": "(GMT+03:00) Nairobi", "value": "Africa/Nairobi" },
+        { "label": "(GMT+03:00) Tbilisi", "value": "Asia/Tbilisi" },
+        { "label": "(GMT+03:30) Tehran", "value": "Asia/Tehran" },
+        { "label": "(GMT+04:00) Abu Dhabi, Muscat", "value": "Asia/Muscat" },
+        { "label": "(GMT+04:00) Baku", "value": "Asia/Baku" },
+        { "label": "(GMT+04:00) Yerevan", "value": "Asia/Yerevan" },
+        { "label": "(GMT+04:30) Kabul", "value": "Asia/Kabul" },
+        { "label": "(GMT+05:00) Yekaterinburg", "value": "Asia/Yekaterinburg" },
+        { "label": "(GMT+05:00) Islamabad, Karachi, Tashkent", "value": "Asia/Karachi" },
+        { "label": "(GMT+05:30) Chennai, Kolkata, Mumbai, New Delhi", "value": "Asia/Calcutta" },
+        { "label": "(GMT+05:30) Sri Jayawardenapura", "value": "Asia/Calcutta" },
+        { "label": "(GMT+05:45) Kathmandu", "value": "Asia/Katmandu" },
+        { "label": "(GMT+06:00) Almaty, Novosibirsk", "value": "Asia/Almaty" },
+        { "label": "(GMT+06:00) Astana, Dhaka", "value": "Asia/Dhaka" },
+        { "label": "(GMT+06:30) Yangon (Rangoon)", "value": "Asia/Rangoon" },
+        { "label": "(GMT+07:00) Bangkok, Hanoi, Jakarta", "value": "Asia/Bangkok" },
+        { "label": "(GMT+07:00) Krasnoyarsk", "value": "Asia/Krasnoyarsk" },
+        { "label": "(GMT+08:00) Beijing, Chongqing, Hong Kong, Urumqi", "value": "Asia/Hong_Kong" },
+        { "label": "(GMT+08:00) Kuala Lumpur, Singapore", "value": "Asia/Kuala_Lumpur" },
+        { "label": "(GMT+08:00) Irkutsk, Ulaan Bataar", "value": "Asia/Irkutsk" },
+        { "label": "(GMT+08:00) Perth", "value": "Australia/Perth" },
+        { "label": "(GMT+08:00) Taipei", "value": "Asia/Taipei" },
+        { "label": "(GMT+09:00) Osaka, Sapporo, Tokyo", "value": "Asia/Tokyo" },
+        { "label": "(GMT+09:00) Seoul", "value": "Asia/Seoul" },
+        { "label": "(GMT+09:00) Yakutsk", "value": "Asia/Yakutsk" },
+        { "label": "(GMT+09:30) Adelaide", "value": "Australia/Adelaide" },
+        { "label": "(GMT+09:30) Darwin", "value": "Australia/Darwin" },
+        { "label": "(GMT+10:00) Brisbane", "value": "Australia/Brisbane" },
+        { "label": "(GMT+10:00) Canberra, Melbourne, Sydney", "value": "Australia/Canberra" },
+        { "label": "(GMT+10:00) Hobart", "value": "Australia/Hobart" },
+        { "label": "(GMT+10:00) Guam, Port Moresby", "value": "Pacific/Guam" },
+        { "label": "(GMT+10:00) Vladivostok", "value": "Asia/Vladivostok" },
+        { "label": "(GMT+11:00) Magadan, Solomon Is., New Caledonia", "value": "Asia/Magadan" },
+        { "label": "(GMT+12:00) Auckland, Wellington", "value": "Pacific/Auckland" },
+        { "label": "(GMT+12:00) Fiji, Kamchatka, Marshall Is.", "value": "Pacific/Fiji" },
+        { "label": "(GMT+13:00) Nuku'alofa", "value": "Pacific/Tongatapu" }
+    ];
+    return timeZone;
+}());
+exports.timeZone = timeZone;
+
+
+/***/ }),
+
 /***/ "./src/app/views/pages/user-management/users/user-edit/user-edit.component.html":
 /*!**************************************************************************************!*\
   !*** ./src/app/views/pages/user-management/users/user-edit/user-edit.component.html ***!
@@ -4524,7 +4688,7 @@ exports.UpdateMessageComponent = UpdateMessageComponent;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<kt-portlet>\r\n\t<div *ngIf=\"!user\"class=\"center\">\r\n        <mat-progress-spinner style=\"margin:0 auto;\"\r\n        mode=\"indeterminate\" diameter=\"40\">\r\n    </mat-progress-spinner>\r\n    </div>\r\n    <div  *ngIf=\"user\">\r\n\t<kt-portlet-header [title]=\"\" [class]=\"'kt-portlet__head--lg'\" [viewLoading$]=\"loading$\">\r\n\t\t<ng-container ktPortletTools>\r\n\t\t\t<a routerLink='/default/user-management/users' class=\"btn btn-secondary kt-margin-r-10\" mat-raised-button\r\n\t\t\t\tmatTooltip=\"Back to the users list\">\r\n\t\t\t\t<i class=\"la la-arrow-left\"></i>\r\n\t\t\t\t<span class=\"kt-hidden-mobile\">Back</span>\r\n\t\t\t</a>\r\n\t\t\t<a href=\"javascript:;\" class=\"btn btn-secondary kt-margin-r-10\" (click)=\"reset()\"\r\n\t\t\t\t[disabled]=\"selectedTab !== 0\" mat-raised-button matTooltip=\"Reset changes\">\r\n\t\t\t\t<i class=\"la la-cog\"></i>\r\n\t\t\t\t<span class=\"kt-hidden-mobile\">Reset</span>\r\n\t\t\t</a>\r\n\t\t\t<a href=\"javascript:;\" class=\"btn btn-primary kt-margin-r-10\" color=\"primary\"\r\n\t\t\t\t(click)=\"onSumbit(false,true)\" [disabled]=\"DisablesSave()\" mat-raised-button\r\n\t\t\t\tmatTooltip=\"Save & Continue\">\r\n\t\t\t\t<span>Save</span>\r\n\t\t\t</a>\r\n\r\n\r\n\t\t</ng-container>\r\n\t</kt-portlet-header>\r\n\r\n\t<kt-portlet-body>\r\n\t\t<mat-tab-group [(selectedIndex)]=\"selectedTab\">\r\n\t\t\t<mat-tab [disabled]=\"!checkedpermission('getallusers')\">\r\n\t\t\t\t<ng-template mat-tab-label>\r\n\t\t\t\t\t<i class=\"mat-tab-label-icon fa fa-user\"></i>\r\n\t\t\t\t\tBasic info\r\n\t\t\t\t</ng-template>\r\n\t\t\t\t<ng-template matTabContent>\r\n\t\t\t\t\t<!--begin::Form-->\r\n\t\t\t\t\t<div *ngIf=\"user\">\r\n\t\t\t\t\t\t<div id=\"spinner\" #spinner>\r\n\r\n\r\n\t\t\t\t\t\t\t<div class=\"kt-portlet__body-progress\" *ngIf=\"viewLoading\">\r\n\t\t\t\t\t\t\t\t<mat-spinner [diameter]=\"40\"></mat-spinner>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<form [formGroup]=\"userForm\" class=\"kt-form kt-form--group-seperator-dashed\">\r\n\t\t\t\t\t\t\t<div id=\"alert\" #alert>\r\n\r\n\t\t\t\t\t\t\t\t<kt-alert *ngIf=\"errormessage\" type=\"warn\" [showCloseButton]=\"true\" [duration]=\"10000\"\r\n\t\t\t\t\t\t\t\t\t(close)=\"onAlertClose($event)\">\r\n\t\t\t\t\t\t\t\t\t{{errormessage}}\r\n\t\t\t\t\t\t\t\t</kt-alert>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<kt-alert *ngIf=\"hasFormErrors\" type=\"warn\" [showCloseButton]=\"true\" [duration]=\"10000\"\r\n\t\t\t\t\t\t\t\t(close)=\"onAlertClose($event)\">\r\n\t\t\t\t\t\t\t\tOh snap! Change a few things up and try submitting again.\r\n\t\t\t\t\t\t\t</kt-alert>\r\n\t\t\t\t\t\t\t <div class=\"contain\"> \r\n\t\t\t\t\t\t\t\t<!-- <div class=\"kt-form__section kt-form__section--first\"> -->\r\n\t\t\t\t\t\t\t\t<div class=\"child\">\t\r\n\t\t\t\t\t\t\t\t\t<div class=\"form-group kt-form__group row\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n\t\t\t\t\t\t\t\t\t\t\t<mat-form-field class=\"mat-form-field-fluid\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t<input matInput formControlName=\"username\" />\r\n\t\t\t\t\t\t\t\t\t\t\t\t<mat-error *ngIf=\"userForm.controls['username'].errors?.required\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\tFullName\r\n\t\t\t\t\t\t\t\t\t\t\t\t\tis\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t<strong>required</strong>\r\n\t\t\t\t\t\t\t\t\t\t\t\t</mat-error>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<mat-error\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t*ngIf=\"userForm.controls['username'].invalid&&userForm.controls['username'].errors?.pattern\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\tPlease enter\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t<strong>characters only</strong>\r\n\t\t\t\t\t\t\t\t\t\t\t\t</mat-error>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<mat-hint align=\"start\">Please enter\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t<strong>Username</strong>\r\n\t\t\t\t\t\t\t\t\t\t\t\t</mat-hint>\r\n\t\t\t\t\t\t\t\t\t\t\t</mat-form-field>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n\t\t\t\t\t\t\t\t\t\t<mat-form-field class=\"mat-form-field-fluid\">\r\n\t\t\t\t\t\t\t\t\t\t\t<input matInput formControlName=\"name\" />\r\n\t\t\t\t\t\t\t\t\t\t\t<mat-error *ngIf=\"userForm.controls['name'].errors?.required\"> Name is\r\n\t\t\t\t\t\t\t\t\t\t\t\t<strong>required</strong>\r\n\t\t\t\t\t\t\t\t\t\t\t</mat-error>\r\n\t\t\t\t\t\t\t\t\t\t\t<mat-error *ngIf=\"userForm.controls['name'].errors?.pattern\"> Please enter\r\n\t\t\t\t\t\t\t\t\t\t\t\t<strong>characters only</strong>\r\n\t\t\t\t\t\t\t\t\t\t\t</mat-error>\r\n\t\t\t\t\t\t\t\t\t\t\t<mat-hint align=\"start\">Please enter\r\n\t\t\t\t\t\t\t\t\t\t\t\t<strong>Full Name</strong>\r\n\t\t\t\t\t\t\t\t\t\t\t</mat-hint>\r\n\t\t\t\t\t\t\t\t\t\t</mat-form-field>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t<div class=\"form-group kt-form__group row\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n\t\t\t\t\t\t\t\t\t\t\t<mat-form-field class=\"mat-form-field-fluid\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t<input type=\"email\" matInput formControlName=\"email\" />\r\n\t\t\t\t\t\t\t\t\t\t\t\t<mat-error *ngIf=\"userForm.controls['email'].errors?.required\">Email is\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t<strong>required</strong>\r\n\t\t\t\t\t\t\t\t\t\t\t\t</mat-error>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<mat-error *ngIf=\"userForm.controls['email'].errors?.email\"> Please\r\n\t\t\t\t\t\t\t\t\t\t\t\t\tenter\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t<strong>valid email</strong>\r\n\t\t\t\t\t\t\t\t\t\t\t\t</mat-error>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<mat-hint align=\"start\">Please enter\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t<strong>Email</strong>\r\n\t\t\t\t\t\t\t\t\t\t\t\t</mat-hint>\r\n\t\t\t\t\t\t\t\t\t\t\t</mat-form-field>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n\t\t\t\t\t\t\t\t\t\t\t<mat-form-field class=\"mat-form-field-fluid\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t<input matInput placeholder=\"Enter Phone\" formControlName=\"phone\" />\r\n\t\t\t\t\t\t\t\t\t\t\t\t<mat-error\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t*ngIf=\"userForm.controls['phone'].errors?.pattern||userForm.controls['phone'].errors?.minlength||userForm.controls['phone'].errors?.maxlength\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\tPlease enter\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t<strong>valid phone number</strong>\r\n\t\t\t\t\t\t\t\t\t\t\t\t</mat-error>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<mat-hint align=\"start\">Please enter\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t<strong>Phone</strong>\r\n\t\t\t\t\t\t\t\t\t\t\t\t</mat-hint>\r\n\t\t\t\t\t\t\t\t\t\t\t</mat-form-field>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<!-- </div> -->\r\n\t\t\t\t\t\t\t\t <div  style=\"margin:15px\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"fileinput fileinput-new\" data-provides=\"fileinput\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"fileinput-new thumbnail\" style=\"width: 100px; height: 100px;\">\r\n\t\t\t\t\t\t\t\t\t\t\t<img *ngIf=\"imageprivew ==''\"\r\n\t\t\t\t\t\t\t\t\t\t\t\tsrc=\"http://www.placehold.it/100x100/EFEFEF/AAAAAA&amp;text=no+image\"\r\n\t\t\t\t\t\t\t\t\t\t\t\talt=\"\">\r\n\t\t\t\t\t\t\t\t\t\t\t<img *ngIf=\"imageprivew !=''\" src=\"{{imageprivew}}\" alt=\"membership image\"\r\n\t\t\t\t\t\t\t\t\t\t\t\tstyle=\"width: 100px; height: 100px;\">\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t\t\t\t\t<label for=\"file-upload\"\r\n\t\t\t\t\t\t\t\t\t\t\t\tclass=\"custom-file-upload fileinput-new btn btn-success btn-s\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t<i class=\"fa fa-cloud-upload\"></i> Upload Image</label>\r\n\t\t\t\t\t\t\t\t\t\t\t<input id=\"file-upload\" type=\"file\" name=\"file\" #input_image\r\n\t\t\t\t\t\t\t\t\t\t\t\t(change)=\"handleUpload($event)\" ng2FileSelect [uploader]=\"uploader\" />\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div> \r\n\t\t\t\t\t\t\t </div> \r\n\t\t\t\t\t\t</form>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<!--end::Form-->\r\n\t\t\t\t</ng-template>\r\n\t\t\t</mat-tab>\r\n\t\t\t<mat-tab [disabled]=\"!checkedpermission('getallusers')\" >\r\n\t\t\t\t<ng-template mat-tab-label>\r\n\t\t\t\t\t<i class=\"mat-tab-label-icon fa fa-address-book\"></i>\r\n\t\t\t\t\tUser address\r\n\t\t\t\t</ng-template>\r\n\t\t\t\t<ng-template matTabContent>\r\n\t\t\t\t\t<kt-alert *ngIf=\"errormessage&&!ErrorAdress\" type=\"warn\" [showCloseButton]=\"true\" [duration]=\"10000\"\r\n\t\t\t\t\t\t(close)=\"onAlertClose($event)\">\r\n\t\t\t\t\t\t{{errormessage}}\r\n\t\t\t\t\t</kt-alert>\r\n\t\t\t\t\t<kt-alert *ngIf=\"ErrorAdress\" type=\"warn\" [showCloseButton]=\"true\" [duration]=\"10000\"\r\n\t\t\t\t\t\t(close)=\"onAlertClose($event)\">\r\n\t\t\t\t\t\t{{ErrorAdress}}\r\n\t\t\t\t\t</kt-alert>\r\n\t\t\t\t\t<kt-address [(addressSubject)]=\"addressSubject\" [(AdressErrorMessage)]=\"AdressErrorMessage\">\r\n\t\t\t\t\t</kt-address>\r\n\t\t\t\t</ng-template>\r\n\t\t\t</mat-tab>\r\n\t\t\t<mat-tab [disabled]=\"!checkedpermission('getallusers')\">\r\n\t\t\t\t<ng-template mat-tab-label>\r\n\t\t\t\t\t<i class=\"mat-tab-label-icon fab fa-facebook\"></i>\r\n\t\t\t\t\tSocial Nerworks\r\n\t\t\t\t</ng-template>\r\n\t\t\t\t<ng-template matTabContent>\r\n\t\t\t\t\t<kt-alert *ngIf=\"errormessage&&!SocialError\" type=\"warn\" [showCloseButton]=\"true\" [duration]=\"10000\"\r\n\t\t\t\t\t\t(close)=\"onAlertClose($event)\">\r\n\t\t\t\t\t\t{{errormessage}}\r\n\t\t\t\t\t</kt-alert>\r\n\t\t\t\t\t<kt-alert *ngIf=\"SocialError\" type=\"warn\" [showCloseButton]=\"true\" [duration]=\"10000\"\r\n\t\t\t\t\t\t(close)=\"onAlertClose($event)\">\r\n\t\t\t\t\t\t{{SocialError}}\r\n\t\t\t\t\t</kt-alert>\r\n\t\t\t\t\t<kt-social-networks [(SocialErrorMesaage)]=\"SocialErrorMesaage\"\r\n\t\t\t\t\t\t[(socialNetworksSubject)]=\"socialNetworksSubject\"></kt-social-networks>\r\n\t\t\t\t</ng-template>\r\n\t\t\t</mat-tab>\r\n\t\t\t<mat-tab [disabled]=\"!checkedpermission('getprivilidges')\">\r\n\t\t\t\t<ng-template mat-tab-label>\r\n\t\t\t\t\t<i class=\"mat-tab-label-icon fa fa-unlock\"></i>\r\n\t\t\t\t\tUser roles\r\n\t\t\t\t</ng-template>\r\n\t\t\t\t<ng-template matTabContent>\r\n\t\t\t\t\t<kt-user-roles-list></kt-user-roles-list>\r\n\t\t\t\t</ng-template>\r\n\t\t\t</mat-tab>\r\n\t\t\t\r\n\t\t\t<mat-tab *ngIf=\"chechedRoleAndShiftsTab\" [disabled]=\"!checkedpermission('getprivilidges')\" >\r\n\t\t\t\t<ng-template mat-tab-label>\r\n\t\t\t\t\t<i class=\"mat-tab-label-icon flaticon2-protection\"></i>\r\n\t\t\t\t\tAccess Right\r\n\t\t\t\t</ng-template>\r\n\t\t\t\t<ng-template matTabContent>\r\n\t\t\t\t\t<kt-accessRight></kt-accessRight>\r\n\t\t\t\t</ng-template>\r\n\t\t\t</mat-tab>\r\n\r\n\t\t\t<mat-tab [disabled]=\"!checkedpermission('getshifts')\">\r\n\t\t\t\t<ng-template mat-tab-label>\r\n\t\t\t\t\t<i class=\"mat-tab-label-icon fa fa-exchange-alt\"></i>\r\n\t\t\t\t\tShifts\r\n\t\t\t\t</ng-template>\r\n\t\t\t\t<ng-template matTabContent>\r\n\t\t\t\t\t<kt-shifts></kt-shifts>\r\n\t\t\t\t</ng-template>\r\n\t\t\t</mat-tab>\r\n\r\n\t\t\t<!-- <mat-tab *ngIf=\"user\" [disabled]=\"!user || !user.id\">\r\n\t\t\t\t<ng-template mat-tab-label>\r\n\t\t\t\t\t<i class=\"mat-tab-label-icon fa fa-exchange-alt\"></i>\r\n\t\t\t\t\tChange password\r\n\t\t\t\t</ng-template>\r\n\t\t\t\t<ng-template matTabContent>\r\n\t\t\t\t\t<kt-change-password [userId]=\"user.id\"></kt-change-password>\r\n\t\t\t\t</ng-template>\r\n\t\t\t</mat-tab> -->\r\n\t\t</mat-tab-group>\r\n\t</kt-portlet-body>\r\n\t</div>\r\n</kt-portlet>\r\n"
+module.exports = "<kt-portlet>\r\n\t<div *ngIf=\"!user\"class=\"center\">\r\n        <mat-progress-spinner style=\"margin:0 auto;\"\r\n        mode=\"indeterminate\" diameter=\"40\">\r\n    </mat-progress-spinner>\r\n    </div>\r\n    <div  *ngIf=\"user\">\r\n\t<kt-portlet-header [title]=\"\" [class]=\"'kt-portlet__head--lg'\" [viewLoading$]=\"loading$\">\r\n\t\t<ng-container ktPortletTools>\r\n\t\t\t<a (click)='goBackWithId()' class=\"btn btn-secondary kt-margin-r-10\" mat-raised-button\r\n\t\t\t\tmatTooltip=\"Back to the users list\">\r\n\t\t\t\t<i class=\"la la-arrow-left\"></i>\r\n\t\t\t\t<span class=\"kt-hidden-mobile\">Back</span>\r\n\t\t\t</a>\r\n\t\t\t<a href=\"javascript:;\" class=\"btn btn-secondary kt-margin-r-10\" (click)=\"reset()\"\r\n\t\t\t\t mat-raised-button matTooltip=\"Reset changes\">\r\n\t\t\t\t<i class=\"la la-cog\"></i>\r\n\t\t\t\t<span class=\"kt-hidden-mobile\">Reset</span>\r\n\t\t\t</a>\r\n\t\t\t<a href=\"javascript:;\" class=\"btn btn-primary kt-margin-r-10\" color=\"primary\"\r\n\t\t\t\t(click)=\"onSumbit(false,true)\" [disabled]=\"DisablesSave()\" mat-raised-button\r\n\t\t\t\tmatTooltip=\"Save & Continue\">\r\n\t\t\t\t<span>Save</span>\r\n\t\t\t</a>\r\n\r\n\r\n\t\t</ng-container>\r\n\t</kt-portlet-header>\r\n\r\n\t<kt-portlet-body>\r\n\t\t<mat-tab-group [(selectedIndex)]=\"selectedTab\">\r\n\t\t\t<mat-tab [disabled]=\"!checkedpermission('getallusers')\">\r\n\t\t\t\t<ng-template mat-tab-label>\r\n\t\t\t\t\t<i class=\"mat-tab-label-icon fa fa-user\"></i>\r\n\t\t\t\t\t{{titleTabBasicInfo}}\r\n\t\t\t\t</ng-template>\r\n\t\t\t\t<ng-template matTabContent>\r\n\t\t\t\t\t<!--begin::Form-->\r\n\t\t\t\t\t<div *ngIf=\"user\">\r\n\t\t\t\t\t\t<div id=\"spinner\" #spinner>\r\n\t\t\t\t\t\t\t<div class=\"kt-portlet__body-progress\" *ngIf=\"viewLoading\">\r\n\t\t\t\t\t\t\t\t<mat-spinner [diameter]=\"40\"></mat-spinner>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<form [formGroup]=\"userForm\" class=\"kt-form kt-form--group-seperator-dashed\">\r\n\t\t\t\t\t\t\t<div id=\"alert\" #alert>\r\n\r\n\t\t\t\t\t\t\t\t<kt-alert *ngIf=\"errormessage\" type=\"warn\" [showCloseButton]=\"true\" [duration]=\"10000\"\r\n\t\t\t\t\t\t\t\t\t(close)=\"onAlertClose($event)\">\r\n\t\t\t\t\t\t\t\t\t{{errormessage}}\r\n\t\t\t\t\t\t\t\t</kt-alert>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<kt-alert *ngIf=\"hasFormErrors\" type=\"warn\" [showCloseButton]=\"true\" [duration]=\"10000\"\r\n\t\t\t\t\t\t\t\t(close)=\"onAlertClose($event)\">\r\n\t\t\t\t\t\t\t\tOh snap! Change a few things up and try submitting again.\r\n\t\t\t\t\t\t\t</kt-alert>\r\n\t\t\t\t\t\t\t <div class=\"contain\"> \r\n\t\t\t\t\t\t\t\t<!-- <div class=\"kt-form__section kt-form__section--first\"> -->\r\n\t\t\t\t\t\t\t\t<div class=\"child\">\t\r\n\t\t\t\t\t\t\t\t\t<div class=\"form-group kt-form__group row\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n\t\t\t\t\t\t\t\t\t\t\t<mat-form-field class=\"mat-form-field-fluid\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t<input matInput placeholder='Enter username' formControlName=\"username\" />\r\n\t\t\t\t\t\t\t\t\t\t\t\t<mat-error *ngIf=\"userForm.controls['username'].errors?.required\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\tFullName\r\n\t\t\t\t\t\t\t\t\t\t\t\t\tis\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t<strong>required</strong>\r\n\t\t\t\t\t\t\t\t\t\t\t\t</mat-error>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<mat-error\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t*ngIf=\"userForm.controls['username'].invalid&&userForm.controls['username'].errors?.pattern\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\tPlease enter\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t<strong>characters only</strong>\r\n\t\t\t\t\t\t\t\t\t\t\t\t</mat-error>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <mat-hint align=\"start\">Please enter\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t<strong>Username</strong>\r\n\t\t\t\t\t\t\t\t\t\t\t\t</mat-hint> -->\r\n\t\t\t\t\t\t\t\t\t\t\t</mat-form-field>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n\t\t\t\t\t\t\t\t\t\t<mat-form-field class=\"mat-form-field-fluid\">\r\n\t\t\t\t\t\t\t\t\t\t\t<input matInput placeholder='Enter name' formControlName=\"name\" />\r\n\t\t\t\t\t\t\t\t\t\t\t<mat-error *ngIf=\"userForm.controls['name'].errors?.required\"> Name is\r\n\t\t\t\t\t\t\t\t\t\t\t\t<strong>required</strong>\r\n\t\t\t\t\t\t\t\t\t\t\t</mat-error>\r\n\t\t\t\t\t\t\t\t\t\t\t<mat-error *ngIf=\"userForm.controls['name'].errors?.pattern\"> Please enter\r\n\t\t\t\t\t\t\t\t\t\t\t\t<strong>characters only</strong>\r\n\t\t\t\t\t\t\t\t\t\t\t</mat-error>\r\n\t\t\t\t\t\t\t\t\t\t\t<mat-hint align=\"start\">Please enter\r\n\t\t\t\t\t\t\t\t\t\t\t\t<strong>Full Name</strong>\r\n\t\t\t\t\t\t\t\t\t\t\t</mat-hint>\r\n\t\t\t\t\t\t\t\t\t\t</mat-form-field>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t<div class=\"form-group kt-form__group row\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n\t\t\t\t\t\t\t\t\t\t\t<mat-form-field class=\"mat-form-field-fluid\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t<input type=\"email\" matInput placeholder='Enter email' formControlName=\"email\" />\r\n\t\t\t\t\t\t\t\t\t\t\t\t<mat-error *ngIf=\"userForm.controls['email'].errors?.required\">Email is\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t<strong>required</strong>\r\n\t\t\t\t\t\t\t\t\t\t\t\t</mat-error>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<mat-error *ngIf=\"userForm.controls['email'].errors?.email\"> Please\r\n\t\t\t\t\t\t\t\t\t\t\t\t\tenter\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t<strong>valid email</strong>\r\n\t\t\t\t\t\t\t\t\t\t\t\t</mat-error>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <mat-hint align=\"start\">Please enter\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t<strong>Email</strong>\r\n\t\t\t\t\t\t\t\t\t\t\t\t</mat-hint> -->\r\n\t\t\t\t\t\t\t\t\t\t\t</mat-form-field>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n\t\t\t\t\t\t\t\t\t\t\t<mat-form-field class=\"mat-form-field-fluid\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t<input matInput placeholder=\"Enter Phone\" formControlName=\"phone\" />\r\n\t\t\t\t\t\t\t\t\t\t\t\t<mat-error\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t*ngIf=\"userForm.controls['phone'].errors?.pattern||userForm.controls['phone'].errors?.minlength||userForm.controls['phone'].errors?.maxlength\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\tPlease enter\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t<strong>valid phone number</strong>\r\n\t\t\t\t\t\t\t\t\t\t\t\t</mat-error>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<!-- <mat-hint align=\"start\">Please enter\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t<strong>Phone</strong>\r\n\t\t\t\t\t\t\t\t\t\t\t\t</mat-hint> -->\r\n\t\t\t\t\t\t\t\t\t\t\t</mat-form-field>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div *ngIf=\"!chechedRoleAndShiftsTab\" class=\"form-group kt-form__group row\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n\t\t\t\t\t\t\t\t\t\t\t<mat-form-field class=\"mat-form-field-fluid\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t<mat-label>Languages</mat-label>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<mat-select [(value)]=\"language\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t  <mat-option *ngFor=\"let lang of languages\" [value]=\"lang.name\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t{{lang.name}}\r\n\t\t\t\t\t\t\t\t\t\t\t\t  </mat-option>\r\n\t\t\t\t\t\t\t\t\t\t\t\t</mat-select>\r\n\t\t\t\t\t\t\t\t\t\t\t</mat-form-field>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n\t\t\t\t\t\t\t\t\t\t\t<mat-form-field class=\"mat-form-field-fluid\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t<mat-label>Timezone</mat-label>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<mat-select [(value)]=\"timezone\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t  <mat-option *ngFor=\"let time of timeZoneArray\" [value]=\"time.value\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t{{time.value}}\r\n\t\t\t\t\t\t\t\t\t\t\t\t  </mat-option>\r\n\t\t\t\t\t\t\t\t\t\t\t\t</mat-select>\r\n\t\t\t\t\t\t\t\t\t\t\t</mat-form-field>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<!-- </div> -->\r\n\t\t\t\t\t\t\t\t <div  style=\"margin:15px\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"fileinput fileinput-new\" data-provides=\"fileinput\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"fileinput-new thumbnail\" style=\"width: 100px; height: 100px;\">\r\n\t\t\t\t\t\t\t\t\t\t\t<img *ngIf=\"imageprivew ==''\"\r\n\t\t\t\t\t\t\t\t\t\t\t\tsrc=\"http://www.placehold.it/100x100/EFEFEF/AAAAAA&amp;text=no+image\"\r\n\t\t\t\t\t\t\t\t\t\t\t\talt=\"\">\r\n\t\t\t\t\t\t\t\t\t\t\t<img *ngIf=\"imageprivew !=''\" src=\"{{imageprivew}}\" alt=\"membership image\"\r\n\t\t\t\t\t\t\t\t\t\t\t\tstyle=\"width: 100px; height: 100px;\">\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t\t\t\t\t<label for=\"file-upload\"\r\n\t\t\t\t\t\t\t\t\t\t\t\tclass=\"custom-file-upload fileinput-new btn btn-success btn-s\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t<i class=\"fa fa-cloud-upload\"></i> Upload Image</label>\r\n\t\t\t\t\t\t\t\t\t\t\t<input id=\"file-upload\" type=\"file\" name=\"file\" #input_image\r\n\t\t\t\t\t\t\t\t\t\t\t\t(change)=\"handleUpload($event)\" ng2FileSelect [uploader]=\"uploader\" />\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div> \r\n\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t </div> \r\n\t\t\t\t\t\t</form>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<!--end::Form-->\r\n\t\t\t\t</ng-template>\r\n\t\t\t</mat-tab>\r\n\t\t\t<mat-tab [disabled]=\"!checkedpermission('getallusers')\" >\r\n\t\t\t\t<ng-template mat-tab-label>\r\n\t\t\t\t\t<i class=\"mat-tab-label-icon fa fa-address-book\"></i>\r\n\t\t\t\t\t{{titleTabAddress}}\r\n\t\t\t\t</ng-template>\r\n\t\t\t\t<ng-template matTabContent>\r\n\t\t\t\t\t<kt-alert *ngIf=\"errormessage&&!ErrorAdress\" type=\"warn\" [showCloseButton]=\"true\" [duration]=\"10000\"\r\n\t\t\t\t\t\t(close)=\"onAlertClose($event)\">\r\n\t\t\t\t\t\t{{errormessage}}\r\n\t\t\t\t\t</kt-alert>\r\n\t\t\t\t\t<kt-alert *ngIf=\"ErrorAdress\" type=\"warn\" [showCloseButton]=\"true\" [duration]=\"10000\"\r\n\t\t\t\t\t\t(close)=\"onAlertClose($event)\">\r\n\t\t\t\t\t\t{{ErrorAdress}}\r\n\t\t\t\t\t</kt-alert>\r\n\t\t\t\t\t<kt-address [(addressSubject)]=\"addressSubject\" [(AdressErrorMessage)]=\"AdressErrorMessage\">\r\n\t\t\t\t\t</kt-address>\r\n\t\t\t\t</ng-template>\r\n\t\t\t</mat-tab>\r\n\t\t\t<mat-tab [disabled]=\"!checkedpermission('getallusers')\">\r\n\t\t\t\t<ng-template mat-tab-label>\r\n\t\t\t\t\t<i class=\"mat-tab-label-icon fab fa-facebook\"></i>\r\n\t\t\t\t\tSocial Nerworks\r\n\t\t\t\t</ng-template>\r\n\t\t\t\t<ng-template matTabContent>\r\n\t\t\t\t\t<kt-alert *ngIf=\"errormessage&&!SocialError\" type=\"warn\" [showCloseButton]=\"true\" [duration]=\"10000\"\r\n\t\t\t\t\t\t(close)=\"onAlertClose($event)\">\r\n\t\t\t\t\t\t{{errormessage}}\r\n\t\t\t\t\t</kt-alert>\r\n\t\t\t\t\t<kt-alert *ngIf=\"SocialError\" type=\"warn\" [showCloseButton]=\"true\" [duration]=\"10000\"\r\n\t\t\t\t\t\t(close)=\"onAlertClose($event)\">\r\n\t\t\t\t\t\t{{SocialError}}\r\n\t\t\t\t\t</kt-alert>\r\n\t\t\t\t\t<kt-social-networks [(SocialErrorMesaage)]=\"SocialErrorMesaage\"\r\n\t\t\t\t\t\t[(socialNetworksSubject)]=\"socialNetworksSubject\"></kt-social-networks>\r\n\t\t\t\t</ng-template>\r\n\t\t\t</mat-tab>\r\n\t\t\t<mat-tab *ngIf=\"chechedRoleAndShiftsTab\" [disabled]=\"!checkedpermission('getprivilidges')\">\r\n\t\t\t\t<ng-template mat-tab-label>\r\n\t\t\t\t\t<i class=\"mat-tab-label-icon fa fa-unlock\"></i>\r\n\t\t\t\t\tUser roles\r\n\t\t\t\t</ng-template>\r\n\t\t\t\t<ng-template matTabContent>\r\n\t\t\t\t\t<kt-user-roles-list></kt-user-roles-list>\r\n\t\t\t\t</ng-template>\r\n\t\t\t</mat-tab>\r\n\t\t\t\r\n\t\t\t<mat-tab *ngIf=\"chechedRoleAndShiftsTab\" [disabled]=\"!checkedpermission('getprivilidges')\" >\r\n\t\t\t\t<ng-template mat-tab-label>\r\n\t\t\t\t\t<i class=\"mat-tab-label-icon flaticon2-protection\"></i>\r\n\t\t\t\t\tAccess Right\r\n\t\t\t\t</ng-template>\r\n\t\t\t\t<ng-template matTabContent>\r\n\t\t\t\t\t<kt-accessRight></kt-accessRight>\r\n\t\t\t\t</ng-template>\r\n\t\t\t</mat-tab>\r\n\r\n\t\t\t<mat-tab *ngIf=\"checkedMyProfile()\" [disabled]=\"!checkedpermission('getshifts')\">\r\n\t\t\t\t<ng-template mat-tab-label>\r\n\t\t\t\t\t<i class=\"mat-tab-label-icon fa fa-exchange-alt\"></i>\r\n\t\t\t\t\tShifts\r\n\t\t\t\t</ng-template>\r\n\t\t\t\t<ng-template matTabContent>\r\n\t\t\t\t\t<kt-shifts></kt-shifts>\r\n\t\t\t\t</ng-template>\r\n\t\t\t</mat-tab>\r\n\r\n\t\t\t<!-- <mat-tab *ngIf=\"user\" [disabled]=\"!user || !user.id\">\r\n\t\t\t\t<ng-template mat-tab-label>\r\n\t\t\t\t\t<i class=\"mat-tab-label-icon fa fa-exchange-alt\"></i>\r\n\t\t\t\t\tChange password\r\n\t\t\t\t</ng-template>\r\n\t\t\t\t<ng-template matTabContent>\r\n\t\t\t\t\t<kt-change-password [userId]=\"user.id\"></kt-change-password>\r\n\t\t\t\t</ng-template>\r\n\t\t\t</mat-tab> -->\r\n\t\t</mat-tab-group>\r\n\t</kt-portlet-body>\r\n\t</div>\r\n</kt-portlet>\r\n"
 
 /***/ }),
 
@@ -4565,6 +4729,7 @@ var forms_1 = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular
 var material_1 = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 var update_message_component_1 = __webpack_require__(/*! ../update-message/update-message.component */ "./src/app/views/pages/user-management/users/update-message/update-message.component.ts");
 var _services_1 = __webpack_require__(/*! ../../../../../core/auth/_services */ "./src/app/core/auth/_services/index.ts");
+var timeZone_1 = __webpack_require__(/*! ./timeZone */ "./src/app/views/pages/user-management/users/user-edit/timeZone.ts");
 // RxJS
 var rxjs_1 = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
 // NGRX
@@ -4574,6 +4739,7 @@ var layout_1 = __webpack_require__(/*! ../../../../../core/_base/layout */ "./sr
 var crud_1 = __webpack_require__(/*! ../../../../../core/_base/crud */ "./src/app/core/_base/crud/index.ts");
 var _services_2 = __webpack_require__(/*! ../../../../../core/auth/_services */ "./src/app/core/auth/_services/index.ts");
 var ng2_validation_1 = __webpack_require__(/*! ng2-validation */ "./node_modules/ng2-validation/dist/index.js");
+var address_component_1 = __webpack_require__(/*! ../_subs/address/address.component */ "./src/app/views/pages/user-management/users/_subs/address/address.component.ts");
 // Services and Models
 var auth_1 = __webpack_require__(/*! ../../../../../core/auth */ "./src/app/core/auth/index.ts");
 var ng2_file_upload_1 = __webpack_require__(/*! ng2-file-upload */ "./node_modules/ng2-file-upload/index.js");
@@ -4590,7 +4756,7 @@ var UserEditComponent = /** @class */ (function () {
      * @param store: Store<AppState>
      * @param layoutConfigService: LayoutConfigService
      */
-    function UserEditComponent(activatedRoute, dialog, router, userFB, subheaderService, layoutUtilsService, store, layoutConfigService, userService, changeDetectorRefs, _ng2ImgMax, MembershipService) {
+    function UserEditComponent(activatedRoute, dialog, router, userFB, subheaderService, layoutUtilsService, store, layoutConfigService, userService, changeDetectorRefs, _ng2ImgMax, MembershipService, AddressComponent) {
         this.activatedRoute = activatedRoute;
         this.dialog = dialog;
         this.router = router;
@@ -4603,6 +4769,9 @@ var UserEditComponent = /** @class */ (function () {
         this.changeDetectorRefs = changeDetectorRefs;
         this._ng2ImgMax = _ng2ImgMax;
         this.MembershipService = MembershipService;
+        this.AddressComponent = AddressComponent;
+        this.titleTabBasicInfo = 'Basic info';
+        this.titleTabAddress = 'User address';
         this.isDisabled = false;
         this.chechedRoleAndShiftsTab = true;
         this.selectedTab = 0;
@@ -4615,9 +4784,25 @@ var UserEditComponent = /** @class */ (function () {
         this.SocialErrorMesaage = new rxjs_1.BehaviorSubject('');
         this.regx = /^[^+!@^#$%),(&.`=_]*$/;
         this.nameRegx = /^([^0-9]*)$/;
+        this.currentAccountPub_key = JSON.parse(localStorage.getItem("user"))['pub_key'];
         this.token = JSON.parse(localStorage.getItem('user'))['token'];
         this.uploader = new ng2_file_upload_1.FileUploader({ url: this.MembershipService.upload_file(), authToken: this.token, itemAlias: 'upload' });
         this.viewLoading = false;
+        this.language = '';
+        this.timezone = "";
+        this.timeZoneArray = timeZone_1.timeZone.tzStrings;
+        this.languages = [
+            {
+                lang: 'en',
+                name: 'English',
+                flag: './assets/media/flags/012-uk.svg'
+            },
+            {
+                lang: 'ar',
+                name: 'Arabic',
+                flag: './assets/media/flags/eg.svg'
+            },
+        ];
         this.submited = false;
     }
     /**
@@ -4652,12 +4837,19 @@ var UserEditComponent = /** @class */ (function () {
                 _this.userService.getUserbyId(id).subscribe(function (res) {
                     if (res) {
                         if (_this.activatedRoute.snapshot.queryParamMap.get('info')) {
+                            console.log('club details');
+                            _this.titleTabBasicInfo = "Club Info";
+                            _this.titleTabAddress = 'Club address';
+                            _this.timezone = res['users'][0]['timezone'];
+                            _this.language = res['users'][0]['language'];
                             _this.chechedRoleAndShiftsTab = false;
                             if (!_this.checkedpermission('editclubinfo'))
                                 _this.isDisabled = true;
                         }
                         else {
                             _this.chechedRoleAndShiftsTab = true;
+                            _this.titleTabBasicInfo = "User Info";
+                            _this.titleTabAddress = 'User address';
                         }
                         console.log('userrrrr', res);
                         _this.user = res['users'][0];
@@ -4665,6 +4857,7 @@ var UserEditComponent = /** @class */ (function () {
                         _this.addressSubject.next(_this.preparAddressToShow());
                         _this.socialNetworksSubject.next(_this.preparSocialNetworkToShow());
                         _this.oldUser = Object.assign({}, _this.user);
+                        console.log('the olduser', _this.oldUser);
                         _this.initUser();
                         _this.preparAddressToShow();
                         _this.preparSocialNetworkToShow();
@@ -4697,14 +4890,31 @@ var UserEditComponent = /** @class */ (function () {
     UserEditComponent.prototype.initUser = function () {
         this.createForm();
         console.log(this.user);
+        var current_account_pub_key = JSON.parse(localStorage.getItem("user"))['pub_key'];
         var current_club_login = JSON.parse(localStorage.getItem("user"))['current_club_login'];
-        if (this.user && this.user.pub_key != current_club_login) {
+        if (this.user && this.user.pub_key != current_club_login && this.user.pub_key != current_account_pub_key) {
             this.subheaderService.setBreadcrumbs([
                 { title: 'User Management', page: "user-management" },
-                { title: 'Users', page: "user-management/users" },
-                { title: ('Edit user' + this.user.name), page: "user-management/users/edit", }
+                { title: 'Staff Members', page: "user-management/users" },
+                { title: ('Edit > ' + this.user.name), page: "user-management/users/" + this.user_id + "/edit/" + this.user_id + "/", }
             ]);
         }
+        else if (this.user && this.user.pub_key == current_club_login) {
+            this.subheaderService.setBreadcrumbs([
+                { title: 'Club Details', page: "user-management/users/" + this.user_id + "/edit/" + this.user_id + "/" },
+            ]);
+        }
+        else if (this.user && this.user.pub_key == current_account_pub_key) {
+            this.subheaderService.setBreadcrumbs([
+                { title: 'My profile', page: "user-management/users/" + this.user_id + "/edit/" + this.user_id + "/" },
+            ]);
+        }
+    };
+    UserEditComponent.prototype.checkedMyProfile = function () {
+        if (!this.chechedRoleAndShiftsTab || this.user_id === this.user['_id'])
+            return false;
+        else
+            return true;
     };
     /**
      * Create form
@@ -4722,10 +4932,18 @@ var UserEditComponent = /** @class */ (function () {
      *
      */
     UserEditComponent.prototype.goBackWithId = function () {
-        var url = this.layoutConfigService.getCurrentMainRoute() + "/user-management/users";
-        var currentUser = JSON.parse(localStorage.getItem('user'));
-        if (!this.activatedRoute.snapshot.queryParamMap.get('info') || !this.user_id == currentUser['_id'])
-            this.router.navigateByUrl(url, { relativeTo: this.activatedRoute });
+        var url = "default/user-management/users";
+        var current_account_pub_key = JSON.parse(localStorage.getItem("user"))['pub_key'];
+        var current_club_login = JSON.parse(localStorage.getItem("user"))['current_club_login'];
+        if (this.user && this.user.pub_key != current_club_login && this.user.pub_key != current_account_pub_key) {
+            this.router.navigate([url]);
+        }
+        else if (this.user && this.user.pub_key == current_club_login) {
+            this.router.navigate(['default/dashboard']);
+        }
+        else if (this.user && this.user.pub_key == current_account_pub_key) {
+            this.router.navigate(['default/dashboard']);
+        }
     };
     UserEditComponent.prototype.DisablesSave = function () {
         if (this.viewLoading || this.submited)
@@ -4760,6 +4978,8 @@ var UserEditComponent = /** @class */ (function () {
         this.userForm.markAsPristine();
         this.userForm.markAsUntouched();
         this.userForm.updateValueAndValidity();
+        this.AddressComponent.reset();
+        this.selectedTab = 0;
     };
     /**
      * Save data
@@ -4792,34 +5012,27 @@ var UserEditComponent = /** @class */ (function () {
                 email: editedUser_1.email,
                 phone: editedUser_1.phone,
             };
+            if (!this.chechedRoleAndShiftsTab) {
+                basicInfo_1['language'] = this.language;
+                basicInfo_1['timezone'] = this.timezone;
+            }
+            console.log(basicInfo_1, 'basicInfo', basicInfo_1['timezone']);
             // basicInfo  انا هنا بس بجيب الحاجات اللي اتعدلت
             Object.keys(basicInfo_1).forEach(function (key, index) {
                 if (basicInfo_1[key] == _this.oldUser[key]) {
                     delete basicInfo_1[key];
-                    //	console.log(basicInfo,'basicInfo')
                 }
             });
+            console.log(basicInfo_1, 'basicInfo', basicInfo_1['timezone']);
             // لو مفيش تعديلات حصلت ومفيش صوره اترفعت
             if (Object.keys(basicInfo_1).length == 0 && this.input_image.nativeElement.value == '') {
-                var dialogRef = this.dialog.open(update_message_component_1.UpdateMessageComponent, {
-                    width: '80%',
-                    data: { 'title': 'Basic Information', 'message': 'You do not change any data ,Are you sure you want to exit?' },
-                });
-                dialogRef.afterClosed().subscribe(function (res) {
-                    if (!res) {
-                        _this.submited = false;
-                        _this.changeDetectorRefs.detectChanges();
-                        return;
-                    }
-                    else {
-                        _this.layoutUtilsService.showActionNotification('no changes');
-                        _this.router.navigateByUrl("/user-management/users");
-                    }
-                });
+                this.submited = false;
+                this.changeDetectorRefs.detectChanges();
+                this.layoutUtilsService.showActionNotification('no changes');
             }
             else if (this.input_image.nativeElement.value != '') {
                 console.log(this.input_image.nativeElement.value);
-                console.log('heeeeeeeeeeeeere');
+                //console.log('heeeeeeeeeeeeere')
                 var dialogRef = this.dialog.open(update_message_component_1.UpdateMessageComponent, {
                     width: '80%',
                     data: { 'title': 'Basic Information', 'message': 'Are you sure you want to update user data?' },
@@ -4843,8 +5056,9 @@ var UserEditComponent = /** @class */ (function () {
                                 console.log(basicInfo_1['image_profile'], 'heeeeeeeeeeeeere');
                                 _this.userService.updateUserData(_this.user.pub_key, basicInfo_1).subscribe(function (res) {
                                     if (res['result'] == true) {
+                                        _this.oldUser.image_profile = basicInfo_1['image_profile'];
                                         _this.updateUser(editedUser_1, withBack, "User successfully has been saved.");
-                                        _this.router.navigateByUrl("/default/user-management/users");
+                                        //this.router.navigateByUrl("/default/user-management/users");
                                     }
                                     if (res['result'] == false) {
                                         _this.errormessage = res['error'];
@@ -4852,12 +5066,12 @@ var UserEditComponent = /** @class */ (function () {
                                     }
                                 });
                             }
+                            _this.submited = false;
                         };
                     }
                 });
             }
             else {
-                console.log('heeeeeeere', 'jjjjjjjjjjjjj');
                 var dialogRef = this.dialog.open(update_message_component_1.UpdateMessageComponent, {
                     width: '80%',
                     data: { 'title': 'Basic Information', 'message': 'Are you sure you want to update user data?' },
@@ -4870,50 +5084,48 @@ var UserEditComponent = /** @class */ (function () {
                     else {
                         _this.userService.updateUserData(_this.user.pub_key, basicInfo_1).subscribe(function (res) {
                             if (res['result'] == true) {
+                                Object.keys(basicInfo_1).forEach(function (newdata) {
+                                    _this.oldUser[newdata] = basicInfo_1[newdata];
+                                });
                                 _this.updateUser(editedUser_1, withBack, "User successfully has been saved.");
-                                _this.router.navigateByUrl("/default/user-management/users");
+                                //this.router.navigateByUrl("/default/user-management/users");
                             }
                             if (res['result'] == false) {
                                 _this.errormessage = res['error'];
                                 _this.changeDetectorRefs.detectChanges();
                             }
+                            _this.submited = false;
                         });
                     }
                 });
             }
         }
         else if (this.selectedTab == 1) {
+            console.log('adres', this.addressSubject.value);
+            var adrressUser_1 = this.addressSubject.value;
+            //
+            Object.keys(adrressUser_1).forEach(function (key, index) {
+                console.log(key, _this.oldUser[key]);
+                if (adrressUser_1[key] === _this.oldUser[key]) {
+                    delete adrressUser_1[key];
+                }
+            });
+            console.log('adrressUser', adrressUser_1);
             if (this.checkedpermission('updateuserdata')) {
-                var editedUser_2 = this.addressSubject.value;
                 if (this.AdressErrorMessage.value != '') {
                     this.ErrorAdress = this.AdressErrorMessage.value;
                     console.log(this.AdressErrorMessage.value);
                     return;
                 }
-                else if (editedUser_2.addressLine == this.user.address.addressLine &&
-                    editedUser_2.city == this.user.address.city &&
-                    editedUser_2.state == this.user.address.state &&
-                    editedUser_2.postCode == this.user.address.postCode) {
-                    var dialogRef = this.dialog.open(update_message_component_1.UpdateMessageComponent, {
-                        width: '80%',
-                        data: { 'title': 'Address', 'message': 'You do not change any data ,Are you sure you want to exit?' },
-                    });
-                    dialogRef.afterClosed().subscribe(function (res) {
-                        if (!res) {
-                            _this.submited = false;
-                            _this.changeDetectorRefs.detectChanges();
-                            return;
-                        }
-                        else {
-                            _this.layoutUtilsService.showActionNotification('no changes');
-                            _this.router.navigateByUrl("/default/user-management/users");
-                        }
-                    });
+                else if (Object.keys(adrressUser_1).length == 0) {
+                    this.layoutUtilsService.showActionNotification('no changes');
+                    this.submited = false;
+                    this.changeDetectorRefs.detectChanges();
                 }
                 else {
                     var dialogRef = this.dialog.open(update_message_component_1.UpdateMessageComponent, {
                         width: '80%',
-                        data: { 'title': 'Address', 'message': 'Are you sure you want to update user data?' },
+                        data: { 'title': 'User address', 'message': 'Are you sure you want to update user data?' },
                     });
                     dialogRef.afterClosed().subscribe(function (res) {
                         if (!res) {
@@ -4922,15 +5134,19 @@ var UserEditComponent = /** @class */ (function () {
                             return;
                         }
                         else {
-                            _this.userService.updateUserData(_this.user.pub_key, editedUser_2).subscribe(function (res) {
+                            _this.userService.updateUserData(_this.user.pub_key, adrressUser_1).subscribe(function (res) {
                                 if (res['result'] == true) {
-                                    _this.updateUser(editedUser_2, true, "User successfully has been saved.");
-                                    _this.router.navigateByUrl("/user-management/users");
+                                    Object.keys(adrressUser_1).forEach(function (newdata) {
+                                        _this.oldUser[newdata] = adrressUser_1[newdata];
+                                    });
+                                    _this.updateUser(adrressUser_1, true, "User successfully has been saved.");
+                                    //this.router.navigateByUrl("/user-management/users");
                                 }
                                 if (res['result'] == false) {
                                     _this.errormessage = res['error'];
-                                    _this.changeDetectorRefs.detectChanges();
                                 }
+                                _this.submited = false;
+                                _this.changeDetectorRefs.detectChanges();
                             });
                         }
                     });
@@ -4942,35 +5158,25 @@ var UserEditComponent = /** @class */ (function () {
         }
         else if (this.selectedTab == 2) {
             if (this.checkedpermission('updateuserdata')) {
-                var editedUser_3 = this.socialNetworksSubject.value;
+                var socialNetworksuser_1 = this.socialNetworksSubject.value;
+                Object.keys(socialNetworksuser_1).forEach(function (key, index) {
+                    if (socialNetworksuser_1[key] == _this.oldUser[key]) {
+                        delete socialNetworksuser_1[key];
+                    }
+                });
                 if (this.SocialErrorMesaage.value != '') {
                     this.ErrorAdress = this.SocialErrorMesaage.value;
                     return;
                 }
-                else if (editedUser_3.linkedIn == this.user.socialNetworks.linkedIn &&
-                    editedUser_3.facebook == this.user.socialNetworks.facebook &&
-                    editedUser_3.twitter == this.user.socialNetworks.twitter &&
-                    editedUser_3.instagram == this.user.socialNetworks.instagram) {
-                    var dialogRef = this.dialog.open(update_message_component_1.UpdateMessageComponent, {
-                        width: '80%',
-                        data: { 'title': 'socialNetworks', 'message': 'You do not change any data ,Are you sure you want to exit?' },
-                    });
-                    dialogRef.afterClosed().subscribe(function (res) {
-                        if (!res) {
-                            _this.submited = false;
-                            _this.changeDetectorRefs.detectChanges();
-                            return;
-                        }
-                        else {
-                            _this.layoutUtilsService.showActionNotification('no changes');
-                            _this.router.navigateByUrl("/default/user-management/users");
-                        }
-                    });
+                else if (Object.keys(socialNetworksuser_1).length == 0) {
+                    this.layoutUtilsService.showActionNotification('no changes');
+                    this.submited = false;
+                    this.changeDetectorRefs.detectChanges();
                 }
                 else {
                     var dialogRef = this.dialog.open(update_message_component_1.UpdateMessageComponent, {
                         width: '80%',
-                        data: { 'title': 'socialNetworks', 'message': 'Are you sure you want to update user data?' },
+                        data: { 'title': 'Social Networks', 'message': 'Are you sure you want to update user data?' },
                     });
                     dialogRef.afterClosed().subscribe(function (res) {
                         if (!res) {
@@ -4979,15 +5185,19 @@ var UserEditComponent = /** @class */ (function () {
                             return;
                         }
                         else {
-                            _this.userService.updateUserData(_this.user.pub_key, editedUser_3).subscribe(function (res) {
+                            _this.userService.updateUserData(_this.user.pub_key, socialNetworksuser_1).subscribe(function (res) {
                                 if (res['result'] == true) {
-                                    _this.updateUser(editedUser_3, true, "User successfully has been saved.");
-                                    _this.router.navigateByUrl("/default/user-management/users");
+                                    Object.keys(socialNetworksuser_1).forEach(function (newdata) {
+                                        _this.oldUser[newdata] = socialNetworksuser_1[newdata];
+                                    });
+                                    _this.updateUser(socialNetworksuser_1, true, "User successfully has been saved.");
+                                    //this.router.navigateByUrl("/default/user-management/users");
                                 }
                                 if (res['result'] == false) {
                                     _this.errormessage = res['error'];
-                                    _this.changeDetectorRefs.detectChanges();
                                 }
+                                _this.submited = false;
+                                _this.changeDetectorRefs.detectChanges();
                             });
                         }
                     });
@@ -4999,7 +5209,7 @@ var UserEditComponent = /** @class */ (function () {
         }
         else if (this.selectedTab === 3) {
             if (role) {
-                var editedUser_4 = this.prepareUser();
+                var editedUser_2 = this.prepareUser();
                 this.userService.currentUser.subscribe(function (res) {
                     if (res) {
                         if (_this.user['privilidge']) {
@@ -5007,17 +5217,30 @@ var UserEditComponent = /** @class */ (function () {
                                 if (!res['role'].typeOfRole) {
                                     res['role']['typeOfRole'] = _this.user['privilidge']['type_id'];
                                 }
-                                _this.userService.updateUserPrvilidge(_this.user['privilidge']['id'], { privilidge: res['role'].privilidge, type: res['role'].typeOfRole }).subscribe(function (res) {
-                                    if (res['result']) {
-                                        _this.updateUser(editedUser_4, true, "User successfully has been saved.");
-                                        //this.showToast('secondary ','User successfully has been saved')
+                                var dialogRef = _this.dialog.open(update_message_component_1.UpdateMessageComponent, {
+                                    width: '80%',
+                                    data: { 'title': 'User roles', 'message': 'Are you sure you want to Add user roles?' },
+                                });
+                                dialogRef.afterClosed().subscribe(function (res) {
+                                    if (!res) {
+                                        _this.submited = false;
+                                        _this.changeDetectorRefs.detectChanges();
+                                        return;
                                     }
                                     else {
-                                        _this.updateUser(editedUser_4, false, "Sorry user hasnt been saved ,try again.");
-                                        //this.showToast('secondary ','Sorry user hasnt been saved ,try again')
+                                        _this.userService.updateUserPrvilidge(_this.user['privilidge']['id'], { privilidge: res['role'].privilidge, type: res['role'].typeOfRole }).subscribe(function (res) {
+                                            if (res['result']) {
+                                                _this.updateUser(editedUser_2, true, "User successfully has been saved.");
+                                                //this.showToast('secondary ','User successfully has been saved')
+                                            }
+                                            else {
+                                                _this.updateUser(editedUser_2, false, "Sorry user hasnt been saved ,try again.");
+                                                //this.showToast('secondary ','Sorry user hasnt been saved ,try again')
+                                            }
+                                            _this.submited = false;
+                                            //	this.userService.changeuser(null)
+                                        });
                                     }
-                                    _this.selectedTab = 0;
-                                    //	this.userService.changeuser(null)
                                 });
                             }
                             else {
@@ -5031,22 +5254,33 @@ var UserEditComponent = /** @class */ (function () {
                                 }
                                 else {
                                     if (!res['role'].privilidge || !res['role'].typeOfRole || !_this.user['pub_key']) {
-                                        alert('Sorry,incorrect data try again');
+                                        alert('Sorry,incorrect data try again To');
                                     }
                                     else {
-                                        _this.userService.AddUserPrivilidge(res['role'].privilidge, res['role'].typeOfRole, _this.user['pub_key']).subscribe(function (res) {
-                                            if (res['result']) {
-                                                console.log('userrr', _this.user);
-                                                _this.updateUser(editedUser_4, true, "User successfully has been saved.");
-                                                //this.showToast('secondary ','User successfully has been saved')
+                                        var dialogRef = _this.dialog.open(update_message_component_1.UpdateMessageComponent, {
+                                            width: '80%',
+                                            data: { 'title': 'User roles', 'message': 'Are you sure you want to edit user roles?' },
+                                        });
+                                        dialogRef.afterClosed().subscribe(function (res) {
+                                            if (!res) {
+                                                _this.submited = false;
+                                                _this.changeDetectorRefs.detectChanges();
+                                                return;
                                             }
                                             else {
-                                                _this.updateUser(editedUser_4, false, "Sorry user hasnt been saved ,try again.");
-                                                //this.showToast('secondary ','Sorry user hasnt been saved ,try again')
+                                                _this.userService.AddUserPrivilidge(res['role'].privilidge, res['role'].typeOfRole, _this.user['pub_key']).subscribe(function (res) {
+                                                    if (res['result']) {
+                                                        console.log('userrr', _this.user);
+                                                        _this.updateUser(editedUser_2, true, "User successfully has been saved.");
+                                                        //this.showToast('secondary ','User successfully has been saved')
+                                                    }
+                                                    else {
+                                                        _this.updateUser(editedUser_2, false, "Sorry user hasnt been saved ,try again.");
+                                                        //this.showToast('secondary ','Sorry user hasnt been saved ,try again')
+                                                    }
+                                                    _this.submited = false;
+                                                });
                                             }
-                                            _this.selectedTab = 0;
-                                            return;
-                                            //	this.userService.changeuser(null)
                                         });
                                     }
                                 }
@@ -5060,7 +5294,7 @@ var UserEditComponent = /** @class */ (function () {
             }
         }
         else if (this.selectedTab === 4) {
-            var editedUser_5 = this.prepareUser();
+            var editedUser_3 = this.prepareUser();
             this.userService.currentUser.subscribe(function (currentuser) {
                 var data;
                 if (currentuser['accessright']) {
@@ -5083,7 +5317,8 @@ var UserEditComponent = /** @class */ (function () {
                             else {
                                 _this.userService.updateUserAccessRight({ 'staff_key': _this.user['pub_key'], 'branchsAndunitsKeysUpdate': currentuser['accessright'].update, 'branchsAndunitsKeysDelete': currentuser['accessright'].delete }).subscribe(function (updateResult) {
                                     console.log("update", updateResult['data']);
-                                    _this.updateUser(editedUser_5, true, updateResult['data']);
+                                    _this.updateUser(editedUser_3, true, updateResult['data']);
+                                    _this.submited = false;
                                 });
                             }
                         });
@@ -5108,9 +5343,10 @@ var UserEditComponent = /** @class */ (function () {
             this.user.email = controls['email'].value;
             this.user.name = controls['name'].value;
             this.user.phone = controls['phone'].value;
-            return {
+            var basicInfo = {
                 email: this.user.email, username: this.user.username, name: this.user.name, phone: this.user.phone, pub_key: this.user['pub_key'],
             };
+            return basicInfo;
         }
     };
     ;
@@ -5120,21 +5356,6 @@ var UserEditComponent = /** @class */ (function () {
      * @param _user: User
      * @param withBack: boolean
      */
-    UserEditComponent.prototype.addUser = function (_user, withBack) {
-        if (withBack === void 0) { withBack = false; }
-        // this.store.dispatch(new UserOnServerCreated({ user: _user }));
-        // const addSubscription = this.store.pipe(select(selectLastCreatedUserId)).subscribe(newId => {
-        var message = "New user successfully has been added.";
-        this.layoutUtilsService.showActionNotification(message, crud_1.MessageType.Create, 5000, true, true);
-        if (withBack) {
-            this.goBackWithId();
-        }
-        else {
-            this.refreshUser(true);
-        }
-        // });
-        // this.subscriptions.push(addSubscription);
-    };
     /**
      * Update user
      *
@@ -5152,12 +5373,7 @@ var UserEditComponent = /** @class */ (function () {
         // this.store.dispatch(new UserUpdated( { partialUser: updatedUser, user: _user }));
         this.submited = false;
         this.layoutUtilsService.showActionNotification(message, crud_1.MessageType.Update, 5000, true, true);
-        if (withBack) {
-            this.goBackWithId();
-        }
-        else {
-            this.refreshUser(true);
-        }
+        //	this.refreshUser(true);
     };
     /**
      * Returns component title
@@ -5241,34 +5457,6 @@ var UserEditComponent = /** @class */ (function () {
         }
         return checked;
     };
-    UserEditComponent.prototype.updateBasicInfo = function (editedUser) {
-        var _this = this;
-        this.hasFormErrors = false;
-        var controls = this.userForm.controls;
-        /** check form */
-        if (this.userForm.invalid) {
-            Object.keys(controls).forEach(function (controlName) {
-                controls[controlName].markAsTouched();
-            });
-            this.hasFormErrors = true;
-            this.selectedTab = 0;
-            return;
-        }
-        console.log(editedUser);
-        this.userService.updateUserData(this.user._id, editedUser).subscribe(function (res) {
-            if (res['result']) {
-                console.log('userrr', _this.user);
-                _this.updateUser(editedUser, true, "User successfully has been saved.");
-                //this.showToast('secondary ','User successfully has been saved')
-            }
-            else {
-                _this.updateUser(editedUser, false, "Sorry user hasnt been saved ,try again.");
-                //this.showToast('secondary ','Sorry user hasnt been saved ,try again')
-            }
-            _this.selectedTab = 0;
-            //this.userService.changeuser(null)
-        });
-    };
     UserEditComponent.prototype.handleUpload = function (event) {
         var _this = this;
         if (event.target.files && event.target.files[0]) {
@@ -5318,7 +5506,8 @@ var UserEditComponent = /** @class */ (function () {
             _services_2.UserService,
             core_1.ChangeDetectorRef,
             ng2_img_max_1.Ng2ImgMaxService,
-            _services_1.MembershipService])
+            _services_1.MembershipService,
+            address_component_1.AddressComponent])
     ], UserEditComponent);
     return UserEditComponent;
 }());
@@ -5334,7 +5523,7 @@ exports.UserEditComponent = UserEditComponent;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<kt-portlet>\r\n\t<!-- PORTLET LOADING | Binded to TABLE Datasource -->\r\n\t<!-- See prop => '~/core/_crud/models/data-sources/_base.datasource.ts' (loading$) -->\r\n\t<kt-portlet-header [title]=\"\" [class]=\"'kt-portlet__head--lg'\">\r\n\t\t<ng-container ktPortletTools>\r\n\t\t\t<button [routerLink]=\"['/default/user-management/invitations']\" mat-raised-button color=\"primary\" matTooltip=\"send new invitation\">Invite\r\n\t\t\t\tuser</button>\r\n\t\t\t<!-- Buttons (Material Angular) | See off.documenations 'https://material.angular.io/components/button/overview' -->\r\n\t\t\t<!-- mat-raised-button | Rectangular contained button w/ elevation  -->\r\n\t\t</ng-container>\r\n\t</kt-portlet-header>\r\n\t<!-- end::Header -->\r\n\t<div *ngIf=\"isLoading\" class=\"center\" style=\"padding: 150px;\">\r\n\t\t<mat-progress-spinner style=\"margin:0 auto;\" mode=\"indeterminate\" diameter=\"40\">\r\n\t\t</mat-progress-spinner>\r\n\t</div>\r\n\t<kt-portlet-body *ngIf=\"!isLoading\">\r\n\t\t\t<div class=\"kt-form\">\r\n\t\t\t\t<!-- start::FILTERS -->\r\n\t\t\t\t<div class=\"kt-form__filtration\">\r\n\t\t\t\t\t<div class=\"row align-items-center\">\r\n\r\n\t\t\t\t\t\t<div class=\"col-md-2 kt-margin-bottom-10-mobile\">\r\n\t\t\t\t\t\t\t<!-- 'm  margin-bottom-10-mobile' for adaptive make-up  -->\r\n\t\t\t\t\t\t\t<div class=\"kt-form__control\">\r\n\t\t\t\t\t\t\t\t<mat-form-field class=\"mat-form-field-fluid\">\r\n\t\t\t\t\t\t\t\t\t<mat-select [(value)]=\"filterStatus\" (selectionChange)=\"applyFilter()\">\r\n\t\t\t\t\t\t\t\t\t\t<mat-option value=\"\">All</mat-option>\r\n\t\t\t\t\t\t\t\t\t\t<mat-option value=\"Active\">Active</mat-option>\r\n\t\t\t\t\t\t\t\t\t\t<mat-option value=\"Deactive\">Deactive</mat-option>\r\n\t\t\t\t\t\t\t\t\t</mat-select>\r\n\t\t\t\t\t\t\t\t\t<mat-hint align=\"start\">\r\n\t\t\t\t\t\t\t\t\t\t<strong>Filter</strong> by Status\r\n\t\t\t\t\t\t\t\t\t</mat-hint>\r\n\t\t\t\t\t\t\t\t</mat-form-field>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t<div class=\"col-md-2 kt-margin-bottom-10-mobile\">\r\n\r\n\t\t\t\t\t\t\t<div class=\"kt-form__control\">\r\n\t\t\t\t\t\t\t\t<mat-form-field class=\"mat-form-field-fluid\">\r\n\t\t\t\t\t\t\t\t\t<mat-select [(value)]=\"filterRole\" (selectionChange)=\"applyFilter()\">\r\n\t\t\t\t\t\t\t\t\t\t<mat-option value=\"\">All</mat-option>\r\n\t\t\t\t\t\t\t\t\t\t<mat-option *ngFor=\"let value of getallroles\"  [value]=\"value.type\">\r\n\t\t\t\t\t\t\t\t\t\t\t{{value.type}}\r\n\t\t\t\t\t\t\t\t\t\t</mat-option>\r\n\t\t\t\t\t\t\t\t\t</mat-select>\r\n\t\t\t\t\t\t\t\t\t<mat-hint align=\"start\">\r\n\t\t\t\t\t\t\t\t\t\t<strong>Filter</strong> by Type\r\n\t\t\t\t\t\t\t\t\t</mat-hint>\r\n\t\t\t\t\t\t\t\t</mat-form-field>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t<div class=\"col-md-2 kt-margin-bottom-10-mobile\">\r\n\r\n\t\t\t\t\t\t\t<div class=\"kt-form__control\">\r\n\t\t\t\t\t\t\t\t<mat-form-field class=\"mat-form-field-fluid\">\r\n\t\t\t\t\t\t\t\t\t<mat-select [(value)]=\"filterPrivilidge\" (selectionChange)=\"applyFilter()\" multiple>\r\n\t\t\t\t\t\t\t\t\t\t<mat-optgroup *ngFor=\"let group of allPrivilidge\" [label]=\"group.key\">\r\n\t\t\t\t\t\t\t\t\t\t\t<mat-option *ngFor=\"let item of group.value\"  [value]=\"item.value\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t{{item.key}}\r\n\t\t\t\t\t\t\t\t\t\t\t</mat-option>\r\n\t\t\t\t\t\t\t\t\t\t</mat-optgroup>\r\n\t\t\t\t\t\t\t\t\t</mat-select>\r\n\t\t\t\t\t\t\t\t\t<mat-hint align=\"start\">\r\n\t\t\t\t\t\t\t\t\t\t<strong>Filter</strong> by Permission\r\n\t\t\t\t\t\t\t\t\t</mat-hint>\r\n\t\t\t\t\t\t\t\t</mat-form-field>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t<div class=\"col-md-2 kt-margin-bottom-10-mobile\">\r\n\t\t\t\t\t\t\t<mat-form-field class=\"mat-form-field-fluid\">\r\n\t\t\t\t\t\t\t\t<input matInput placeholder=\"Search then Press Enter\" [(ngModel)]=\"SearchKey\" placeholder=\"Search\"\r\n\t\t\t\t\t\t\t\t\t(keyup.enter)=\"applyFilter()\">\r\n\t\t\t\t\t\t\t\t<button mat-button matSuffix mat-icon-button aria-label=\"Clear\" *ngIf=\"SearchKey\"\r\n\t\t\t\t\t\t\t\t\t(click)=\"onSearchClear()\">\r\n\t\t\t\t\t\t\t\t\t<mat-icon>close</mat-icon>\r\n\t\t\t\t\t\t\t\t</button>\r\n\t\t\t\t\t\t\t\t<mat-hint align=\"start\">\r\n\t\t\t\t\t\t\t\t\t<strong>Search</strong> in all fields\r\n\t\t\t\t\t\t\t\t</mat-hint>\r\n\t\t\t\t\t\t\t</mat-form-field>\r\n\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<!-- end::FILTERS -->\r\n\r\n\r\n\t\t\t<!-- start::GROUP ACTIONS -->\r\n\t\t\t<!-- Group actions list: 'Delete selected' | 'Fetch selected' | 'Update status for selected' -->\r\n\t\t\t<!-- Group actions are shared for all LISTS -->\r\n\t\t\t<div class=\"row align-items-center collapse kt-form__group-actions kt-margin-top-20 kt-margin-bottom-20\"\r\n\t\t\t\t[ngClass]=\"{'show' : selection.selected.length > 0}\">\r\n\t\t\t\t<!-- We show 'Group Actions' div if smth are selected -->\r\n\t\t\t\t<div class=\"col-xl-12\">\r\n\t\t\t\t\t<div class=\"kt-form__group kt-form__group--inline\">\r\n\t\t\t\t\t\t<div class=\"kt-form__label kt-form__label-no-wrap\">\r\n\t\t\t\t\t\t\t<label class=\"kt--font-bold kt-font-danger-\">\r\n\t\t\t\t\t\t\t<span translate=\"ECOMMERCE.COMMON.SELECTED_ROWS\"></span> {{ selection.selected.length }} -->\r\n\t\t\t\t\t\t\t</label>\r\n\t\t\t\t\t\t\t<!-- selectedCountsTitle => function from codeBehind (users-list.component.ts file) -->\r\n\t\t\t\t\t\t\t<!-- selectedCountsTitle => just returns title of selected items count -->\r\n\t\t\t\t\t\t\t<!-- for example: Selected records count: 4 -->\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<div class=\"kt-form__control kt-form__group--inline\">\r\n\t\t\t\t\t\t\t<!-- <button (click)=\"fetchUsers()\" mat-raised-button matTooltip=\"Fetch selected users\"\r\n\t\t\t\t\t\t\t\tclass=\"mat-button-mt-4\">\r\n\t\t\t\t\t\t\t\t<mat-icon>clear_all</mat-icon>\r\n\t\t\t\t\t\t\t\tFetch Selected\r\n\t\t\t\t\t\t\t</button> -->\r\n\r\n\t\t\t\t\t\t\t<button (click)=\"activeallusers('Deactive')\" mat-raised-button matTooltip=\"Fetch selected users\"\r\n\t\t\t\t\t\t\t\tclass=\"mat-button-mt-4\">\r\n\t\t\t\t\t\t\t\t<mat-icon>delete</mat-icon>\r\n\t\t\t\t\t\t\t\tDeactive\r\n\t\t\t\t\t\t\t</button>\r\n\r\n\t\t\t\t\t\t\t<button (click)=\"activeallusers('Active')\" mat-raised-button matTooltip=\"Fetch selected users\"\r\n\t\t\t\t\t\t\t\tclass=\"mat-button-mt-4\">\r\n\t\t\t\t\t\t\t\t<mat-icon>cached</mat-icon>\r\n\t\t\t\t\t\t\t\tActive\r\n\t\t\t\t\t\t\t</button>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<!-- end::GROUP ACTIONS -->\r\n\t\t</div>\r\n\t\t<!-- end::FILTERS & GROUP ACTIONS -->\r\n\r\n\t\t<!-- MATERIAL TABLE | Binded to datasources -->\r\n\t\t<!-- See off.documentations 'https://material.angular.io/components/table/overview' -->\r\n\t\t<div class=\"mat-table__wrapper\">\r\n\t\t\t<mat-table class=\"lmat-elevation-z8\" #table [dataSource]=\"listData\"\r\n\t\t\t\tmatSort\r\n\t\t\t\t#sort1=\"matSort\"\r\n\t\t\t\tmatSortActive=\"id\"\r\n\t\t\t\tmatSortDirection=\"asc\"\r\n\t\t\t\tmatSortDisableClear>\r\n\t\t\t\t<!-- Checkbox Column -->\r\n\r\n\t\t\t\t<!-- Table with selection -->\r\n\t\t\t\t<!-- https://run.stackblitz.com/api/angular/v1?file=app%2Ftable-selection-example.ts -->\r\n\t\t\t\t<ng-container matColumnDef=\"select\">\r\n\t\t\t\t\t<mat-header-cell *matHeaderCellDef class=\"mat-column-checkbox\">\r\n\t\t\t\t\t\t<mat-checkbox (change)=\"$event ? masterToggle() : null\" [checked]=\"selection.hasValue() && isAllSelected()\"\r\n\t\t\t\t\t\t\t[indeterminate]=\"selection.hasValue() && !isAllSelected()\">\r\n\t\t\t\t\t\t</mat-checkbox>\r\n\t\t\t\t\t</mat-header-cell>\r\n\t\t\t\t\t<mat-cell *matCellDef=\"let row\" class=\"mat-column-checkbox\">\r\n\t\t\t\t\t\t<mat-checkbox (click)=\"$event.stopPropagation()\" (change)=\"$event ? selection.toggle(row) : null\"\r\n\t\t\t\t\t\t\t[checked]=\"selection.isSelected(row)\">\r\n\t\t\t\t\t\t</mat-checkbox>\r\n\t\t\t\t\t</mat-cell>\r\n\t\t\t\t</ng-container>\r\n\r\n\t\t\t\t<ng-container matColumnDef=\"id\">\r\n\t\t\t\t\t<!-- ATTRIBUTE mat-sort-header  for sorting | https://material.angular.io/components/sort/overview -->\r\n\t\t\t\t\t<mat-header-cell (click)=\"applyFilter('id')\" *matHeaderCellDef mat-sort-header>#</mat-header-cell>\r\n\t\t\t\t\t<mat-cell *matCellDef=\"let user\">{{user.increment}}</mat-cell>\r\n\t\t\t\t</ng-container>\r\n\r\n\t\t\t\t<ng-container matColumnDef=\"_username\">\r\n\t\t\t\t\t<mat-header-cell (click)=\"applyFilter('username')\" *matHeaderCellDef mat-sort-header>Username</mat-header-cell>\r\n\t\t\t\t\t<mat-cell *matCellDef=\"let user\">{{user.username}}</mat-cell>\r\n\t\t\t\t</ng-container>\r\n\r\n\t\t\t\t<ng-container matColumnDef=\"_email\">\r\n\t\t\t\t\t<mat-header-cell (click)=\"applyFilter('email')\" *matHeaderCellDef mat-sort-header >Email</mat-header-cell>\r\n\t\t\t\t\t <mat-cell *matCellDef=\"let user\"><!--class=\"email-cell\" -->\r\n\t\t\t\t\t\t<a  class=\"kt-link\">{{user.email}}</a>\r\n\t\t\t\t\t</mat-cell>\r\n\t\t\t\t</ng-container>\r\n\r\n\t\t\t\t<ng-container matColumnDef=\"fullname\">\r\n\t\t\t\t\t<mat-header-cell (click)=\"applyFilter('name')\" *matHeaderCellDef mat-sort-header >Full name</mat-header-cell>\r\n\t\t\t\t\t<mat-cell *matCellDef=\"let user\">{{user.name}}</mat-cell>\r\n\t\t\t\t</ng-container>\r\n\r\n\t\t\t\t<ng-container matColumnDef=\"_roles\">\r\n\t\t\t\t\t<mat-header-cell (click)=\"applyFilter('role')\" *matHeaderCellDef mat-sort-header >Roles</mat-header-cell>\r\n\t\t\t\t\t<mat-cell *matCellDef=\"let user\">\r\n\t\t\t\t\t\t<span>{{user.role}}</span>\r\n\t\t\t\t\t</mat-cell>\r\n\t\t\t\t</ng-container>\r\n\r\n\t\t\t\t<ng-container matColumnDef=\"_status\">\r\n\t\t\t\t\t<mat-header-cell (click)=\"applyFilter('status')\" *matHeaderCellDef mat-sort-header >Status</mat-header-cell>\r\n\t\t\t\t\t<mat-cell *matCellDef=\"let user\">\r\n\t\t\t\t\t\t<span *ngIf=\"user.status=='Active'\"class=\"kt-badge kt-badge--inline kt-badge--pill kt-badge--success kt-badge--wide\">{{user.status}}</span>\r\n\t\t\t\t\t\t<span *ngIf=\"user.status=='Deactive'\"class=\"kt-badge kt-badge--inline kt-badge--pill kt-badge--danger kt-badge--wide\">{{user.status}}</span>\r\n\t\t\t\t\t</mat-cell>\r\n\t\t\t\t</ng-container>\r\n\r\n\t\t\t\t<ng-container matColumnDef=\"actions\">\r\n\t\t\t\t\t<mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>\r\n\t\t\t\t\t<mat-cell *matCellDef=\"let user;let rowIndex = index\">\r\n\t\t\t\t\t\t<button *ngIf=\"checkedpermission('update')\" (click)=\"editUser(user)\" mat-icon-button color=\"primary\" matTooltip=\"Edit user\">\r\n\t\t\t\t\t\t\t<mat-icon>create</mat-icon>\r\n\t\t\t\t\t\t</button>\r\n\t\t\t\t\t\t<button *ngIf=\"user.status!='Active' && checkedpermission('update')\" (click)=\"activateuser(user.pub_key , 'Active' , rowIndex)\" mat-icon-button color=\"primary\"  matTooltip=\"Activate User\">\r\n\t\t\t\t\t\t\t<mat-progress-spinner *ngIf=\"usrListIconNo==1 && rowIndex == currentRowIndex\" style=\"margin:0 auto;\" mode=\"indeterminate\" diameter=\"30\">\r\n\t\t\t\t\t\t\t</mat-progress-spinner>\r\n\t\t\t\t\t\t\t<mat-icon *ngIf=\"usrListIconNo==-1 && rowIndex != currentRowIndex\">cached</mat-icon>\r\n\t\t\t\t\t\t</button>\r\n\t\t\t\t\t\t<button *ngIf=\"user.status!='Deactive' && checkedpermission('update')\" mat-icon-button color=\"warn\" matTooltip=\"Deactive user\" type=\"button\" (click)=\"activateuser(user.pub_key,'Deactive' , rowIndex)\">\r\n\t\t\t\t\t\t\t<mat-progress-spinner *ngIf=\"usrListIconNo==2 && rowIndex == currentRowIndex\" style=\"margin:0 auto;\" mode=\"indeterminate\" diameter=\"30\">\r\n\t\t\t\t\t\t\t</mat-progress-spinner>\r\n\t\t\t\t\t\t\t<mat-icon *ngIf=\"usrListIconNo==-1 && rowIndex != currentRowIndex\">delete</mat-icon>\r\n\t\t\t\t\t\t</button>\r\n\r\n\t\t\t\t\t</mat-cell>\r\n\t\t\t\t</ng-container>\r\n\t\t\t\t<ng-container matColumnDef=\"loading\">\r\n\t\t\t\t\t<mat-footer-cell *matFooterCellDef colspan=\"6\">\r\n\t\t\t\t\t\tLoading...\r\n\t\t\t\t\t</mat-footer-cell>\r\n\t\t\t\t</ng-container>\r\n\t\t\t\t<ng-container matColumnDef=\"NoData\">\r\n\t\t\t\t\t<mat-footer-cell *matFooterCellDef colspan=\"6\">\r\n\t\t\t\t\t\tNo Data\r\n\t\t\t\t\t</mat-footer-cell>\r\n\t\t\t\t</ng-container>\r\n\t\t\t\t<mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\r\n\r\n\t\t\t\t<mat-row *matRowDef=\"let row; columns: displayedColumns\"></mat-row>\r\n\t\t\t\t<mat-footer-row *matFooterRowDef=\"['loading']\" [ngClass]=\"{'hide':listData!=null}\"></mat-footer-row>\r\n\t\t\t\t<mat-footer-row *matFooterRowDef=\"['NoData']\"  [ngClass]=\"{hide:checkedListData()}\">\r\n\t\t\t\t</mat-footer-row>\r\n\t\t\t</mat-table>\r\n\t\t\t<mat-paginator (page)=\"nextPage($event)\" [pageSizeOptions]=\"[5,10,25,100]\" [pageSize]=\"10\"></mat-paginator>\r\n\t\t</div>\r\n\t\t<!-- end: BOTTOM -->\r\n\t</kt-portlet-body>\r\n\t<!-- end::Body -->\r\n</kt-portlet>\r\n"
+module.exports = "<kt-portlet>\r\n\t<!-- PORTLET LOADING | Binded to TABLE Datasource -->\r\n\t<!-- See prop => '~/core/_crud/models/data-sources/_base.datasource.ts' (loading$) -->\r\n\t<kt-portlet-header [title]=\"\" [class]=\"'kt-portlet__head--lg'\">\r\n\t\t<ng-container ktPortletTools>\r\n\t\t\t<button [routerLink]=\"['/default/user-management/invitations']\" mat-raised-button color=\"primary\" matTooltip=\"send new invitation\">Invite\r\n\t\t\t\tuser</button>\r\n\t\t\t<!-- Buttons (Material Angular) | See off.documenations 'https://material.angular.io/components/button/overview' -->\r\n\t\t\t<!-- mat-raised-button | Rectangular contained button w/ elevation  -->\r\n\t\t</ng-container>\r\n\t</kt-portlet-header>\r\n\t<!-- end::Header -->\r\n\t<div *ngIf=\"isLoading\" class=\"center\" style=\"padding: 150px;\">\r\n\t\t<mat-progress-spinner style=\"margin:0 auto;\" mode=\"indeterminate\" diameter=\"40\">\r\n\t\t</mat-progress-spinner>\r\n\t</div>\r\n\t<kt-portlet-body *ngIf=\"!isLoading\">\r\n\t\t\t<div class=\"kt-form\">\r\n\t\t\t\t<!-- start::FILTERS -->\r\n\t\t\t\t<div class=\"kt-form__filtration\">\r\n\t\t\t\t\t<div class=\"row align-items-center\">\r\n\r\n\t\t\t\t\t\t<div class=\"col-md-2 kt-margin-bottom-10-mobile\">\r\n\t\t\t\t\t\t\t<!-- 'm  margin-bottom-10-mobile' for adaptive make-up  -->\r\n\t\t\t\t\t\t\t<div class=\"kt-form__control\">\r\n\t\t\t\t\t\t\t\t<mat-form-field class=\"mat-form-field-fluid\">\r\n\t\t\t\t\t\t\t\t\t<mat-select [(value)]=\"filterStatus\" (selectionChange)=\"applyFilter()\">\r\n\t\t\t\t\t\t\t\t\t\t<mat-option value=\"\">All</mat-option>\r\n\t\t\t\t\t\t\t\t\t\t<mat-option value=\"Active\">Active</mat-option>\r\n\t\t\t\t\t\t\t\t\t\t<mat-option value=\"Deactive\">Deactive</mat-option>\r\n\t\t\t\t\t\t\t\t\t</mat-select>\r\n\t\t\t\t\t\t\t\t\t<mat-hint align=\"start\">\r\n\t\t\t\t\t\t\t\t\t\t<strong>Filter</strong> by Status\r\n\t\t\t\t\t\t\t\t\t</mat-hint>\r\n\t\t\t\t\t\t\t\t</mat-form-field>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t<div class=\"col-md-2 kt-margin-bottom-10-mobile\">\r\n\r\n\t\t\t\t\t\t\t<div class=\"kt-form__control\">\r\n\t\t\t\t\t\t\t\t<mat-form-field class=\"mat-form-field-fluid\">\r\n\t\t\t\t\t\t\t\t\t<mat-select [(value)]=\"filterRole\" (selectionChange)=\"applyFilter()\">\r\n\t\t\t\t\t\t\t\t\t\t<mat-option value=\"\">All</mat-option>\r\n\t\t\t\t\t\t\t\t\t\t<mat-option *ngFor=\"let value of getallroles\"  [value]=\"value.type\">\r\n\t\t\t\t\t\t\t\t\t\t\t{{value.type}}\r\n\t\t\t\t\t\t\t\t\t\t</mat-option>\r\n\t\t\t\t\t\t\t\t\t</mat-select>\r\n\t\t\t\t\t\t\t\t\t<mat-hint align=\"start\">\r\n\t\t\t\t\t\t\t\t\t\t<strong>Filter</strong> by Type\r\n\t\t\t\t\t\t\t\t\t</mat-hint>\r\n\t\t\t\t\t\t\t\t</mat-form-field>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t<div class=\"col-md-2 kt-margin-bottom-10-mobile\">\r\n\r\n\t\t\t\t\t\t\t<div class=\"kt-form__control\">\r\n\t\t\t\t\t\t\t\t<mat-form-field class=\"mat-form-field-fluid\">\r\n\t\t\t\t\t\t\t\t\t<mat-select [(value)]=\"filterPrivilidge\" (selectionChange)=\"applyFilter()\" multiple>\r\n\t\t\t\t\t\t\t\t\t\t<mat-optgroup *ngFor=\"let group of allPrivilidge\" [label]=\"group.key\">\r\n\t\t\t\t\t\t\t\t\t\t\t<mat-option *ngFor=\"let item of group.value\"  [value]=\"item.value\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t{{item.key}}\r\n\t\t\t\t\t\t\t\t\t\t\t</mat-option>\r\n\t\t\t\t\t\t\t\t\t\t</mat-optgroup>\r\n\t\t\t\t\t\t\t\t\t</mat-select>\r\n\t\t\t\t\t\t\t\t\t<mat-hint align=\"start\">\r\n\t\t\t\t\t\t\t\t\t\t<strong>Filter</strong> by Permission\r\n\t\t\t\t\t\t\t\t\t</mat-hint>\r\n\t\t\t\t\t\t\t\t</mat-form-field>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t<div class=\"col-md-4 kt-margin-bottom-10-mobile\">\r\n\t\t\t\t\t\t\t<mat-form-field class=\"mat-form-field-fluid\">\r\n\t\t\t\t\t\t\t\t<input matInput placeholder=\"Search then Press Enter\" [(ngModel)]=\"SearchKey\" (keyup.enter)=\"applyFilter()\">\r\n\t\t\t\t\t\t\t\t<button mat-button matSuffix mat-icon-button aria-label=\"Clear\" *ngIf=\"SearchKey\"\r\n\t\t\t\t\t\t\t\t\t(click)=\"onSearchClear()\">\r\n\t\t\t\t\t\t\t\t\t<mat-icon>close</mat-icon>\r\n\t\t\t\t\t\t\t\t</button>\r\n\t\t\t\t\t\t\t\t<mat-hint align=\"start\">\r\n\t\t\t\t\t\t\t\t\t<strong>Search</strong> in all fields\r\n\t\t\t\t\t\t\t\t</mat-hint>\r\n\t\t\t\t\t\t\t</mat-form-field>\r\n\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<!-- end::FILTERS -->\r\n\r\n\r\n\t\t\t<!-- start::GROUP ACTIONS -->\r\n\t\t\t<!-- Group actions list: 'Delete selected' | 'Fetch selected' | 'Update status for selected' -->\r\n\t\t\t<!-- Group actions are shared for all LISTS -->\r\n\t\t\t<div class=\"row align-items-center collapse kt-form__group-actions kt-margin-top-20 kt-margin-bottom-20\"\r\n\t\t\t\t[ngClass]=\"{'show' : selection.selected.length > 0}\">\r\n\t\t\t\t<!-- We show 'Group Actions' div if smth are selected -->\r\n\t\t\t\t<div class=\"col-xl-12\">\r\n\t\t\t\t\t<div class=\"kt-form__group kt-form__group--inline\">\r\n\t\t\t\t\t\t<div class=\"kt-form__label kt-form__label-no-wrap\">\r\n\t\t\t\t\t\t\t<label class=\"kt--font-bold kt-font-danger-\">\r\n\t\t\t\t\t\t\t<span translate=\"ECOMMERCE.COMMON.SELECTED_ROWS\"></span> {{ selection.selected.length }} -->\r\n\t\t\t\t\t\t\t</label>\r\n\t\t\t\t\t\t\t<!-- selectedCountsTitle => function from codeBehind (users-list.component.ts file) -->\r\n\t\t\t\t\t\t\t<!-- selectedCountsTitle => just returns title of selected items count -->\r\n\t\t\t\t\t\t\t<!-- for example: Selected records count: 4 -->\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<div class=\"kt-form__control kt-form__group--inline\">\r\n\t\t\t\t\t\t\t<!-- <button (click)=\"fetchUsers()\" mat-raised-button matTooltip=\"Fetch selected users\"\r\n\t\t\t\t\t\t\t\tclass=\"mat-button-mt-4\">\r\n\t\t\t\t\t\t\t\t<mat-icon>clear_all</mat-icon>\r\n\t\t\t\t\t\t\t\tFetch Selected\r\n\t\t\t\t\t\t\t</button> -->\r\n\r\n\t\t\t\t\t\t\t<button (click)=\"activeallusers('Deactive')\" mat-raised-button matTooltip=\"Fetch selected users\"\r\n\t\t\t\t\t\t\t\tclass=\"mat-button-mt-4\">\r\n\t\t\t\t\t\t\t\t<mat-icon>delete</mat-icon>\r\n\t\t\t\t\t\t\t\tDeactive\r\n\t\t\t\t\t\t\t</button>\r\n\r\n\t\t\t\t\t\t\t<button (click)=\"activeallusers('Active')\" mat-raised-button matTooltip=\"Fetch selected users\"\r\n\t\t\t\t\t\t\t\tclass=\"mat-button-mt-4\">\r\n\t\t\t\t\t\t\t\t<mat-icon>cached</mat-icon>\r\n\t\t\t\t\t\t\t\tActive\r\n\t\t\t\t\t\t\t</button>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<!-- end::GROUP ACTIONS -->\r\n\t\t</div>\r\n\t\t<!-- end::FILTERS & GROUP ACTIONS -->\r\n\r\n\t\t<!-- MATERIAL TABLE | Binded to datasources -->\r\n\t\t<!-- See off.documentations 'https://material.angular.io/components/table/overview' -->\r\n\t\t<div class=\"mat-table__wrapper\">\r\n\t\t\t<mat-table class=\"lmat-elevation-z8\" #table [dataSource]=\"listData\"\r\n\t\t\t\tmatSort\r\n\t\t\t\t#sort1=\"matSort\"\r\n\t\t\t\tmatSortActive=\"id\"\r\n\t\t\t\tmatSortDirection=\"asc\"\r\n\t\t\t\tmatSortDisableClear>\r\n\t\t\t\t<!-- Checkbox Column -->\r\n\r\n\t\t\t\t<!-- Table with selection -->\r\n\t\t\t\t<!-- https://run.stackblitz.com/api/angular/v1?file=app%2Ftable-selection-example.ts -->\r\n\t\t\t\t<ng-container matColumnDef=\"select\">\r\n\t\t\t\t\t<mat-header-cell *matHeaderCellDef class=\"mat-column-checkbox\">\r\n\t\t\t\t\t\t<mat-checkbox (change)=\"$event ? masterToggle() : null\" [checked]=\"selection.hasValue() && isAllSelected()\"\r\n\t\t\t\t\t\t\t[indeterminate]=\"selection.hasValue() && !isAllSelected()\">\r\n\t\t\t\t\t\t</mat-checkbox>\r\n\t\t\t\t\t</mat-header-cell>\r\n\t\t\t\t\t<mat-cell *matCellDef=\"let row\" class=\"mat-column-checkbox\">\r\n\t\t\t\t\t\t<mat-checkbox (click)=\"$event.stopPropagation()\" (change)=\"$event ? selection.toggle(row) : null\"\r\n\t\t\t\t\t\t\t[checked]=\"selection.isSelected(row)\">\r\n\t\t\t\t\t\t</mat-checkbox>\r\n\t\t\t\t\t</mat-cell>\r\n\t\t\t\t</ng-container>\r\n\r\n\t\t\t\t<ng-container matColumnDef=\"id\">\r\n\t\t\t\t\t<!-- ATTRIBUTE mat-sort-header  for sorting | https://material.angular.io/components/sort/overview -->\r\n\t\t\t\t\t<mat-header-cell (click)=\"applyFilter('id')\" *matHeaderCellDef mat-sort-header>#</mat-header-cell>\r\n\t\t\t\t\t<mat-cell *matCellDef=\"let user\">{{user.increment}}</mat-cell>\r\n\t\t\t\t</ng-container>\r\n\r\n\t\t\t\t<ng-container matColumnDef=\"_username\">\r\n\t\t\t\t\t<mat-header-cell (click)=\"applyFilter('username')\" *matHeaderCellDef mat-sort-header>Username</mat-header-cell>\r\n\t\t\t\t\t<mat-cell *matCellDef=\"let user\">{{user.username}}</mat-cell>\r\n\t\t\t\t</ng-container>\r\n\r\n\t\t\t\t<ng-container matColumnDef=\"_email\">\r\n\t\t\t\t\t<mat-header-cell (click)=\"applyFilter('email')\" *matHeaderCellDef mat-sort-header >Email</mat-header-cell>\r\n\t\t\t\t\t <mat-cell *matCellDef=\"let user\"><!--class=\"email-cell\" -->\r\n\t\t\t\t\t\t<a  class=\"kt-link\">{{user.email}}</a>\r\n\t\t\t\t\t</mat-cell>\r\n\t\t\t\t</ng-container>\r\n\r\n\t\t\t\t<ng-container matColumnDef=\"fullname\">\r\n\t\t\t\t\t<mat-header-cell (click)=\"applyFilter('name')\" *matHeaderCellDef mat-sort-header >Full name</mat-header-cell>\r\n\t\t\t\t\t<mat-cell *matCellDef=\"let user\">\r\n\t\t\t\t\t\t<span *ngIf=\"user.name !='';\">{{user.name}}</span>\r\n\t\t\t\t\t\t<span *ngIf=\"user.name ==''\">N/A</span>\r\n\t\t\t\t\t</mat-cell>\r\n\t\t\t\t</ng-container>\r\n\r\n\t\t\t\t<ng-container matColumnDef=\"_roles\">\r\n\t\t\t\t\t<mat-header-cell (click)=\"applyFilter('role')\" *matHeaderCellDef mat-sort-header >Roles</mat-header-cell>\r\n\t\t\t\t\t<mat-cell *matCellDef=\"let user\">\r\n\t\t\t\t\t\t<span *ngIf=\"user.role!=''\">{{user.role}}</span>\r\n\t\t\t\t\t\t<span *ngIf=\"user.role==''\">N/A</span>\r\n\r\n\t\t\t\t\t</mat-cell>\r\n\t\t\t\t</ng-container>\r\n\r\n\t\t\t\t<ng-container matColumnDef=\"_status\">\r\n\t\t\t\t\t<mat-header-cell (click)=\"applyFilter('status')\" *matHeaderCellDef mat-sort-header >Status</mat-header-cell>\r\n\t\t\t\t\t<mat-cell *matCellDef=\"let user\">\r\n\t\t\t\t\t\t<span *ngIf=\"user.status=='Active'\"class=\"kt-badge kt-badge--inline kt-badge--pill kt-badge--success kt-badge--wide\">{{user.status}}</span>\r\n\t\t\t\t\t\t<span *ngIf=\"user.status=='Deactive'\"class=\"kt-badge kt-badge--inline kt-badge--pill kt-badge--danger kt-badge--wide\">{{user.status}}</span>\r\n\t\t\t\t\t</mat-cell>\r\n\t\t\t\t</ng-container>\r\n\r\n\t\t\t\t<ng-container matColumnDef=\"actions\">\r\n\t\t\t\t\t<mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>\r\n\t\t\t\t\t<mat-cell *matCellDef=\"let user;let rowIndex = index\">\r\n\t\t\t\t\t\t<button *ngIf=\"checkedpermission('update')\" (click)=\"editUser(user)\" mat-icon-button color=\"primary\" matTooltip=\"Edit user\">\r\n\t\t\t\t\t\t\t<mat-icon>create</mat-icon>\r\n\t\t\t\t\t\t</button>\r\n\t\t\t\t\t\t<button *ngIf=\"user.status!='Active' && checkedpermission('update')\" (click)=\"activateuser(user.pub_key , 'Active' , rowIndex)\" mat-icon-button color=\"primary\"  matTooltip=\"Activate User\">\r\n\t\t\t\t\t\t\t<mat-progress-spinner *ngIf=\"usrListIconNo==1 && rowIndex == currentRowIndex\" style=\"margin:0 auto;\" mode=\"indeterminate\" diameter=\"30\">\r\n\t\t\t\t\t\t\t</mat-progress-spinner>\r\n\t\t\t\t\t\t\t<mat-icon *ngIf=\"usrListIconNo==-1 && rowIndex != currentRowIndex\">cached</mat-icon>\r\n\t\t\t\t\t\t</button>\r\n\t\t\t\t\t\t<button *ngIf=\"user.status!='Deactive' && checkedpermission('update')\" mat-icon-button color=\"warn\" matTooltip=\"Deactive user\" type=\"button\" (click)=\"activateuser(user.pub_key,'Deactive' , rowIndex)\">\r\n\t\t\t\t\t\t\t<mat-progress-spinner *ngIf=\"usrListIconNo==2 && rowIndex == currentRowIndex\" style=\"margin:0 auto;\" mode=\"indeterminate\" diameter=\"30\">\r\n\t\t\t\t\t\t\t</mat-progress-spinner>\r\n\t\t\t\t\t\t\t<mat-icon *ngIf=\"usrListIconNo==-1 && rowIndex != currentRowIndex\">delete</mat-icon>\r\n\t\t\t\t\t\t</button>\r\n\r\n\t\t\t\t\t</mat-cell>\r\n\t\t\t\t</ng-container>\r\n\t\t\t\t<ng-container matColumnDef=\"loading\">\r\n\t\t\t\t\t<mat-footer-cell *matFooterCellDef colspan=\"6\">\r\n\t\t\t\t\t\tLoading...\r\n\t\t\t\t\t</mat-footer-cell>\r\n\t\t\t\t</ng-container>\r\n\t\t\t\t<ng-container matColumnDef=\"NoData\">\r\n\t\t\t\t\t<mat-footer-cell *matFooterCellDef colspan=\"6\">\r\n\t\t\t\t\t\tNo Data\r\n\t\t\t\t\t</mat-footer-cell>\r\n\t\t\t\t</ng-container>\r\n\t\t\t\t<mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\r\n\r\n\t\t\t\t<mat-row *matRowDef=\"let row; columns: displayedColumns\"></mat-row>\r\n\t\t\t\t<mat-footer-row *matFooterRowDef=\"['loading']\" [ngClass]=\"{'hide':listData!=null}\"></mat-footer-row>\r\n\t\t\t\t<mat-footer-row *matFooterRowDef=\"['NoData']\"  [ngClass]=\"{hide:checkedListData()}\">\r\n\t\t\t\t</mat-footer-row>\r\n\t\t\t</mat-table>\r\n\t\t\t<mat-paginator (page)=\"nextPage($event)\" [pageSizeOptions]=\"[5,10,25,100]\" [pageSize]=\"10\"></mat-paginator>\r\n\t\t</div>\r\n\t\t<!-- end: BOTTOM -->\r\n\t</kt-portlet-body>\r\n\t<!-- end::Body -->\r\n</kt-portlet>\r\n"
 
 /***/ }),
 
@@ -5746,7 +5935,7 @@ exports.UsersListComponent = UsersListComponent;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".hide {\n  display: none; }\n\nmat-footer-row mat-footer-cell {\n  justify-content: center; }\n\n.mat-dialog-actions[align='end'] {\n  justify-content: flex-end; }\n\n.mat-dialog-actions[align='center'] {\n  justify-content: center; }\n\n.mat-list-content {\n  font-size: 10px; }\n\n.mat-column-username {\n  word-wrap: break-word !important;\n  white-space: unset !important;\n  flex: 0 0 25% !important;\n  width: 25% !important;\n  overflow-wrap: break-word;\n  word-wrap: break-word;\n  word-break: break-word;\n  -ms-hyphens: auto;\n  -webkit-hyphens: auto;\n  hyphens: auto; }\n\n.mat-column-createdat, .mat-column-joindat, .mat-column-status, .mat-column-admin {\n  word-wrap: break-word !important;\n  white-space: unset !important;\n  flex: 0 0 13% !important;\n  width: 13% !important;\n  overflow-wrap: break-word;\n  word-wrap: break-word;\n  word-break: break-word;\n  -ms-hyphens: auto;\n  -webkit-hyphens: auto;\n  hyphens: auto; }\n\n.mat-column-id {\n  flex: 0 0 5% !important;\n  width: 5% !important; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdmlld3MvcGFnZXMvdXNlci1tYW5hZ2VtZW50L0U6XFxHRU1JTlxcZ3ltaW4tMi4wLXNhYXMtZnJvbnRlbmQvc3JjXFxhcHBcXHZpZXdzXFxwYWdlc1xcdXNlci1tYW5hZ2VtZW50XFx1c3Nlci5tYW5hZ2VtZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxhQUNKLEVBQUE7O0FBQ0E7RUFDQSx1QkFBdUIsRUFBQTs7QUFHdkI7RUFHTSx5QkFBeUIsRUFBQTs7QUFIL0I7RUFPTSx1QkFBdUIsRUFBQTs7QUFJM0I7RUFFRSxlQUFlLEVBQUE7O0FBSW5CO0VBQ0UsZ0NBQWdDO0VBQ2hDLDZCQUE2QjtFQUM3Qix3QkFBd0I7RUFDeEIscUJBQXFCO0VBQ3JCLHlCQUF5QjtFQUN6QixxQkFBcUI7RUFDckIsc0JBQXNCO0VBQ3RCLGlCQUFpQjtFQUVqQixxQkFBcUI7RUFDckIsYUFBYSxFQUFBOztBQUVmO0VBQ0UsZ0NBQWdDO0VBQ2hDLDZCQUE2QjtFQUM3Qix3QkFBd0I7RUFDeEIscUJBQXFCO0VBQ3JCLHlCQUF5QjtFQUN6QixxQkFBcUI7RUFDckIsc0JBQXNCO0VBQ3RCLGlCQUFpQjtFQUVqQixxQkFBcUI7RUFDckIsYUFBYSxFQUFBOztBQUVmO0VBQ0UsdUJBQXVCO0VBQ3ZCLG9CQUFvQixFQUFBIiwiZmlsZSI6InNyYy9hcHAvdmlld3MvcGFnZXMvdXNlci1tYW5hZ2VtZW50L3Vzc2VyLm1hbmFnZW1lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5oaWRle1xyXG4gICAgZGlzcGxheTogbm9uZVxyXG59XHJcbm1hdC1mb290ZXItcm93ICBtYXQtZm9vdGVyLWNlbGx7XHJcbmp1c3RpZnktY29udGVudDogY2VudGVyO1xyXG5cclxufVxyXG4ubWF0LWRpYWxvZy1hY3Rpb25zIHtcclxuICBcclxuICAgICZbYWxpZ249J2VuZCddIHtcclxuICAgICAganVzdGlmeS1jb250ZW50OiBmbGV4LWVuZDtcclxuICAgIH1cclxuICBcclxuICAgICZbYWxpZ249J2NlbnRlciddIHtcclxuICAgICAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XHJcbiAgICB9XHJcbiAgfVxyXG5cclxuICAubWF0LWxpc3QtY29udGVudHtcclxuICAgXHJcbiAgICBmb250LXNpemU6IDEwcHg7ICAgXHJcbn1cclxuXHJcblxyXG4ubWF0LWNvbHVtbi11c2VybmFtZSB7XHJcbiAgd29yZC13cmFwOiBicmVhay13b3JkICFpbXBvcnRhbnQ7XHJcbiAgd2hpdGUtc3BhY2U6IHVuc2V0ICFpbXBvcnRhbnQ7XHJcbiAgZmxleDogMCAwIDI1JSAhaW1wb3J0YW50O1xyXG4gIHdpZHRoOiAyNSUgIWltcG9ydGFudDtcclxuICBvdmVyZmxvdy13cmFwOiBicmVhay13b3JkO1xyXG4gIHdvcmQtd3JhcDogYnJlYWstd29yZDtcclxuICB3b3JkLWJyZWFrOiBicmVhay13b3JkO1xyXG4gIC1tcy1oeXBoZW5zOiBhdXRvO1xyXG4gIC1tb3otaHlwaGVuczogYXV0bztcclxuICAtd2Via2l0LWh5cGhlbnM6IGF1dG87XHJcbiAgaHlwaGVuczogYXV0bztcclxufVxyXG4ubWF0LWNvbHVtbi1jcmVhdGVkYXQsLm1hdC1jb2x1bW4tam9pbmRhdCAsIC5tYXQtY29sdW1uLXN0YXR1cyAsLm1hdC1jb2x1bW4tYWRtaW4ge1xyXG4gIHdvcmQtd3JhcDogYnJlYWstd29yZCAhaW1wb3J0YW50O1xyXG4gIHdoaXRlLXNwYWNlOiB1bnNldCAhaW1wb3J0YW50O1xyXG4gIGZsZXg6IDAgMCAxMyUgIWltcG9ydGFudDtcclxuICB3aWR0aDogMTMlICFpbXBvcnRhbnQ7XHJcbiAgb3ZlcmZsb3ctd3JhcDogYnJlYWstd29yZDtcclxuICB3b3JkLXdyYXA6IGJyZWFrLXdvcmQ7XHJcbiAgd29yZC1icmVhazogYnJlYWstd29yZDtcclxuICAtbXMtaHlwaGVuczogYXV0bztcclxuICAtbW96LWh5cGhlbnM6IGF1dG87XHJcbiAgLXdlYmtpdC1oeXBoZW5zOiBhdXRvO1xyXG4gIGh5cGhlbnM6IGF1dG87XHJcbn1cclxuLm1hdC1jb2x1bW4taWQge1xyXG4gIGZsZXg6IDAgMCA1JSAhaW1wb3J0YW50O1xyXG4gIHdpZHRoOiA1JSAhaW1wb3J0YW50O1xyXG59Il19 */"
+module.exports = ".hide {\n  display: none; }\n\nmat-footer-row mat-footer-cell {\n  justify-content: center; }\n\n.mat-dialog-actions[align='end'] {\n  justify-content: flex-end; }\n\n.mat-dialog-actions[align='center'] {\n  justify-content: center; }\n\n.mat-list-content {\n  font-size: 10px; }\n\n.mat-column-username {\n  word-wrap: break-word !important;\n  white-space: unset !important;\n  flex: 0 0 25% !important;\n  width: 25% !important;\n  overflow-wrap: break-word;\n  word-wrap: break-word;\n  word-break: break-word;\n  -ms-hyphens: auto;\n  -webkit-hyphens: auto;\n  hyphens: auto; }\n\n.mat-column-createdat, .mat-column-joindat, .mat-column-status, .mat-column-admin {\n  word-wrap: break-word !important;\n  white-space: unset !important;\n  flex: 0 0 15% !important;\n  width: 15% !important;\n  overflow-wrap: break-word;\n  word-wrap: break-word;\n  word-break: break-word;\n  -ms-hyphens: auto;\n  -webkit-hyphens: auto;\n  hyphens: auto; }\n\n.mat-column-id {\n  flex: 0 0 5% !important;\n  width: 5% !important; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdmlld3MvcGFnZXMvdXNlci1tYW5hZ2VtZW50L0U6XFxHRU1JTlxcZ3ltaW4tMi4wLXNhYXMtZnJvbnRlbmQvc3JjXFxhcHBcXHZpZXdzXFxwYWdlc1xcdXNlci1tYW5hZ2VtZW50XFx1c3Nlci5tYW5hZ2VtZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxhQUNKLEVBQUE7O0FBQ0E7RUFDQSx1QkFBdUIsRUFBQTs7QUFHdkI7RUFHTSx5QkFBeUIsRUFBQTs7QUFIL0I7RUFPTSx1QkFBdUIsRUFBQTs7QUFJM0I7RUFFRSxlQUFlLEVBQUE7O0FBSW5CO0VBQ0UsZ0NBQWdDO0VBQ2hDLDZCQUE2QjtFQUM3Qix3QkFBd0I7RUFDeEIscUJBQXFCO0VBQ3JCLHlCQUF5QjtFQUN6QixxQkFBcUI7RUFDckIsc0JBQXNCO0VBQ3RCLGlCQUFpQjtFQUVqQixxQkFBcUI7RUFDckIsYUFBYSxFQUFBOztBQUVmO0VBQ0UsZ0NBQWdDO0VBQ2hDLDZCQUE2QjtFQUM3Qix3QkFBd0I7RUFDeEIscUJBQXFCO0VBQ3JCLHlCQUF5QjtFQUN6QixxQkFBcUI7RUFDckIsc0JBQXNCO0VBQ3RCLGlCQUFpQjtFQUVqQixxQkFBcUI7RUFDckIsYUFBYSxFQUFBOztBQUVmO0VBQ0UsdUJBQXVCO0VBQ3ZCLG9CQUFvQixFQUFBIiwiZmlsZSI6InNyYy9hcHAvdmlld3MvcGFnZXMvdXNlci1tYW5hZ2VtZW50L3Vzc2VyLm1hbmFnZW1lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5oaWRle1xyXG4gICAgZGlzcGxheTogbm9uZVxyXG59XHJcbm1hdC1mb290ZXItcm93ICBtYXQtZm9vdGVyLWNlbGx7XHJcbmp1c3RpZnktY29udGVudDogY2VudGVyO1xyXG5cclxufVxyXG4ubWF0LWRpYWxvZy1hY3Rpb25zIHtcclxuICBcclxuICAgICZbYWxpZ249J2VuZCddIHtcclxuICAgICAganVzdGlmeS1jb250ZW50OiBmbGV4LWVuZDtcclxuICAgIH1cclxuICBcclxuICAgICZbYWxpZ249J2NlbnRlciddIHtcclxuICAgICAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XHJcbiAgICB9XHJcbiAgfVxyXG5cclxuICAubWF0LWxpc3QtY29udGVudHtcclxuICAgXHJcbiAgICBmb250LXNpemU6IDEwcHg7ICAgXHJcbn1cclxuXHJcblxyXG4ubWF0LWNvbHVtbi11c2VybmFtZSB7XHJcbiAgd29yZC13cmFwOiBicmVhay13b3JkICFpbXBvcnRhbnQ7XHJcbiAgd2hpdGUtc3BhY2U6IHVuc2V0ICFpbXBvcnRhbnQ7XHJcbiAgZmxleDogMCAwIDI1JSAhaW1wb3J0YW50O1xyXG4gIHdpZHRoOiAyNSUgIWltcG9ydGFudDtcclxuICBvdmVyZmxvdy13cmFwOiBicmVhay13b3JkO1xyXG4gIHdvcmQtd3JhcDogYnJlYWstd29yZDtcclxuICB3b3JkLWJyZWFrOiBicmVhay13b3JkO1xyXG4gIC1tcy1oeXBoZW5zOiBhdXRvO1xyXG4gIC1tb3otaHlwaGVuczogYXV0bztcclxuICAtd2Via2l0LWh5cGhlbnM6IGF1dG87XHJcbiAgaHlwaGVuczogYXV0bztcclxufVxyXG4ubWF0LWNvbHVtbi1jcmVhdGVkYXQsLm1hdC1jb2x1bW4tam9pbmRhdCAsIC5tYXQtY29sdW1uLXN0YXR1cyAsLm1hdC1jb2x1bW4tYWRtaW4ge1xyXG4gIHdvcmQtd3JhcDogYnJlYWstd29yZCAhaW1wb3J0YW50O1xyXG4gIHdoaXRlLXNwYWNlOiB1bnNldCAhaW1wb3J0YW50O1xyXG4gIGZsZXg6IDAgMCAxNSUgIWltcG9ydGFudDtcclxuICB3aWR0aDogMTUlICFpbXBvcnRhbnQ7XHJcbiAgb3ZlcmZsb3ctd3JhcDogYnJlYWstd29yZDtcclxuICB3b3JkLXdyYXA6IGJyZWFrLXdvcmQ7XHJcbiAgd29yZC1icmVhazogYnJlYWstd29yZDtcclxuICAtbXMtaHlwaGVuczogYXV0bztcclxuICAtbW96LWh5cGhlbnM6IGF1dG87XHJcbiAgLXdlYmtpdC1oeXBoZW5zOiBhdXRvO1xyXG4gIGh5cGhlbnM6IGF1dG87XHJcbn1cclxuLm1hdC1jb2x1bW4taWQge1xyXG4gIGZsZXg6IDAgMCA1JSAhaW1wb3J0YW50O1xyXG4gIHdpZHRoOiA1JSAhaW1wb3J0YW50O1xyXG59Il19 */"
 
 /***/ })
 
