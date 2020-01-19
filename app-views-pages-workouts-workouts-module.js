@@ -235,6 +235,7 @@ var WorkoutAddEditComponent = /** @class */ (function () {
                 (this.workout['image_url'] != '') ? (workoutObj_1['image_url'] = this.workout['image_url']) : '';
                 (this.workout['video_url'] != '') ? (workoutObj_1['video_url'] = this.convert_youtube(this.workout['video_url'])) : '';
                 //check if image not null >> add image and information >>> or add only information
+                this.viewLoading = true;
                 if (this.imageprivew != '') {
                     this.uploader.uploadAll();
                     this.uploader.onCompleteItem = function (item, response, status, headers) {
@@ -275,6 +276,7 @@ var WorkoutAddEditComponent = /** @class */ (function () {
                             return;
                         }
                         else {
+                            _this.viewLoading = true;
                             //there are change 
                             var id_1 = _this.workout['id'];
                             //edit and update image 
@@ -331,6 +333,7 @@ var WorkoutAddEditComponent = /** @class */ (function () {
                     _this.errormessage = "No data Added , Server Error!";
                     _this.redirctFunction(false);
                 }
+                _this.viewLoading = false;
             });
         }
         else {
@@ -350,6 +353,7 @@ var WorkoutAddEditComponent = /** @class */ (function () {
                     _this.errormessage = "No data Edited , Server Error!";
                     _this.redirctFunction(false);
                 }
+                _this.viewLoading = false;
             });
         }
         else {
@@ -708,7 +712,6 @@ var WorkoutsComponent = /** @class */ (function () {
             selector: 'kt-workouts',
             template: __webpack_require__(/*! ./workouts.component.html */ "./src/app/views/pages/workouts/workouts.component.html"),
             changeDetection: core_1.ChangeDetectionStrategy.OnPush,
-            encapsulation: core_1.ViewEncapsulation.None,
             styles: [__webpack_require__(/*! ./workouts.component.scss */ "./src/app/views/pages/workouts/workouts.component.scss")]
         }),
         __metadata("design:paramtypes", [workouts_service_1.WorkoutsService, material_1.MatDialog,

@@ -200,7 +200,7 @@ exports.MembersService = MembersService;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<link rel=\"stylesheet\" href=\"https://unpkg.com/angular-calendar@0.27.8/css/angular-calendar.css\">\r\n<div class=\"row text-center\">\r\n  <div class=\"col-md-4\">\r\n    <div class=\"btn-group\">\r\n      <div\r\n        class=\"btn btn-primary\"\r\n        mwlCalendarPreviousView\r\n        [view]=\"view\"\r\n        [(viewDate)]=\"viewDate\"\r\n        (viewDateChange)=\"closeOpenMonthViewDay()\"\r\n      >\r\n        Previous\r\n      </div>\r\n      <div\r\n        class=\"btn btn-outline-secondary\"\r\n        mwlCalendarToday\r\n        [(viewDate)]=\"viewDate\"\r\n      >\r\n        Today\r\n      </div>\r\n      <div\r\n        class=\"btn btn-primary\"\r\n        mwlCalendarNextView\r\n        [view]=\"view\"\r\n        [(viewDate)]=\"viewDate\"\r\n        (viewDateChange)=\"closeOpenMonthViewDay()\"\r\n      >\r\n        Next\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <div class=\"col-md-4\">\r\n    <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>\r\n  </div>\r\n  <div class=\"col-md-4\">\r\n    <div class=\"btn-group\">\r\n      <!-- <div\r\n        class=\"btn btn-primary\"\r\n        (click)=\"setView(CalendarView.Month)\"\r\n        [class.active]=\"view === CalendarView.Month\"\r\n      >\r\n        Month\r\n      </div> -->\r\n      <!-- <div\r\n        class=\"btn btn-primary\"\r\n        (click)=\"setView(CalendarView.Week)\"\r\n        [class.active]=\"view === CalendarView.Week\"\r\n      >\r\n        Week\r\n      </div> -->\r\n\r\n      <div\r\n        class=\"btn btn-primary\"\r\n        (click)=\"SaveAttendance()\"\r\n        [class.active]=\"true\"\r\n      >\r\n        Save\r\n      </div>\r\n      <!-- <div\r\n        class=\"btn btn-primary\"\r\n        (click)=\"setView(CalendarView.Day)\"\r\n        [class.active]=\"view === CalendarView.Day\"\r\n      >\r\n        Day\r\n      </div> -->\r\n    </div>\r\n  </div>\r\n</div>\r\n<br />\r\n<div [ngSwitch]=\"view\">\r\n  <mwl-calendar-month-view\r\n    *ngSwitchCase=\"CalendarView.Month\"\r\n    [viewDate]=\"viewDate\"\r\n    [events]=\"events\"\r\n    [refresh]=\"refresh\"\r\n    (dayClicked)=\"dayClicked($event.day)\"\r\n    (eventClicked)=\"handleEvent('Clicked', $event.event)\"\r\n    (eventTimesChanged)=\"eventTimesChanged($event)\"\r\n  >\r\n  </mwl-calendar-month-view>\r\n  <mwl-calendar-week-view\r\n    *ngSwitchCase=\"CalendarView.Week\"\r\n    [viewDate]=\"viewDate\"\r\n    [events]=\"events\"\r\n    [refresh]=\"refresh\"\r\n    [weekStartsOn]=\"startDay\"\r\n    (eventClicked)=\"handleEvent('Clicked', $event.event)\"\r\n  >\r\n  </mwl-calendar-week-view>\r\n  <!-- <mwl-calendar-day-view\r\n    *ngSwitchCase=\"CalendarView.Day\"\r\n    [viewDate]=\"viewDate\"\r\n    [events]=\"events\"\r\n    [refresh]=\"refresh\"\r\n    (eventClicked)=\"handleEvent('Clicked', $event.event)\"\r\n    (eventTimesChanged)=\"eventTimesChanged($event)\"\r\n  >\r\n  </mwl-calendar-day-view> -->\r\n</div>\r\n\r\n\r\n<!-- <ng-template #modalContent let-close=\"close\">\r\n  <div class=\"modal-header\">\r\n    <h5 class=\"modal-title\">Event action occurred</h5>\r\n    <button type=\"button\" class=\"close\" (click)=\"close()\">\r\n      <span aria-hidden=\"true\">&times;</span>\r\n    </button>\r\n  </div>\r\n  <div class=\"modal-body\">\r\n    <div>\r\n      Action:\r\n      <pre>{{ modalData?.action }}</pre>\r\n    </div>\r\n    <div>\r\n      Event:\r\n      <pre>{{ modalData?.event | json }}</pre>\r\n    </div>\r\n  </div>\r\n  <div class=\"modal-footer\">\r\n    <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"close()\">\r\n      OK\r\n    </button>\r\n  </div>\r\n</ng-template> -->\r\n"
+module.exports = "<link rel=\"stylesheet\" href=\"https://unpkg.com/angular-calendar@0.27.8/css/angular-calendar.css\">\r\n<div class=\"row text-center\">\r\n  <div class=\"col-md-4\">\r\n    <div class=\"btn-group\">\r\n      <div class=\"btn btn-primary\" mwlCalendarPreviousView [view]=\"view\" [(viewDate)]=\"viewDate\"\r\n        (viewDateChange)=\"closeOpenMonthViewDay()\">\r\n        Previous\r\n      </div>\r\n      <div class=\"btn btn-outline-secondary\" mwlCalendarToday [(viewDate)]=\"viewDate\">\r\n        Today\r\n      </div>\r\n      <div class=\"btn btn-primary\" mwlCalendarNextView [view]=\"view\" [(viewDate)]=\"viewDate\"\r\n        (viewDateChange)=\"closeOpenMonthViewDay()\">\r\n        Next\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <div *ngIf=\"isLoading\" class=\"center\" style=\"padding: 150px;\">\r\n    <mat-progress-spinner style=\"margin:0 auto;\" mode=\"indeterminate\" diameter=\"40\">\r\n    </mat-progress-spinner>\r\n  </div>\r\n  <div *ngIf=\"!isLoading\">\r\n      <div class=\"col-md-4\">\r\n        <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>\r\n      </div>\r\n      <div class=\"col-md-4\">\r\n        <div class=\"btn-group\">\r\n          <!-- <div\r\n            class=\"btn btn-primary\"\r\n            (click)=\"setView(CalendarView.Month)\"\r\n            [class.active]=\"view === CalendarView.Month\"\r\n          >\r\n            Month\r\n          </div> -->\r\n          <!-- <div\r\n            class=\"btn btn-primary\"\r\n            (click)=\"setView(CalendarView.Week)\"\r\n            [class.active]=\"view === CalendarView.Week\"\r\n          >\r\n            Week\r\n          </div> -->\r\n\r\n          <div class=\"btn btn-primary\" (click)=\"SaveAttendance()\" [class.active]=\"true\">\r\n            Save\r\n          </div>\r\n          <!-- <div\r\n            class=\"btn btn-primary\"\r\n            (click)=\"setView(CalendarView.Day)\"\r\n            [class.active]=\"view === CalendarView.Day\"\r\n          >\r\n            Day\r\n          </div> -->\r\n        </div>\r\n      </div>\r\n  </div>\r\n\r\n</div>\r\n<br />\r\n<div [ngSwitch]=\"view\">\r\n  <mwl-calendar-month-view *ngSwitchCase=\"CalendarView.Month\" [viewDate]=\"viewDate\" [events]=\"events\"\r\n    [refresh]=\"refresh\" (dayClicked)=\"dayClicked($event.day)\" (eventClicked)=\"handleEvent('Clicked', $event.event)\"\r\n    (eventTimesChanged)=\"eventTimesChanged($event)\">\r\n  </mwl-calendar-month-view>\r\n  <mwl-calendar-week-view *ngSwitchCase=\"CalendarView.Week\" [viewDate]=\"viewDate\" [events]=\"events\" [refresh]=\"refresh\"\r\n    [weekStartsOn]=\"startDay\" (eventClicked)=\"handleEvent('Clicked', $event.event)\">\r\n  </mwl-calendar-week-view>\r\n  <!-- <mwl-calendar-day-view\r\n    *ngSwitchCase=\"CalendarView.Day\"\r\n    [viewDate]=\"viewDate\"\r\n    [events]=\"events\"\r\n    [refresh]=\"refresh\"\r\n    (eventClicked)=\"handleEvent('Clicked', $event.event)\"\r\n    (eventTimesChanged)=\"eventTimesChanged($event)\"\r\n  >\r\n  </mwl-calendar-day-view> -->\r\n</div>\r\n\r\n\r\n<!-- <ng-template #modalContent let-close=\"close\">\r\n  <div class=\"modal-header\">\r\n    <h5 class=\"modal-title\">Event action occurred</h5>\r\n    <button type=\"button\" class=\"close\" (click)=\"close()\">\r\n      <span aria-hidden=\"true\">&times;</span>\r\n    </button>\r\n  </div>\r\n  <div class=\"modal-body\">\r\n    <div>\r\n      Action:\r\n      <pre>{{ modalData?.action }}</pre>\r\n    </div>\r\n    <div>\r\n      Event:\r\n      <pre>{{ modalData?.event | json }}</pre>\r\n    </div>\r\n  </div>\r\n  <div class=\"modal-footer\">\r\n    <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"close()\">\r\n      OK\r\n    </button>\r\n  </div>\r\n</ng-template> -->"
 
 /***/ }),
 
@@ -277,7 +277,6 @@ var _services_1 = __webpack_require__(/*! ../../../core/auth/_services */ "./src
 var members_service_1 = __webpack_require__(/*! ../members/members.service */ "./src/app/views/pages/members/members.service.ts");
 var crud_1 = __webpack_require__(/*! ../../../core/_base/crud */ "./src/app/core/_base/crud/index.ts");
 var router_1 = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-var _public_methods_1 = __webpack_require__(/*! ../../../core/_public/-public-methods */ "./src/app/core/_public/-public-methods.ts");
 //route
 var router_2 = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 var colors = {
@@ -309,6 +308,7 @@ var MyPageComponent = /** @class */ (function () {
         this.startDay = 1;
         this.refresh = new rxjs_1.Subject();
         this.activeDayIsOpen = true;
+        this.isLoading = false;
         this.user_key = this.router.parent.snapshot.paramMap.get('id');
         this.membership_id = this.router.snapshot.paramMap.get('id');
         this.units_key = this.router.snapshot.queryParamMap.get('iu');
@@ -373,6 +373,7 @@ var MyPageComponent = /** @class */ (function () {
     */
     MyPageComponent.prototype.getSchedual = function (units_key, _package, startday) {
         var _this = this;
+        this.isLoading = true;
         startday = parseInt(startday) + 21600000;
         this.startDay = new Date(startday).getDay();
         this.viewDate = new Date(startday);
@@ -390,6 +391,7 @@ var MyPageComponent = /** @class */ (function () {
     */
     MyPageComponent.prototype.getActivity = function (_package) {
         var _this = this;
+        this.isLoading = true;
         this.service.getActivity(_package).subscribe(function (res) {
             console.log('resut', res);
             if (res['result']) {
@@ -401,7 +403,7 @@ var MyPageComponent = /** @class */ (function () {
     };
     MyPageComponent.prototype.SaveAttendance = function () {
         var _this = this;
-        var convertTime = _public_methods_1.PublicMethods.convertLocalTimeToUTC;
+        this.isLoading = true;
         if (this.type == 'activity')
             this.route.navigate(['default/members/add', this.user_key, 'payment-cart']);
         else {
@@ -409,7 +411,7 @@ var MyPageComponent = /** @class */ (function () {
             Object.values(this.selectedTimes).forEach(function (item) {
                 return __awaiter(this, void 0, void 0, function () {
                     return __generator(this, function (_a) {
-                        item = { from: convertTime(item['from']), to: convertTime(item['to']) };
+                        item = { from: item['from'], to: item['to'] };
                         times.push(item);
                         return [2 /*return*/];
                     });
@@ -423,28 +425,29 @@ var MyPageComponent = /** @class */ (function () {
             else
                 data = { units_key: this.selectedMembership['units_key'], package: this.selectedMembership['membership_id'], start_date: this.selectedMembership['start_date'], selectePackage_id: this.selectedMembership['se_id'], reservation: times, user_key: this.user_key };
             this.service.addAttendance(data).subscribe(function (res) {
+                _this.isLoading = false;
                 if (res['result']) {
                     _this.layoutUtilsService.showActionNotification("reservation has sucessfully added", crud_1.MessageType.Create, 5000, true, true);
                     _this.route.navigate(['default/members/add', _this.user_key, 'payment-cart', _this.se_id]);
                 }
-                else
+                else {
                     alert(res['error']);
+                }
             });
         }
     };
     MyPageComponent.prototype.drawOnCalender = function (data, activity) {
         if (activity === void 0) { activity = false; }
         this.refresh.next();
-        var convertTime = _public_methods_1.PublicMethods.convertUTCToLocalTime;
         this.events = [];
         for (var i = 0; i < data.length; i++) {
             if (activity) {
-                var start = new Date(convertTime(data[i].start, 2));
-                var end = new Date(convertTime(data[i].end, 2));
+                var start = new Date(data[i].start);
+                var end = new Date(data[i].end);
             }
             else {
-                var start = new Date(convertTime(data[i].from, 2));
-                var end = new Date(convertTime(data[i].to, 2));
+                var start = new Date(data[i].from);
+                var end = new Date(data[i].to);
             }
             var id = this.gethoursandminutes(start) + " to " + this.gethoursandminutes(end);
             var title = this.gethoursandminutes(start) + " to " + this.gethoursandminutes(end);
@@ -452,6 +455,7 @@ var MyPageComponent = /** @class */ (function () {
             //if(i%2) var color = colors.blue;else var color = colors.yellow;
             this.events.push({ id: id, start: start, end: end, title: title, color: color });
         }
+        this.isLoading = false;
     };
     MyPageComponent.prototype.deleteEvent = function (eventToDelete) {
         this.events = this.events.filter(function (event) { return event !== eventToDelete; });
@@ -526,6 +530,7 @@ var angular_calendar_1 = __webpack_require__(/*! angular-calendar */ "./node_mod
 var date_fns_1 = __webpack_require__(/*! angular-calendar/date-adapters/date-fns */ "./node_modules/angular-calendar/date-adapters/date-fns/index.js");
 var ng_bootstrap_1 = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
 var my_page_component_1 = __webpack_require__(/*! ./my-page.component */ "./src/app/views/pages/my-page/my-page.component.ts");
+var material_1 = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 var MyPageModule = /** @class */ (function () {
     function MyPageModule() {
     }
@@ -539,7 +544,8 @@ var MyPageModule = /** @class */ (function () {
                 angular_calendar_1.CalendarModule.forRoot({
                     provide: angular_calendar_1.DateAdapter,
                     useFactory: date_fns_1.adapterFactory
-                })
+                }),
+                material_1.MatProgressSpinnerModule
             ],
             declarations: [my_page_component_1.MyPageComponent],
             exports: [my_page_component_1.MyPageComponent]

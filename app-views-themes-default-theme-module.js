@@ -975,7 +975,7 @@ exports.ErrorPageComponent = ErrorPageComponent;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- begin:: Footer -->\r\n<div class=\"kt-footer kt-grid__item kt-grid kt-grid--desktop kt-grid--ver-desktop\" id=\"kt_footer\">\r\n\t<div class=\"kt-footer__copyright\">\r\n\t\t{{today | date:'yyyy'}}&nbsp;&copy;&nbsp;<a href=\"http://keenthemes.com/metronic\" target=\"_blank\" class=\"kt-link\">Keenthemes</a>\r\n\t</div>\r\n\t<div class=\"kt-footer__menu\">\r\n\t\t<a href=\"http://keenthemes.com/metronic\" target=\"_blank\" class=\"kt-footer__menu-link kt-link\">About</a>\r\n\t\t<a href=\"http://keenthemes.com/metronic\" target=\"_blank\" class=\"kt-footer__menu-link kt-link\">Team</a>\r\n\t\t<a href=\"http://keenthemes.com/metronic\" target=\"_blank\" class=\"kt-footer__menu-link kt-link\">Contact</a>\r\n\t</div>\r\n</div>\r\n<!-- end:: Footer -->\r\n"
+module.exports = "<!-- begin:: Footer -->\r\n<div class=\"kt-footer kt-grid__item kt-grid kt-grid--desktop kt-grid--ver-desktop\" id=\"kt_footer\">\r\n\t<div class=\"kt-footer__copyright\">\r\n\t\t{{today | date:'yyyy'}}&nbsp;&copy;&nbsp;<a href=\"https://socyle.com/\" target=\"_blank\" class=\"kt-link\">Socyle</a>\r\n\t</div>\r\n\t<div class=\"kt-footer__menu\">\r\n\t\t<a href=\"https://socyle.com/about-us/\" target=\"_blank\" class=\"kt-footer__menu-link kt-link\">About</a>\r\n\t\t<a href=\"https://socyle.com/\" target=\"_blank\" class=\"kt-footer__menu-link kt-link\">Team</a>\r\n\t\t<a href=\"https://socyle.com/contact-us/\" target=\"_blank\" class=\"kt-footer__menu-link kt-link\">Contact</a>\r\n\t</div>\r\n</div>\r\n<!-- end:: Footer -->\r\n"
 
 /***/ }),
 

@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"kt-portlet\"\r\n    [ngClass]=\"{ 'kt-portlet--body-progress' : viewLoading, 'kt-portlet--body-progress-overlay' : loadingAfterSubmit }\">\r\n    <div class=\"kt-portlet__head kt-portlet__head__custom\">\r\n        <div class=\"kt-portlet__head-label\">\r\n            <h3 class=\"kt-portlet__head-title\">{{ data['header'] }}</h3>\r\n        </div>\r\n    </div>\r\n    <div *ngIf=\"data&&data.edit\">\r\n        <div class=\"kt-form\">\r\n            <div class=\"kt-portlet__body\">\r\n                <div *ngIf=\"treeItemForm\">\r\n                    <form *ngIf=\"data\" [formGroup]=\"treeItemForm\" class=\"kt-form kt-form--group-seperator-dashed\">\r\n                        <kt-alert *ngIf=\"hasFormErrors\" type=\"warn\" [showCloseButton]=\"true\" [duration]=\"10000\"\r\n                            (close)=\"onAlertClose($event)\">\r\n                            Oh snap! Change a few things up and try submitting again.\r\n                        </kt-alert>\r\n                        <div class=\"kt-form__section kt-form__section--first\">\r\n                            <div *ngIf=\"!resource\" class=\"form-group kt-form__group row\">\r\n                                <div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n                                    <mat-form-field class=\"mat-form-field-fluid\">\r\n                                        <input matInput formControlName=\"name\" placeholder=\"name\" />\r\n                                        <mat-error *ngIf=\"treeItemForm.controls['name'].touched&&treeItemForm.controls['name'].errors?.required\"> Name is\r\n                                            <strong>required</strong>\r\n                                        </mat-error>\r\n                                        <mat-error *ngIf=\"treeItemForm.controls['name'].touched&&treeItemForm.controls['name'].invalid&&treeItemForm.controls['name'].errors?.pattern\"> Please enter\r\n                                            <strong>valid name</strong>\r\n                                        </mat-error>\r\n                                        <mat-hint align=\"start\">\r\n                                            <strong>name</strong>\r\n                                        </mat-hint>\r\n                                    </mat-form-field>\r\n                                </div>\r\n                                <div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n                                    <mat-form-field class=\"mat-form-field-fluid\">\r\n                                        <input matInput formControlName=\"username\" placeholder=\"username\" />\r\n                                        <mat-error *ngIf=\"treeItemForm.controls['username'].touched&&treeItemForm.controls['username'].errors?.required\"> Name is\r\n                                            <strong>required</strong>\r\n                                        </mat-error>\r\n                                        <mat-error *ngIf=\"treeItemForm.controls['username'].touched&&treeItemForm.controls['username'].invalid&&treeItemForm.controls['username'].errors?.pattern\"> Please enter\r\n                                            <strong>valid name</strong>\r\n                                        </mat-error>\r\n                                        <mat-hint align=\"start\">\r\n                                            <strong>username</strong>\r\n                                        </mat-hint>\r\n                                    </mat-form-field>\r\n                                </div>\r\n                                <div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n                                    <mat-form-field class=\"mat-form-field-fluid\">\r\n                                        <input matInput formControlName=\"email\" placeholder=\"email\" />\r\n                                        <mat-error *ngIf=\"treeItemForm.controls['email'].touched&&treeItemForm.controls['email'].errors?.required\"> Name is\r\n                                            <strong>required</strong>\r\n                                        </mat-error>\r\n                                        <mat-error *ngIf=\"treeItemForm.controls['email'].touched&&treeItemForm.controls['email'].invalid&&treeItemForm.controls['email'].errors?.email\"> Please enter\r\n                                            <strong>valid email</strong>\r\n                                        </mat-error>\r\n                                        <mat-hint align=\"start\">\r\n                                            <strong>Email</strong>\r\n                                        </mat-hint>\r\n                                    </mat-form-field>\r\n                                </div>\r\n                                <div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n                                    <mat-form-field class=\"mat-form-field-fluid\">\r\n                                        <input matInput placeholder=\"country\" formControlName='Country' />\r\n                                        <mat-error *ngIf=\"treeItemForm.controls['Country'].touched&&treeItemForm.controls['Country'].errors?.required\"> Country is\r\n                                            <strong>required</strong>\r\n                                        </mat-error>\r\n                                        <mat-error *ngIf=\"treeItemForm.controls['Country'].touched&&treeItemForm.controls['Country'].invalid&&treeItemForm.controls['Country'].errors?.pattern\"> Please enter\r\n                                            <strong>valid country</strong>\r\n                                        </mat-error>\r\n                                        <mat-hint align=\"start\">\r\n                                            <strong>Country</strong>\r\n                                        </mat-hint>\r\n                                    </mat-form-field>\r\n                                </div>\r\n                                <div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n                                    <mat-form-field class=\"mat-form-field-fluid\">\r\n                                        <input matInput placeholder=\"city\" formControlName='City' />\r\n                                        <mat-error *ngIf=\"treeItemForm.controls['City'].touched&&treeItemForm.controls['City'].errors?.required\"> Name is\r\n                                            <strong>required</strong>\r\n                                        </mat-error>\r\n                                        <mat-error *ngIf=\"treeItemForm.controls['City'].touched&&treeItemForm.controls['City'].touched&&treeItemForm.controls['City'].invalid&&treeItemForm.controls['City'].errors?.pattern\"> Please enter\r\n                                            <strong>valid City</strong>\r\n                                        </mat-error>\r\n                                        <mat-hint align=\"start\">\r\n                                            <strong>City</strong>\r\n                                        </mat-hint>\r\n                                    </mat-form-field>\r\n                                </div>\r\n                                <div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n                                    <mat-form-field class=\"mat-form-field-fluid\">\r\n                                        <input matInput formControlName=\"brief\" placeholder=\"brief\" />\r\n                                        <mat-error>brief is\r\n                                            <strong>required</strong>\r\n                                        </mat-error>\r\n                                        <mat-hint align=\"start\">\r\n                                            <strong>brief</strong>\r\n                                        </mat-hint>\r\n                                    </mat-form-field>\r\n                                </div>\r\n                                <div *ngIf=\"!data._id&&!data.id\" class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n                                    <mat-form-field class=\"mat-form-field-fluid\">\r\n                                        <input matInput formControlName=\"password\" placeholder=\"password\" />\r\n                                        <mat-error *ngIf=\"treeItemForm.controls['password'].touched&&treeItemForm.controls['password'].errors?.required\"> Name is\r\n                                            <strong>required</strong>\r\n                                        </mat-error>\r\n                                        <mat-error *ngIf=\"treeItemForm.controls['password'].touched&&treeItemForm.controls['password'].invalid&&treeItemForm.controls['password'].errors?.min\"> Please enter\r\n                                            <strong>at least 8 chars</strong>\r\n                                        </mat-error>\r\n                                        <mat-hint align=\"start\">\r\n                                            <strong>password</strong>\r\n                                        </mat-hint>\r\n                                    </mat-form-field>\r\n                                </div>\r\n<div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n                                    <mat-form-field class=\"mat-form-field-fluid\">\r\n                                        <input matInput formControlName=\"lat\" placeholder=\"lat\" />\r\n                                        <mat-error>lat is\r\n                                            <strong>required</strong>\r\n                                        </mat-error>\r\n                                        <mat-hint align=\"start\">\r\n                                            <strong>lat</strong>\r\n                                        </mat-hint>\r\n                                    </mat-form-field>\r\n                                </div>\r\n                                <div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n                                    <mat-form-field class=\"mat-form-field-fluid\">\r\n                                        <input matInput formControlName=\"lang\" placeholder=\"lang\" />\r\n                                        <mat-error>lang is\r\n                                            <strong>required</strong>\r\n                                        </mat-error>\r\n                                        <mat-hint align=\"start\">\r\n                                            <strong>lang</strong>\r\n                                        </mat-hint>\r\n                                    </mat-form-field>\r\n                                </div>\r\n                                <div *ngIf=\"resource\" class=\"form-group kt-form__group row\">\r\n                                    <div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n                                        <mat-form-field class=\"mat-form-field-fluid\">\r\n                                            <input matInput formControlName=\"title\" placeholder=\"title\" />\r\n                                            <mat-error>title is\r\n                                                <strong>required</strong>\r\n                                            </mat-error>\r\n                                            <mat-hint align=\"start\">\r\n                                                <strong>title</strong>\r\n                                            </mat-hint>\r\n                                        </mat-form-field>\r\n                                    </div>\r\n                                </div>\r\n                                <!-- <div  *ngIf=\"!data._id&&!data.id\" class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n                                        <mat-form-field class=\"mat-form-field-fluid\">\r\n                                            <input matInput formControlName=\"confirmPassword\"  placeholder=\"confirm password\" />\r\n                                            <div *ngIf=\"valid.confirmPassword.errors.mustMatch\">Passwords must match</div>\r\n                                            <mat-hint align=\"start\">\r\n                                                <strong>password</strong>\r\n                                            </mat-hint>\r\n                                        </mat-form-field>\r\n                                    </div> -->\r\n                            </div>\r\n                        </div>\r\n                    </form>\r\n                </div>\r\n                <!--end::Form-->\r\n                <div *ngIf=\"data.edit\" class=\"kt-portlet__foot kt-portlet__foot--fit kt-portlet__no-border\">\r\n                    <div class=\"kt-form__actions kt-form__actions--solid\">\r\n                        <div class=\"row text-right\">\r\n                            <div class=\"col-lg-12\">\r\n                                <button type=\"button\" mat-raised-button [mat-dialog-close]=\"data\" cdkFocusInitial\r\n                                    matTooltip=\"Cancel changes\">\r\n                                    Cancel\r\n                                </button>&nbsp;\r\n                                <button type=\"button\" mat-raised-button color=\"primary\" (click)=\"save()\"\r\n                                    [disabled]=\"viewLoading\" matTooltip=\"Save changes\">\r\n                                    Save\r\n                                </button>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div *ngIf=\"!data.edit&&!resource\">\r\n        <div class=\"kt-portlet__body\">\r\n            <div class=\"kt-form__section kt-form__section--first\">\r\n                <div class=\"form-group kt-form__group row\">\r\n                    <div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n                        <mat-hint align=\"start\">\r\n                            <strong>name</strong>\r\n                        </mat-hint>\r\n                        <p>{{data.name}}</p>\r\n                    </div>\r\n                    <div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n                        <mat-hint align=\"start\">\r\n                            <strong>username</strong>\r\n                        </mat-hint>\r\n                        <p>{{data.username}}</p>\r\n                    </div>\r\n                    <div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n                        <mat-hint align=\"start\">\r\n                            <strong>email</strong>\r\n                        </mat-hint>\r\n                        <p>{{data.email}}</p>\r\n                    </div>\r\n                    <div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n                        <mat-hint align=\"start\">\r\n                            <strong>Address</strong>\r\n                        </mat-hint>\r\n                        <p>{{data.Adress}}</p>\r\n                    </div>\r\n                    <div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n                        <mat-hint align=\"start\">\r\n                            <strong>brief</strong>\r\n                        </mat-hint>\r\n                        <p>{{data.brief}}</p>\r\n                    </div>\r\n                    <div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n                        <mat-hint align=\"start\">\r\n                            <strong>lat</strong>\r\n                        </mat-hint>\r\n                        <p>{{data.lat}}</p>\r\n                    </div>\r\n                    <div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n                        <mat-hint align=\"start\">\r\n                            <strong>lang</strong>\r\n                        </mat-hint>\r\n                        <p>{{data.lang}}</p>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div *ngIf=\"!data.edit&&resource\">\r\n        <div class=\"kt-portlet__body\">\r\n            <div class=\"kt-form__section kt-form__section--first\">\r\n                <div class=\"form-group kt-form__group row\">\r\n                    <div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n                        <mat-hint align=\"start\">\r\n                            <strong>title</strong>\r\n                        </mat-hint>\r\n                        <p>{{data.title}}</p>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>"
+module.exports = "<div class=\"kt-portlet\"\r\n    [ngClass]=\"{ 'kt-portlet--body-progress' : viewLoading, 'kt-portlet--body-progress-overlay' : loadingAfterSubmit }\">\r\n    <div class=\"kt-portlet__head kt-portlet__head__custom\">\r\n        <div class=\"kt-portlet__head-label\">\r\n            <h3 class=\"kt-portlet__head-title\">{{ data['header'] }}</h3>\r\n        </div>\r\n    </div>\r\n    <div *ngIf=\"data&&data.edit\">\r\n        <div class=\"kt-form\">\r\n            <div class=\"kt-portlet__body\">\r\n                <div *ngIf=\"treeItemForm\">\r\n                    <form *ngIf=\"data\" [formGroup]=\"treeItemForm\" class=\"kt-form kt-form--group-seperator-dashed\">\r\n                        <kt-alert *ngIf=\"hasFormErrors\" type=\"warn\" [showCloseButton]=\"true\" [duration]=\"10000\"\r\n                            (close)=\"onAlertClose($event)\">\r\n                            {{errormessage}}\r\n                        </kt-alert>\r\n                        <div class=\"kt-form__section kt-form__section--first\">\r\n                            <div *ngIf=\"!resource\" class=\"form-group kt-form__group row\">\r\n                                <div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n                                    <mat-form-field class=\"mat-form-field-fluid\">\r\n                                        <input matInput formControlName=\"name\" placeholder=\"name\" />\r\n                                        <mat-error *ngIf=\"treeItemForm.controls['name'].touched&&treeItemForm.controls['name'].errors?.required\"> Name is\r\n                                            <strong>required</strong>\r\n                                        </mat-error>\r\n                                        <mat-error *ngIf=\"treeItemForm.controls['name'].touched&&treeItemForm.controls['name'].invalid&&treeItemForm.controls['name'].errors?.pattern\"> Please enter\r\n                                            <strong>valid name</strong>\r\n                                        </mat-error>\r\n                                        <mat-hint align=\"start\">\r\n                                            <strong>name</strong>\r\n                                        </mat-hint>\r\n                                    </mat-form-field>\r\n                                </div>\r\n                                <div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n                                    <mat-form-field class=\"mat-form-field-fluid\">\r\n                                        <input matInput formControlName=\"username\" placeholder=\"username\" />\r\n                                        <mat-error *ngIf=\"treeItemForm.controls['username'].touched&&treeItemForm.controls['username'].errors?.required\"> Name is\r\n                                            <strong>required</strong>\r\n                                        </mat-error>\r\n                                        <mat-error *ngIf=\"treeItemForm.controls['username'].touched&&treeItemForm.controls['username'].invalid&&treeItemForm.controls['username'].errors?.pattern\"> Please enter\r\n                                            <strong>valid name</strong>\r\n                                        </mat-error>\r\n                                        <mat-hint align=\"start\">\r\n                                            <strong>username</strong>\r\n                                        </mat-hint>\r\n                                    </mat-form-field>\r\n                                </div>\r\n                                <div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n                                    <mat-form-field class=\"mat-form-field-fluid\">\r\n                                        <input matInput formControlName=\"email\" placeholder=\"email\" />\r\n                                        <mat-error *ngIf=\"treeItemForm.controls['email'].touched&&treeItemForm.controls['email'].errors?.required\"> Name is\r\n                                            <strong>required</strong>\r\n                                        </mat-error>\r\n                                        <mat-error *ngIf=\"treeItemForm.controls['email'].touched&&treeItemForm.controls['email'].invalid&&treeItemForm.controls['email'].errors?.email\"> Please enter\r\n                                            <strong>valid email</strong>\r\n                                        </mat-error>\r\n                                        <mat-hint align=\"start\">\r\n                                            <strong>Email</strong>\r\n                                        </mat-hint>\r\n                                    </mat-form-field>\r\n                                </div>\r\n                                <div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n                                    <mat-form-field class=\"mat-form-field-fluid\">\r\n                                        <input matInput placeholder=\"country\" formControlName='Country' />\r\n                                        <mat-error *ngIf=\"treeItemForm.controls['Country'].touched&&treeItemForm.controls['Country'].errors?.required\"> Country is\r\n                                            <strong>required</strong>\r\n                                        </mat-error>\r\n                                        <mat-error *ngIf=\"treeItemForm.controls['Country'].touched&&treeItemForm.controls['Country'].invalid&&treeItemForm.controls['Country'].errors?.pattern\"> Please enter\r\n                                            <strong>valid country</strong>\r\n                                        </mat-error>\r\n                                        <mat-hint align=\"start\">\r\n                                            <strong>Country</strong>\r\n                                        </mat-hint>\r\n                                    </mat-form-field>\r\n                                </div>\r\n                                <div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n                                    <mat-form-field class=\"mat-form-field-fluid\">\r\n                                        <input matInput placeholder=\"city\" formControlName='City' />\r\n                                        <mat-error *ngIf=\"treeItemForm.controls['City'].touched&&treeItemForm.controls['City'].errors?.required\"> Name is\r\n                                            <strong>required</strong>\r\n                                        </mat-error>\r\n                                        <mat-error *ngIf=\"treeItemForm.controls['City'].touched&&treeItemForm.controls['City'].touched&&treeItemForm.controls['City'].invalid&&treeItemForm.controls['City'].errors?.pattern\"> Please enter\r\n                                            <strong>valid City</strong>\r\n                                        </mat-error>\r\n                                        <mat-hint align=\"start\">\r\n                                            <strong>City</strong>\r\n                                        </mat-hint>\r\n                                    </mat-form-field>\r\n                                </div>\r\n                                <div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n                                    <mat-form-field class=\"mat-form-field-fluid\">\r\n                                        <input matInput formControlName=\"brief\" placeholder=\"brief\" />\r\n                                        <mat-error>brief is\r\n                                            <strong>required</strong>\r\n                                        </mat-error>\r\n                                        <mat-hint align=\"start\">\r\n                                            <strong>brief</strong>\r\n                                        </mat-hint>\r\n                                    </mat-form-field>\r\n                                </div>\r\n                                <!-- <div *ngIf=\"!data._id&&!data.id\" class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n                                    <mat-form-field class=\"mat-form-field-fluid\">\r\n                                        <input matInput formControlName=\"password\" placeholder=\"password\" />\r\n                                        <mat-error *ngIf=\"treeItemForm.controls['password'].touched&&treeItemForm.controls['password'].errors?.required\"> Name is\r\n                                            <strong>required</strong>\r\n                                        </mat-error>\r\n                                        <mat-error *ngIf=\"treeItemForm.controls['password'].touched&&treeItemForm.controls['password'].invalid&&treeItemForm.controls['password'].errors?.min\"> Please enter\r\n                                            <strong>at least 8 chars</strong>\r\n                                        </mat-error>\r\n                                        <mat-hint align=\"start\">\r\n                                            <strong>password</strong>\r\n                                        </mat-hint>\r\n                                    </mat-form-field>\r\n                                </div> -->\r\n                                <div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n                                    <mat-form-field class=\"mat-form-field-fluid\">\r\n                                        <input matInput formControlName=\"lat\" placeholder=\"lat\" />\r\n                                        <mat-error>lat is\r\n                                            <strong>required</strong>\r\n                                        </mat-error>\r\n                                        <mat-hint align=\"start\">\r\n                                            <strong>lat</strong>\r\n                                        </mat-hint>\r\n                                    </mat-form-field>\r\n                                </div>\r\n                                <div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n                                    <mat-form-field class=\"mat-form-field-fluid\">\r\n                                        <input matInput formControlName=\"lang\" placeholder=\"lang\" />\r\n                                        <mat-error>lang is\r\n                                            <strong>required</strong>\r\n                                        </mat-error>\r\n                                        <mat-hint align=\"start\">\r\n                                            <strong>lang</strong>\r\n                                        </mat-hint>\r\n                                    </mat-form-field>\r\n                                </div>\r\n                                <!-- <div *ngIf=\"resource\" class=\"form-group kt-form__group row\">\r\n                                    <div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n                                        <mat-form-field class=\"mat-form-field-fluid\">\r\n                                            <input matInput formControlName=\"title\" placeholder=\"title\" />\r\n                                            <mat-error>title is\r\n                                                <strong>required</strong>\r\n                                            </mat-error>\r\n                                            <mat-hint align=\"start\">\r\n                                                <strong>title</strong>\r\n                                            </mat-hint>\r\n                                        </mat-form-field>\r\n                                    </div>\r\n                                </div> -->\r\n                                <!-- <div  *ngIf=\"!data._id&&!data.id\" class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n                                        <mat-form-field class=\"mat-form-field-fluid\">\r\n                                            <input matInput formControlName=\"confirmPassword\"  placeholder=\"confirm password\" />\r\n                                            <div *ngIf=\"valid.confirmPassword.errors.mustMatch\">Passwords must match</div>\r\n                                            <mat-hint align=\"start\">\r\n                                                <strong>password</strong>\r\n                                            </mat-hint>\r\n                                        </mat-form-field>\r\n                                    </div> -->\r\n                            </div>\r\n                        </div>\r\n                    </form>\r\n                </div>\r\n                <!--end::Form-->\r\n                <div *ngIf=\"data.edit\" class=\"kt-portlet__foot kt-portlet__foot--fit kt-portlet__no-border\">\r\n                    <div class=\"kt-form__actions kt-form__actions--solid\">\r\n                        <div class=\"row text-right\">\r\n                            <div class=\"col-lg-12\">\r\n                                <button type=\"button\" mat-raised-button [mat-dialog-close]=\"data\" cdkFocusInitial\r\n                                    matTooltip=\"Cancel changes\">\r\n                                    Cancel\r\n                                </button>&nbsp;\r\n                                <button type=\"button\" mat-raised-button color=\"primary\" (click)=\"save()\"\r\n                                    [disabled]=\"viewLoading\" matTooltip=\"Save changes\">\r\n                                    Save\r\n                                </button>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div *ngIf=\"!data.edit&&!resource\">\r\n        <div class=\"kt-portlet__body\">\r\n            <div class=\"kt-form__section kt-form__section--first\">\r\n                <div class=\"form-group kt-form__group row\">\r\n                    <div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n                        <mat-hint align=\"start\">\r\n                            <strong>name</strong>\r\n                        </mat-hint>\r\n                        <p>{{data.name}}</p>\r\n                    </div>\r\n                    <div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n                        <mat-hint align=\"start\">\r\n                            <strong>username</strong>\r\n                        </mat-hint>\r\n                        <p>{{data.username}}</p>\r\n                    </div>\r\n                    <div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n                        <mat-hint align=\"start\">\r\n                            <strong>email</strong>\r\n                        </mat-hint>\r\n                        <p>{{data.email}}</p>\r\n                    </div>\r\n                    <div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n                        <mat-hint align=\"start\">\r\n                            <strong>Address</strong>\r\n                        </mat-hint>\r\n                        <p>{{data.Adress}}</p>\r\n                    </div>\r\n                    <div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n                        <mat-hint align=\"start\">\r\n                            <strong>brief</strong>\r\n                        </mat-hint>\r\n                        <p>{{data.brief}}</p>\r\n                    </div>\r\n                    <div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n                        <mat-hint align=\"start\">\r\n                            <strong>lat</strong>\r\n                        </mat-hint>\r\n                        <p>{{data.lat}}</p>\r\n                    </div>\r\n                    <div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n                        <mat-hint align=\"start\">\r\n                            <strong>lang</strong>\r\n                        </mat-hint>\r\n                        <p>{{data.lang}}</p>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div *ngIf=\"!data.edit&&resource\">\r\n        <div class=\"kt-portlet__body\">\r\n            <div class=\"kt-form__section kt-form__section--first\">\r\n                <div class=\"form-group kt-form__group row\">\r\n                    <div class=\"col-lg-4 kt-margin-bottom-20-mobile\">\r\n                        <mat-hint align=\"start\">\r\n                            <strong>title</strong>\r\n                        </mat-hint>\r\n                        <p>{{data.title}}</p>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -81,11 +81,11 @@ var ClubTreeDataComponent = /** @class */ (function () {
             Country: [this.data['country'], [forms_1.Validators.required, forms_1.Validators.pattern(this.regx)]],
             email: [this.data['email'], [ng2_validation_1.CustomValidators.email]],
             brief: [this.data['brief'], forms_1.Validators.required],
-            title: [this.data['title'], forms_1.Validators.required],
+            //  title:[this.data['title'],Validators.required],
             lat: [this.data['lat'], forms_1.Validators.required],
             lang: [this.data['lang'], forms_1.Validators.required],
-            username: [this.data['username'], [forms_1.Validators.required, forms_1.Validators.pattern(this.regx), forms_1.Validators.pattern(this.nameRegx)]],
-            password: [this.data['password'], [forms_1.Validators.required, forms_1.Validators.min(8)]]
+            username: [this.data['username'], [forms_1.Validators.required, forms_1.Validators.pattern(this.regx), forms_1.Validators.pattern(this.nameRegx)]]
+            // password:[this.data['password'],[Validators.required,Validators.min(8)]] 
         });
         // confirmPassword: ['', Validators.required})
         // }, {
@@ -139,6 +139,7 @@ var ClubTreeDataComponent = /** @class */ (function () {
     };
     ClubTreeDataComponent.prototype.addItem = function () {
         var _this = this;
+        this.checkedForm();
         //console.log()
         this.resource = false;
         var user, club_key;
@@ -146,20 +147,21 @@ var ClubTreeDataComponent = /** @class */ (function () {
             user = JSON.parse(localStorage.getItem('user'))['username'];
             club_key = JSON.parse(localStorage.getItem('user'))['pub_key'];
         }
-        this.checkedForm();
         this.resource = false;
         var controls = this.treeItemForm.controls;
         if (this.data['type'] == 'units') {
             this.clubTreeService.addUnits({ 'branch_key': this.data['branch_key'], 'units_key': this.data['units_key'],
                 'username': controls['username'].value, 'name': controls['name'].value,
                 'email': controls['email'].value, 'city': controls['City'].value,
-                'country': controls['Country'].value, 'brief': controls['brief'].value, 'lat': controls['lat'].value, 'lang': controls['lang'].value, 'password': controls['password'].value }).subscribe(function (res) {
+                'country': controls['Country'].value, 'brief': controls['brief'].value, 'lat': controls['lat'].value, 'lang': controls['lang'].value }).subscribe(function (res) {
                 //console.log(res)
                 if (res['result']) {
                     _this.afterupdate();
                 }
                 else {
-                    _this.errormessage = res['error'];
+                    _this.hasFormErrors = true;
+                    console.log(1);
+                    _this.errormessage = res['data'];
                 }
             });
         }
@@ -173,7 +175,9 @@ var ClubTreeDataComponent = /** @class */ (function () {
                     _this.afterupdate();
                 }
                 else {
-                    _this.errormessage = res['error'];
+                    _this.hasFormErrors = true;
+                    console.log(2);
+                    _this.errormessage = res['data'];
                 }
             });
         }
@@ -181,14 +185,15 @@ var ClubTreeDataComponent = /** @class */ (function () {
             this.clubTreeService.addBranch({
                 'username': controls['username'].value, 'name': controls['name'].value,
                 'email': controls['email'].value, 'country': controls['Country'].value,
-                'city': controls['City'].value, 'brief': controls['brief'].value, 'lat': controls['lat'].value, 'lang': controls['lang'].value, 'password': controls['password'].value
+                'city': controls['City'].value, 'brief': controls['brief'].value, 'lat': controls['lat'].value, 'lang': controls['lang'].value
             }).subscribe(function (res) {
                 if (res['result']) {
                     _this.afterupdate();
                 }
                 else {
                     _this.hasFormErrors = true;
-                    _this.errormessage = res['error'];
+                    console.log(3);
+                    _this.errormessage = res['data'];
                 }
             });
         }
@@ -208,15 +213,17 @@ var ClubTreeDataComponent = /** @class */ (function () {
                 'email': controls['email'].value,
                 'brief': controls['brief'].value,
                 'lat': controls['lat'].value,
-                'lang': controls['lang'].value,
-                'password': controls['password'].value
+                'lang': controls['lang'].value
+                // 'password':controls['password'].value
             }).subscribe(function (res) {
                 //console.log(res, this.data)
                 if (res['result']) {
                     _this.afterupdate();
                 }
                 else {
-                    _this.errormessage = res['error'];
+                    _this.hasFormErrors = true;
+                    console.log(4);
+                    _this.errormessage = res['data'];
                 }
             });
         }
@@ -230,15 +237,17 @@ var ClubTreeDataComponent = /** @class */ (function () {
                 'email': controls['email'].value,
                 'brief': controls['brief'].value,
                 'lat': controls['lat'].value,
-                'lang': controls['lang'].value,
-                'password': controls['password'].value
+                'lang': controls['lang'].value
+                // 'password':controls['password'].value
             }).subscribe(function (res) {
                 //console.log(res)
                 if (res['result']) {
                     _this.afterupdate();
                 }
                 else {
-                    _this.errormessage = res['error'];
+                    _this.hasFormErrors = true;
+                    console.log(5);
+                    _this.errormessage = res['data'];
                 }
             });
         }
@@ -251,13 +260,16 @@ var ClubTreeDataComponent = /** @class */ (function () {
                     _this.afterupdate();
                 }
                 else {
-                    _this.errormessage = res['error'];
+                    _this.hasFormErrors = true;
+                    console.log(6);
+                    _this.errormessage = res['data'];
                 }
             });
         }
     };
     ClubTreeDataComponent.prototype.afterupdate = function () {
         var _this = this;
+        this.hasFormErrors = false;
         this.dialogRef.close({});
         //console.log(this.router.url)
         if (this.router.url == '/default/user-management/clubtree')
@@ -284,13 +296,15 @@ var ClubTreeDataComponent = /** @class */ (function () {
             Object.keys(controls).forEach(function (controlName) {
                 controls[controlName].markAsTouched();
             });
-            //console.log('invalid')
+            console.log('invalid', controls);
+            //Oh snap! Change a few things up and try submitting again.
             this.hasFormErrors = true;
+            console.log(7);
             return;
         }
     };
     ClubTreeDataComponent.prototype.save = function () {
-        //console.log(this.data)
+        this.hasFormErrors = false;
         if (this.data['_id'] || this.data['id']) {
             this.onSubmit();
         }
@@ -1109,7 +1123,7 @@ var InvitationsEditDialogComponent = /** @class */ (function () {
         this.allbrancandunits = [];
         this.checked = false;
         this.current_club_login = (JSON.parse(localStorage.getItem('user')))['current_club_login'];
-        this.allbrancandunits.push({ name: 'mainclub', 'pub_key': this.current_club_login, 'checked': false, 'unit': [] });
+        this.allbrancandunits.push({ name: 'All Branches', 'pub_key': this.current_club_login, 'checked': false, 'unit': [] });
     }
     /**
      * @ Lifecycle sequences => https://angular.io/guide/lifecycle-hooks
@@ -1181,6 +1195,9 @@ var InvitationsEditDialogComponent = /** @class */ (function () {
                     invitationKey.push(elem.pub_key);
             });
         });
+        if (!this.allbrancandunits[0]['checked']) {
+            invitationKey.push(this.current_club_login);
+        }
         console.log(invitationKey);
         if (this.checkedpermission('sendinvitations')) {
             if (this.invitation.email && this.invitation.user_type && invitationKey.length > 0 && this.current_club_login) {
@@ -1215,7 +1232,7 @@ var InvitationsEditDialogComponent = /** @class */ (function () {
     //to check assign club,branch,unit to invitation 
     InvitationsEditDialogComponent.prototype.onChange = function (place) {
         console.log(place);
-        if (place.name == 'mainclub' && place.checked == true) {
+        if (place.name == 'All Branches' && place.checked == true) {
             //	console.log(place)
             for (var index = 0; index < this.allbrancandunits.length; index++) {
                 this.allbrancandunits[index]['checked'] = true;
@@ -1225,7 +1242,7 @@ var InvitationsEditDialogComponent = /** @class */ (function () {
                 this.ChangeDetectorRef.detectChanges();
             }
         }
-        if (place.name == 'mainclub' && place.checked == false) {
+        if (place.name == 'All Branches' && place.checked == false) {
             console.log(place);
             for (var index = 0; index < this.allbrancandunits.length; index++) {
                 this.allbrancandunits[index]['checked'] = false;
@@ -1507,7 +1524,10 @@ var InvitationComponent = /** @class */ (function () {
                 if (res['result']['invitations'])
                     _this.dataSource = new material_1.MatTableDataSource(res['result']['invitations']);
                 _this.Places = res['result']['Places'];
-                _this.changeDetectorRefs.detectChanges();
+                if (!_this.changeDetectorRefs.destroyed) {
+                    _this.changeDetectorRefs.detectChanges();
+                    // do other tasks
+                }
                 //this.listData.sort=this.sort
                 //this.listData.paginator=this.paginator
             }
@@ -3789,9 +3809,10 @@ var ShiftsComponent = /** @class */ (function () {
         this.assignedRoles = [];
         this.getallshifts();
     };
-    ShiftsComponent.prototype.ngAfterViewInit = function () {
-        this.getallshifts();
-    };
+    // ngAfterViewInit()
+    // {
+    // 	this.getallshifts()
+    // }
     /**
      * On Destroy
      */
@@ -3820,6 +3841,7 @@ var ShiftsComponent = /** @class */ (function () {
             if (res['result']) {
                 console.log('dataaa', res['data']);
                 _this.assignedRoles = res['data'];
+                _this.changeDetectorRefs.detectChanges();
             }
         });
     };
@@ -4784,7 +4806,6 @@ var UserEditComponent = /** @class */ (function () {
         this.SocialErrorMesaage = new rxjs_1.BehaviorSubject('');
         this.regx = /^[^+!@^#$%),(&.`=_]*$/;
         this.nameRegx = /^([^0-9]*)$/;
-        this.currentAccountPub_key = JSON.parse(localStorage.getItem("user"))['pub_key'];
         this.token = JSON.parse(localStorage.getItem('user'))['token'];
         this.uploader = new ng2_file_upload_1.FileUploader({ url: this.MembershipService.upload_file(), authToken: this.token, itemAlias: 'upload' });
         this.viewLoading = false;
@@ -4813,6 +4834,8 @@ var UserEditComponent = /** @class */ (function () {
      */
     UserEditComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.localstorageUser = JSON.parse(localStorage.getItem("user"));
+        this.currentAccountPub_key = this.localstorageUser['pub_key'];
         //this.user_id = this.activatedRoute.snapshot.paramMap.get('id')
         if (localStorage.getItem('user')) {
             try {
@@ -4890,8 +4913,8 @@ var UserEditComponent = /** @class */ (function () {
     UserEditComponent.prototype.initUser = function () {
         this.createForm();
         console.log(this.user);
-        var current_account_pub_key = JSON.parse(localStorage.getItem("user"))['pub_key'];
-        var current_club_login = JSON.parse(localStorage.getItem("user"))['current_club_login'];
+        var current_account_pub_key = this.localstorageUser['pub_key'];
+        var current_club_login = this.localstorageUser['current_club_login'];
         if (this.user && this.user.pub_key != current_club_login && this.user.pub_key != current_account_pub_key) {
             this.subheaderService.setBreadcrumbs([
                 { title: 'User Management', page: "user-management" },
@@ -4911,7 +4934,8 @@ var UserEditComponent = /** @class */ (function () {
         }
     };
     UserEditComponent.prototype.checkedMyProfile = function () {
-        if (!this.chechedRoleAndShiftsTab || this.user_id === this.user['_id'])
+        var current_user_id = this.localstorageUser['_id'];
+        if (!this.chechedRoleAndShiftsTab || current_user_id === this.user['_id'])
             return false;
         else
             return true;
@@ -4933,8 +4957,8 @@ var UserEditComponent = /** @class */ (function () {
      */
     UserEditComponent.prototype.goBackWithId = function () {
         var url = "default/user-management/users";
-        var current_account_pub_key = JSON.parse(localStorage.getItem("user"))['pub_key'];
-        var current_club_login = JSON.parse(localStorage.getItem("user"))['current_club_login'];
+        var current_account_pub_key = this.localstorageUser['pub_key'];
+        var current_club_login = this.localstorageUser['current_club_login'];
         if (this.user && this.user.pub_key != current_club_login && this.user.pub_key != current_account_pub_key) {
             this.router.navigate([url]);
         }
