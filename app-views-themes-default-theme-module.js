@@ -160,8 +160,9 @@ var store_1 = __webpack_require__(/*! @ngrx/store */ "./node_modules/@ngrx/store
 var permissions_service_1 = __webpack_require__(/*! ../../../core/auth/_services/permissions.service */ "./src/app/core/auth/_services/permissions.service.ts");
 var _user_service_1 = __webpack_require__(/*! ../../../core/auth/_services/-user.service */ "./src/app/core/auth/_services/-user.service.ts");
 var PermissionGuard = /** @class */ (function () {
-    function PermissionGuard(store, router, permission, user) {
+    function PermissionGuard(store, activatedRoute, router, permission, user) {
         this.store = store;
+        this.activatedRoute = activatedRoute;
         this.router = router;
         this.permission = permission;
         this.user = user;
@@ -175,69 +176,99 @@ var PermissionGuard = /** @class */ (function () {
         }
         else {
             if (moduleName == 'roles') {
-                if (!this.checkedPermission(permissions['Roles']))
+                if (!permissions['Roles'])
                     this.router.navigateByUrl('/error/403');
-                if (!permissions['Roles']['Get Roles'])
+                if (!this.checkedPermission('getprivilidgestype'))
                     this.router.navigateByUrl('/error/403');
             }
             else if (moduleName == 'workouts') {
                 if (!permissions['Attendance'])
                     this.router.navigateByUrl('/error/403');
-                if (!permissions['Attendance']['Get Workouts'])
+                if (!this.checkedPermission('getallworkouts'))
                     this.router.navigateByUrl('/error/403');
             }
             else if (moduleName == 'billing') {
                 if (!permissions['Billing'])
                     this.router.navigateByUrl('/error/403');
-                if (!permissions['Billing']['Get Billing'])
+                if (!this.checkedPermission('getbillings'))
                     this.router.navigateByUrl('/error/403');
             }
             else if (moduleName == 'users') {
-                if (!this.checkedPermission(['Users Mangement']))
+                if (!permissions['Users Mangement'])
                     this.router.navigateByUrl('/error/403');
-                if (!permissions['Users Mangement']['Get All Users'])
+                if (!this.checkedPermission('getallusers'))
                     this.router.navigateByUrl('/error/403');
             }
             else if (moduleName == 'invitations') {
                 if (!permissions['Users Mangement'])
                     this.router.navigateByUrl('/error/403');
-                if (!permissions['Users Mangement']['Invitation'])
+                if (!this.checkedPermission('sendinvitations'))
                     this.router.navigateByUrl('/error/403');
             }
             else if (moduleName == 'editUser') {
-                if (!permissions['Users Mangement'])
-                    this.router.navigateByUrl('/error/403');
-                if (!permissions['Users Mangement']['Update User'])
-                    this.router.navigateByUrl('/error/403');
+                if (localStorage.getItem('ac') == 'pro') { }
+                else {
+                    if (!permissions['Users Mangement'])
+                        this.router.navigateByUrl('/error/403');
+                    if (localStorage.getItem('ac') == 'club') {
+                        if (!this.checkedPermission('getclubinfo'))
+                            this.router.navigateByUrl('/error/403');
+                    }
+                    else {
+                        if (!this.checkedPermission('updateuserdata'))
+                            if (localStorage.getItem('ac') != 'pro')
+                                this.router.navigateByUrl('/error/403');
+                    }
+                }
             }
             else if (moduleName == 'setting') {
                 if (!permissions['Users Mangement'])
                     this.router.navigateByUrl('/error/403');
-                if (!permissions['Users Mangement']['Setting'])
+                if (!this.checkedPermission('updatesettings'))
+                    this.router.navigateByUrl('/error/403');
+            }
+            else if (moduleName == 'dasboard') {
+                if (!permissions['Dashboard'])
+                    this.router.navigateByUrl('/error/403');
+                if (!this.checkedPermission('getDashborad'))
+                    this.router.navigateByUrl('/error/403');
+            }
+            else if (moduleName == 'geoReports') {
+                if (!permissions['Reports'])
+                    this.router.navigateByUrl('/error/403');
+                //geo member
+                if (!this.checkedPermission('geoReports'))
+                    this.router.navigateByUrl('/error/403');
+            }
+            else if (moduleName == 'totalPayment') {
+                if (!permissions['Reports'])
+                    this.router.navigateByUrl('/error/403');
+                //payment
+                if (!this.checkedPermission('totalPayment'))
                     this.router.navigateByUrl('/error/403');
             }
             else if (moduleName == 'addUser') {
                 if (!permissions['Users Mangement'])
                     this.router.navigateByUrl('/error/403');
-                if (!permissions['Users Mangement']['Create User'])
+                if (!this.checkedPermission('createuser'))
                     this.router.navigateByUrl('/error/403');
             }
             else if (moduleName == 'clubtree') {
                 if (!permissions['Users Mangement'])
                     this.router.navigateByUrl('/error/403');
-                if (!permissions['Users Mangement']['Get All Users'])
+                if (!this.checkedPermission('getallusers'))
                     this.router.navigateByUrl('/error/403');
             }
             else if (moduleName == 'activities') {
                 if (!permissions['Activities'])
                     this.router.navigateByUrl('/error/403');
-                if (!permissions['Activities']['Get Activities'])
+                if (!this.checkedPermission('getactivities'))
                     this.router.navigateByUrl('/error/403');
             }
             else if (moduleName == 'packages') {
                 if (!permissions['Membership'])
                     this.router.navigateByUrl('/error/403');
-                if (!permissions['Membership']['Get Membership'])
+                if (!this.checkedPermission('getmembership'))
                     this.router.navigateByUrl('/error/403');
             }
         }
@@ -253,19 +284,31 @@ var PermissionGuard = /** @class */ (function () {
         }
         return length;
     };
-    PermissionGuard.prototype.checkedPermission = function (object) {
-        var length = 0;
-        if (object) {
-            Object.values(object).forEach(function (elem) {
-                length += Object.values(elem).length;
-                console.log(Object.values(elem).length);
-            });
+    PermissionGuard.prototype.checkedPermission = function (key) {
+        var checked = false;
+        if (localStorage.getItem('user')) {
+            if (JSON.parse(localStorage.getItem('user'))) {
+                var user = JSON.parse(localStorage.getItem('user'));
+                if (user['allPrivilidge']) {
+                    var privilidge_1 = user['allPrivilidge'];
+                    Object.keys(privilidge_1).forEach(function (role) {
+                        Object.keys(privilidge_1[role]).forEach(function (pri) {
+                            var per = (privilidge_1[role][pri].toString()).trim();
+                            if (key.trim() == per) {
+                                checked = true;
+                            }
+                        });
+                    });
+                }
+            }
         }
-        return length;
+        return checked;
     };
     PermissionGuard = __decorate([
         core_1.Injectable(),
-        __metadata("design:paramtypes", [store_1.Store, router_1.Router, permissions_service_1.PermissionsService, _user_service_1.UserService])
+        __metadata("design:paramtypes", [store_1.Store,
+            router_1.ActivatedRoute,
+            router_1.Router, permissions_service_1.PermissionsService, _user_service_1.UserService])
     ], PermissionGuard);
     return PermissionGuard;
 }());

@@ -7246,64 +7246,112 @@ var MenuConfig = /** @class */ (function () {
             var user = JSON.parse(localStorage.getItem('user'));
             if (user['allPrivilidge']) {
                 var permission = user['allPrivilidge'];
-                console.log('permission', Object.keys(permission).length);
+                //	console.log('permission', Object.keys(permission).length)
                 if (Object.keys(permission).length > 0) {
-                    if (permission['Users Mangement'] && permission['Roles']) {
-                        if (Object.keys(permission['Users Mangement']).length == 0 && Object.keys(permission['Roles']).length == 0) {
-                            this.filtersumenu('aside', 'User Management', 'Privildges');
+                    //Dashboard 
+                    if (!permission['Dashboard'] || !permission['Dashboard']['Get Dashboard']) {
+                        this.FilterMenu('aside', 'Dashboard');
+                    }
+                    if (!permission['Reports']) {
+                        this.FilterMenu('aside', 'Total Payment');
+                        this.FilterMenu('aside', 'Geo Member');
+                    }
+                    else {
+                        if (!permission['Reports']['Geo Member']) {
+                            this.FilterMenu('aside', 'Geo Member');
+                        }
+                        if (!permission['Reports']["Total Payment"]) {
+                            this.FilterMenu('aside', 'Total Payment');
+                        }
+                    }
+                    if (!permission['Users Mangement'] && (!permission['Roles'] || !permission['Roles']['Get Roles'])) {
+                        this.FilterMenu('aside', 'Advanced Settings');
+                        this.FilterMenu('aside', 'Club Details');
+                        this.FilterMenu('aside', 'Club Tree');
+                        this.FilterMenu('aside', 'User Management');
+                        this.FilterMenu('aside', 'Members');
+                    }
+                    else if (!permission['Users Mangement']) {
+                        this.filtersumenu('aside', 'User Management', 'Invitations');
+                        this.filtersumenu('aside', 'User Management', 'Staff Members');
+                        this.FilterMenu('aside', 'Advanced Settings');
+                        this.FilterMenu('aside', 'Club Details');
+                        this.FilterMenu('aside', 'Club Tree');
+                        this.FilterMenu('aside', 'Members');
+                    }
+                    else if (!permission['Roles']) { //!permission['Roles']['Get Roles']
+                        this.filtersumenu('aside', 'User Management', 'Privildges');
+                    }
+                    else if (!permission['Roles']['Get Roles']) {
+                        this.filtersumenu('aside', 'User Management', 'Privildges');
+                    }
+                    else {
+                        if (Object.keys(permission['Users Mangement']).length == 0) {
+                            this.FilterMenu('aside', 'Club Details');
+                            this.filtersumenu('aside', 'User Management', 'Users');
                             this.filtersumenu('aside', 'User Management', 'Invitations');
-                            this.FilterMenu('aside', 'User Management');
-                            this.FilterMenu('aside', 'Advanced Settings');
                             this.FilterMenu('aside', 'Club Tree');
-                            console.log('22');
+                            this.FilterMenu('aside', 'Advanced Settings');
                         }
                         else {
-                            if (Object.keys(permission['Users Mangement']).length == 0) {
-                                this.filtersumenu('aside', 'User Management', 'Users');
-                                this.filtersumenu('aside', 'User Management', 'Invitations');
+                            if (!permission['Users Mangement']['Get All Users']) {
                                 this.FilterMenu('aside', 'Club Tree');
+                                this.FilterMenu('aside', 'Members');
+                                this.filtersumenu('aside', 'User Management', 'Users');
+                            }
+                            if (!permission['Users Mangement']['Setting']) {
                                 this.FilterMenu('aside', 'Advanced Settings');
-                                console.log('44');
                             }
-                            else {
-                                if (!permission['Users Mangement']['Get All Users']) {
-                                    console.log('55');
-                                    this.FilterMenu('aside', 'Club Tree');
-                                    this.filtersumenu('aside', 'User Management', 'Users');
-                                }
-                                if (!permission['Users Mangement']['Setting']) {
-                                    console.log('66');
-                                    this.FilterMenu('aside', 'Advanced Settings');
-                                }
-                                if (!permission['Users Mangement']['Invitation']) {
-                                    console.log('77');
-                                    this.filtersumenu('aside', 'User Management', 'Invitations');
-                                }
+                            if (!permission['Users Mangement']['Invitation']) {
+                                this.filtersumenu('aside', 'User Management', 'Invitations');
                             }
-                            if (Object.keys(permission['Roles']).length == 0) {
-                                this.filtersumenu('aside', 'User Management', 'Privildges');
+                            if (!permission['Users Mangement']['Get Club Info']) {
+                                this.FilterMenu('aside', 'Club Details');
                             }
                         }
+                        if (Object.keys(permission['Roles']).length == 0 || !permission['Roles']['Get Roles']) {
+                            this.filtersumenu('aside', 'User Management', 'Privildges');
+                        }
                     }
-                    if (!permission['Membership'] || Object.keys(permission['Membership']).length == 0) {
-                        this.FilterMenu('aside', 'Memberships');
+                    if (!permission['Membership'] || !permission['Membership']['Get Membership']) {
+                        this.FilterMenu('aside', 'memberships');
                     }
-                    if (!permission['Activities'] || Object.keys(permission['Activities']).length == 0) {
+                    else if (typeof permission['Membership'] == 'object' && Object.keys(permission['Membership']).length == 0 ||
+                        !permission['Membership']['Get Membership']) {
+                        this.FilterMenu('aside', 'memberships');
+                    }
+                    if (!permission['Activities'] || !permission['Activities']['Get Activities']) {
                         this.FilterMenu('aside', 'Activities');
                     }
-                    if (!permission['Attendance'] || Object.keys(permission['Attendance']).length == 0) {
+                    else {
+                        if (typeof !permission['Activities'] == 'object' && Object.keys(!permission['Activities']).length == 0 ||
+                            !permission['Activities']['Get Activities']) {
+                            this.FilterMenu('aside', 'Activities');
+                        }
+                    }
+                    if (!permission['Attendance'] || !permission['Attendance']['Get Workouts']) {
                         this.FilterMenu('aside', 'Workouts');
                     }
-                    if (permission['Attendance'] && Object.keys(permission['Attendance']).length > 0) {
+                    else if (permission['Attendance'] && Object.keys(permission['Attendance']).length > 0) {
                         if (!permission['Attendance']['Get Workouts'])
                             this.FilterMenu('aside', 'Workouts');
                     }
-                    if (!permission['Billing'] || Object.keys(permission['Billing']).length == 0) {
+                    else {
+                        if (typeof permission['Attendance'] == 'object' && Object.keys(!permission['Attendance']).length == 0) {
+                            this.FilterMenu('aside', 'Workouts');
+                        }
+                    }
+                    if (!permission['Billing'] || !permission['Billing']['Get Billing']) {
                         this.FilterMenu('aside', 'Subscription');
                     }
-                    if (permission['Billing'] && Object.keys(permission['Billing']).length > 0) {
+                    else if (permission['Billing'] && Object.keys(permission['Billing']).length > 0) {
                         if (!permission['Billing']['Get Billing'])
                             this.FilterMenu('aside', 'Subscription');
+                    }
+                    else {
+                        if (typeof permission['Billing'] == 'object' && Object.keys(!permission['Billing']).length == 0) {
+                            this.FilterMenu('aside', 'Subscription');
+                        }
                     }
                 }
                 else {
@@ -7646,7 +7694,7 @@ var PublicMethods = /** @class */ (function () {
         if (start_date === void 0) { start_date = null; }
         if (end_date === void 0) { end_date = null; }
         var _timeStamp = Date.now(), _signature = md5_1.Md5.hashStr((md5_1.Md5.hashStr("gyminAppwsds548_$%#@" + _timeStamp + "@#!$$#@#$844%^^&(SDF%*%)")).toString()), _url = "https://mygymin.herokuapp.com/api/v1/" + module + "/" + service + "/" + account_key + "?timestamp=" + _timeStamp + "&signature=" + _signature;
-        //_url = `http://192.168.1.2:3000/api/v1/${module}/${service}/${account_key}?timestamp=${_timeStamp}&signature=${_signature}`
+        //_url = `http://localhost:3000/api/v1/${module}/${service}/${account_key}?timestamp=${_timeStamp}&signature=${_signature}`
         if (localStorage.getItem('user')) {
             var parent_keys = (JSON.parse(localStorage.getItem('user')))['pub_key'];
             var public_keys = (JSON.parse(localStorage.getItem('user')))['pub_key'];
@@ -7700,13 +7748,13 @@ var PublicMethods = /** @class */ (function () {
         if (prepage === void 0) { prepage = 30; }
         if (search === void 0) { search = null; }
         var _timeStamp = Date.now(), _signature = md5_1.Md5.hashStr((md5_1.Md5.hashStr("gyminAppwsds548_$%#@" + _timeStamp + "@#!$$#@#$844%^^&(SDF%*%)")).toString()), 
-        // _url = `http://192.168.1.2:3000/api/v1/${module}/${service}/${account_key}?timestamp=${_timeStamp}&signature=${_signature}`
+        // _url = `http://localhost:3000/api/v1/${module}/${service}/${account_key}?timestamp=${_timeStamp}&signature=${_signature}`
         _url = "https://mygymin.herokuapp.com/api/v1/" + module + "/" + service + "/" + account_key + "?timestamp=" + _timeStamp + "&signature=" + _signature;
         return _url;
     };
     PublicMethods.createURL_Invitation = function (parent_key, email, timestamp, signature, all, user_type) {
         return "https://mygymin.herokuapp.com/api/v1/customers/emailinvitationlink/" + parent_key + "/" + email + "/" + timestamp + "/" + signature + "/" + user_type + "/" + all;
-        //return `http://192.168.1.2:3000/api/v1/customers/emailinvitationlink/${parent_key}/${email}/${timestamp}/${signature}/${user_type}/${all}`;
+        //return `http://localhost:3000/api/v1/customers/emailinvitationlink/${parent_key}/${email}/${timestamp}/${signature}/${user_type}/${all}`;
     };
     PublicMethods.createHeaders = function () {
         var httpHeaders = new http_1.HttpHeaders();
@@ -7798,9 +7846,9 @@ var HttpErrorInterceptor = /** @class */ (function () {
                 if (error.status == 401 || error.status == 403) {
                     _this.openAlert();
                     console.log(error.status);
-                    //localStorage.clear();
-                    //this.route.navigate(['/auth/login']);
-                    //window.location.reload();
+                    localStorage.clear();
+                    _this.route.navigate(['/auth/login']);
+                    window.location.reload();
                 }
                 errMsg = "Error Code: " + error.status + ",  Message: " + error.message;
             }
@@ -7829,6 +7877,7 @@ var HttpErrorInterceptor = /** @class */ (function () {
         core_1.Injectable(),
         core_1.Component({
             encapsulation: core_1.ViewEncapsulation.None,
+            template: __webpack_require__(/*! ./../../../index.html */ "./src/index.html"),
             styles: [".warn-snackbar{background-color: #ff4081;}"]
         }),
         __metadata("design:paramtypes", [router_1.Router, _services_1.UserService, material_1.MatSnackBar])
@@ -10769,6 +10818,7 @@ var layout_1 = __webpack_require__(/*! ./_base/layout */ "./src/app/core/_base/l
 // Metronic Pipes
 // Metornic Services
 var metronic_1 = __webpack_require__(/*! ./_base/metronic */ "./src/app/core/_base/metronic/index.ts");
+var error_interceptor_1 = __webpack_require__(/*! ./_public/error-interceptor */ "./src/app/core/_public/error-interceptor.ts");
 //service
 var CoreModule = /** @class */ (function () {
     function CoreModule() {
@@ -10787,6 +10837,9 @@ var CoreModule = /** @class */ (function () {
                 metronic_1.SparklineChartDirective,
                 layout_1.ContentAnimateDirective,
                 layout_1.StickyDirective,
+                metronic_1.ToggleDirective,
+                metronic_1.OffcanvasDirective,
+                error_interceptor_1.HttpErrorInterceptor,
                 // pipes
                 metronic_1.TimeElapsedPipe,
                 metronic_1.JoinPipe,
@@ -14677,10 +14730,11 @@ var Widget14Component = /** @class */ (function () {
             if (res['result']) {
                 if (_this.filter == 'month') {
                     _this.dataserRefund = _this.monthData(res['result']);
-                    _this.changedetectref.detectChanges();
                 }
                 if (_this.filter == 'weekly') {
                     _this.dataserRefund = _this.weekData(res['result']);
+                }
+                if (!_this.changedetectref.destroyed) {
                     _this.changedetectref.detectChanges();
                 }
                 _this.getDatasetRevenu(range);
@@ -14694,10 +14748,11 @@ var Widget14Component = /** @class */ (function () {
             if (res['result']) {
                 if (_this.filter == 'month') {
                     _this.datasetRevenu = _this.monthData(res['result']);
-                    _this.changedetectref.detectChanges();
                 }
                 if (_this.filter == 'weekly') {
                     _this.datasetRevenu = _this.weekData(res['result']);
+                }
+                if (!_this.changedetectref.destroyed) {
                     _this.changedetectref.detectChanges();
                 }
                 _this.DrawChart(_this.dataserRefund, _this.datasetRevenu);
@@ -16283,7 +16338,7 @@ exports.NotificationComponent = NotificationComponent;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div ngbDropdown placement=\"bottom-right\" *ngIf=\"user$ \" class=\"kt-header__topbar-item kt-header__topbar-item--user\">\r\n\t<div ngbDropdownToggle class=\"kt-header__topbar-wrapper\">\r\n\t\t<div class=\"kt-header__topbar-user\">\r\n\t\t\t<img *ngIf=\"user$.image_profile\" alt=\"  \" style=\"width: 27px;height: 27px; margin: 5px;\"[attr.src]=\"user$.image_profile\"/>\r\n\t\t\t<span *ngIf=\"!user$.image_profile\"  class=\"kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold\" > <i class=\"flaticon-avatar\"></i> </span>\r\n\t\t\t<span class=\"kt-header__topbar-welcome kt-hidden-mobile\"> Hi,  </span>\r\n\t\t\t<span class=\"kt-header__topbar-username kt-hidden-mobile\" *ngIf=\"club\"> {{club}}/{{user$.name}} </span> \r\n\t\t\t<span class=\"kt-header__topbar-username kt-hidden-mobile\" *ngIf=\"!club\"> {{user$.name}} </span>\r\n\t\t\t\r\n\t\t</div>\r\n\t</div>\r\n\t<div ngbDropdownMenu class=\"dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround dropdown-menu-xl\">\r\n\t\t<!--begin: Head -->\r\n\t\t<div class=\"kt-user-card kt-user-card--skin-dark kt-notification-item-padding-x\" style=\"background-image: url(./assets/media/misc/bg-1.jpg)\">\r\n\t\t\t<div class=\"kt-user-card__avatar\">\r\n\t\t\t\t<img alt=\"  \" style=\"width: 30px;height: 30px;\"[attr.src]=\"user$.image_profile\"/>\r\n\t\t\t\t<span [hidden]=\"true\" class=\"kt-badge kt-badge--lg kt-badge--rounded kt-badge--bold kt-font-success\"> <i class=\"flaticon-avatar\"></i> </span>\r\n\t\t\t</div>\r\n\t\t\t<div class=\"kt-user-card__name\">\r\n\t\t\t\t{{user$.username}}\r\n\t\t\t</div>\r\n\r\n\t\t</div>\r\n\t\t<!--end: Head -->\r\n\r\n\t\t<!--begin: Navigation -->\r\n\t\t<div class=\"kt-notification\">\r\n\t\t\t<a class=\"kt-notification__item\">\r\n\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t<i class=\"flaticon2-calendar-3 kt-font-success\"></i>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t<div class=\"kt-notification__item-title kt-font-bold\">\r\n\t\t\t\t\t\tAccount settings and more\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class=\"kt-notification__item-time align-middle\" *ngFor=\"let account of account \">\r\n\t\t\t\t\t\t\t<a *ngIf=\"!(user$['current_club_login']==account.key)\" href=\"javascript:;\" class=\"kt-grid-nav__item btn btn-label-secondary\" (click)=\"switchAccount(account.key,account.name)\">\r\n\t\t\t\t\t\t\t\t\t<span class=\"kt-grid-nav__desc\"></span>\r\n\t\t\t\t\t\t\t\t\t<img *ngIf=\"account.image_profile\" style=\"width: 25px;height: 25px;\"  alt=\"  \" [attr.src]=\"account.image_profile\">\r\n\t\t\t\t\t\t\t\t\t<span *ngIf=\"!account.image_profile\"class=\"kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold\"> {{account.name|firstLetter}} </span>\r\n\t\t\t\t\t\t\t\t\t<span class=\"kt-grid-nav__desc\"></span>\r\n\t\t\t\t\t\t\t\t\t<span colo>{{account.name}}</span>\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t<a  *ngIf=\"(user$['current_club_login']==account.key)\" href=\"javascript:;\" class=\"kt-grid-nav__item btn btn-label-success\" [ngClass]=\"{'isDisabled':(user$['current_club_login']==account.key)}\" (click)=\"switchAccount(account.key,account.name)\">\r\n\t\t\t\t\t\t\t\t\t<span class=\"kt-grid-nav__desc\"></span>\r\n\t\t\t\t\t\t\t\t\t<img *ngIf=\"account.image_profile\" style=\"width: 25px;height: 25px;\" alt=\"  \" [attr.src]=\"account.image_profile\">\r\n\t\t\t\t\t\t\t\t\t<span *ngIf=\"!account.image_profile\"class=\"kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold\"> {{account.name|firstLetter}} </span>\r\n\t\t\t\t\t\t\t\t\t<span class=\"kt-grid-nav__desc\"></span>\r\n\t\t\t\t\t\t\t\t\t<span colo>{{account.name}}</span>\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</a>\r\n\t\t\r\n\t\t\t<a  (click)=\"saveUserInSubject('account')\" href=\"javascript:;\" class=\"kt-notification__item\">\r\n\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t<i class=\"flaticon-profile-1 kt-font-success\"></i>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t<div class=\"kt-notification__item-title kt-font-bold\">\r\n\t\t\t\t\tMy Pofile\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</a>\r\n\r\n\r\n\t\t\t<a *ngIf=\"checkedpermission('getclubinfo')\" (click)=\"saveUserInSubject('setting')\" href=\"javascript:;\" class=\"kt-notification__item\">\r\n\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t<i class=\"flaticon-settings kt-font-brand\"></i>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t<div class=\"kt-notification__item-title kt-font-bold\">\r\n\t\t\t\t     My Setting\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</a>\r\n\t\t\t<a *ngIf=\"checkedpermission('getclubinfo')\"  href=\"javascript:;\" class=\"kt-notification__item\">\r\n\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t<i class=\"flaticon2-hourglass kt-font-brand\"></i>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t<div class=\"kt-notification__item-title kt-font-bold\">\r\n\t\t\t\t\tChange Password\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t</a>\r\n\t\t<a *ngIf=\"checkedpermission('getclubinfo')\"  href=\"javascript:;\" class=\"kt-notification__item\">\r\n\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t<i class=\"flaticon2-rocket-1 kt-font-danger\"></i>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t<div class=\"kt-notification__item-title kt-font-bold\">\r\n\t\t\t\t    My Activities\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t</a>\r\n\t\t<!--\t<a *ngIf=\"checkedpermission('getclubinfo')\"(click)=\"saveUserInSubject('club')\"  href=\"javascript:;\" class=\"kt-notification__item\">\r\n\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t<i class=\"flaticon2-hourglass kt-font-brand\"></i>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t<div class=\"kt-notification__item-title kt-font-bold\">\r\n\t\t\t\t     Club Information\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t</a> -->\r\n\r\n\t\t\t<div class=\"kt-notification__custom\">\r\n\t\t\t\t<a href=\"javascript:;\" (click)=\"logout()\" class=\"btn btn-outline-brand btn-upper btn-sm btn-bold\">Sign Out</a>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t<!--end: Navigation -->\r\n\r\n\t\t<!--begin: Navigation(alternative) -->\r\n\t\t<ul class=\"kt-nav kt-margin-b-10 kt-hidden\">\r\n\t\t\t<li class=\"kt-nav__item\">\r\n\t\t\t\t<a routerLink=\"profile\" class=\"kt-nav__link\">\r\n\t\t\t\t\t<span class=\"kt-nav__link-icon\"><i class=\"flaticon2-calendar-3\"></i></span>\r\n\t\t\t\t\t<span class=\"kt-nav__link-text\">My Profile</span>\r\n\t\t\t\t</a>\r\n\t\t\t</li>\r\n\t\r\n\t\t\t<li class=\"kt-nav__item kt-nav__item--custom kt-margin-t-15\">\r\n\t\t\t\t<a (click)=\"logout()\" class=\"btn btn-outline-brand btn-upper btn-sm btn-bold\">Sign Out</a>\r\n\t\t\t</li>\r\n\t\t</ul>\r\n\t\t<!--end: Navigation(alternative) -->\r\n\t</div>\r\n</div>\r\n"
+module.exports = "<div ngbDropdown placement=\"bottom-right\" *ngIf=\"user$ \" class=\"kt-header__topbar-item kt-header__topbar-item--user\">\r\n\t<div ngbDropdownToggle class=\"kt-header__topbar-wrapper\">\r\n\t\t<div class=\"kt-header__topbar-user\">\r\n\t\t\t<img *ngIf=\"user$.image_profile\" alt=\"  \" style=\"width: 27px;height: 27px; margin: 5px;\"[attr.src]=\"user$.image_profile\"/>\r\n\t\t\t<span *ngIf=\"!user$.image_profile\"  class=\"kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold\" > <i class=\"flaticon-avatar\"></i> </span>\r\n\t\t\t<span class=\"kt-header__topbar-welcome kt-hidden-mobile\"> Hi,  </span>\r\n\t\t\t<span class=\"kt-header__topbar-username kt-hidden-mobile\" *ngIf=\"club\"> {{club}}/{{user$.name}} </span> \r\n\t\t\t<span class=\"kt-header__topbar-username kt-hidden-mobile\" *ngIf=\"!club\"> {{user$.name}} </span>\r\n\t\t\t\r\n\t\t</div>\r\n\t</div>\r\n\t<div ngbDropdownMenu class=\"dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround dropdown-menu-xl\">\r\n\t\t<!--begin: Head -->\r\n\t\t<div class=\"kt-user-card kt-user-card--skin-dark kt-notification-item-padding-x\" style=\"background-image: url(./assets/media/misc/bg-1.jpg)\">\r\n\t\t\t<div class=\"kt-user-card__avatar\">\r\n\t\t\t\t<img alt=\"  \" style=\"width: 30px;height: 30px;\"[attr.src]=\"user$.image_profile\"/>\r\n\t\t\t\t<span [hidden]=\"true\" class=\"kt-badge kt-badge--lg kt-badge--rounded kt-badge--bold kt-font-success\"> <i class=\"flaticon-avatar\"></i> </span>\r\n\t\t\t</div>\r\n\t\t\t<div class=\"kt-user-card__name\">\r\n\t\t\t\t{{user$.username}}\r\n\t\t\t</div>\r\n\r\n\t\t</div>\r\n\t\t<!--end: Head -->\r\n\r\n\t\t<!--begin: Navigation -->\r\n\t\t<div class=\"kt-notification\">\r\n\t\t\t<a class=\"kt-notification__item\">\r\n\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t<i class=\"flaticon2-calendar-3 kt-font-success\"></i>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t<div class=\"kt-notification__item-title kt-font-bold\">\r\n\t\t\t\t\t\tAccount settings and more\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class=\"kt-notification__item-time align-middle\" *ngFor=\"let account of account \">\r\n\t\t\t\t\t\t\t<a *ngIf=\"!(user$['current_club_login']==account.key)\" href=\"javascript:;\" class=\"kt-grid-nav__item btn btn-label-secondary\" (click)=\"switchAccount(account.key,account.name)\">\r\n\t\t\t\t\t\t\t\t\t<span class=\"kt-grid-nav__desc\"></span>\r\n\t\t\t\t\t\t\t\t\t<img *ngIf=\"account.image_profile\" style=\"width: 25px;height: 25px;\"  alt=\"  \" [attr.src]=\"account.image_profile\">\r\n\t\t\t\t\t\t\t\t\t<span *ngIf=\"!account.image_profile\"class=\"kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold\"> {{account.name|firstLetter}} </span>\r\n\t\t\t\t\t\t\t\t\t<span class=\"kt-grid-nav__desc\"></span>\r\n\t\t\t\t\t\t\t\t\t<span colo>{{account.name}}</span>\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t<a  *ngIf=\"(user$['current_club_login']==account.key)\" href=\"javascript:;\" class=\"kt-grid-nav__item btn btn-label-success\" [ngClass]=\"{'isDisabled':(user$['current_club_login']==account.key)}\" (click)=\"switchAccount(account.key,account.name)\">\r\n\t\t\t\t\t\t\t\t\t<span class=\"kt-grid-nav__desc\"></span>\r\n\t\t\t\t\t\t\t\t\t<img *ngIf=\"account.image_profile\" style=\"width: 25px;height: 25px;\" alt=\"  \" [attr.src]=\"account.image_profile\">\r\n\t\t\t\t\t\t\t\t\t<span *ngIf=\"!account.image_profile\"class=\"kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold\"> {{account.name|firstLetter}} </span>\r\n\t\t\t\t\t\t\t\t\t<span class=\"kt-grid-nav__desc\"></span>\r\n\t\t\t\t\t\t\t\t\t<span colo>{{account.name}}</span>\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</a>\r\n\t\t\r\n\t\t\t<a  (click)=\"saveUserInSubject('account')\" href=\"javascript:;\" class=\"kt-notification__item\">\r\n\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t<i class=\"flaticon-profile-1 kt-font-success\"></i>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t<div class=\"kt-notification__item-title kt-font-bold\">\r\n\t\t\t\t\tMy Pofile\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</a>\r\n\r\n\r\n\t\t\t<a  (click)=\"saveUserInSubject('setting')\" href=\"javascript:;\" class=\"kt-notification__item\">\r\n\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t<i class=\"flaticon-settings kt-font-brand\"></i>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t<div class=\"kt-notification__item-title kt-font-bold\">\r\n\t\t\t\t     My Setting\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</a>\r\n\t\t\t<a   href=\"javascript:;\" class=\"kt-notification__item\">\r\n\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t<i class=\"flaticon2-hourglass kt-font-brand\"></i>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t<div class=\"kt-notification__item-title kt-font-bold\">\r\n\t\t\t\t\tChange Password\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t</a>\r\n\t\t<a  href=\"javascript:;\" class=\"kt-notification__item\">\r\n\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t<i class=\"flaticon2-rocket-1 kt-font-danger\"></i>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t<div class=\"kt-notification__item-title kt-font-bold\">\r\n\t\t\t\t    My Activities\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t</a>\r\n\t\t<!--\t<a *ngIf=\"checkedpermission('getclubinfo')\"(click)=\"saveUserInSubject('club')\"  href=\"javascript:;\" class=\"kt-notification__item\">\r\n\t\t\t\t<div class=\"kt-notification__item-icon\">\r\n\t\t\t\t\t<i class=\"flaticon2-hourglass kt-font-brand\"></i>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"kt-notification__item-details\">\r\n\t\t\t\t\t<div class=\"kt-notification__item-title kt-font-bold\">\r\n\t\t\t\t     Club Information\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t</a> -->\r\n\r\n\t\t\t<div class=\"kt-notification__custom\">\r\n\t\t\t\t<a href=\"javascript:;\" (click)=\"logout()\" class=\"btn btn-outline-brand btn-upper btn-sm btn-bold\">Sign Out</a>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t<!--end: Navigation -->\r\n\r\n\t\t<!--begin: Navigation(alternative) -->\r\n\t\t<ul class=\"kt-nav kt-margin-b-10 kt-hidden\">\r\n\t\t\t<li class=\"kt-nav__item\">\r\n\t\t\t\t<a routerLink=\"profile\" class=\"kt-nav__link\">\r\n\t\t\t\t\t<span class=\"kt-nav__link-icon\"><i class=\"flaticon2-calendar-3\"></i></span>\r\n\t\t\t\t\t<span class=\"kt-nav__link-text\">My Profile</span>\r\n\t\t\t\t</a>\r\n\t\t\t</li>\r\n\t\r\n\t\t\t<li class=\"kt-nav__item kt-nav__item--custom kt-margin-t-15\">\r\n\t\t\t\t<a (click)=\"logout()\" class=\"btn btn-outline-brand btn-upper btn-sm btn-bold\">Sign Out</a>\r\n\t\t\t</li>\r\n\t\t</ul>\r\n\t\t<!--end: Navigation(alternative) -->\r\n\t</div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -16411,11 +16466,13 @@ var UserProfileComponent = /** @class */ (function () {
         var id = null;
         this.user.changeuser('');
         if (value == 'account') {
-            id = this.user$['_id'];
+            id = this.user$['pub_key'];
+            localStorage.setItem('ac', 'pro');
             this.route.navigate(["/default/user-management/users/" + id + "/edit/" + id]);
         }
         else if (value == 'club' && this.checkedpermission('getclubinfo')) {
             id = this.user$['current_club_login'];
+            localStorage.setItem('ac', 'club');
             this.route.navigate(["/default/user-management/users/" + id + "/edit/" + id], { queryParams: { 'info': 'club' } });
         }
         else if (value == 'setting') {
@@ -16717,6 +16774,17 @@ exports.environment = {
     }
 };
 
+
+/***/ }),
+
+/***/ "./src/index.html":
+/*!************************!*\
+  !*** ./src/index.html ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<!DOCTYPE html>\r\n<!--\r\nTheme: Keen - The Ultimate Bootstrap Admin Theme\r\nAuthor: Socyle\r\nWebsite: http://www.socyle.com/\r\nContact: support@socyle.com\r\nFollow: www.twitter.com/socyle\r\nDribbble: www.dribbble.com/socyle\r\nLike: www.facebook.com/socyle\r\nLicense: You must have a valid license purchased only from https://themes.getbootstrap.com/product/keen-the-ultimate-bootstrap-admin-theme/ in order to legally use the theme for your project.\r\n--> \r\n<html lang=\"en\">\r\n<head>\r\n\t<meta charset=\"utf-8\">\r\n\t<title>Gymin</title>\r\n\t<base href=\"./\">\r\n\t<script src=\"https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js\"></script>\r\n\t<script>\r\n\t\tWebFont.load({\r\n\t\t\tgoogle: {\"families\": [\"Poppins:300,400,500,600,700\", \"Roboto:300,400,500,600,700\"]},\r\n\t\t\tactive: function() {sessionStorage.fonts = true;}\r\n\t\t});\r\n\t</script>\r\n\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\r\n\t<!-- <link href=\"//fonts.googleapis.com/css?family=Poppins:300,400,500,600,700%7CRoboto:300,400,500,600,700\" rel=\"stylesheet\"> -->\r\n\t<!--begin::Page Custom Styles(used by this page) -->\r\n\t<!--end::Page Custom Styles -->\r\n\t<!--begin:: Global Mandatory Vendors -->\r\n\t<link href=\"./assets/vendors/general/perfect-scrollbar/css/perfect-scrollbar.css\" rel=\"stylesheet\" type=\"text/css\" />\r\n\r\n\t<!--end:: Global Mandatory Vendors -->\r\n\t<!--begin:: Global Optional Vendors -->\r\n\t<!-- <link href=\"./assets/css/vendors.bundle.css\" rel=\"stylesheet\" type=\"text/css\" />\r\n\t<link href=\"./assets/css/style.bundle.css\" rel=\"stylesheet\" type=\"text/css\" />\r\n\t<link href=\"./assets/vendors/general/tether/dist/css/tether.css\" rel=\"stylesheet\" type=\"text/css\" />\r\n\t<link href=\"./assets/vendors/general/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css\" rel=\"stylesheet\" type=\"text/css\" />\r\n\t<link href=\"./assets/vendors/general/bootstrap-datetime-picker/css/bootstrap-datetimepicker.css\" rel=\"stylesheet\" type=\"text/css\" />\r\n\t<link href=\"./assets/vendors/general/bootstrap-timepicker/css/bootstrap-timepicker.css\" rel=\"stylesheet\" type=\"text/css\" />\r\n\t<link href=\"./assets/vendors/general/bootstrap-daterangepicker/daterangepicker.css\" rel=\"stylesheet\" type=\"text/css\" />\r\n\t<link href=\"./assets/vendors/general/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.css\" rel=\"stylesheet\" type=\"text/css\" />\r\n\t<link href=\"./assets/vendors/general/bootstrap-select/dist/css/bootstrap-select.css\" rel=\"stylesheet\" type=\"text/css\" />\r\n\t<link href=\"./assets/vendors/general/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css\" rel=\"stylesheet\" type=\"text/css\" />\r\n\t<link href=\"./assets/vendors/general/select2/dist/css/select2.css\" rel=\"stylesheet\" type=\"text/css\" />\r\n\t<link href=\"./assets/vendors/general/ion-rangeslider/css/ion.rangeSlider.css\" rel=\"stylesheet\" type=\"text/css\" />\r\n\t<link href=\"./assets/vendors/general/nouislider/distribute/nouislider.css\" rel=\"stylesheet\" type=\"text/css\" />\r\n\t<link href=\"./assets/vendors/general/owl.carousel/dist/assets/owl.carousel.css\" rel=\"stylesheet\" type=\"text/css\" />\r\n\t<link href=\"./assets/vendors/general/owl.carousel/dist/assets/owl.theme.default.css\" rel=\"stylesheet\" type=\"text/css\" />\r\n\t<link href=\"./assets/vendors/general/dropzone/dist/dropzone.css\" rel=\"stylesheet\" type=\"text/css\" />\r\n\t<link href=\"./assets/vendors/general/summernote/dist/summernote.css\" rel=\"stylesheet\" type=\"text/css\" />\r\n\t<link href=\"./assets/vendors/general/bootstrap-markdown/css/bootstrap-markdown.min.css\" rel=\"stylesheet\" type=\"text/css\" />\r\n\t<link href=\"./assets/vendors/general/animate.css/animate.css\" rel=\"stylesheet\" type=\"text/css\" />\r\n\t<link href=\"./assets/vendors/general/toastr/build/toastr.css\" rel=\"stylesheet\" type=\"text/css\" />\r\n\t<link href=\"./assets/vendors/general/morris.js/morris.css\" rel=\"stylesheet\" type=\"text/css\" />\r\n\t<link href=\"./assets/vendors/general/sweetalert2/dist/sweetalert2.css\" rel=\"stylesheet\" type=\"text/css\" />\r\n\t<link href=\"./assets/vendors/general/socicon/css/socicon.css\" rel=\"stylesheet\" type=\"text/css\" />\r\n\t<link href=\"./assets/vendors/custom/vendors/line-awesome/css/line-awesome.css\" rel=\"stylesheet\" type=\"text/css\" />\r\n\t<link href=\"./assets/vendors/custom/vendors/flaticon/flaticon.css\" rel=\"stylesheet\" type=\"text/css\" />\r\n\t<link href=\"./assets/vendors/custom/vendors/flaticon2/flaticon.css\" rel=\"stylesheet\" type=\"text/css\" />\r\n\t<link href=\"./assets/vendors/custom/vendors/fontawesome5/css/all.min.css\" rel=\"stylesheet\" type=\"text/css\" /> -->\r\n\r\n\t<!--end:: Global Optional Vendors -->\r\n\r\n\t<!--begin::Global Theme Styles(used by all pages) -->\r\n\t<!-- <link href=\"./assets/demo/default/base/style.bundle.css\" rel=\"stylesheet\" type=\"text/css\" /> -->\r\n\t<!--end::Global Theme Styles -->\r\n\t<link href=\"./assets/app/custom/wizard/wizard-v1.default.css\" rel=\"stylesheet\" type=\"text/css\" />\r\n\t<!--begin::Layout Skins(used by all pages) -->\r\n\t<!-- <link href=\"./assets/demo/default/skins/header/base/light.css\" rel=\"stylesheet\" type=\"text/css\" />\r\n\t<link href=\"./assets/demo/default/skins/header/menu/light.css\" rel=\"stylesheet\" type=\"text/css\" />\r\n\t<link href=\"./assets/demo/default/skins/brand/dark.css\" rel=\"stylesheet\" type=\"text/css\" />-->\r\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"https://cdn3.devexpress.com/jslib/19.2.4/css/dx.common.css\" /> \r\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"https://cdn3.devexpress.com/jslib/19.2.4/css/dx.light.css\" />\r\n\t<!--end::Layout Skins -->\r\n\t<link rel=\"shortcut icon\" href=\"./assets/media/logos/icon.png\" />\r\n\t<link rel=\"icon\" type=\"image/x-icon\" href=\"./assets/media/logos/icon.png\">\r\n\t<!-- <link href=\"./assets/css/vendors.bundle.css\" rel=\"stylesheet\" type=\"text/css\" />\r\n\t<link href=\"./assets/css/style.bundle.css\" rel=\"stylesheet\" type=\"text/css\" /> -->\r\n\t<script src=\"https://code.jquery.com/jquery-3.3.1.slim.min.js\" integrity=\"sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo\" crossorigin=\"anonymous\"></script>\r\n\t<script src=\"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js\" integrity=\"sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1\" crossorigin=\"anonymous\"></script>\r\n\t<script src=\"https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js\" integrity=\"sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM\" crossorigin=\"anonymous\"></script><!-- For production, include the demo base style here -->\r\n\t<!--<link id=\"demo\" href=\"assets/demo/default/base/style.bundle.css\" rel=\"stylesheet\" >-->\r\n</head>\r\n\r\n<body  kt-root>\r\n</body>\r\n</html>\r\n"
 
 /***/ }),
 

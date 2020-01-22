@@ -220,7 +220,8 @@ var DashboardModule = /** @class */ (function () {
                 router_1.RouterModule.forChild([
                     {
                         path: '',
-                        component: dashboard_component_1.DashboardComponent
+                        component: dashboard_component_1.DashboardComponent,
+                        data: { title: 'dasboard' },
                     },
                 ]),
             ],

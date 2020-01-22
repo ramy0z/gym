@@ -279,7 +279,10 @@ var MemberListComponent = /** @class */ (function () {
         this.memberservice.getAllMembers(pages, prepage, search, status, type, gender, payment, orderby, order).subscribe(function (res) {
             if (res['result']) {
                 _this.data = res['users'];
-                _this.changeDetectRef.detectChanges();
+                if (!_this.changeDetectRef.destroyed) {
+                    _this.changeDetectRef.detectChanges();
+                    // do other tasks
+                }
             }
             else {
                 _this.data = [];
@@ -1723,7 +1726,7 @@ var MembershipListComponent = /** @class */ (function () {
         // if(this.ScheduleStatus!='null')
         // this.LoadMembership(1,this.pagesize,null,'',this.ScheduleStatus)
         // else
-        this.LoadMembership(1, this.pagesize, null, '', '', '', this.filterids);
+        //this.LoadMembership(1,this.pagesize,null,'','','',this.filterids)
     };
     MembershipListComponent.prototype.changeLablesPositions = function (id, event) {
         var _this = this;
@@ -1825,7 +1828,10 @@ var MembershipListComponent = /** @class */ (function () {
                         _this.dataSource.data = data['data'];
                     if (data['data'] && data['data'].length > 0)
                         _this.length = data['data'].length;
-                    _this.changeDetectorRefs.detectChanges();
+                    if (!_this.changeDetectorRefs.destroyed) {
+                        _this.changeDetectorRefs.detectChanges();
+                        // do other tasks
+                    }
                     console.log(data, _this.length);
                 });
             }

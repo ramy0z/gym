@@ -576,7 +576,10 @@ var WorkoutsComponent = /** @class */ (function () {
                     _this.dataSource.paginator = _this.paginator;
                     // this.dataSource.sort = this.sort;
                     _this.isLoading = false;
-                    _this.changeDetectorRefs.detectChanges();
+                    if (!_this.changeDetectorRefs.destroyed) {
+                        _this.changeDetectorRefs.detectChanges();
+                        // do other tasks
+                    }
                 }
                 else {
                     var message = "No data avilable";
